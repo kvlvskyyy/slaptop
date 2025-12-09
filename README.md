@@ -1,2 +1,2 @@
-# Slaptop
+# Stickerdom
 sticker webshop project
