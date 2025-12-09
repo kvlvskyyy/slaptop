@@ -1,2 +1,2 @@
-# slaptop
+# Slaptop
 sticker webshop project
