@@ -24,8 +24,11 @@ class User(db.Model):
         return check_password_hash(self.password, password)
     
 @app.route('/')
-def index():    
-    return render_template('index.html')
+def index():
+    stickers = [
+        {"name": "FeedPulse Warrior", "price": 0.99, "image": "images/feedpulse_warrior.jpg"},
+    ]
+    return render_template('index.html', stickers=stickers)
 
 @app.route('/login', methods=['GET' , 'POST'])
 def login():
