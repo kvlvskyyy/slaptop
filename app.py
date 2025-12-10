@@ -46,7 +46,7 @@ def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if 'username' not in session:
-            flash("Login required")
+            flash("Login is required", "error")
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return wrapper
@@ -59,9 +59,10 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
             session['username'] = user.username
+            flash("Logged in successfully!", "success")
             return redirect(url_for('index'))
         else:
-            flash("Invalid email or password")
+            flash("Invalid email or password", "error")
             return render_template('login.html')
     elif request.method == 'GET':
         return render_template('login.html')
@@ -76,11 +77,11 @@ def signup():
         existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
 
         if password != passwordconfirm:
-            flash("Passwords do not match")
+            flash("Passwords do not match", "error")
             return render_template('signup.html')
 
         elif existing_user:
-            flash("Username or email already exists")
+            flash("Username or email already exists", "error")
             return render_template('signup.html')
         else:
             new_user = User(username=username, email=email)
@@ -88,6 +89,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             session['username'] = new_user.username
+            flash("Registration successful!", "success")
             return redirect(url_for('index'))
     elif request.method == 'GET':
         return render_template('signup.html')
@@ -96,6 +98,7 @@ def signup():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    flash("Logged out successfully!", "success")
     return redirect(url_for('index'))
     
 @app.route('/admin')

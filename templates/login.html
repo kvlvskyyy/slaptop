@@ -13,15 +13,18 @@
 
 <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
 
-    {% with messages = get_flashed_messages() %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-danger text-center w-100" style="max-width: 400px;" role="alert">
-            {{ message }}
-          </div>
-        {% endfor %}
+          {% for category, message in messages %}
+              <div class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }}
+                  text-center w-100" 
+                  style="max-width: 400px;" 
+                  role="alert">
+                  {{ message }}
+              </div>
+          {% endfor %}
       {% endif %}
-    {% endwith %}
+  {% endwith %}
 
     <main class="form-signin w-100" style="max-width: 400px;">
         <form id="auth-form" action="{{ url_for('login') }}" method="post">
