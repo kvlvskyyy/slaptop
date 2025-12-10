@@ -1,12 +1,4 @@
-<!-- 
- IMPORTANT
- READ BEFORE USE
- This file was created by Sokrat
- I moved all the index html content here
- If you want to use the nav bar now,
- use extends "base.html" at the beggining of the file (Jinja code)
- or ask Sokrat, he will help
-  -->
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,7 +12,16 @@
     <link rel="stylesheet" href="/static/styles.css">
   </head>
   <body>
-
+<!-- 
+ IMPORTANT
+ READ BEFORE USE
+ This file was created by Sokrat
+ I moved all the index html content here
+ If you want to use the nav bar now,
+ use extends "base.html" at the beggining of the file (Jinja code)
+ or ask Sokrat, he will help
+  -->
+ 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
@@ -62,10 +63,15 @@
               </button>
             </div>
           </form>
-
+          <!--profile dropdown-->
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
-            <li class="nav-item">
-              <a class="nav-link fs-4" href="#"><i class="bi bi-person-circle"></i></a>
+            <li class="nav-item dropdown">
+              <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">My orders</a></li>
+                <li><a class="dropdown-item" href="#">Wishlist</a></li>
+                <li><a class="dropdown-item" href="#">Log out</a></li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link fs-4" href="{{url_for('cart')}}"><i class="bi bi-cart-fill"></i></a>
