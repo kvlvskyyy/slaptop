@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 
@@ -46,6 +46,7 @@ def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if 'username' not in session:
+            flash("Login required")
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return wrapper
@@ -60,7 +61,8 @@ def login():
             session['username'] = user.username
             return redirect(url_for('index'))
         else:
-            return render_template('login.html', error="Invalid email or password")
+            flash("Invalid email or password")
+            return render_template('login.html')
     elif request.method == 'GET':
         return render_template('login.html')
 
@@ -74,10 +76,12 @@ def signup():
         existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
 
         if password != passwordconfirm:
-            return render_template('signup.html', error="Passwords do not match")
+            flash("Passwords do not match")
+            return render_template('signup.html')
 
         elif existing_user:
-            return render_template('signup.html', error="Username or email already exists")
+            flash("Username or email already exists")
+            return render_template('signup.html')
         else:
             new_user = User(username=username, email=email)
             new_user.set_password(password)
