@@ -42,7 +42,6 @@ def index():
     ]
     return render_template('index.html', stickers=stickers)
 
-    
 def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -50,15 +49,6 @@ def login_required(f):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return wrapper
-
-@app.route('/admin')
-@login_required
-def admin():
-    id = User.query.filter_by(username=session['username']).first().id
-    if id == 1:
-        return render_template('admin.html')
-    else:
-        return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET' , 'POST'])
 def login():
@@ -98,15 +88,33 @@ def signup():
     elif request.method == 'GET':
         return render_template('signup.html')
     
+    
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
+    
+@app.route('/admin')
+@login_required
+def admin():
+    id = User.query.filter_by(username=session['username']).first().id
+    if id == 1:
+        return render_template('admin.html')
+    else:
+        return redirect(url_for('index'))
+
 
 @app.route("/cart")
 def cart():
     return render_template("cart.html")
 
+@app.route("/orders")
+def orders():
+    return render_template("orders.html")
+
+@app.route("/wishlist")
+def wishlist():
+    return render_template("wishlist.html")
 
 if __name__ == "__main__":
     with app.app_context():
