@@ -4,7 +4,7 @@ Sokrat changed this page, adding Jinja code
 I moved the nav bar to base to make code cleaned in Flask
 Use Flask to test your work, it works there
 If you want to use the nav bar now,
-use {% extends "base.html" %} at the beggining of the file (Jinja code)
+use extends "base.html" at the beggining of the file (Jinja code)
 or ask Sokrat, he will help
 -->
 
@@ -15,4 +15,23 @@ or ask Sokrat, he will help
 {% block content %} <!-- Here goes all the content of the page-->
 <h1>Welcome to Stickerdom!</h1>
 <p>Your sticker shop is ready 🚀</p>
+
+<div class="row">
+  {% for sticker in stickers %}
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <img src="{{url_for('static', filename=sticker.image)}}" class="card-img-top" alt="{{sticker.name}}">
+
+      <div class="card-body">
+        <h5 class="card-title">{{sticker.name}}</h5>
+        <p class="card-text">{{sticker.price}}</p>
+
+        <button class="btn btn-primary w-100">
+          Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
