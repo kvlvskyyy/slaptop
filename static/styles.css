@@ -1,0 +1,40 @@
+html, body {
+            height: 100%;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 1rem;
+        }
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        /* STYLING FOR THE INPUT STACK */
+        
+        /* 1. Username (Top) */
+        #floatingUsername {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        /* 2. Email (Middle) */
+        #floatingEmail {
+            margin-bottom: -1px;
+            border-radius: 0;
+        }
+
+        /* 3. Password (Middle) */
+        #floatingPassword {
+            margin-bottom: -1px;
+            border-radius: 0;
+        }
+
+        /* 4. Confirm Password (Bottom) */
+        #floatingConfirmPassword {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
