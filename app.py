@@ -16,6 +16,7 @@ class User(db.Model):
     username = db.Column(db.String(25), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -23,10 +24,20 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
     
+# class Sticker(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(100), unique=True, nullable=False)
+#     price = db.Column(db.Float, nullable=False)
+#     image = db.Column(db.String(255), nullable=False)
+    
 @app.route('/')
 def index():
+    # stickers = Sticker.query.all() <-- query the stickers from the database
     stickers = [
         {"name": "FeedPulse Warrior", "price": 0.99, "image": "images/feedpulse_warrior.jpg"},
+        {"name": "Sinter Klaas", "price": 0.99, "image": "images/sinterklaas.jpg"},
+        {"name": "Get more Feedback", "price": 0.99, "image": "images/get_more_feedback.png"},
+        {"name": "Working on documentation", "price": 0.99, "image": "images/working_on_documentation.jpg"},
     ]
     return render_template('index.html', stickers=stickers)
 
@@ -67,6 +78,10 @@ def signup():
             return redirect(url_for('index'))
     elif request.method == 'GET':
         return render_template('signup.html')
+
+@app.route("/cart")
+def cart():
+    return render_template("cart.html")
 
 if __name__ == "__main__":
     with app.app_context():

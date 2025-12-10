@@ -1,27 +1,26 @@
-
-
 {% extends "base.html" %} <!-- Nav Bar generation -->
 
 {% block title %}Home - Stickerdom{% endblock %} <!-- Title block -->
 
 {% block content %} <!-- Here goes all the content of the page-->
 <main class="main-content">
-        <div class="cart-container">
-            <h2>Welcome to your shopping cart!</h2>
-<section class="cart-items">
-     <div class="cart-item">
-        <img class="image" src="../static/images/feedpulse_warrior.jpg" alt="Feedpulse warrior sticker">
-            <div class="item-details">
-                <p class="item-name">Feedpulse warrior</p>
+    <div class="cart-container">
+        <h2>Welcome to your shopping cart!</h2>
+        <section class="cart-items">
+            <div class="cart-item">
+                <img class="image" src="../static/images/feedpulse_warrior.jpg" alt="Feedpulse warrior sticker">
+                <div class="item-details">
+                    <p class="item-name">Feedpulse warrior</p>
+                </div>
+                <div class="item-quantity">
+                    <button>-</button>
+                    <input type="number" value="1">
+                    <button>+</button>
+                </div>
+                <p class="item-price">Price: $0.60</p>
             </div>
-            <div class="item-quantity">
-                <button>-</button>
-                     <input type="number" value="1">
-              <button>+</button>
-          </div>
-               <p class="item-price">Price: $0.60</p>
-            </div>
-</section>
+        </section>
+
 <div class="cart-summary">
                 <p class="total-text">Total:</p>
                 <p class="total-price">$1.90</p>
