@@ -3,64 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stickerdom</title>
+    <title>Shopping cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
   <body>
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Stickerdom</a>
-    
-    <form class="d-flex d-md-none flex-grow-1 mx-2">
-      <div class="input-group">
-        <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
-        <button class="btn btn-secondary" type="submit">
-           <i class="bi bi-search"></i>
-        </button>
-      </div>
-    </form>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExample04">
-      
-      <ul class="navbar-nav me-3 mb-2 mb-md-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown04">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <form role="search" class="d-none d-md-flex mx-auto w-50">
-        <div class="input-group">
-          <input class="form-control" type="search" placeholder="Search for stickers..." aria-label="Search">
-          <button class="btn btn-secondary" type="submit">
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </form>
-
-      <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
-        <li class="nav-item">
-          <a class="nav-link fs-4" href="#"><i class="bi bi-person-circle"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fs-4" href="#"><i class="bi bi-cart-fill"></i></a>
-        </li>
-      </ul>
-
-    </div>
-  </div>
-</nav>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
@@ -70,6 +17,43 @@
 {% block title %}Home - Stickerdom{% endblock %} <!-- Title block -->
 
 {% block content %} <!-- Here goes all the content of the page-->
-<h1>Welcome to your Shopping Cart!</h1>
-<p>Your cart is empty</p>
+<main class="main-content">
+        <div class="cart-container">
+            <h2>Welcome to your shopping cart!</h2>
+<section class="cart-items">
+     <div class="cart-item">
+        <img class="image" src="../static/images/feedpulse_warrior.jpg" alt="Feedpulse warrior sticker">
+            <div class="item-details">
+                <p class="item-name">Feedpulse warrior</p>
+            </div>
+            <div class="item-quantity">
+                <button>-</button>
+                     <input type="number" value="1">
+              <button>+</button>
+          </div>
+               <p class="item-price">Price: $0.60</p>
+            </div>
+</section>
+<div class="cart-summary">
+                <p class="total-text">Total:</p>
+                <p class="total-price">$1.90</p>
+                <button class="checkout-button">Proceed to checkout</button>
+            </div>
+
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-sections">
+            <div class="contact-us">
+                <h3>Contact Us</h3>
+                </div>
+            <div class="quick-links">
+                <h3>Quick links</h3>
+                </div>
+            <div class="follow-us">
+                <h3>Follow Us</h3>
+                </div>
+        </div>
+    </footer>
+
 {% endblock %}
