@@ -1,3 +1,4 @@
+from functools import wraps
 from flask import Flask, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -40,6 +41,15 @@ def index():
         {"name": "Working on documentation", "price": 0.99, "image": "images/working_on_documentation.jpg"},
     ]
     return render_template('index.html', stickers=stickers)
+
+    
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if 'username' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return wrapper
 
 @app.route('/admin')
 @login_required
@@ -87,10 +97,16 @@ def signup():
             return redirect(url_for('index'))
     elif request.method == 'GET':
         return render_template('signup.html')
+    
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 @app.route("/cart")
 def cart():
     return render_template("cart.html")
+
 
 if __name__ == "__main__":
     with app.app_context():
