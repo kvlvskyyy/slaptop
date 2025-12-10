@@ -79,6 +79,10 @@ def signup():
     elif request.method == 'GET':
         return render_template('signup.html')
 
+@app.route("/cart")
+def cart():
+    return render_template("cart.html")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
