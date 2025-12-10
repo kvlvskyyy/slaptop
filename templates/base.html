@@ -21,15 +21,15 @@
   </head>
   <body>
 
-    <!-- ✅ NAVBAR (from your code) -->
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="{{url_for('index')}}">
         <img src="/static/images/icons/Logo.svg" alt="Bootstrap" width="40" height="40" class="me-2"> 
         Stickerdom
         </a>
 
-        <form class="d-flex d-md-none flex-grow-1 mx-2">
+        <form class="d-flex d-md-none flex-grow-1 mx-2" >
           <div class="input-group">
             <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
             <button class="btn btn-secondary" type="submit">
@@ -47,9 +47,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Gaming</a></li>
-                <li><a class="dropdown-item" href="#">Educational</a></li>
-                <li><a class="dropdown-item" href="#">Funny</a></li>
+                <li><a class="dropdown-item" href="#">Fontys</a></li>
+                <li><a class="dropdown-item" href="#">Memes</a></li>
+                <li><a class="dropdown-item" href="#">Other</a></li>
               </ul>
             </li>
           </ul>
@@ -68,14 +68,14 @@
               <a class="nav-link fs-4" href="#"><i class="bi bi-person-circle"></i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-4" href="#"><i class="bi bi-cart-fill"></i></a>
+              <a class="nav-link fs-4" href="{{url_for('cart')}}"><i class="bi bi-cart-fill"></i></a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- ✅ Page content goes here -->
+    <!-- Page content goes here -->
     <div class="container mt-4">
       {% block content %}{% endblock %}
     </div>
