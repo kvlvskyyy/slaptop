@@ -41,6 +41,15 @@ def index():
     ]
     return render_template('index.html', stickers=stickers)
 
+@app.route('/admin')
+@login_required
+def admin():
+    id = User.query.filter_by(username=session['username']).first().id
+    if id == 1:
+        return render_template('admin.html')
+    else:
+        return redirect(url_for('index'))
+
 @app.route('/login', methods=['GET' , 'POST'])
 def login():
     if request.method == 'POST':
