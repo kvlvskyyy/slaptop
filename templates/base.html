@@ -68,9 +68,12 @@
             <li class="nav-item dropdown">
               <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">My orders</a></li>
-                <li><a class="dropdown-item" href="#">Wishlist</a></li>
-                <li><a class="dropdown-item" href="#">Log out</a></li>
+                <li><a class="dropdown-item" href="{{url_for('signup')}}">Sign up</a></li>
+                <li><a class="dropdown-item" href="{{url_for('login')}}">Log in</a></li>
+                <li><a class="dropdown-item" href="{{url_for('logout')}}">Log out</a></li>
+                <li><a class="dropdown-item" href="{{url_for('orders')}}">My orders</a></li>
+                <li><a class="dropdown-item" href="{{url_for('wishlist')}}">Wishlist</a></li>
+                
               </ul>
             </li>
             <li class="nav-item">
