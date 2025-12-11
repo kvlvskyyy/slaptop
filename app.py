@@ -51,7 +51,7 @@ def login_required(f):
 def admin_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-        username = session.get('usename')
+        username = session.get('username')
         if not username:
             flash("Login is required", "error")
             return redirect(url_for('login'))
@@ -163,7 +163,6 @@ def logout():
     return redirect(url_for('index'))
     
 @app.route('/admin')
-@login_required
 @admin_required
 def admin():
     return render_template('admin.html')
