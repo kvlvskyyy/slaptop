@@ -1,7 +1,9 @@
 from functools import wraps
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -24,28 +26,69 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-    
-# class Sticker(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), unique=True, nullable=False)
-#     price = db.Column(db.Float, nullable=False)
-#     image = db.Column(db.String(255), nullable=False)
+
+#sticker model
+class Sticker(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    category = db.Column(db.String(100), nullable=True)
+    description = db.Column(db.String(255), nullable=True)
+    image_path = db.Column(db.String(255), nullable=False)
+    is_custom = db.Column(db.Boolean, nullable=True)
     
 @app.route('/')
 def index():
-    # stickers = Sticker.query.all() <-- query the stickers from the database
-    stickers = [
-        {"name": "FeedPulse Warrior", "price": 0.99, "image": "images/feedpulse_warrior.jpg"},
-        {"name": "Sinter Klaas", "price": 0.99, "image": "images/sinterklaas.jpg"},
-        {"name": "Get more Feedback", "price": 0.99, "image": "images/get_more_feedback.png"},
-        {"name": "Working on documentation", "price": 0.99, "image": "images/working_on_documentation.jpg"},
-    ]
+    stickers = Sticker.query.all()
     return render_template('index.html', stickers=stickers)
+
+    
+
+UPLOAD_FOLDER = "static/images/stickers"   # folder for your stickers
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
+
+def allowed_file(filename):
+    ext = filename.split(".")[-1].lower()
+    return ext in ALLOWED_EXTENSIONS
+
+@app.route("/add_sticker", methods=["GET", "POST"])
+def add_sticker():
+    if request.method == "POST":
+        name = request.form['name']
+        price = request.form['price']
+        category = request.form.get('category')
+        description = request.form.get('description')
+
+        file = request.files['image']
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+
+            new_sticker = Sticker(
+                name=name,
+                price=float(price),
+                category = category,
+                description = description,
+                image_path = filename,
+                is_custom = False
+            )
+
+            db.session.add(new_sticker)
+            db.session.commit()
+
+            return redirect(url_for('add_sticker'))
+    return render_template("add_sticker.html")
+
+
+
+
 
 def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if 'username' not in session:
+            flash("Login is required", "error")
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return wrapper
@@ -58,9 +101,11 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
             session['username'] = user.username
+            flash("Logged in successfully!", "success")
             return redirect(url_for('index'))
         else:
-            return render_template('login.html', error="Invalid email or password")
+            flash("Invalid email or password", "error")
+            return render_template('login.html')
     elif request.method == 'GET':
         return render_template('login.html')
 
@@ -74,16 +119,19 @@ def signup():
         existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
 
         if password != passwordconfirm:
-            return render_template('signup.html', error="Passwords do not match")
+            flash("Passwords do not match", "error")
+            return render_template('signup.html')
 
         elif existing_user:
-            return render_template('signup.html', error="Username or email already exists")
+            flash("Username or email already exists", "error")
+            return render_template('signup.html')
         else:
             new_user = User(username=username, email=email)
             new_user.set_password(password)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = new_user.username
+            flash("Registration successful!", "success")
             return redirect(url_for('index'))
     elif request.method == 'GET':
         return render_template('signup.html')
@@ -92,13 +140,14 @@ def signup():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    flash("Logged out successfully!", "success")
     return redirect(url_for('index'))
     
 @app.route('/admin')
 @login_required
 def admin():
     id = User.query.filter_by(username=session['username']).first().id
-    if id == 1:
+    if id == 1 or id == 3:
         return render_template('admin.html')
     else:
         return redirect(url_for('index'))
