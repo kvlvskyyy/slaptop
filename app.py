@@ -78,7 +78,12 @@ def add_sticker():
             db.session.commit()
 
             return redirect(url_for('add_sticker'))
-    return render_template("add_sticker.html")
+    
+    id = User.query.filter_by(username=session['username']).first().id
+    if id == 1 or id == 3:
+        return render_template("add_sticker.html")
+    else:
+        return redirect(url_for('index'))
 
 
 
