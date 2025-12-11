@@ -103,7 +103,11 @@ def add_sticker():
             db.session.add(new_sticker)
             db.session.commit()
 
+            flash("Sticker added successfully!", "success")
             return redirect(url_for('add_sticker'))
+        else:
+            flash("Please upload a valid image file.", "error")
+    return render_template("add_sticker.html")
     
 
 
