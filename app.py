@@ -36,13 +36,38 @@ class Sticker(db.Model):
     description = db.Column(db.String(255), nullable=True)
     image_path = db.Column(db.String(255), nullable=False)
     is_custom = db.Column(db.Boolean, nullable=True)
+
+
+
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if 'username' not in session:
+            flash("Login is required", "error")
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return wrapper
+
+def admin_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        username = session.get('usename')
+        if not username:
+            flash("Login is required", "error")
+            return redirect(url_for('login'))
+
+        user = User.query.filter_by(username=username).first()
+        if not user or not user.is_admin:
+            flash("You are not allowed to access this page", "error")
+            return redirect(url_for('index'))
+        return f(*args, **kwargs)
+    return wrapper
     
 @app.route('/')
 def index():
     stickers = Sticker.query.all()
     return render_template('index.html', stickers=stickers)
 
-    
 
 UPLOAD_FOLDER = "static/images/stickers"   # folder for your stickers
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
@@ -52,6 +77,7 @@ def allowed_file(filename):
     return ext in ALLOWED_EXTENSIONS
 
 @app.route("/add_sticker", methods=["GET", "POST"])
+@admin_required
 def add_sticker():
     if request.method == "POST":
         name = request.form['name']
@@ -78,20 +104,13 @@ def add_sticker():
             db.session.commit()
 
             return redirect(url_for('add_sticker'))
-    return render_template("add_sticker.html")
+    
 
 
 
 
 
-def login_required(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        if 'username' not in session:
-            flash("Login is required", "error")
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return wrapper
+
 
 @app.route('/login', methods=['GET' , 'POST'])
 def login():
@@ -145,12 +164,10 @@ def logout():
     
 @app.route('/admin')
 @login_required
+@admin_required
 def admin():
-    id = User.query.filter_by(username=session['username']).first().id
-    if id == 1 or id == 3:
-        return render_template('admin.html')
-    else:
-        return redirect(url_for('index'))
+    return render_template('admin.html')
+
 
 
 @app.route("/cart")
