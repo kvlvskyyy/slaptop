@@ -32,9 +32,9 @@ or ask Sokrat, he will help
 <div class="row">
   {% for sticker in stickers %}
   <div class="col-md-4">
-    <div class="card shadow-sm">
+    <div class="card shadow-sm h-100">
       <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
-      class="card-img-top" alt="{{sticker.name}}">
+      class="card-img-top" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
 
       <div class="card-body">
         <h5 class="card-title">{{sticker.name}}</h5>
