@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Category Results - Stickerdom{% endblock %}
+
+{% block content %}
+<h1>Searched Category: "{{ category }}"</h1>
+<p>Your sticker shop is ready 🚀</p>
+
+    {% if stickers %}
+        <div class="row g-4">
+            {% for sticker in stickers %}
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100">
+                    <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
+                    class="card-img-top" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{sticker.name}}</h5>
+                        <p class="card-text">€{{sticker.price}}</p>
+
+                        <button class="btn btn-primary w-100">
+                        Add to cart
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No stickers found matching your search.</p>
+    {% endif %}
+{% endblock %}

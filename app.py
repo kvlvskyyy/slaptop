@@ -174,6 +174,28 @@ def search():
 
     results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
     return render_template("search_results.html", results=results, query=query)
+
+@app.route('/category/<type>', methods=["GET", "POST"])
+def category(type):
+    query = ""
+
+    if request.method == "POST":
+        query = request.form.get("search", "")
+
+    stickers = Sticker.query.filter_by(category=type)
+
+    if query:
+        stickers = stickers.filter(Sticker.name.ilike(f"%{query}%"))
+
+    stickers = stickers.all()
+
+    return render_template(
+        "category.html",
+        category=type,
+        query=query,
+        stickers=stickers
+        )
+
     
 @app.route('/admin')
 @admin_required
