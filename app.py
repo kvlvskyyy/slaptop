@@ -65,8 +65,12 @@ def admin_required(f):
     
 @app.route('/')
 def index():
-    stickers = Sticker.query.all()
-    return render_template('index.html', stickers=stickers)
+    query = request.form.get('search', '')
+    if query:
+        results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
+    else:
+        results = Sticker.query.all()  # show all by default
+    return render_template('index.html', stickers=results, query=query)
 
 
 UPLOAD_FOLDER = "static/images/stickers"   # folder for your stickers
@@ -168,8 +172,8 @@ def logout():
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
-    query = request.form.get('search')
-    results = Sticker.query.filter(Sticker.name.ilike(f"%query%")).all()
+    query = request.form.get('search', '')
+    results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
     return render_template("search_results.html", results=results, query=query)
     
 @app.route('/admin')
