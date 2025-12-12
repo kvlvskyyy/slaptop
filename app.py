@@ -65,8 +65,12 @@ def admin_required(f):
     
 @app.route('/')
 def index():
-    stickers = Sticker.query.all()
-    return render_template('index.html', stickers=stickers)
+    query = request.form.get('search', '')
+    if query:
+        results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
+    else:
+        results = Sticker.query.all()  # show all by default
+    return render_template('index.html', stickers=results, query=query)
 
 
 UPLOAD_FOLDER = "static/images/stickers"   # folder for your stickers
@@ -108,12 +112,6 @@ def add_sticker():
         else:
             flash("Please upload a valid image file.", "error")
     return render_template("add_sticker.html")
-    
-
-
-
-
-
 
 
 @app.route('/login', methods=['GET' , 'POST'])
@@ -132,7 +130,7 @@ def login():
     elif request.method == 'GET':
         return render_template('login.html')
 
-@app.route('/signup', methods=['GET' , 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form['username']
@@ -168,9 +166,36 @@ def logout():
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
-    query = request.form.get('search')
-    results = Sticker.query.filter(Sticker.name.ilike(f"%query%")).all()
+    if request.method == "POST":
+        query = request.form.get('search', '')
+    
+    if query is None:
+        query = ''
+
+    results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
     return render_template("search_results.html", results=results, query=query)
+
+@app.route('/category/<type>', methods=["GET", "POST"])
+def category(type):
+    query = ""
+
+    if request.method == "POST":
+        query = request.form.get("search", "")
+
+    stickers = Sticker.query.filter_by(category=type)
+
+    if query:
+        stickers = stickers.filter(Sticker.name.ilike(f"%{query}%"))
+
+    stickers = stickers.all()
+
+    return render_template(
+        "category.html",
+        category=type,
+        query=query,
+        stickers=stickers
+        )
+
     
 @app.route('/admin')
 @admin_required
