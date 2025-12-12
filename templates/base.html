@@ -22,7 +22,7 @@
 
         <form class="d-flex d-md-none flex-grow-1 mx-2" >
           <div class="input-group">
-            <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+            <input class="form-control" type="search" placeholder="Search..." aria-label="Search" name="searched">
             <button class="btn btn-secondary" type="submit">
               <i class="bi bi-search"></i>
             </button>
@@ -45,14 +45,15 @@
             </li>
           </ul>
 
-          <form role="search" class="d-none d-md-flex mx-auto w-50">
+          <form method="POST" action="{{ url_for('search')}}" role="search" class="d-none d-md-flex mx-auto w-50">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search for stickers...">
+              <input class="form-control" type="search" placeholder="Search for stickers..." name="search">
               <button class="btn btn-secondary" type="submit">
                 <i class="bi bi-search"></i>
               </button>
             </div>
           </form>
+
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
             <li class="nav-item dropdown">
               <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
