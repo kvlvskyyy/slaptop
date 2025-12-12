@@ -112,12 +112,6 @@ def add_sticker():
         else:
             flash("Please upload a valid image file.", "error")
     return render_template("add_sticker.html")
-    
-
-
-
-
-
 
 
 @app.route('/login', methods=['GET' , 'POST'])
@@ -136,7 +130,7 @@ def login():
     elif request.method == 'GET':
         return render_template('login.html')
 
-@app.route('/signup', methods=['GET' , 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form['username']
@@ -172,7 +166,12 @@ def logout():
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
-    query = request.form.get('search', '')
+    if request.method == "POST":
+        query = request.form.get('search', '')
+    
+    if query is None:
+        query = ''
+
     results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
     return render_template("search_results.html", results=results, query=query)
     

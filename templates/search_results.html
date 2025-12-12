@@ -3,8 +3,8 @@
 {% block title %}Search Results - Stickerdom{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Search Results for "{{ query }}"</h1>
+<h1>Search Results for "{{ query }}"</h1>
+<p>Your sticker shop is ready 🚀</p>
 
     {% if results %}
         <div class="row g-4">
@@ -29,7 +29,4 @@
     {% else %}
         <p class="text-muted">No stickers found matching your search.</p>
     {% endif %}
-
-    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-4">Back to Home</a>
-</div>
 {% endblock %}
