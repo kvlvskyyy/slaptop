@@ -165,6 +165,12 @@ def logout():
     session.pop('username', None)
     flash("Logged out successfully!", "success")
     return redirect(url_for('index'))
+
+@app.route('/search', methods=["GET", "POST"])
+def search():
+    query = request.form.get('search')
+    results = Sticker.query.filter(Sticker.name.ilike(f"%query%")).all()
+    return render_template("search_results.html", results=results, query=query)
     
 @app.route('/admin')
 @admin_required
@@ -181,6 +187,9 @@ def aboutus():
 def cart():
     return render_template("cart.html")
 
+@app.route("/checkout")
+def checkout():
+    return render_template("checkout.html")
 
 @app.route("/orders")
 def orders():
