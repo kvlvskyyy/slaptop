@@ -171,11 +171,16 @@ def logout():
 def admin():
     return render_template('admin.html')
 
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
 
 
 @app.route("/cart")
 def cart():
     return render_template("cart.html")
+
 
 @app.route("/orders")
 def orders():
