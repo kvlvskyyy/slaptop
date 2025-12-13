@@ -168,33 +168,24 @@ def logout():
 def search():
     if request.method == "POST":
         query = request.form.get('search', '')
-    
-    if query is None:
+    else:
         query = ''
 
-    results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
-    return render_template("search_results.html", results=results, query=query)
+    search_results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
+    return render_template("search_results.html", search_results=search_results, query=query)
 
 @app.route('/category/<type>', methods=["GET", "POST"])
 def category(type):
-    query = ""
+    query = request.form.get("search", "") if request.method == "POST" else ""
 
-    if request.method == "POST":
-        query = request.form.get("search", "")
-
-    stickers = Sticker.query.filter_by(category=type)
-
-    if query:
-        stickers = stickers.filter(Sticker.name.ilike(f"%{query}%"))
-
-    stickers = stickers.all()
+    category_results = Sticker.query.filter_by(category=type).all()
 
     return render_template(
         "category.html",
         category=type,
         query=query,
-        stickers=stickers
-        )
+        category_results=category_results
+    )
 
     
 @app.route('/admin')
