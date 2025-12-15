@@ -68,3 +68,52 @@ html, body {
     overflow: hidden;
   }
 }
+.terms{
+  padding: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
+  
+  border: 2px solid black;
+  margin: 100px;
+}
+/* Style for the secondary legal navigation menu */
+.secondary-nav ul {
+    list-style: none; /* Removes the bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Arranges list items horizontally */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    align-items: center;
+    background-color: #f8f9fa; /* Light gray background for the menu bar */
+    border-radius: 4px; /* Slight rounding of corners */
+    border: 1px solid #dee2e6;
+    padding: 8px 15px;
+}
+
+.secondary-nav li {
+    font-size: 0.9rem;
+    padding: 0 10px; /* Horizontal padding for spacing around text */
+    white-space: nowrap; /* Prevents links from breaking */
+}
+
+/* --- THE KEY TO THE VERTICAL DIVIDER --- */
+.secondary-nav li:not(:last-child)::after {
+    content: "|"; /* The divider character */
+    color: #6c757d; /* Gray color for the divider */
+    margin-left: 15px; /* Spacing between the divider and the next link */
+}
+
+.secondary-nav a {
+    text-decoration: none; /* Removes underline from links */
+    color: #007bff; /* Blue color for links (Bootstrap primary color) */
+}
+
+.secondary-nav a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+/* Style for the current (active) page, which is not a link */
+.secondary-nav li:first-child {
+    font-weight: bold; /* Makes the current page stand out */
+    color: #212529; /* Dark text color for the current page */
+}

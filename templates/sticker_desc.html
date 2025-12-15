@@ -1,0 +1,84 @@
+{% extends "base.html" %} 
+
+{% block title %}FeedPulse Warrior Sticker{% endblock %} 
+
+{% block content %}
+<div class="container my-5">
+    
+    <a href="{{ url_for('index') }}" class="text-decoration-none text-info d-inline-flex align-items-center mb-4">
+        <i class="bi bi-chevron-left me-2 fs-5"></i>
+        <span>Back to All Stickers</span>
+    </a>
+
+    <div class="row">
+        
+        <div class="col-md-6 mb-4">
+            <img src="{{ url_for('static', filename='/images/stickers/feedpulse_warrior.jpg') }}" 
+                 class="img-fluid rounded shadow-lg" 
+                 alt="FeedPulse Warrior Sticker">
+        </div>
+        
+        <div class="col-md-6">
+            
+            <h1 class="display-5 fw-bold">FeedPulse Warrior</h1>
+            
+            <p class="lead mt-3">
+                The FeedPulse Warrior is a stylized, high-detail vinyl sticker designed for laptops, water bottles, and gear. Built to withstand wear and tear.
+            </p>
+
+            <hr>
+
+            <form action="{{ url_for('cart') }}" method="POST">
+                
+                <div class="mb-3">
+                    <h4 class="text-success">Base Sticker Price: $<span id="base-price">0.99</span></h4>
+                </div>
+
+                <div class="mb-4">
+                    <label for="sticker-size" class="form-label h5 fw-bold">Choose Sticker Size:</label>
+                    <select class="form-select" id="sticker-size" name="size_option" required>
+                        <option value="small" data-price-modifier="0.00" data-width="5cm" data-height="5cm">Small (5cm x 5cm) - No extra cost</option>
+                        <option value="medium" data-price-modifier="0.50" data-width="10cm" data-height="10cm">Medium (10cm x 10cm) - +$0.50</option>
+                        <option value="large" data-price-modifier="1.50" data-width="15cm" data-15cm>Large (15cm x 15cm) - +$1.50</option>
+                    </select>
+                </div>
+                
+                <div class="alert alert-info py-2" role="alert">
+                    Selected Dimensions: <span id="current-width">5cm</span> (W) x <span id="current-height">5cm</span> (H)
+                </div>
+
+                <div class="mt-4 p-3 border rounded bg-light">
+                    <h5 class="fw-bold">Order Costs (Fixed):</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>Packing & Handling Fee: <span class="float-end">$1.00</span></li>
+                        <li>Local Pickup Fee: <span class="float-end">$0.00 (FREE)</span></li>
+                    </ul>
+                    <hr class="my-2">
+                    <h4 class="fw-bold">TOTAL ESTIMATE: $<span id="total-estimate">1.99</span></h4>
+                    <p class="small text-muted mt-2">
+                        *Total includes Packing & Handling Fee ($1.00). Base price changes based on size selection.
+                    </p>
+                </div>
+                
+                <input type="hidden" name="sticker_id" value="feedpulse_warrior">
+                <input type="hidden" name="base_price" value="0.99">
+                <input type="hidden" name="fixed_shipping_cost" value="1.00">
+
+
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-primary btn-lg" type="submit">
+                        <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                    </button>
+                </div>
+            </form>
+            </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+

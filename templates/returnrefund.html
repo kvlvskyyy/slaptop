@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+
+{% block title %}Returns and Refunds{% endblock %} 
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+    </div>
+</div>
+
+<div class="container my-5 text-dark bg-white p-5 rounded">
+<nav class="secondary-nav mb-4">
+        <ul>
+            <li><a href="{{ url_for('termsconditions') }}">Terms & Conditions</a></li>
+            <li><a href="{{ url_for('shippinginfo') }}">Shipping information</a></li>
+            <li>Returns and Refunds Policy</li>
+            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>  
+        </ul>
+    </nav>
+<div class="terms">
+    <h4>Returns and Refunds Policy</h4>
+    <p>Policy Status: All Sales Final (No Returns Accepted)</p>
+    <p>Due to the nature of our products (low-cost custom items) and the operation of our webshop as a school project, Stickerdom maintains an All Sales Are Final policy. Please review this policy carefully before completing your purchase.</p>
+
+    <h4>1. No Returns or Exchanges</h4>
+    <p>We do not accept returns, exchanges, or offer monetary refunds for any product once the order has been confirmed, except in the specific cases outlined below (Damaged Goods or Order Cancellation).</p>
+
+    <h4>2. Defective or Damaged Products (The Exception)</h4>
+    <p>While we strive for high quality, if your sticker order arrives damaged, defective, or if you receive the wrong product, we will replace the item free of charge.</p>
+
+    <p>To report damaged or incorrect items:</p>
+    <ol>
+        <li>You must notify us via email at support@stickerdom.com within [e.g., 7 days] of your scheduled pickup date.</li>
+        <li>2.	Your email must include:
+            <ul>
+                <li>Your Order Number.</li>
+                <li>A description of the defect or damage.</li>
+                <li>Clear protographic evidence of the defect or damage.</li>
+            </ul>
+        </li>
+        <li>Upon verification, we will arrange for a replacement of the affected items to be processed for the next available pickup schedule. We do not offer cash refunds for damaged items; we only offer replacements.</li>
+    </ol>
+    <h4>Order Cancellation and Refunds (The Fee Exception)</h4>
+    <p>If you need to cancel your order, please contact us immediately.</p>
+    <ul>
+        <li>Cancellation BEFORE Processing: If you cancel your order within [e.g., 2 hours] of payment and before production has begun, we will refund the amount paid for packing and delivery fees using the original payment method.</li>
+        <li>Cancellation AFTER Processing: Once your order has been sent to the printer or packaged for pickup, it cannot be canceled, and no refund for packing/delivery fees will be issued.</li>
+    </ul>
+    <h4>4. Non-Refundable Fees</h4>
+    <p>Please note that the following items are non-refundable:</p>
+    <ul>
+        <li>Fees paid for packing, handling, or delivery once the order has been processed (see Section 3).</li>
+        <li>Items lost, damaged, or stolen after they have been successfully picked up by the customer.</li>
+    </ul>
+</div>
+</div>
+{% endblock %}
