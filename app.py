@@ -321,9 +321,14 @@ def returnrefund():
 @app.route("/shippinginfo")
 def shippinginfo():
     return render_template("shippinginfo.html")
+
 @app.route("/add_sticker_user")
 def add_sticker_user():
     return render_template("add_sticker_user.html")
+
+@app.route("/sticker_desc")
+def sticker_desc():
+    return render_template("sticker_desc.html")
 
 if __name__ == "__main__":
     with app.app_context():
