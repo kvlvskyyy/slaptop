@@ -56,8 +56,12 @@
 
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
             <li class="nav-item align-items-center d-flex">
-              <a class="btn btn-light fs-6 me-2" href="{{url_for('add_sticker_user')}}">Add your own sticker</a>
-              <a class="btn btn-light fs-6" href="{{url_for('add_sticker')}}">Add sticker</a>
+              {% if user and not user.is_admin %}
+              <a class="btn btn-light fs-6 me-2" href="{{url_for('add_sticker_user')}}">Create Sticker</a>
+              {% endif %}
+              {% if user and user.is_admin %}
+                <a class="btn btn-light fs-6" href="{{url_for('add_sticker')}}">Add Admin Sticker</a>
+              {% endif %}
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>

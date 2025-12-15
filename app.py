@@ -58,6 +58,13 @@ class OrderItem(db.Model):
     sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
 
+@app.context_processor
+def inject_user():
+    user = None
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+    return dict(user=user)
+
 def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -147,9 +154,10 @@ def update_quantity(item_id):
 
     db.session.commit()
     return redirect(url_for('cart'))
-
-
 #END OF NEW CODE FOR CART FUNCTIONALITY
+
+
+
 @app.route('/')
 def index():
     query = request.form.get('search', '')
