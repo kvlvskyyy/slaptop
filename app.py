@@ -271,15 +271,15 @@ def search():
     search_results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
     return render_template("search_results.html", search_results=search_results, query=query)
 
-@app.route('/category/<type>', methods=["GET", "POST"])
-def category(type):
+@app.route('/category/<category_name>', methods=["GET", "POST"])
+def category(category_name):
     query = request.form.get("search", "") if request.method == "POST" else ""
 
-    category_results = Sticker.query.filter_by(category=type).all()
+    category_results = Sticker.query.filter_by(category=category_name).all()
 
     return render_template(
         "category.html",
-        category=type,
+        category=category_name,
         query=query,
         category_results=category_results
     )
