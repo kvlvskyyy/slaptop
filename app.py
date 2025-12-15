@@ -2,6 +2,7 @@ from functools import wraps
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
@@ -13,6 +14,8 @@ app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 #database model
 class User(db.Model):
@@ -311,7 +314,6 @@ def add_sticker_user():
     return render_template("add_sticker_user.html")
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-
+    # with app.app_context():
+    #     db.create_all()
     app.run(debug=True)
