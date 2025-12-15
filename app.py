@@ -294,6 +294,10 @@ def orders():
 def wishlist():
     return render_template("wishlist.html")
 
+@app.route("/add_sticker_user")
+def add_sticker_user():
+    return render_template("add_sticker_user.html")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

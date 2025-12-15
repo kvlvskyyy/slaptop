@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Add your sticker{% endblock %}
+{% block content %}
+    <!-- UPLOADIN THE STICKERS -->
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow-sm border-0 mt-4">
+
+                <div class="card-body p-4">
+    <form method="POST" enctype="multipart/form-data">
+
+        <h2 class="card-title text-center mb-4">Add New Sticker</h2>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="nameInput" name="name" placeholder="Sticker Name" required>
+                        <label for="nameInput">Sticker Name</label>
+                    </div>
+
+       <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Description" id="descInput" name="description" style="height: 100px"></textarea>
+                        <label for="descInput">Description (Optional)</label>
+                    </div>
+
+        <div class="mb-4">
+                        <label for="imageInput" class="form-label text-muted">Sticker Image</label>
+                        <input type="file" class="form-control" id="imageInput" name="image" required>
+                    </div>
+
+        <div class="d-grid">
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            <i class="bi bi-plus-circle me-2"></i>Publish Sticker
+                        </button>
+                    </div>
+    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
