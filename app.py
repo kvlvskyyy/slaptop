@@ -319,8 +319,16 @@ def aboutus():
     return render_template('aboutus.html')
 
 @app.route("/checkout")
+@login_required
 def checkout():
-    return render_template("checkout.html")
+    order = Order.query.filter_by(user_id=session['user_id'], status='cart').first()
+    if order.order_items:
+        items = order.order_items
+    else:
+        flash("Your cart is empty", "info")
+        return redirect(url_for('index'))
+
+    return render_template("checkout.html", items=items)
 
 @app.route("/orders")
 def orders():
