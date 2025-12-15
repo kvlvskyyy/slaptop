@@ -57,7 +57,7 @@
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
             <li class="nav-item dropdown">
               <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu dropdown-menu-end">
                 {% if session.get('username') is none %}
                 <li><a class="dropdown-item" href="{{url_for('signup')}}">Sign up</a></li>
                 <li><a class="dropdown-item" href="{{url_for('login')}}">Log in</a></li>
