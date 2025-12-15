@@ -10,11 +10,15 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
+
+
 #sqlalchemy setup
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+
 
 
 #database model
@@ -31,17 +35,25 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-#sticker model
 class Sticker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     price = db.Column(db.Float, nullable=True)
-    category = db.Column(db.String(100), nullable=True)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     image_path = db.Column(db.String(255), nullable=False)
     is_custom = db.Column(db.Boolean, nullable=True)
-
     order_items = db.relationship('OrderItem', backref='sticker', lazy=True)
+
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    stickers = db.relationship("Sticker", backref="category", lazy=True)
+
+ 
+
+
 
 #order model
 class Order(db.Model):
@@ -67,6 +79,12 @@ def inject_user():
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
     return dict(user=user)
+
+@app.context_processor
+def inject_categories():
+    categories = Category.query.order_by(Category.name).all()
+    return dict(categories=categories)
+
 
 def login_required(f):
     @wraps(f)
@@ -181,11 +199,17 @@ def allowed_file(filename):
 @app.route("/add_sticker", methods=["GET", "POST"])
 @admin_required
 def add_sticker():
+    categories = Category.query.all()
     if request.method == "POST":
         name = request.form['name']
         price = request.form['price']
-        category = request.form.get('category')
+        category_name = request.form.get('category')
+        category_obj = Category.query.filter_by(name=category_name).first()
         description = request.form.get('description')
+
+        if not category_obj:
+            flash("Category not found", "error")
+            return redirect(url_for('add_sticker'))
 
         file = request.files['image']
 
@@ -196,7 +220,7 @@ def add_sticker():
             new_sticker = Sticker(
                 name=name,
                 price=float(price),
-                category = category,
+                category_id = category_obj.id,
                 description = description,
                 image_path = filename,
                 is_custom = False
@@ -209,7 +233,7 @@ def add_sticker():
             return redirect(url_for('add_sticker'))
         else:
             flash("Please upload a valid image file.", "error")
-    return render_template("add_sticker.html")
+    return render_template("add_sticker.html", categories=categories)
 
 
 @app.route('/login', methods=['GET' , 'POST'])
@@ -276,15 +300,12 @@ def search():
 
 @app.route('/category/<category_name>', methods=["GET", "POST"])
 def category(category_name):
-    query = request.form.get("search", "") if request.method == "POST" else ""
-
-    category_results = Sticker.query.filter_by(category=category_name).all()
+    category = Category.query.filter_by(name=category_name).first_or_404()
 
     return render_template(
         "category.html",
-        category=category_name,
-        query=query,
-        category_results=category_results
+        category=category.name,
+        category_results=category.stickers
     )
 
     
@@ -334,6 +355,4 @@ def sticker_desc():
     return render_template("sticker_desc.html")
 
 if __name__ == "__main__":
-    # with app.app_context():
-    #     db.create_all()
     app.run(debug=True)

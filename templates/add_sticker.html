@@ -27,8 +27,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="catInput" name="category" placeholder="Category">
-                                <label for="catInput">Category (optional)</label>
+                                <select class="form-select" id="catSelect" name="category">
+                                    <option selected disabled>Select a category</option>
+                                    {% for category in categories %}
+                                        <option value="{{category.name}}">{{category.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="catSelect">Category</label>
                             </div>
                         </div>
                     </div>
