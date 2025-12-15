@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -31,13 +32,31 @@ class User(db.Model):
 class Sticker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
-    price = db.Column(db.Float, nullable=False)
+    price = db.Column(db.Float, nullable=True)
     category = db.Column(db.String(100), nullable=True)
     description = db.Column(db.String(255), nullable=True)
     image_path = db.Column(db.String(255), nullable=False)
     is_custom = db.Column(db.Boolean, nullable=True)
 
+    order_items = db.relationship('OrderItem', backref='sticker', lazy=True)
 
+#order model
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True)
+    total_price = db.Column(db.Float, nullable=True)
+    status = db.Column(db.String(255), nullable=True)
+
+    order_items = db.relationship('OrderItem', backref='order', lazy=True)
+
+#orderitem model
+class OrderItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, unique=False, nullable=True)
+    price_at_time = db.Column(db.Float, nullable=True)
+    sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
 
 def login_required(f):
     @wraps(f)
@@ -62,6 +81,70 @@ def admin_required(f):
             return redirect(url_for('index'))
         return f(*args, **kwargs)
     return wrapper
+
+@app.route('/add_to_cart', methods=['POST'])
+@login_required
+def add_to_cart():
+    sticker_id = request.form.get('sticker_id')
+    user_id = session['user_id']
+    order = Order.query.filter_by(user_id=user_id, status='cart').first()
+    if not order:
+        order = Order(
+            user_id=user_id,
+            created_at=datetime.utcnow(),
+            status='cart',
+            total_price=0
+        )
+        db.session.add(order)
+        db.session.commit()
+    item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker_id).first()
+    if item:
+        item.quantity += 1
+    else:
+        sticker = Sticker.query.get(sticker_id)
+        item = OrderItem(
+            quantity=1,
+            price_at_time=sticker.price,
+            sticker_id=sticker.id,
+            order_id=order.id
+        )
+        db.session.add(item)
+    order.total_price += item.price_at_time
+    db.session.commit()
+    return redirect(url_for('cart'))
+
+@app.route('/cart')
+@login_required
+def cart():
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
+    if not order:
+        return render_template('cart.html', items=[], total=0)
+    return render_template('cart.html', items=order.order_items, total=order.total_price)
+
+@app.route('/remove_from_cart/<int:item_id>')
+def remove_from_cart(item_id):
+    item = OrderItem.query.get_or_404(item_id)
+    order = item.order
+    order.total_price -= item.price_at_time * item.quantity
+    db.session.delete(item)
+    db.session.commit()
+    return redirect(url_for('cart'))
+
+@app.route('/update_quantity/<int:item_id>', methods=['POST'])
+def update_quantity(item_id):
+    action = request.form.get("action")
+    item = OrderItem.query.get_or_404(item_id)
+    order = item.order
+    if action == "increase":
+        item.quantity += 1
+        order.total_price += item.price_at_time
+    elif action == "decrease" and item.quantity > 1:
+        item.quantity -= 1
+        order.total_price -= item.price_at_time
+    db.session.commit()
+    return redirect(url_for('cart'))
+
+#END OF NEW CODE FOR CART FUNCTIONALITY
     
 @app.route('/')
 def index():
@@ -128,6 +211,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
             session['username'] = user.username
+            session['user_id'] = user.id
             flash("Logged in successfully!", "success")
             return redirect(url_for('index'))
         else:
@@ -158,6 +242,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             session['username'] = new_user.username
+            session['user_id'] = new_user.id
             flash("Registration successful!", "success")
             return redirect(url_for('index'))
     elif request.method == 'GET':
@@ -184,12 +269,6 @@ def admin():
 @app.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
-
-
-
-@app.route("/cart")
-def cart():
-    return render_template("cart.html")
 
 @app.route("/checkout")
 def checkout():
