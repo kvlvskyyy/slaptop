@@ -306,6 +306,21 @@ def orders():
 def wishlist():
     return render_template("wishlist.html")
 
+@app.route("/termsconditions")
+def termsconditions():
+    return render_template("termsconditions.html")
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
+@app.route("/returnrefund")
+def returnrefund():
+    return render_template("returnrefund.html")
+
+@app.route("/shippinginfo")
+def shippinginfo():
+    return render_template("shippinginfo.html")
 @app.route("/add_sticker_user")
 def add_sticker_user():
     return render_template("add_sticker_user.html")
