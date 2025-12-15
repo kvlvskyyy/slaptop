@@ -10,7 +10,7 @@ or ask Sokrat, he will help
 
 {% extends "base.html" %} <!-- Nav Bar generation -->
 
-{% block title %}Home - Stickerdom{% endblock %} <!-- Title block -->
+{% block title %}Stickerdom{% endblock %} <!-- Title block -->
 
 {% block content %} <!-- Here goes all the content of the page-->
 
@@ -31,7 +31,7 @@ or ask Sokrat, he will help
 
 <div class="row">
   {% for sticker in stickers %}
-  <div class="col-md-4">
+  <div class="col-md-4 mb-4">
     <div class="card shadow-sm h-100">
       <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
       class="card-img-top" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
@@ -40,9 +40,13 @@ or ask Sokrat, he will help
         <h5 class="card-title">{{sticker.name}}</h5>
         <p class="card-text">€{{sticker.price}}</p>
 
-        <button class="btn btn-primary w-100">
-          Add to cart
-        </button>
+       <form action="/add_to_cart" method="POST">
+          <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
+          <button type="submit" class="btn btn-primary w-100">
+            Add to cart
+          </button>
+        </form>
+        
       </div>
     </div>
   </div>
