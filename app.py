@@ -58,6 +58,13 @@ class OrderItem(db.Model):
     sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
 
+@app.context_processor
+def inject_user():
+    user = None
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+    return dict(user=user)
+
 def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -133,19 +140,24 @@ def remove_from_cart(item_id):
 @app.route('/update_quantity/<int:item_id>', methods=['POST'])
 def update_quantity(item_id):
     action = request.form.get("action")
+
     item = OrderItem.query.get_or_404(item_id)
     order = item.order
+
     if action == "increase":
         item.quantity += 1
         order.total_price += item.price_at_time
+
     elif action == "decrease" and item.quantity > 1:
         item.quantity -= 1
         order.total_price -= item.price_at_time
+
     db.session.commit()
     return redirect(url_for('cart'))
-
 #END OF NEW CODE FOR CART FUNCTIONALITY
-    
+
+
+
 @app.route('/')
 def index():
     query = request.form.get('search', '')
@@ -245,7 +257,7 @@ def signup():
     
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
+    session.clear()
     flash("Logged out successfully!", "success")
     return redirect(url_for('index'))
 
@@ -259,15 +271,15 @@ def search():
     search_results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
     return render_template("search_results.html", search_results=search_results, query=query)
 
-@app.route('/category/<type>', methods=["GET", "POST"])
-def category(type):
+@app.route('/category/<category_name>', methods=["GET", "POST"])
+def category(category_name):
     query = request.form.get("search", "") if request.method == "POST" else ""
 
-    category_results = Sticker.query.filter_by(category=type).all()
+    category_results = Sticker.query.filter_by(category=category_name).all()
 
     return render_template(
         "category.html",
-        category=type,
+        category=category_name,
         query=query,
         category_results=category_results
     )
