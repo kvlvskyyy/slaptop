@@ -133,19 +133,23 @@ def remove_from_cart(item_id):
 @app.route('/update_quantity/<int:item_id>', methods=['POST'])
 def update_quantity(item_id):
     action = request.form.get("action")
+
     item = OrderItem.query.get_or_404(item_id)
     order = item.order
+
     if action == "increase":
         item.quantity += 1
         order.total_price += item.price_at_time
+
     elif action == "decrease" and item.quantity > 1:
         item.quantity -= 1
         order.total_price -= item.price_at_time
+
     db.session.commit()
     return redirect(url_for('cart'))
 
+
 #END OF NEW CODE FOR CART FUNCTIONALITY
-    
 @app.route('/')
 def index():
     query = request.form.get('search', '')

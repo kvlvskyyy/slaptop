@@ -19,8 +19,8 @@
                 {% for category, message in messages %}
                     <div
                     class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }}
-                        text-center w-100" 
-                        style="max-width: 400px;" 
+                        text-center w-100"
+                        style="max-width: 400px;"
                         role="alert">
                         {{ message }}
                     </div>
