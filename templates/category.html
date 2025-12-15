@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Search Results - Stickerdom{% endblock %}
+{% block title %}Category Results - Stickerdom{% endblock %}
 
 {% block content %}
-<h1>Search Results for "{{ query }}"</h1>
+<h1>Searched Category: "{{ category }}"</h1>
 <p>Your sticker shop is ready 🚀</p>
 
-    {% if search_results %}
+    {% if category_results %}
         <div class="row g-4">
-            {% for sticker in search_results %}
+            {% for sticker in category_results %}
                 <div class="col-md-4">
                     <div class="card shadow-sm h-100">
                     <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"

@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 #sqlalchemy setup
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -195,12 +195,6 @@ def add_sticker():
         else:
             flash("Please upload a valid image file.", "error")
     return render_template("add_sticker.html")
-    
-
-
-
-
-
 
 
 @app.route('/login', methods=['GET' , 'POST'])
@@ -220,7 +214,7 @@ def login():
     elif request.method == 'GET':
         return render_template('login.html')
 
-@app.route('/signup', methods=['GET' , 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form['username']
@@ -257,9 +251,27 @@ def logout():
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
-    query = request.form.get('search', '')
-    results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
-    return render_template("search_results.html", results=results, query=query)
+    if request.method == "POST":
+        query = request.form.get('search', '')
+    else:
+        query = ''
+
+    search_results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
+    return render_template("search_results.html", search_results=search_results, query=query)
+
+@app.route('/category/<type>', methods=["GET", "POST"])
+def category(type):
+    query = request.form.get("search", "") if request.method == "POST" else ""
+
+    category_results = Sticker.query.filter_by(category=type).all()
+
+    return render_template(
+        "category.html",
+        category=type,
+        query=query,
+        category_results=category_results
+    )
+
     
 @app.route('/admin')
 @admin_required
