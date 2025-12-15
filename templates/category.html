@@ -6,9 +6,9 @@
 <h1>Searched Category: "{{ category }}"</h1>
 <p>Your sticker shop is ready 🚀</p>
 
-    {% if stickers %}
+    {% if category_results %}
         <div class="row g-4">
-            {% for sticker in stickers %}
+            {% for sticker in category_results %}
                 <div class="col-md-4">
                     <div class="card shadow-sm h-100">
                     <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
