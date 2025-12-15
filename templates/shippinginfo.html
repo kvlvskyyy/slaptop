@@ -1,11 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipping information</title>
-</head>
-<body>
+{% extends "base.html" %} 
+
+{% block title %}Shipping information{% endblock %} 
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+    </div>
+</div>
+
+<div class="container my-5 text-dark bg-white p-5 rounded">
+<nav class="secondary-nav mb-4">
+        <ul>
+            <li><a href="{{ url_for('termsconditions') }}">Terms & Conditions</a></li>
+            <li>Shipping Information</li>
+            <li><a href="{{ url_for('returnrefund') }}">Returns and Refunds Policy</a></li>
+            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>  
+        </ul>
+    </nav>
+<div class="terms">
     <h1>Shipping Information</h1>
-</body>
-</html>
+    <p>Welcome to Stickerdom! Since our stickers are free and produced locally, we currently offer one convenient method for receiving your order: Scheduled Local Pickup.</p>
+<table style="Border: 1px solid black;">
+  <tr>
+    <th>Detail</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Method</td>
+    <td>Local Pickup (Scheduled Time Slot)</td>
+  </tr>
+  <tr>
+    <td>Cost</td>
+    <td>1-2 euro</td>
+  </tr>
+    <tr>
+    <td>Availability</td>
+    <td>This is the only method currently offered for receiving stickers.</td>
+  </tr>
+      <tr>
+    <td>Delivery area</td>
+    <td>Available for everyone.</td>
+  </tr>
+</table>
+<hr>
+<h4>2. The Pickup Process </h4>
+<p>To ensure efficiency and minimal disruption, all orders must be collected at a pre-booked time slot.
+</p>
+<hr>
+<h4>2.1. Order Readiness Notification</h4>
+<ol>
+    <li>After you successfully complete the mock checkout process, your order will be placed in our production queue.</li>
+    <li>You will receive an Order Confirmation Email immediately.</li>
+    <li>Once your stickers have been printed and packaged (usually within [e.g., 2-3 school days]), you will receive a second email—the "Ready for Pickup" Notification. This email confirms your order is complete and contains a link to the scheduling tool.</li>
+</ol>
+<hr>
+<h4>2.2. Scheduling Your Pickup Time</h4>
+<ol>
+    <li>Click the link in your "Ready for Pickup" Notification email.</li>
+    <li>Select an available 10-minute time slot that works best for you. Available slots are typically between [e.g., 12:30 PM - 1:30 PM] and [e.g., 3:30 PM - 4:30 PM] on school days.</li>
+    <li>You will receive a final confirmation with the exact time and location details.</li>
+</ol>
+<hr>
+<h4>2.3. Pickup Location</h4>
+<p>Your pickup location is centralized for easy access:</p>
+<table style="border: 1px solid black;">
+    <tr>
+        <th>Location Detail</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Building</td>
+        <td>R10</td>
+    </tr>
+    <tr>
+        <td>Floor</td>
+        <td>1st Floor</td>
+    </tr>
+    <tr>
+        <td>Specific Spot</td>
+        <td>Near ISSD</td>
+    </tr>
+
+
+</table>
+<hr>
+    <h4>3. Important Notes for Collection</h4>
+    <ul>
+        <li>Proof of Order: When collecting your stickers, you MUST be prepared to show either your Order Confirmation Email or your Pickup Time Slot Confirmation (printed or on your phone) to the staff member/student volunteer.</li>
+        <li>Identification: Please have your ID card or student card ready for verification.</li>
+        <li>Missed Slots: If you miss your scheduled time slot, you must re-schedule your pickup via the link provided in your "Ready for Pickup" notification email. We cannot guarantee same-day collection outside of the pre-booked slots.</li>
+        <li>Maximum Hold Time: Orders must be collected within [e.g., 14 school days] of receiving the "Ready for Pickup" notification. Orders not collected after this time will be considered abandoned and the stickers may be redistributed.</li>
+    </ul>
+<hr>
+    <h4>Need Assistance?</h4>
+    <p>If you have any issues with scheduling your pickup time or questions about your order status, please contact us immediately:
+    <p>Email: support@stickerdom.com</p>
+</p>
+</div>
+</div>
+{% endblock %}

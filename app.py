@@ -199,6 +199,22 @@ def orders():
 def wishlist():
     return render_template("wishlist.html")
 
+@app.route("/termsconditions")
+def termsconditions():
+    return render_template("termsconditions.html")
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
+@app.route("/returnrefund")
+def returnrefund():
+    return render_template("returnrefund.html")
+
+@app.route("/shippinginfo")
+def shippinginfo():
+    return render_template("shippinginfo.html")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

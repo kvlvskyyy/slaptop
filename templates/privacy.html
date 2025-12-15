@@ -1,0 +1,96 @@
+{% extends "base.html" %} 
+
+{% block title %}Your Privacy Policy{% endblock %} 
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+    </div>
+</div>
+
+<div class="container my-5 text-dark bg-white p-5 rounded">
+<nav class="secondary-nav mb-4">
+        <ul>
+            <li><a href="{{ url_for('termsconditions') }}">Terms & Conditions</a></li>
+            <li><a href="{{ url_for('shippinginfo') }}">Shipping information</a></li>
+            <li><a href="{{ url_for('returnrefund') }}">Reurns and Refunds</a></li> 
+            <li>Privacy Policy</li>  
+        </ul>
+    </nav>
+<div class="terms">
+    <h4>Privacy Policy</h4>
+    <p>Last Updated: December 15, 2025</p>
+    <p>This Privacy Policy describes how Stickerdom uses, and discloses your Personal Information when you visit or make a purchase from our site.</p>
+
+    <h4>1. Information We Collect</h4>
+    <p>We collect Personal Information you provide to us when you visit the Webshop, create an account, or place an order. This information is necessary for us to fulfill your order and provide customer service.</p>
+
+    <h4>1.1. Information Collected Directly from You:</h4>
+    <ul>
+        <li>Identity and Contact Data: Name, email address, username, and telephone number.</li>
+        <li>Order Data: Shipping address, billing address, and details of the products you purchased.</li>
+        <li>Payment Data: Since we charge for packing and delivery, we collect payment details (e.g., credit card information, bank details) processed by a third-party payment gateway (see Section 3). We do not store full credit card numbers on our servers.</li>
+        <li>Account Data: Password (stored securely as a hash) and login details.</li>
+    </ul>
+    <h4>1.2. Information Collected Automatically:</h4>
+    <p>When you browse our Webshop, we automatically collect certain information about your device and interaction with the site, including:</p>
+    <ul>
+        <li>Device Information: IP address, web browser type, operating system.</li>
+        <li>Usage Information: Pages viewed, referring websites, and timestamps.</li>
+    </ul>
+    <h4>2. How We Use Your Personal Information</h4>
+    <p>We use your Personal Information to:</p>
+    <ul>
+        <li>Fulfill Orders: To process your payment for packing/delivery fees, arrange for local pickup/delivery, and provide you with invoices and order confirmations.</li>
+        <li>Account Management: To manage your registration and provide you with account services.</li>
+        <li>Communication: To communicate with you regarding your orders, pickups, and account status.</li>
+        <li>Improvement: To screen our orders for potential risk or fraud, and to generally improve and optimize our Webshop (e.g., by generating analytics about how our customers browse and interact with the site).</li>
+    </ul>
+    <h4>3. Sharing Your Personal Information</h4>
+    <p>We share your Personal Information with third parties to help us run our webshop and fulfill our obligations to you.</p>
+    <table style="border: 1px solid black;">
+        <tr>
+            <th>Third party</th>
+            <th>Purpose</th>
+            <th>Data Shared</th>
+        </tr>
+        <tr>
+            <th>Payment Processors</th>
+            <td>To securely process and verify payments for packing/delivery fees.</td>
+            <td>Payment Data (e.g., card number, expiration date), Billing Address.</td>
+        </tr>
+        <tr>
+            <th>Shipping/Logistics</th>
+            <td>To manage the local pickup scheduling process.</td>
+            <td>Name, Email, Order Details, Pickup Time Slot.</td>
+        </tr>
+        <tr>
+            <th>School administration</th>
+            <td>For administrative purposes, such as verifying student/staff status for pickup eligibility.</td>
+            <td>Name, Email (upon request, and only as necessary).</td>
+        </tr>
+        <tr>
+            <th>Analytics Providers</th>
+            <td>To understand website usage (e.g., Google Analytics).</td>
+            <td>Device Information, Usage Information (anonymized where possible).</td>
+        </tr>
+    </table>
+<h4>4. Security</h4>
+<p>We take reasonable steps to secure your Personal Information from unauthorized access, use, or disclosure. Please be aware that no security system is impenetrable, and we cannot guarantee the complete security of your data.</p>
+
+<h4>5. Your Rights</h4>
+<p>You have the right to access the Personal Information we hold about you, to ask that your Personal Information be corrected, and to ask that your Personal Information be deleted. If you would like to exercise this right, please contact us through the contact information below.</p>
+
+<h4>6. Data Retention</h4>
+<p>When you place an order through the Webshop, we will retain your Order Information for our records for [e.g., a minimum of three years] unless and until you ask us to delete this information.</p>
+
+<h4>7. Changes to this Policy</h4>
+<p>We may update this Privacy Policy from time to time in order to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will post the updated policy on this page.</p>
+
+<h4>8. Contact Us</h4>
+<p>For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at support@stickerdom.com.</p>
+</div>
+</div>
+{% endblock %}

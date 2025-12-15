@@ -1,11 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms and Conditions</title>
-</head>
-<body>
-    <h1>Terms and Conditions</h1>
-</body>
-</html>
+{% extends "base.html" %} 
+
+{% block title %}Terms and Conditions{% endblock %} 
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+    </div>
+</div>
+
+<div class="container my-5 text-dark bg-white p-5 rounded">
+<nav class="secondary-nav mb-4">
+        <ul>
+            <li>Terms & Conditions</li>
+            <li><a href="{{ url_for('shippinginfo') }}">Shipping Information</a></li>
+            <li><a href="{{ url_for('returnrefund') }}">Returns and Refunds Policy</a></li>
+            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>  
+        </ul>
+    </nav>
+<div class="terms">
+<h1>Terms and Conditions</h1>
+<p>Last Updated: December 12, 2025
+Welcome to Stickerdom. These Terms and Conditions govern your use of the Stickerdom website and the purchase of any products (stickers) offered through it. By accessing or using our Webshop, you agree to be bound by these Terms. </p>
+<hr>
+<p>1. General Conditions </p>
+<p>1.1. Acceptance of Terms: By placing an order with Stickerdom, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence and you have given us your consent to allow any of your minor dependents to use this site.</p>
+<p>1.2. Changes to Terms: We reserve the right to update, change, or replace any part of these Terms by posting updates and changes to our Webshop. It is your responsibility to check this page periodically for changes.</p>
+<hr>
+<p>2. Products and Ordering </p>
+<p>2.1. Product Descriptions: We attempt to be as accurate as possible in the description of our products (stickers). However, we do not warrant that product descriptions, colors, or other content on the Webshop are always accurate, complete, reliable, current, or error-free.</p>
+<p>2.2. Pricing: All prices are listed in EUR
+and are subject to change without notice. The price displayed at the time of checkout is the final price, excluding shipping costs and applicable taxes.</p>
+<p>2.3. Availability: Products are subject to availability. If a product is out of stock after your order is placed, we will notify you and refund the full amount using the original payment method.</p>
+<hr>
+<p>3. Ordering and Billing </p>
+<p>3.1. Sticker Pricing (No Cost): All stickers provided by Stickerdom are offered to the user at no monetary cost (i.e., free). This is because we utilize resources, including the sticker printer, provided by the school for educational and community purposes.
+The transaction is structured to gather necessary information for shipping and processing but will not result in any financial charge for the stickers themselves.</p>
+<p>3.2. Shipping and Service Fees: While the stickers are free, we reserve the right to charge fees for shipping, handling, or packaging costs, if applicable. Any such fees will be clearly displayed and itemized during the checkout process.
+If shipping fees are charged, these fees are non-refundable once the order has been processed and shipped.</p>
+<p>3.3. Billing Information and Mock Checkout: To successfully process and ship your order, and to comply with standard e-commerce practices, you will be required to enter billing and shipping information during the checkout process.
+You agree to provide current, complete, and accurate billing and account information.</p>
+<p>Important: Even though you may be prompted to enter payment details (such as a credit card number) during the checkout simulation, no charge will be placed on your account for the stickers, unless specifically for a shipping or processing fee clearly indicated at checkout. The purpose of this step is solely to demonstrate the full order placement process.</p>
+<p>3.4. Order Acceptance: The acceptance of your order is subject to availability and our discretion. We reserve the right to refuse any order placed with us. We may, in our sole discretion, limit or cancel quantities purchased per person.</p>
+<hr>
+<p>4. Shipping and Delivery</p>
+<p>4.1. Shipping Costs: Shipping costs are calculated based on your location and the total weight of the order, and will be presented to you at checkout.</p>
+<p>4.2. Delivery Estimates: Any delivery dates provided are estimates. Stickerdom is not liable for any delays in shipments.</p>
+<p>4.3. Risk of Loss: The risk of loss and title for all items purchased from the Webshop passes to you upon our delivery to the shipping carrier. We are not responsible for packages lost or stolen after being marked as delivered by the carrier.</p>
+<hr>
+<p>5. Returns, Refunds, and Exchanges</p>
+<p>5.1. Custom-Made Stickers: If we offer custom-designed stickers, they are non-returnable and non-refundable unless the product is defective or damaged upon arrival.</p>
+<hr>
+<p>6. Intellectual Property and Design</p>
+<p>6.1. Webshop Content: All content on this Webshop, including text, graphics, logos, product images, and design, is the property of Stickerdom and protected by copyright and intellectual property laws.</p>
+<p>6.2. Sticker Designs: All original sticker designs sold on the Webshop are the intellectual property of Stickerdom or licensed to us. You may not reproduce, duplicate, or resell any part of the service or products without express written permission from us.</p>
+<p>6.3. User-Submitted Content: If you submit a design for a custom sticker, you warrant that you own or have the necessary licenses, rights, and permissions to use and authorize us to use all intellectual property rights in and to your submission. You agree to indemnify Stickerdom against any claims arising from a breach of this warranty.</p>
+<hr>
+<p>7. Limitation of Liability</p>
+<p>In no case shall Stickerdom, its directors, officers, employees, affiliates, agents, contractors, interns, suppliers, service providers, or licensors be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special, or consequential damages of any kind, including, without limitation, lost profits, lost revenue, lost savings, or loss of data, arising from your use of any product purchased from the Webshop.</p>
+<hr>
+<P>8. Governing Law</p>
+<p>These Terms and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of The Netherlands.</p>
+<hr>
+<p>9. Contact Information</p>
+<p>Questions about the Terms and Conditions should be sent to us at  support@stickerdom.com</p>
+</div>
+</div>
+{% endblock %}
