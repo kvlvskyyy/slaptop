@@ -35,17 +35,17 @@
 
             <h1 class="h3 mb-3 fw-normal text-center">Login</h1>
 
-            <div class="form-floating mb-2">
-                <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
-                <label for="floatingEmail">Email address</label>
-            </div>
+           <div class="mb-2">
+    <label for="email" class="form-label">Email address</label>
+    <input type="email" name="email" class="form-control rounded" id="email" placeholder="name@example.com">
+</div>
 
-            <div class="form-floating mb-3">
-                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
+<div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control rounded" id="password" placeholder="Password">
+</div>
 
-            <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+<button class="btn btn-primary w-100 py-2" type="submit">Login</button>
 
             <div class="text-center mt-3">
                 <a href="{{url_for('signup')}}" class="text-decoration-none">Don't have an account? Sign up</a>
