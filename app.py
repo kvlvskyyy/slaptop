@@ -4,12 +4,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
-import os
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+import stripe
+
+load_dotenv()
+
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
-
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 
 #sqlalchemy setup
@@ -174,7 +179,8 @@ def add_to_cart():
 @login_required
 def cart():
     order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
-    if not order:
+    if not order or not order.order_items:
+        flash("Your cart is empty", "info")
         return render_template('cart.html', items=[], total=0)
     return render_template('cart.html', items=order.order_items, total=order.total_price)
 
@@ -394,6 +400,62 @@ def add_sticker_user():
 @app.route("/sticker_desc")
 def sticker_desc():
     return render_template("sticker_desc.html")
+
+@app.route('/create-checkout-session', methods=['GET','POST'])
+@login_required
+def create_checkout_session():
+    order = Order.query.filter_by(user_id=session['user_id'], status='cart').first()
+    if not order or not order.order_items:
+        flash("Your cart is empty", "info")
+        return redirect(url_for('cart'))
+
+    try:
+        line_items = []
+        for item in order.order_items:
+            line_items.append({
+                'price_data': {
+                    'currency': 'eur',
+                    'product_data': {
+                        'name': item.sticker.name,
+                        'description': item.sticker.description,
+                    },
+                    'unit_amount': int(item.price_at_time * 100),
+                },
+                'quantity': item.quantity,
+            })
+
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=line_items,
+            mode='payment',
+            success_url=url_for('success', _external=True),
+            cancel_url=url_for('cancel', _external=True),
+            locale='en'
+        )
+
+        return redirect(checkout_session.url, code=303)
+
+    except Exception as e:
+        return str(e)
+    
+@app.route('/success')
+def success():
+    order = Order.query.filter_by(user_id=session['user_id'], status='cart').first()
+    if order:
+        order.status = 'paid'
+        db.session.commit()
+        flash("Payment successful! Your order is confirmed.", "success")
+    return render_template('success.html')
+
+@app.route('/cancel')
+@login_required
+def cancel():
+    # Optionally, you can flash a message
+    flash("Payment canceled or returned to cart.", "info")
+    return render_template('cancel.html')
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
