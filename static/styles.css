@@ -117,3 +117,61 @@ html, body {
     font-weight: bold; /* Makes the current page stand out */
     color: #212529; /* Dark text color for the current page */
 }
+
+.card-hover-lift {
+    /* Add a smooth transition for the shadow and scale */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card-hover-lift:hover {
+    /* Lift the card up slightly */
+    transform: translateY(-5px); 
+    /* Change the shadow to a larger one for a "popping" effect */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2) !important; 
+    /* The !important overrides the default Bootstrap shadow which is good for custom effects */
+}
+/* Animation for the Add to Cart button */
+.btn-primary {
+    /* Sets the transition duration for smooth effect */
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+    /* Slightly darkens the background on hover */
+    background-color: #0056b3; /* A darker shade of Bootstrap's blue */
+    /* Add a subtle "push down" effect */
+    transform: translateY(1px); 
+    box-shadow: none; /* Optional: remove shadow on hover */
+}
+
+/* CSS Animation Keyframes for a heartbeat pulse */
+@keyframes pulse-once {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+/* Apply the animation to the Welcome message */
+.welcome-heading {
+    animation: pulse-once 2s ease-out 1; /* Runs the animation once, over 2 seconds */
+}
+@keyframes subtle-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(108, 117, 125, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(108, 117, 125, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(108, 117, 125, 0); }
+}
+
+/* Target the Proceed to Checkout button */
+.btn-secondary.btn-lg {
+    animation: subtle-pulse 2s infinite; 
+}
+/* Target the plus/minus buttons */
+.input-group-sm .btn {
+    transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.input-group-sm .btn:active {
+    transform: scale(0.95); 
+    background-color: #e9ecef !important; 
+    border-color: #ced4da !important;
+}
