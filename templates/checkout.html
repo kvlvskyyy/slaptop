@@ -1,10 +1,4 @@
-{% extends "base.html" %} <!-- Nav Bar generation -->
-
-{% block title %}Home - Stickerdom{% endblock %} <!-- Title block -->
-
-{% block content %} <!-- Here goes all the content of the page-->
-
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+{% extends "base.html" %} {% block title %}Home - Stickerdom{% endblock %} {% block content %} <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path
           d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
@@ -411,7 +405,76 @@
               </button>
             </form>
           </div>
-        </div>
+          <div class="col-md-5 col-lg-4 order-md-last">
+
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-primary">Your cart</span>
+
+              <span class="badge bg-primary rounded-pill fw-semibold">
+                {{ total_quantity }}
+              </span>
+            </h4>
+
+            <ul class="list-group mb-3">
+
+              {% for item in items %}
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+
+                <div class="me-3 w-100">
+
+                  <h6 class="my-0 fw-semibold">
+                    {{ item.sticker.name }}
+                  </h6>
+
+                  <form
+                    action="{{ url_for('update_quantity', item_id=item.id) }}"
+                    method="POST"
+                    class="input-group input-group-sm mt-2"
+                    style="max-width: 120px;"
+                  >
+                    <button type="submit"
+                            name="action"
+                            value="decrease"
+                            class="btn btn-outline-secondary">  
+                    </button>
+
+                    <input type="text"
+                          class="form-control text-center fw-semibold"
+                          value="{{ item.quantity }}"
+                          readonly>
+
+                    <button type="submit"
+                            name="action"
+                            value="increase"
+                            class="btn btn-outline-secondary">
+                      +
+                    </button>
+                  </form>
+
+                  <small class="text-body-secondary d-block mt-1">
+                    {{ item.sticker.description }}
+                  </small>
+                </div>
+
+                <div class="text-end">
+
+                  <span class="fw-semibold">
+                    €{{ item.price_at_time * item.quantity }}
+                  </span>
+
+                  <a href="{{ url_for('remove_from_cart', item_id=item.id) }}"
+                    class="btn btn-sm text-danger d-block mt-2"
+                    title="Remove item">
+                    <i class="bi bi-trash-fill"></i>
+                  </a>
+                </div>
+
+              </li>
+              {% endfor %}
+
+              </ul>
+          </div>
+          </div>
       </main>
 
     </div>
