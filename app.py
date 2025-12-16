@@ -61,10 +61,6 @@ class CustomSticker(db.Model):
 
     user = db.relationship("User", backref="custom_stickers")
 
-    
-
-
-
 
 #order model
 class Order(db.Model):
@@ -74,6 +70,8 @@ class Order(db.Model):
     total_price = db.Column(db.Float, nullable=True)
     status = db.Column(db.String(255), nullable=True)
 
+    billing_address = db.relationship('BillingAddress', backref='order', uselist=False)
+    payment = db.relationship('Payment', backref='order', uselist=False)
     order_items = db.relationship('OrderItem', backref='order', lazy=True)
 
 #orderitem model
@@ -83,6 +81,25 @@ class OrderItem(db.Model):
     price_at_time = db.Column(db.Float, nullable=True)
     sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
+
+class BillingAddress(db.Model):
+    __tablename__ = "billing_address"
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(255), nullable=True)
+    address_line_1 = db.Column(db.String(255), nullable=False)
+    address_line_2 = db.Column(db.String(255), nullable=True)
+
+class Payment(db.Model):
+    __tablename__ = "payment"
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
+    payment_method = db.Column(db.String(100), nullable=False)
+    status = db.Column(db.String(100), nullable=False)
+
 
 @app.context_processor
 def inject_user():
@@ -162,6 +179,7 @@ def cart():
     return render_template('cart.html', items=order.order_items, total=order.total_price)
 
 @app.route('/remove_from_cart/<int:item_id>')
+@login_required
 def remove_from_cart(item_id):
     item = OrderItem.query.get_or_404(item_id)
     order = item.order
