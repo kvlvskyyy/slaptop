@@ -101,23 +101,89 @@
         </div>
         <div class="row g-5">
           <div class="col-md-5 col-lg-4 order-md-last">
+
+            <!-- Cart header -->
             <h4 class="d-flex justify-content-between align-items-center mb-3">
               <span class="text-primary">Your cart</span>
-              <span class="badge bg-primary rounded-pill">0</span>
+
+              <!-- Badge looks better with fw-semibold -->
+              <span class="badge bg-primary rounded-pill fw-semibold">
+                {{ total_quantity }}
+              </span>
             </h4>
+
             <ul class="list-group mb-3">
-              {% if items %}
-                {% for item in items %}
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                      <h6 class="my-0">{{item.sticker.name}}</h6>
-                      <small class="text-body-secondary">{{item.sticker.description}}</small>
-                    </div>
-                    <span class="text-body-secondary">€{{item.price_at_time*item.quantity}}</span>
-                  </li>
-                {% endfor %}
-              {% endif %}
+
+              {% for item in items %}
+              <!-- Use list-group-item with flex + align-items -->
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+
+                <!-- LEFT SIDE (product info) -->
+                <div class="me-3 w-100">
+
+                  <!-- Product name -->
+                  <h6 class="my-0 fw-semibold">
+                    {{ item.sticker.name }}
+                  </h6>
+
+                  <!-- Quantity controls -->
+                  <!-- mt-2 adds spacing from title -->
+                  <form
+                    action="{{ url_for('update_quantity', item_id=item.id) }}"
+                    method="POST"
+                    class="input-group input-group-sm mt-2"
+                    style="max-width: 120px;"
+                  >
+                    <button type="submit"
+                            name="action"
+                            value="decrease"
+                            class="btn btn-outline-secondary">
+                    </button>
+
+                    <input type="text"
+                          class="form-control text-center fw-semibold"
+                          value="{{ item.quantity }}"
+                          readonly>
+
+                    <button type="submit"
+                            name="action"
+                            value="increase"
+                            class="btn btn-outline-secondary">
+                      +
+                    </button>
+                  </form>
+
+                  <!-- Description -->
+                  <!-- small + mt-1 keeps it subtle -->
+                  <small class="text-body-secondary d-block mt-1">
+                    {{ item.sticker.description }}
+                  </small>
+                </div>
+
+                <!-- RIGHT SIDE (price + delete) -->
+                <div class="text-end">
+
+                  <!-- Price -->
+                  <span class="fw-semibold">
+                    €{{ item.price_at_time * item.quantity }}
+                  </span>
+
+                  <!-- Trash button -->
+                  <!-- d-block + mt-2 aligns it under price -->
+                  <a href="{{ url_for('remove_from_cart', item_id=item.id) }}"
+                    class="btn btn-sm text-danger d-block mt-2"
+                    title="Remove item">
+                    <i class="bi bi-trash-fill"></i>
+                  </a>
+                </div>
+
+              </li>
+              {% endfor %}
+
+            </ul>
           </div>
+        </div>
+
           <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">Billing address</h4>
             <form class="needs-validation" novalidate>
