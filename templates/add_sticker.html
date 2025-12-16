@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Admin - Stickerdom{% endblock %}
 {% block content %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for category, message in messages %}
+          <div
+          class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} fade show text-center"
+          role="alert">
+            {{ message }}
+          </div>
+          {% endfor %}
+      {% endif %}
+    {% endwith %}
     <!-- UPLOADIN THE STICKERS -->
     <div class="row justify-content-center">
 
@@ -27,8 +39,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="catInput" name="category" placeholder="Category">
-                                <label for="catInput">Category (optional)</label>
+                                <select class="form-select" id="catSelect" name="category">
+                                    <option selected disabled>Select a category</option>
+                                    {% for category in categories %}
+                                        <option value="{{category.name}}">{{category.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="catSelect">Category</label>
                             </div>
                         </div>
                     </div>

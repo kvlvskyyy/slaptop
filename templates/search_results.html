@@ -3,6 +3,18 @@
 {% block title %}Search Results - Stickerdom{% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div
+        class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} fade show text-center"
+        role="alert">
+        {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 <h1>Search Results for "{{ query }}"</h1>
 <p>Your sticker shop is ready 🚀</p>
 
@@ -18,9 +30,12 @@
                         <h5 class="card-title">{{sticker.name}}</h5>
                         <p class="card-text">€{{sticker.price}}</p>
 
-                        <button class="btn btn-primary w-100">
-                        Add to cart
-                        </button>
+                        <form action="/add_to_cart" method="POST">
+                            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
+                            <button type="submit" class="btn btn-primary w-100">
+                                Add to cart
+                            </button>
+                        </form>
                     </div>
                     </div>
                 </div>

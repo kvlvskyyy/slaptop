@@ -38,9 +38,14 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{url_for('category', category_name='fontys')}}">Fontys</a></li>
-                <li><a class="dropdown-item" href="{{url_for('category', category_name='memes')}}">Memes</a></li>
-                <li><a class="dropdown-item" href="{{url_for('category', category_name='other')}}">Other</a></li>
+                {% for category in categories %}
+                <li>
+                  <a class="dropdown-item"
+                    href="{{ url_for('category', category_name=category.name) }}">
+                      {{ category.name }}
+                  </a>
+                </li>
+                {% endfor %}
               </ul>
             </li>
           </ul>
