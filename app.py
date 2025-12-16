@@ -150,7 +150,8 @@ def add_to_cart():
         db.session.add(item)
     order.total_price += item.price_at_time
     db.session.commit()
-    return redirect(url_for('cart'))
+    flash("Sticker successfully added to cart!", "success")
+    return redirect(request.referrer)
 
 @app.route('/cart')
 @login_required
