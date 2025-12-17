@@ -6,7 +6,7 @@
 
 <div class="container my-5">
     <div class="row">
-        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+        <a class="rounded-circle" href="{{ url_for('shop.index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
     </div>
 </div>
 
@@ -14,9 +14,9 @@
 <nav class="secondary-nav mb-4">
         <ul>
             <li>Terms & Conditions</li>
-            <li><a href="{{ url_for('shippinginfo') }}">Shipping Information</a></li>
-            <li><a href="{{ url_for('returnrefund') }}">Returns and Refunds Policy</a></li>
-            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>  
+            <li><a href="{{ url_for('shop.shippinginfo') }}">Shipping Information</a></li>
+            <li><a href="{{ url_for('shop.returnrefund') }}">Returns and Refunds Policy</a></li>
+            <li><a href="{{ url_for('shop.privacy') }}">Privacy Policy</a></li>  
         </ul>
     </nav>
 <div class="terms">

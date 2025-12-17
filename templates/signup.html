@@ -29,7 +29,7 @@
         {% endwith %}
 
         <main class="form-signin w-100" style="max-width: 400px;">
-            <form action="{{ url_for('signup') }}" method="post">
+            <form action="{{ url_for('auth.signup') }}" method="post">
                 <div class="text-center mb-4">
                     <i class="bi bi-person-plus-fill text-primary" style="font-size: 3rem;"></i>
                 </div>
@@ -63,7 +63,7 @@
                 <button class="btn btn-primary w-100 py-2" type="submit">Sign Up</button>
                 
                 <div class="text-center mt-3">
-                    <a href="{{url_for('login')}}" class="text-decoration-none">Already have an account? Login</a>
+                    <a href="{{url_for('auth.login')}}" class="text-decoration-none">Already have an account? Login</a>
                 </div>
             </form>
         </main>
