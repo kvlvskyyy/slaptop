@@ -439,13 +439,24 @@ def create_checkout_session():
         return str(e)
     
 @app.route('/success')
+@login_required
 def success():
-    order = Order.query.filter_by(user_id=session['user_id'], status='cart').first()
+    order = Order.query.filter_by(
+        user_id=session['user_id'],
+        status='cart'
+    ).first()
+
     if order:
         order.status = 'paid'
+
+        if order.payment:
+            order.payment.status = 'paid'
+
         db.session.commit()
         flash("Payment successful! Your order is confirmed.", "success")
+
     return render_template('success.html')
+
 
 @app.route('/cancel')
 @login_required
@@ -453,6 +464,53 @@ def cancel():
     # Optionally, you can flash a message
     flash("Payment canceled or returned to cart.", "info")
     return render_template('cancel.html')
+
+@app.route('/payment_options')
+@login_required
+def payment_options():
+    return render_template('payment_options.html')
+
+@app.route('/handle-payment-choice', methods=['POST'])
+@login_required
+def handle_payment_choice():
+    method = request.form.get('payment_method')
+
+    order = Order.query.filter_by(
+        user_id=session['user_id'],
+        status='cart'
+    ).first()
+
+    if not order:
+        flash("No active order found.", "error")
+        return redirect(url_for('cart'))
+
+    if order.payment:
+        db.session.delete(order.payment)
+        db.session.commit()
+
+    payment = Payment(
+        order_id=order.id,
+        payment_method=method,
+        status='pending'
+    )
+    db.session.add(payment)
+    db.session.commit()
+
+    if method == 'stripe':
+        return redirect(url_for('create_checkout_session'))
+
+    elif method == 'cash':
+        flash("Cash payment selected. Pay on pickup.", "info")
+        return redirect(url_for('success'))
+
+    elif method == 'tikkie':
+        flash("Tikkie selected. We will contact you.", "info")
+        return redirect(url_for('success'))
+
+    flash("Please choose a payment method.", "error")
+    return redirect(url_for('payment_options'))
+
+
 
 
 
