@@ -63,17 +63,34 @@
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
             <li class="nav-item align-items-center d-flex">
               {% if user and not user.is_admin %}
-              <a class="btn btn-light fs-6 me-2" href="{{url_for('add_sticker_user')}}">Create Sticker</a>
+              <a class="nav-link" href="{{url_for('add_sticker_user')}}">Create Sticker</a>
               {% endif %}
               {% if user and user.is_admin %}
-                <a class="btn btn-light fs-6" href="{{url_for('add_sticker')}}">Add Admin Sticker</a>
+              <li class="nav-item dropdown d-flex align-items-center">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admin Menu</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a href="{{url_for('add_sticker')}}" class="dropdown-item">Add Sticker</a>
+                    <a href="{{url_for('admin')}}" class="dropdown-item">Orders list</a>
+                  </li>
+                </ul>
+              </li>
               {% endif %}
             </li>
             <li class="nav-item dropdown">
               <a href="#" class="nav-link fs-4" data-bs-toggle="dropdown"> <i class="bi bi-globe"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a href="#" class="dropdown-item">English</a></li>
-                <li><a href="#" class="dropdown-item">Dutch</a></li>
+                <li>
+                  <a href="#" class="dropdown-item d-flex align-items-center gap-2">
+                  <span>English</span>
+                  <img src="/static/images/icons/uk_flag.svg" alt="UK Flag" style="width: 1.2em; height: 1.2em;">
+                  </a>
+                </li>
+                <li><a href="#" class="dropdown-item d-flex align-items-center gap-2">
+                  <span>Dutch</span>
+                  <img src="/static/images/icons/nl_flag.svg" alt="NL Flag" style="width: 1.2em; height: 1.2em;">
+                </a>
+              </li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -107,7 +124,12 @@
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <h5 class="fw-bold">Contact Us</h5>
-                    <p class="small text-white-50 mb-1"> <i class="bi bi-envelope-at-fill"></i> support@stickerdom.com</p>
+                    <p class="small text-white-50 mb-1"> 
+                        <i class="bi bi-envelope-at-fill"></i> 
+                        <a href="mailto:stickerdom.help@gmail.com" class="text-white-50">
+                          stickerdom.help@gmail.com
+                        </a>
+                    </p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-headset"></i> We reply when we feel like it</p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-telephone-fill"></i> - (you really think we wanna accept phone calls?)</p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-calendar-week-fill"></i> Mon-Friday, 10:00 - 17:00</p>
