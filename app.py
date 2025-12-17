@@ -511,9 +511,5 @@ def handle_payment_choice():
     return redirect(url_for('payment_options'))
 
 
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
