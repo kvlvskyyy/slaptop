@@ -70,6 +70,13 @@
               {% endif %}
             </li>
             <li class="nav-item dropdown">
+              <a href="#" class="nav-link fs-4" data-bs-toggle="dropdown"> <i class="bi bi-globe"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a href="#" class="dropdown-item">English</a></li>
+                <li><a href="#" class="dropdown-item">Dutch</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
               <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
                 {% if session.get('username') is none %}
