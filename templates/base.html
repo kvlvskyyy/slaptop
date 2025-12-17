@@ -63,15 +63,15 @@
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
             <li class="nav-item align-items-center d-flex">
               {% if user and not user.is_admin %}
-              <a class="nav-link" href="{{url_for('add_sticker_user')}}">Create Sticker</a>
+              <a class="nav-link" href="{{url_for('shop.add_sticker_user')}}">Create Sticker</a>
               {% endif %}
               {% if user and user.is_admin %}
               <li class="nav-item dropdown d-flex align-items-center">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admin Menu</a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
-                    <a href="{{url_for('add_sticker')}}" class="dropdown-item">Add Sticker</a>
-                    <a href="{{url_for('admin')}}" class="dropdown-item">Orders list</a>
+                    <a href="{{url_for('shop.add_sticker')}}" class="dropdown-item">Add Sticker</a>
+                    <a href="{{url_for('shop.admin')}}" class="dropdown-item">Orders list</a>
                   </li>
                 </ul>
               </li>
