@@ -183,3 +183,7 @@ html, body {
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
 }
+
+#item:hover {
+    transform: scale(1.05);
+}

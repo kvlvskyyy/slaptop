@@ -233,6 +233,8 @@ def add_sticker_user():
 def sticker_desc():
     return render_template("sticker_desc.html")
 
+
+
 # Example logic for your shop.py
 @shop.route('/index_admin')
 def index_admin():
