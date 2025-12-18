@@ -4,7 +4,7 @@ from extensions import db, migrate
 from dotenv import load_dotenv
 from auth import auth
 from shop import shop
-import stripe
+from payments import payments
 
 load_dotenv()
 
@@ -13,13 +13,14 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
-    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+
 
     db.init_app(app)
     migrate.init_app(app, db)
 
     app.register_blueprint(auth)
     app.register_blueprint(shop)
+    app.register_blueprint(payments)
 
     return app
 
