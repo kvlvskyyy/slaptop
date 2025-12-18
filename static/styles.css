@@ -40,12 +40,6 @@ html, body {
         }
 
 
-/* Auto-hide flash error messages after 2 seconds */
-
-.alert {
-    position: relative;
-    animation: fadeOut 2s ease-in-out forwards;
-}
 
 .alert-success { background-color: #d1e7dd !important; color: #0f5132 !important; }
 .alert-danger  { background-color: #f8d7da !important; color: #842029 !important; }
