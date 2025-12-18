@@ -17,8 +17,7 @@ or ask Sokrat, he will help
   {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
           {% for category, message in messages %}
-          <div
-          class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} fade show text-center"
+          <div class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} fade show text-center"
           role="alert">
             {{ message }}
           </div>
