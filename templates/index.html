@@ -21,10 +21,10 @@ or ask Sokrat, he will help
 
 <div class="row">
   {% for sticker in stickers %}
-  <div class="col-md-4 mb-4">
-    <div class="card shadow h-100 card-hover-lift">
+  <div class="col-md-3 mb-4">
+    <div class="card shadow h-100 card-hover-lift" id="item">
       <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
-      class="card-img-top" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
+      class="card-img-top p-3" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
 
       <div class="card-body">
         <h5 class="card-title">{{sticker.name}}</h5>
