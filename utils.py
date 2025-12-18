@@ -17,7 +17,7 @@ def admin_required(f):
         username = session.get('username')
         if not username:
             flash("Login is required", "error")
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
 
         user = User.query.filter_by(username=username).first()
         if not user or not user.is_admin:
