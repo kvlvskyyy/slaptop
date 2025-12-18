@@ -1,12 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from models import Sticker, Order, OrderItem, Category, Payment
+from models import Sticker, Order, OrderItem, Category
 from utils import login_required, admin_required
 from werkzeug.utils import secure_filename
 from extensions import db
 from models import User
 from constants import *
 from datetime import datetime
-import stripe
 import os
 
 
