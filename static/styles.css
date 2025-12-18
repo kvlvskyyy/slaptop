@@ -169,3 +169,17 @@ html, body {
     background-color: #e9ecef !important; 
     border-color: #ced4da !important;
 }
+/* Styling for Admin Action Buttons */
+.btn-outline-primary, .btn-outline-danger {
+    transition: all 0.2s ease;
+}
+
+.btn-outline-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(13, 110, 253, 0.2);
+}
+
+.btn-outline-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
+}

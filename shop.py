@@ -234,7 +234,25 @@ def add_sticker_user():
 def sticker_desc():
     return render_template("sticker_desc.html")
 
+# Example logic for your shop.py
+@shop.route('/index_admin')
+def index_admin():
+    # Fetches the 4 rows seen in your database screenshot
+    stickers = Sticker.query.all() 
+    return render_template('index_admin.html', stickers=stickers)
 
+@shop.route('/edit_sticker/<int:sticker_id>')
+def edit_sticker(sticker_id):
+    # This endpoint MUST exist to fix the BuildError
+    sticker = Sticker.query.get_or_404(sticker_id)
+    return render_template('edit_sticker.html', sticker=sticker)
+
+@shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
+def delete_sticker(sticker_id):
+    sticker = Sticker.query.get_or_404(sticker_id)
+    db.session.delete(sticker)
+    db.session.commit()
+    return redirect(url_for('shop.index_admin'))
 
 @shop.route('/payment_options')
 @login_required

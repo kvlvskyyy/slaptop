@@ -75,6 +75,8 @@
                   </li>
                 </ul>
               </li>
+              
+ 
               {% endif %}
             </li>
             <li class="nav-item dropdown">
@@ -107,9 +109,15 @@
                 
               </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link fs-4" href="{{url_for('shop.cart')}}"><i class="bi bi-cart-fill"></i></a>
-            </li>
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
+                {% if not user or not user.is_admin %}
+                <li class="nav-item">
+                  <a class="nav-link fs-4" href="{{url_for('shop.cart')}}">
+                    <i class="bi bi-cart-fill"></i>
+                  </a>
+                </li>
+                {% endif %}
+            </ul>
           </ul>
         </div>
       </div>
