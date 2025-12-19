@@ -13,6 +13,11 @@ def login():
         if user and user.check_password(password):
             session['username'] = user.username
             session['user_id'] = user.id
+
+            if user.is_admin:
+                flash("Welcome back, Admin!", "success")
+                return redirect(url_for('shop.index_admin'))
+        
             flash("Logged in successfully!", "success")
             return redirect(url_for('shop.index'))
         else:

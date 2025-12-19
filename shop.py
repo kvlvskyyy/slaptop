@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from models import Sticker, Order, OrderItem, Category
+from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required, admin_required
 from werkzeug.utils import secure_filename
 from extensions import db
-from models import User
-from constants import *
+from models import User, Payment
 from datetime import datetime
+import stripe
 import os
 
 
@@ -32,12 +32,12 @@ def inject_categories():
 def add_to_cart():
     sticker_id = request.form.get('sticker_id')
     user_id = session['user_id']
-    order = Order.query.filter_by(user_id=user_id, status=ORDER_CART).first()
+    order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
         order = Order(
             user_id=user_id,
             created_at=datetime.utcnow(),
-            status=ORDER_CART,
+            status="cart",
             total_price=0
         )
         db.session.add(order)
@@ -62,7 +62,7 @@ def add_to_cart():
 @shop.route('/cart')
 @login_required
 def cart():
-    order = Order.query.filter_by(user_id=session['user_id'], status=ORDER_CART).first()
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
     if not order or not order.order_items:
         flash("Your cart is empty", "info")
         return render_template('cart.html', items=[], total=0)
@@ -189,7 +189,7 @@ def aboutus():
 @shop.route("/checkout")
 @login_required
 def checkout():
-    order = Order.query.filter_by(user_id=session['user_id'], status=ORDER_CART).first()
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
     if order.order_items:
         items = order.order_items
         total_quantity = 0
@@ -225,13 +225,14 @@ def returnrefund():
 def shippinginfo():
     return render_template("shippinginfo.html")
 
-@shop.route("/add_sticker_user")
+@shop.route("/add_sticker_user", methods=["GET", "POST"])
 def add_sticker_user():
     return render_template("add_sticker_user.html")
 
-@shop.route("/sticker_desc")
-def sticker_desc():
-    return render_template("sticker_desc.html")
+@shop.route("/sticker/<int:sticker_id>")
+def sticker_desc(sticker_id):
+    sticker = Sticker.query.get_or_404(sticker_id)
+    return render_template("sticker_desc.html", sticker=sticker)
 
 
 
@@ -363,3 +364,44 @@ def success():
 def cancel():
     flash("Payment canceled or returned to cart.", "info")
     return render_template('cancel.html')
+
+@shop.route('/suggestions')
+@admin_required
+def suggestions():
+    all_suggestions = CustomSticker.query.order_by(CustomSticker.created_at.desc()).all()
+    return render_template('suggestions.html', suggestions=all_suggestions)
+
+@shop.route('/request_sticker', methods=["GET", "POST"])
+@login_required
+def request_sticker():
+    if request.method == "POST":
+        name = request.form.get('name')
+        file = request.files.get('image')
+
+        if not name or not file:
+            flash("Please provide a name and an image", "error")
+            return redirect(url_for('shop.add_sticker_user'))
+        
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+
+            upload_path = os.path.join(shop.static_folder, 'images', 'custom')
+            file.save(os.path.join(upload_path, filename))
+
+            new_request = CustomSticker(
+                user_id=session['user_id'],
+                name=name,
+                image_path=filename,
+                approval_status="pending",
+                created_at=datetime.utcnow()
+            )
+
+            db.session.add(new_request)
+            db.session.commit()
+
+            flash("Your sticker has beeen submitted for approval!", "success")
+            return redirect(url_for('shop.index'))
+        else:
+            flash("Invalid file type", "error")
+
+    return render_template("add_sticker_user.html")

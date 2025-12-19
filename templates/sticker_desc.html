@@ -14,10 +14,10 @@
     <div class="row gx-lg-5">
         <div class="col-lg-7 mb-4">
             <div class="p-4 bg-light rounded-3 shadow-sm d-flex align-items-center justify-content-center" style="min-height: 500px;">
-                <img src="{{ url_for('static', filename='/images/stickers/feedpulse_warrior.jpg') }}" 
+                <img src="{{ url_for('static', filename='/images/stickers/' ~ sticker.image_path) }}" 
                      class="img-fluid rounded shadow-sm" 
                      style="max-height: 450px; object-fit: contain;"
-                     alt="FeedPulse Warrior Sticker">
+                     alt="{{ sticker.name}}">
             </div>
         </div>
         
@@ -25,11 +25,11 @@
             <div class="ps-lg-2">
            
 
-                <h1 class="h2 fw-bold text-dark mb-1">FeedPulse Warrior</h1>
+                <h1 class="h2 fw-bold text-dark mb-1">{{ sticker.name }}</h1>
                 <p class="text-muted small mb-4">Designed and sold by <strong>Stickerdom</strong></p>
 
                 <div class="mb-4">
-                    <h2 class="fw-bold text-dark mb-0">€<span id="base-price">0.99</span></h2>
+                    <h2 class="fw-bold text-dark mb-0">€<span id="base-price">{{ "%.2f"|format(sticker.price) }}</span></h2>
                     <p class="text-success small fw-bold mb-0">In Stock</p>
                 </div>
 
@@ -43,14 +43,17 @@
                 <div class="mt-5">
                     <h6 class="fw-bold text-uppercase small">Product Description</h6>
                     <p class="text-secondary small" style="line-height: 1.6;">
-                        The FeedPulse Warrior is a stylized, high-detail vinyl sticker designed for laptops, water bottles, and gear. Built to withstand wear and tear.
+                        {{ sticker.description if sticker.description else "No description available."}}
                     </p>
                 </div>
-                <div class="d-grid gap-2 mt-5">
+                <form action="/add_to_cart" method="POST" class="d-grid gap-2 mt-5">
+                
+                    <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
                         <button class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow-sm" type="submit">
                             <i class="bi bi-cart-fill me-2"></i> Add to Cart
                         </button>
-                    </div>
+                    
+                </form>
             </div>
         </div>
     </div>
