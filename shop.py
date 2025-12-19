@@ -342,33 +342,7 @@ def create_checkout_session():
     except Exception as e:
         return str(e)
     
-@shop.route('/success')
-@login_required
-def success():
-    order = Order.query.filter_by(
-        user_id=session['user_id'],
-        status="cart"
-    ).first()
 
-    if order:
-        for item in order.order_items:
-            sticker = item.sticker
-            if sticker.stock is not None:
-                if sticker.stock >= item.quantity:
-                    sticker.stock -= item.quantity
-                else:
-                    flash(f"Not enough stock for {sticker.name}.", "error")
-                    return redirect(url_for('shop.cart'))
-
-        order.status = "paid"
-
-        if order.payment:
-            order.payment.status = "paid"
-
-        db.session.commit()
-        flash("Payment successful! Your order is confirmed.", "success")
-
-    return render_template('success.html')
 
 
 
@@ -381,8 +355,8 @@ def cancel():
 @shop.route('/suggestions')
 @admin_required
 def suggestions():
-    all_suggestions = CustomSticker.query.order_by(CustomSticker.created_at.desc()).all()
-    return render_template('suggestions.html', suggestions=all_suggestions)
+    suggestions = CustomSticker.query.filter_by(approval_status='pending').order_by(CustomSticker.created_at.desc()).all()
+    return render_template('suggestions.html', suggestions=suggestions)
 
 @shop.route('/request_sticker', methods=["GET", "POST"])
 @login_required
