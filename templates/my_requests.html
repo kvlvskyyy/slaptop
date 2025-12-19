@@ -34,7 +34,7 @@
         <section class="request-list">
             {% if custom_stickers %}
             {% for sticker in custom_stickers %}
-            <div class="row align-items-center py-3 border-bottom g-3" data-aos="fade-up" >        
+            <div class="row align-items-center py-3 border-bottom g-3">        
 
                 <div class="col-2 col-md-1">
                     <img class="img-fluid rounded shadow-sm"
@@ -43,22 +43,28 @@
                 </div>
 
                 <div class="col-10 col-md-4 text-dark">
-                    <span class="fw-bold d-block fs-5">{{sticker.name}}</span>
+                    <span class="fw-bold d-block fs-5 ms-4">{{sticker.name}}</span>
                     <p class="small text-muted mb-0 text-truncate">{{sticker.description}}</p>
                 </div>
 
                 <div class="col-6 col-md-2 text-center text-muted small">
-                
+                    {{ sticker.created_at.strftime('%Y-%m-%d') }}
                 </div>
 
                 <div class="col-6 col-md-2 text-center">
+    
+                    <span class="badge rounded-pill px-3 
+                        {% if sticker.approval_status == 'approved' %}
+                        bg-success
+                        {% elif sticker.approval_status == 'rejected' or sticker.approval_status == 'denied' %}
+                        bg-danger
+                        {% else %}
+                        bg-warning text-dark
+                        {% endif %}
+                        ">
+                        {{ sticker.approval_status|capitalize }}
+                    </span>
 
-                        <span class="badge rounded-pill bg-warning text-dark px-3">{{sticker.approval_status}}</span>
-                
-                        <!-- <span class="badge rounded-pill bg-success px-3">Approved</span>
-                
-                        <span class="badge rounded-pill bg-secondary px-3">Rejected</span> -->
-                
                 </div>
 
                 <div class="col-12 col-md-3 text-end">
