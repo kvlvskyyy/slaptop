@@ -153,12 +153,20 @@ def success_tikkie():
         if not deduct_stock(order):
             return redirect(url_for('shop.cart'))
 
-        order.payment.status = "tikkie unpaid"
-
-        if order.payment:
+        if not order.payment:
+            payment = Payment(
+                order_id=order.id,
+                payment_method="tikkie",
+                status="tikkie unpaid"
+            )
+            db.session.add(payment)
+            order.payment = payment
+        else:
             order.payment.status = "tikkie unpaid"
+
+        order.status = "tikkie unpaid"
         db.session.commit()
-        flash("Payment successful! Your order is confirmed.", "success")
+        flash("Payment selected! Your order is confirmed.", "success")
 
     return render_template('success_tikkie.html')
 
