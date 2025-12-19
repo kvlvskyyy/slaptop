@@ -169,3 +169,17 @@ html, body {
     background-color: #e9ecef !important; 
     border-color: #ced4da !important;
 }
+
+.card .reveal-on-hover {
+    opacity: 0;               /* Visually hidden */
+    transform: translateY(10px); /* Pushed down slightly */
+    transition: all 0.3s ease;   /* Smooth animation */
+    pointer-events: none;     /* CRITICAL: Makes clicks pass through to the card link! */
+}
+
+/* 2. Hover State: Visible and Clickable */
+.card:hover .reveal-on-hover {
+    opacity: 1;               /* Fully visible */
+    transform: translateY(0);    /* Moves back to original spot */
+    pointer-events: auto;     /* Re-enables clicking the button */
+}
