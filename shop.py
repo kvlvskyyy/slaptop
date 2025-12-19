@@ -205,8 +205,11 @@ def checkout():
     return render_template("checkout.html", items=items, total_quantity=total_quantity)
 
 @shop.route("/orders")
+@login_required
 def orders():
-    return render_template("orders.html")
+    user_id = session["user_id"]
+    orders = Order.query.filter_by(user_id=user_id).all()
+    return render_template("orders.html", orders=orders)
 
 @shop.route("/wishlist")
 def wishlist():
