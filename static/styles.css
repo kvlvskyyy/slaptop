@@ -170,26 +170,81 @@ html, body {
     border-color: #ced4da !important;
 }
 
-.card .reveal-on-hover {
-    opacity: 0;               /* Visually hidden */
-    transform: translateY(10px); /* Pushed down slightly */
-    transition: all 0.3s ease;   /* Smooth animation */
-    pointer-events: none;     /* CRITICAL: Makes clicks pass through to the card link! */
-}
-
-/* 2. Hover State: Visible and Clickable */
-.card:hover .reveal-on-hover {
-    opacity: 1;               /* Fully visible */
-    transform: translateY(0);    /* Moves back to original spot */
-    pointer-events: auto;     /* Re-enables clicking the button */
-}
-
-.card img {
-    transition: filter 0.5s ease, transform 0.8s ease;
+/* --- 1. THE BLUR EFFECT --- */
+/* Smooth transition for the image */
+.card .blur-target {
+    transition: filter 0.5s ease, transform 0.5s ease;
     will-change: filter, transform;
 }
 
-.card:hover img {
-    filter: blur(4px);
-   
+/* On Card Hover: Blur and slightly Zoom */
+.card:hover .blur-target {
+    filter: blur(5px);      /* The Blur */
+    transform: scale(1.05); /* Small zoom to hide rough edges */
+}
+
+
+/* --- 2. THE BUTTON REVEAL --- */
+/* Default State: Invisible but takes up space (so Price doesn't jump) */
+.card .reveal-on-hover {
+    opacity: 0;
+    transform: translateX(10px); /* Sits slightly to the right */
+    transition: all 0.3s ease;
+}
+
+/* Hover State: Visible */
+.card:hover .reveal-on-hover {
+    opacity: 1;
+    transform: translateX(0);    /* Slides into place */
+}
+
+/* --- 3. THE "SEE MORE" TEXT --- */
+
+/* Default State: Invisible */
+.card .overlay-text {
+    opacity: 0;
+    pointer-events: none;
+    
+    /* 1. Force one line */
+    white-space: nowrap;
+    
+    /* 2. Style the Text (White with Black Outline) */
+    font-size: 1.5rem;
+    font-weight: 800;    /* Extra bold looks better with outline */
+    color: white;        /* Text Color */
+    
+    /* 3. The "Outline" Trick (No background color needed) */
+    text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+         
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    
+    /* Start position for animation */
+    transform: translate(-50%, -30%); 
+}
+
+/* Hover State */
+.card:hover .overlay-text {
+    opacity: 1;
+    transform: translate(-50%, -50%); 
+}
+
+/* --- ICON SWAP LOGIC --- */
+
+/* 1. By default, hide the 'Hover' icon */
+.icon-hover {
+    display: none;
+}
+
+/* 2. When hovering the BUTTON, hide the 'Default' icon... */
+.btn:hover .icon-default {
+    display: none;
+}
+
+/* 3. ...and show the 'Hover' icon instead */
+.btn:hover .icon-hover {
+    display: inline-block;
 }

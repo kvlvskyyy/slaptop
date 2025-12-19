@@ -12,31 +12,47 @@
 <div class="row">
   {% for sticker in stickers %}
   <div class="col-md-3 mb-4">
-    <div class="card shadow card-hover-lift ratio ratio-1x1" id="item">
+    <div class="card shadow card-hover-lift h-100" id="item">
       
-      <div class="d-flex flex-column align-items-start p-3">
+      <div class="d-flex flex-column h-100 p-3">
         
-        <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center overflow-hidden mb-2">
+        <div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative">
           <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
-               class="img-fluid" 
+               class="img-fluid blur-target" 
                alt="{{sticker.name}}" 
                style="max-height: 180px; width: auto; object-fit: contain;">
-        </div>
 
-        <div class="w-100 mt-auto">
-          <h6 class="card-title mb-1 text-start">
+               <span class="overlay-text position-absolute top-50 start-50 translate-middle text-center fw-bold">
+      See more...
+  </span>
+        </div>
+        
+
+        <div class="mb-2">
+          <h6 class="card-title mb-0 text-start text-truncate">
             <a href="{{ url_for('shop.sticker_desc', sticker_id=sticker.id) }}" 
                class="text-decoration-none text-dark stretched-link">
               {{sticker.name}}
             </a>
           </h6>
-          <p class="card-text fw-bold mb-2 text-start ">€{{sticker.price}}</p>
+        </div>
 
-          <form action="/add_to_cart" method="POST" class=" position-absolute top-50 start-50 translate-middle mt-auto" style="z-index: 2;">            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
-            <button type="submit" class="btn btn-primary btn-sm rounded-pill px-5 text-nowrap w-100">
-               <i class="bi bi-cart-fill me-1"></i>Add to cart
+        <div class="d-flex justify-content-between align-items-center mt-auto">
+          
+          <span class="card-text fw-bold fs-5">€{{sticker.price}}</span>
+
+          <form action="/add_to_cart" method="POST" class=" position-relative" style="z-index: 2;">
+            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
+            
+            <button type="submit" 
+                    class="btn btn-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center" 
+                    style="width: 40px; height: 40px; padding: 0;">
+              <i class="bi bi-cart-plus-fill fs-6 icon-hover"></i>
+    
+              <i class="bi bi-cart-plus fs-6 icon-default"></i>
             </button>
           </form>
+
         </div>
 
       </div>
