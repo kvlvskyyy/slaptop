@@ -193,3 +193,14 @@ html, body {
     filter: blur(4px);
    
 }
+
+.btn-outline-success:hover, .btn-outline-danger:hover, .btn-primary:hover {
+        transform: translateY(-1px);
+        transition: all 0.2s ease-in-out;
+    }
+    
+.card:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
