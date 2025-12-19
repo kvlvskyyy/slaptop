@@ -12,28 +12,38 @@
 <div class="row">
   {% for sticker in stickers %}
   <div class="col-md-3 mb-4">
-    <div class="card shadow h-100 card-hover-lift" id="item">
-      <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
-      class="card-img-top p-3" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
-
-      <!--redirecting to item desc-->
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">
-          <a href="{{ url_for('shop.sticker_desc', sticker_id=sticker.id) }}" class="text-decoration-none text-dark stretched-link">
-            {{sticker.name}}
-          </a></h5>
-        <p class="card-text">€{{sticker.price}}</p>
-
-       <form action="/add_to_cart" method="POST" class="mt-auto position-relative reveal-on-hover" style="z-index: 2;">
-          <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
-          <button type="submit" class="btn btn-primary w-100 rounded-pill">
-             <i class="bi bi-cart-fill me-2"></i>Add to cart
-          </button>
-        </form>
+    <div class="card shadow card-hover-lift ratio ratio-1x1" id="item">
+      
+      <div class="d-flex flex-column align-items-start p-3">
         
+        <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center overflow-hidden mb-2">
+          <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
+               class="img-fluid" 
+               alt="{{sticker.name}}" 
+               style="max-height: 180px; width: auto; object-fit: contain;">
+        </div>
+
+        <div class="w-100 mt-auto">
+          <h6 class="card-title mb-1 text-start">
+            <a href="{{ url_for('shop.sticker_desc', sticker_id=sticker.id) }}" 
+               class="text-decoration-none text-dark stretched-link">
+              {{sticker.name}}
+            </a>
+          </h6>
+          <p class="card-text fw-bold mb-2 text-start ">€{{sticker.price}}</p>
+
+          <form action="/add_to_cart" method="POST" class=" position-absolute top-50 start-50 translate-middle reveal-on-hover" style="z-index: 2;">            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
+            <button type="submit" class="btn btn-primary btn-sm rounded-pill">
+               <i class="bi bi-cart-fill me-1"></i>Add to cart
+            </button>
+          </form>
+        </div>
+
       </div>
     </div>
   </div>
   {% endfor %}
+</div>
+</div>
 </div>
 {% endblock %}
