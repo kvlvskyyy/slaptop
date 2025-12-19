@@ -5,21 +5,22 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Morning, sir!</h1>
     </div>
-
+    {%if orders%}
     <ul class="list-group">
+        {% for order in orders%}
         <li class="list-group-item p-3"> 
             <div class="row align-items-center">
                 <div class="col-md-2 fw-bold">
-                    Order #10234
+                    Order #{{order.id}}
                 </div>
 
                 <div class="col-md-3">
-                    <span class="badge bg-warning text-dark">Pending</span>
-                    <small class="text-muted d-block">10.12.2025 16:40</small>
+                    <span class="badge bg-warning text-dark">{{order.status}}</span>
+                    <small class="text-muted d-block">{{ order.created_at.strftime('%d %b %Y %H:%M')}}</small>
                 </div>
 
                 <div class="col-md-2 fw-bold">
-                    €10.00
+                    €{{ '%.2f'|format(order.total_price)}}
                 </div>
                 <div class="col-md-5 text-end">
                     <button class="btn btn-sm btn-outline-danger">Cancel</button>
@@ -29,84 +30,40 @@
                     <button class="btn btn-light rounded-circle ms-2"
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target="#orderDetail1"
+                            data-bs-target="#orderDetail{{ order.id }}"
                             aria-expanded="false">
                         <i class="bi bi-caret-down-fill"></i>
                 </button>
                 </div>
             </div>
 
-            <div class="collapse mt-3" id="orderDetail1">
+            <div class="collapse mt-3" id="orderDetail{{ order.id }}">
                 <div class="card card-body bg-light border-0">
                     <div class="row">
                         <div class="col-md-6">
                             <h6>Customer Details</h6>
-                            <p class="mb-0">John Pork</p>
+                            <p class="mb-0">{{order.user_id}}</p>
                             <small class="text-muted">Stickerstraat 12, Amsterdam</small>
                         </div>
                         <div class="col-md-6">
                             <h6>Order contents</h6>
                             <ul class="list-unstyled">
+                                {%for item in order.order_items%}
                                 <li class="d-flex justify-content-between">
-                                    <span>Feedpulse warrior</span>
-                                    <span>€10</span>
+                                    <span>{{ item.sticker.name }} * {{ item.quantity }}</span>
+                                    <span>€{{ '%.2f'|format(item.price_at_time * item.quantity) }}</span>
                                 </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </li>
-        <li class="list-group-item p-3"> 
-            <div class="row align-items-center">
-                <div class="col-md-2 fw-bold">
-                    Order #10233
-                </div>
+        {% endfor %}
+        {% endif %}
 
-                <div class="col-md-3">
-                    <span class="badge bg-warning text-dark">Pending</span>
-                    <small class="text-muted d-block">10.12.2025 17:21</small>
-                </div>
-
-                <div class="col-md-2 fw-bold">
-                    €5.00
-                </div>
-                <div class="col-md-5 text-end">
-                    <button class="btn btn-sm btn-outline-danger">Cancel</button>
-                    <button class="btn btn-sm btn-outline-primary">Confirm</button>
-                    <button class="btn btn-sm btn-outline-success">Finish</button>
-
-                    <button class="btn btn-light rounded-circle ms-2"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#orderDetail2"
-                            aria-expanded="false">
-                        <i class="bi bi-caret-down-fill"></i>
-                </button>
-                </div>
-            </div>
-
-            <div class="collapse mt-3" id="orderDetail2">
-                <div class="card card-body bg-light border-0">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6>Customer Details</h6>
-                            <p class="mb-0">Nate Higgers</p>
-                            <small class="text-muted">Stickerstraat 10, Amsterdam</small>
-                        </div>
-                        <div class="col-md-6">
-                            <h6>Order contents</h6>
-                            <ul class="list-unstyled">
-                                <li class="d-flex justify-content-between">
-                                    <span>Sinterklaas</span>
-                                    <span>€5</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
+    
     </ul>
     </div>
 

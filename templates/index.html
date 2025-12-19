@@ -1,49 +1,33 @@
-<!--
-IMPORTANT
-Sokrat changed this page, adding Jinja code
-I moved the nav bar to base to make code cleaned in Flask
-Use Flask to test your work, it works there
-If you want to use the nav bar now,
-use extends "base.html" at the beggining of the file (Jinja code)
-or ask Sokrat, he will help
--->
-
 {% extends "base.html" %} <!-- Nav Bar generation -->
 
 {% block title %}Stickerdom{% endblock %} <!-- Title block -->
 
 {% block content %} <!-- Here goes all the content of the page-->
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-          {% for category, message in messages %}
-          <div
-          class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} fade show text-center"
-          role="alert">
-            {{ message }}
-          </div>
-          {% endfor %}
-      {% endif %}
-  {% endwith %}
+
 
 <h1 class="welcome-heading">Welcome to Stickerdom!</h1>
 <p>Your sticker shop is ready 🚀</p>
 
 <div class="row">
   {% for sticker in stickers %}
-  <div class="col-md-4 mb-4">
-    <div class="card shadow h-100 card-hover-lift">
+  <div class="col-md-3 mb-4">
+    <div class="card shadow h-100 card-hover-lift" id="item">
       <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
-      class="card-img-top" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
+      class="card-img-top p-3" alt="{{sticker.name}}" style="height:350px; object-fit:scale-down;">
 
-      <div class="card-body">
-        <h5 class="card-title">{{sticker.name}}</h5>
+      <!--redirecting to item desc-->
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">
+          <a href="{{ url_for('shop.sticker_desc', sticker_id=sticker.id) }}" class="text-decoration-none text-dark stretched-link">
+            {{sticker.name}}
+          </a></h5>
         <p class="card-text">€{{sticker.price}}</p>
 
-       <form action="/add_to_cart" method="POST">
+       <form action="/add_to_cart" method="POST" class="mt-auto position-relative" style="z-index: 2;">
           <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
           <button type="submit" class="btn btn-primary w-100">
-            Add to cart
+             <i class="bi bi-cart-fill me-2"></i>Add to cart
           </button>
         </form>
         

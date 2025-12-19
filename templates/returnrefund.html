@@ -4,19 +4,20 @@
 
 {% block content %}
 
-<div class="container my-5">
-    <div class="row">
-        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+    <div class="mb-4">
+        <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
+            <i class="bi bi-chevron-left me-1"></i>
+            Back to All Stickers
+        </a>
     </div>
-</div>
 
 <div class="container my-5 text-dark bg-white p-5 rounded">
 <nav class="secondary-nav mb-4">
         <ul>
-            <li><a href="{{ url_for('termsconditions') }}">Terms & Conditions</a></li>
-            <li><a href="{{ url_for('shippinginfo') }}">Shipping information</a></li>
+            <li><a href="{{ url_for('shop.termsconditions') }}">Terms & Conditions</a></li>
+            <li><a href="{{ url_for('shop.shippinginfo') }}">Shipping information</a></li>
             <li>Returns and Refunds Policy</li>
-            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>  
+            <li><a href="{{ url_for('shop.privacy') }}">Privacy Policy</a></li>  
         </ul>
     </nav>
 <div class="terms">
@@ -32,7 +33,7 @@
 
     <p>To report damaged or incorrect items:</p>
     <ol>
-        <li>You must notify us via email at support@stickerdom.com within [e.g., 7 days] of your scheduled pickup date.</li>
+        <li>You must notify us via email at stickerdom.help@gmail.com within 7 days of your scheduled pickup date.</li>
         <li>2.	Your email must include:
             <ul>
                 <li>Your Order Number.</li>
@@ -45,7 +46,7 @@
     <h4>Order Cancellation and Refunds (The Fee Exception)</h4>
     <p>If you need to cancel your order, please contact us immediately.</p>
     <ul>
-        <li>Cancellation BEFORE Processing: If you cancel your order within [e.g., 2 hours] of payment and before production has begun, we will refund the amount paid for packing and delivery fees using the original payment method.</li>
+        <li>Cancellation BEFORE Processing: If you cancel your order within 2 hours of payment and before production has begun, we will refund the amount paid for packing and delivery fees using the original payment method.</li>
         <li>Cancellation AFTER Processing: Once your order has been sent to the printer or packaged for pickup, it cannot be canceled, and no refund for packing/delivery fees will be issued.</li>
     </ul>
     <h4>4. Non-Refundable Fees</h4>

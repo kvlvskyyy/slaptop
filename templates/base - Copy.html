@@ -16,12 +16,12 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="{{url_for('shop.index')}}">
+        <a class="navbar-brand d-flex align-items-center" href="{{url_for('index')}}">
         <img src="/static/images/icons/Logo.svg" alt="Bootstrap" width="40" height="40" class="me-2"> 
         Stickerdom
         </a>
 
-        <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('shop.search')}}">
+        <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('search')}}">
           <div class="input-group">
             <input class="form-control" type="search" placeholder="Search..." aria-label="Search" name="search">
             <button class="btn btn-secondary" type="submit">
@@ -42,7 +42,7 @@
                 {% for category in categories %}
                 <li>
                   <a class="dropdown-item"
-                    href="{{ url_for('shop.category', category_name=category.name) }}">
+                    href="{{ url_for('category', category_name=category.name) }}">
                       {{ category.name }}
                   </a>
                 </li>
@@ -51,7 +51,7 @@
             </li>
           </ul>
 
-          <form method="POST" action="{{ url_for('shop.search')}}" role="search" class="d-none d-md-flex mx-auto w-50">
+          <form method="POST" action="{{ url_for('search')}}" role="search" class="d-none d-md-flex mx-auto w-50">
             <div class="input-group">
               <input class="form-control" type="search" placeholder="Search for stickers..." name="search">
               <button class="btn btn-secondary" type="submit">
@@ -63,18 +63,10 @@
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
             <li class="nav-item align-items-center d-flex">
               {% if user and not user.is_admin %}
-              <a class="nav-link" href="{{url_for('shop.add_sticker_user')}}">Create Sticker</a>
+              <a class="btn btn-light fs-6 me-2" href="{{url_for('add_sticker_user')}}">Create Sticker</a>
               {% endif %}
               {% if user and user.is_admin %}
-              <li class="nav-item dropdown d-flex align-items-center">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admin Menu</a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a href="{{url_for('shop.suggestions')}}" class="dropdown-item">View suggestions</a>
-                    <a href="{{url_for('shop.admin')}}" class="dropdown-item">Orders list</a>
-                  </li>
-                </ul>
-              </li>
+                <a class="btn btn-light fs-6" href="{{url_for('add_sticker')}}">Add Admin Sticker</a>
               {% endif %}
             </li>
             <li class="nav-item dropdown">
@@ -82,40 +74,30 @@
               <ul class="dropdown-menu dropdown-menu-end">
                 <li>
                   <a href="#" class="dropdown-item d-flex align-items-center gap-2">
-                  <span>English</span>
-                  <img src="/static/images/icons/uk_flag.svg" alt="UK Flag" style="width: 1.2em; height: 1.2em;">
-                  </a>
+                   <span>English</span>
+                   <img src="/static/images/icons/" alt="UK Flag" style="width: 1.2em; height: 1.2em;">
+                   </a>
                 </li>
-                <li><a href="#" class="dropdown-item d-flex align-items-center gap-2">
-                  <span>Dutch</span>
-                  <img src="/static/images/icons/nl_flag.svg" alt="NL Flag" style="width: 1.2em; height: 1.2em;">
-                </a>
-              </li>
+                <li><a href="#" class="dropdown-item">Dutch</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
                 {% if session.get('username') is none %}
-                <li><a class="dropdown-item" href="{{url_for('auth.signup')}}">Sign up</a></li>
-                <li><a class="dropdown-item" href="{{url_for('auth.login')}}">Log in</a></li>
+                <li><a class="dropdown-item" href="{{url_for('signup')}}">Sign up</a></li>
+                <li><a class="dropdown-item" href="{{url_for('login')}}">Log in</a></li>
                 {% else %}
-                <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Log out</a></li>
+                <li><a class="dropdown-item" href="{{url_for('logout')}}">Log out</a></li>
                 {% endif %}
-                {% if user and not user.is_admin %}
-                <li><a class="dropdown-item" href="{{url_for('shop.orders')}}">My orders</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shop.wishlist')}}">Wishlist</a></li>
-                 {% endif %}
+                <li><a class="dropdown-item" href="{{url_for('orders')}}">My orders</a></li>
+                <li><a class="dropdown-item" href="{{url_for('wishlist')}}">Wishlist</a></li>
                 
               </ul>
             </li>
-            <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
-                <li class="nav-item">
-                  <a class="nav-link fs-4" href="{{url_for('shop.cart')}}">
-                    <i class="bi bi-cart-fill"></i>
-                  </a>
-                </li>
-            </ul>
+            <li class="nav-item">
+              <a class="nav-link fs-4" href="{{url_for('cart')}}"><i class="bi bi-cart-fill"></i></a>
+            </li>
           </ul>
         </div>
       </div>
@@ -130,12 +112,7 @@
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <h5 class="fw-bold">Contact Us</h5>
-                    <p class="small text-white-50 mb-1"> 
-                        <i class="bi bi-envelope-at-fill"></i> 
-                        <a href="mailto:stickerdom.help@gmail.com" class="text-white-50">
-                          stickerdom.help@gmail.com
-                        </a>
-                    </p>
+                    <p class="small text-white-50 mb-1"> <i class="bi bi-envelope-at-fill"></i> support@stickerdom.com</p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-headset"></i> We reply when we feel like it</p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-telephone-fill"></i> - (you really think we wanna accept phone calls?)</p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-calendar-week-fill"></i> Mon-Friday, 10:00 - 17:00</p>
@@ -145,11 +122,11 @@
                 <div class="col-md-4 mb-3">
                     <h5 class="fw-bold">Quick links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{{url_for('shop.aboutus')}}" class="text-decoration-none text-info">About Us</a></li>
-                        <li><a href="{{url_for('shop.shippinginfo')}}" class="text-decoration-none text-info">Shipping Information</a></li>
-                        <li><a href="{{url_for('shop.termsconditions')}}" class="text-decoration-none text-info">Terms & Conditions</a></li>
-                        <li><a href="{{url_for('shop.returnrefund')}}" class="text-decoration-none text-info">Returns and Refunds</a></li>
-                        <li><a href="{{url_for('shop.privacy')}}" class="text-decoration-none text-info">Your Privacy Policy</a></li>
+                        <li><a href="{{url_for('aboutus')}}" class="text-decoration-none text-info">About Us</a></li>
+                        <li><a href="{{url_for('shippinginfo')}}" class="text-decoration-none text-info">Shipping Information</a></li>
+                        <li><a href="{{url_for('termsconditions')}}" class="text-decoration-none text-info">Terms & Conditions</a></li>
+                        <li><a href="{{url_for('returnrefund')}}" class="text-decoration-none text-info">Returns and Refunds</a></li>
+                        <li><a href="{{url_for('privacy')}}" class="text-decoration-none text-info">Your Privacy Policy</a></li>
 
                     </ul>
                 </div>
@@ -173,21 +150,5 @@
         duration: 800,
     });
 </script>
-{% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
-          {% for category, message in messages %}
-          <div
-          class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} alert-dismissible fade show shadow-sm"
-          role="alert">
-            {{ message }}
-
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-          </div>
-          {% endfor %}
-          </div>
-      {% endif %}
-  {% endwith %}
   </body>
 </html>

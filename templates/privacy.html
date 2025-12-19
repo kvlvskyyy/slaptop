@@ -4,18 +4,19 @@
 
 {% block content %}
 
-<div class="container my-5">
-    <div class="row">
-        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+    <div class="mb-4">
+        <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
+            <i class="bi bi-chevron-left me-1"></i>
+            Back to All Stickers
+        </a>
     </div>
-</div>
 
 <div class="container my-5 text-dark bg-white p-5 rounded">
 <nav class="secondary-nav mb-4">
         <ul>
-            <li><a href="{{ url_for('termsconditions') }}">Terms & Conditions</a></li>
-            <li><a href="{{ url_for('shippinginfo') }}">Shipping information</a></li>
-            <li><a href="{{ url_for('returnrefund') }}">Reurns and Refunds</a></li> 
+            <li><a href="{{ url_for('shop.termsconditions') }}">Terms & Conditions</a></li>
+            <li><a href="{{ url_for('shop.shippinginfo') }}">Shipping information</a></li>
+            <li><a href="{{ url_for('shop.returnrefund') }}">Reurns and Refunds</a></li> 
             <li>Privacy Policy</li>  
         </ul>
     </nav>
@@ -90,7 +91,7 @@
 <p>We may update this Privacy Policy from time to time in order to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will post the updated policy on this page.</p>
 
 <h4>8. Contact Us</h4>
-<p>For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at support@stickerdom.com.</p>
+<p>For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at stickerdom.help@gmail.com .</p>
 </div>
 </div>
 {% endblock %}

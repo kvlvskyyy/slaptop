@@ -4,19 +4,20 @@
 
 {% block content %}
 
-<div class="container my-5">
-    <div class="row">
-        <a class="rounded-circle" href="{{ url_for('index') }}" style="color: black;"><i class="bi bi-arrow-left-short me-2 fs-2"></i></a>
+    <div class="mb-4">
+        <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
+            <i class="bi bi-chevron-left me-1"></i>
+            Back to All Stickers
+        </a>
     </div>
-</div>
 
 <div class="container my-5 text-dark bg-white p-5 rounded">
 <nav class="secondary-nav mb-4">
         <ul>
             <li>Terms & Conditions</li>
-            <li><a href="{{ url_for('shippinginfo') }}">Shipping Information</a></li>
-            <li><a href="{{ url_for('returnrefund') }}">Returns and Refunds Policy</a></li>
-            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>  
+            <li><a href="{{ url_for('shop.shippinginfo') }}">Shipping Information</a></li>
+            <li><a href="{{ url_for('shop.returnrefund') }}">Returns and Refunds Policy</a></li>
+            <li><a href="{{ url_for('shop.privacy') }}">Privacy Policy</a></li>  
         </ul>
     </nav>
 <div class="terms">
@@ -64,7 +65,7 @@ You agree to provide current, complete, and accurate billing and account informa
 <p>These Terms and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of The Netherlands.</p>
 <hr>
 <p>9. Contact Information</p>
-<p>Questions about the Terms and Conditions should be sent to us at  support@stickerdom.com</p>
+<p>Questions about the Terms and Conditions should be sent to us at stickerdom.help@gmail.com .</p>
 </div>
 </div>
 {% endblock %}
