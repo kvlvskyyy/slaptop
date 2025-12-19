@@ -236,6 +236,7 @@ def sticker_desc(sticker_id):
 
 
 
+
 # Example logic for your shop.py
 @shop.route('/index_admin')
 def index_admin():
@@ -268,7 +269,7 @@ def handle_payment_choice():
 
     order = Order.query.filter_by(
         user_id=session['user_id'],
-        status=ORDER_CART
+        status="cart"
     ).first()
 
     if not order:
@@ -282,7 +283,7 @@ def handle_payment_choice():
     payment = Payment(
         order_id=order.id,
         payment_method=method,
-        status=PAYMENT_PENDING
+        status="pending"
     )
     db.session.add(payment)
     db.session.commit()
@@ -305,7 +306,7 @@ def handle_payment_choice():
 @shop.route('/create-checkout-session', methods=['GET','POST'])
 @login_required
 def create_checkout_session():
-    order = Order.query.filter_by(user_id=session['user_id'], status=ORDER_CART).first()
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
     if not order or not order.order_items:
         flash("Your cart is empty", "info")
         return redirect(url_for('shop.cart'))
@@ -344,14 +345,14 @@ def create_checkout_session():
 def success():
     order = Order.query.filter_by(
         user_id=session['user_id'],
-        status=ORDER_CART
+        status="cart"
     ).first()
 
     if order:
-        order.status = ORDER_PAID
+        order.status = "paid"
 
         if order.payment:
-            order.payment.status = ORDER_PAID
+            order.payment.status = "paid"
 
         db.session.commit()
         flash("Payment successful! Your order is confirmed.", "success")
