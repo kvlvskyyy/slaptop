@@ -104,7 +104,7 @@
                 <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Log out</a></li>
                 {% endif %}
                 {% if user and not user.is_admin %}
-                <li><a class="dropdown-item" href="{{url_for('shop.my_orders')}}">My orders</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shop.orders')}}">My orders</a></li>
                 <li><a class="dropdown-item" href="{{url_for('shop.my_requests')}}">My requests</a></li>
                 <li><a class="dropdown-item" href="{{url_for('shop.wishlist')}}">Wishlist</a></li>
                  {% endif %}

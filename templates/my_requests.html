@@ -5,6 +5,7 @@
 {% block content %}
 <div class="container my-5">
     <div class="row mb-4">
+        
         <div class="col">
             <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted d-inline-flex align-items-center">
                 <i class="bi bi-arrow-left me-2"></i>
@@ -23,12 +24,12 @@
         <hr class="mb-4">
 
         <section class="request-list">
-            {% if requests|length == 0 %}
+           
                 <div class="text-center py-5">
                     <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
                     <p class="text-muted mt-3">You haven't submitted any custom sticker requests yet.</p>
                 </div>
-            {% else %}
+        
                 
                 <div class="row d-none d-md-flex fw-bold text-muted mb-2 px-3 small text-uppercase">
                     <div class="col-1">Preview</div>
@@ -38,44 +39,44 @@
                     <div class="col-3 text-end">Actions</div>
                 </div>
 
-                {% for request in requests %}
-                <div class="row align-items-center py-3 border-bottom g-3" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">        
+               
+                <div class="row align-items-center py-3 border-bottom g-3" data-aos="fade-up" >        
 
                     <div class="col-2 col-md-1">
                         <img class="img-fluid rounded shadow-sm"
-                             src="{{ url_for('static', filename='images/requests/' ~ request.image_path) }}"
-                             alt="{{ request.name }}">
+                             src="image path"
+                             alt="name">
                     </div>
 
                     <div class="col-10 col-md-4 text-dark">
-                        <span class="fw-bold d-block fs-5">{{ request.name }}</span>
-                        <p class="small text-muted mb-0 text-truncate">{{ request.description }}</p>
+                        <span class="fw-bold d-block fs-5">name</span>
+                        <p class="small text-muted mb-0 text-truncate">desc</p>
                     </div>
 
                     <div class="col-6 col-md-2 text-center text-muted small">
-                        {{ request.date_submitted.strftime('%d %b %Y') }}
+                     
                     </div>
 
                     <div class="col-6 col-md-2 text-center">
-                        {% if request.status == 'Pending' %}
+                 
                             <span class="badge rounded-pill bg-warning text-dark px-3">Pending</span>
-                        {% elif request.status == 'Approved' %}
+                       
                             <span class="badge rounded-pill bg-success px-3">Approved</span>
-                        {% else %}
+                     
                             <span class="badge rounded-pill bg-secondary px-3">Rejected</span>
-                        {% endif %}
+                       
                     </div>
 
                     <div class="col-12 col-md-3 text-end">
-                        <a href="{{ url_for('shop.request_details', request_id=request.id) }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                        <a href="#" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
                             View Details
                         </a>
                     </div>
 
                 </div>
-                {% endfor %}
+               
 
-            {% endif %}
+           
         </section>
     </div>
 </div>
