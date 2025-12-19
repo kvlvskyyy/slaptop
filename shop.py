@@ -106,7 +106,7 @@ def index():
         results = Sticker.query.filter_by(Sticker.is_active == True, Sticker.name.ilike(f'%{query}%')).all()
     else:
         results = Sticker.query.filter_by(is_active=True).all()
-        
+
     return render_template('index.html', stickers=results, query=query)
 
 
@@ -283,11 +283,9 @@ def add_request_to_dashboard(request_id):
     return redirect(url_for('shop.index_admin'))
 
 
-# Example logic for your shop.py
 @shop.route('/index_admin')
 def index_admin():
-    # Fetches the 4 rows seen in your database screenshot
-    stickers = Sticker.query.all() 
+    stickers = Sticker.query.filter(Sticker.is_active == True).all()
     return render_template('index_admin.html', stickers=stickers)
 
 @shop.route('/edit_sticker/<int:sticker_id>', methods=['GET', 'POST'])
