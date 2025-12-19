@@ -60,7 +60,7 @@ class Order(db.Model):
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, unique=False, nullable=True)
-    price_at_time = db.Column(db.Float, nullable=True)
+    price_at_time = db.Column(db.Numeric(10, 2), nullable=True)
     sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
 
