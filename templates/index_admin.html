@@ -27,8 +27,10 @@
                 <div class="col-4">
                     <span class="fw-bold d-block text-dark">{{ sticker.name }}</span>
                     <small class="text-muted">ID: #{{ sticker.id }}</small>
+                    <br>
+                    <small class="text-muted">Stock: #{{ sticker.stock }}</small>
                 </div>
-
+                
                 <div class="col-2 text-dark fw-bold">
                     €{{ '%.2f'|format(sticker.price) }}
                 </div>

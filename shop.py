@@ -117,6 +117,35 @@ def allowed_file(filename):
     ext = filename.split(".")[-1].lower()
     return ext in ALLOWED_EXTENSIONS
 
+
+@shop.route('/search', methods=["GET", "POST"])
+def search():
+    if request.method == "POST":
+        query = request.form.get('search', '')
+    else:
+        query = ''
+
+    search_results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
+    return render_template("search_results.html", search_results=search_results, query=query)
+
+@shop.route('/category/<category_name>', methods=["GET", "POST"])
+def category(category_name):
+    category = Category.query.filter_by(name=category_name).first_or_404()
+
+    return render_template(
+        "category.html",
+        category=category.name,
+        category_results=category.stickers
+    )
+
+    
+@shop.route('/admin')
+@admin_required
+def admin():
+    orders = Order.query.all()
+    return render_template('admin.html', orders=orders)
+
+
 @shop.route("/add_sticker", methods=["GET", "POST"])
 @admin_required
 def add_sticker():
@@ -158,32 +187,93 @@ def add_sticker():
             flash("Please upload a valid image file.", "error")
     return render_template("add_sticker.html", categories=categories)
 
-@shop.route('/search', methods=["GET", "POST"])
-def search():
-    if request.method == "POST":
-        query = request.form.get('search', '')
-    else:
-        query = ''
-
-    search_results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
-    return render_template("search_results.html", search_results=search_results, query=query)
-
-@shop.route('/category/<category_name>', methods=["GET", "POST"])
-def category(category_name):
-    category = Category.query.filter_by(name=category_name).first_or_404()
-
-    return render_template(
-        "category.html",
-        category=category.name,
-        category_results=category.stickers
-    )
-
-    
-@shop.route('/admin')
+@shop.route('/approve_request/<int:request_id>', methods=['POST'])
 @admin_required
-def admin():
-    orders = Order.query.all()
-    return render_template('admin.html', orders=orders)
+def approve_request(request_id):
+    custom_sticker = CustomSticker.query.get_or_404(request_id)
+    custom_sticker.approval_status = 'approved'
+    db.session.commit()
+    flash(f"Request '{custom_sticker.name}' approved.", "success")
+    return redirect(url_for('shop.suggestions'))
+
+@shop.route('/deny_request/<int:request_id>', methods=['POST'])
+@admin_required
+def deny_request(request_id):
+    custom_sticker = CustomSticker.query.get_or_404(request_id)
+    custom_sticker.approval_status = 'denied'
+    db.session.commit()
+    flash(f"Request '{custom_sticker.name}' denied.", "info")
+    return redirect(url_for('shop.suggestions'))
+
+@shop.route('/add_request_to_dashboard/<int:request_id>', methods=['POST'])
+@admin_required
+def add_request_to_dashboard(request_id):
+    custom = CustomSticker.query.get_or_404(request_id)
+    
+    # Create a new standard Sticker from the custom request
+    new_sticker = Sticker(
+        name=custom.name,
+        price=1.00,  # Default price
+        stock=10,    # Default stock
+        image_path=custom.image_path, # Note: You may need to move the file from /custom/ to /stickers/
+        description=f"Community suggested sticker by User {custom.user_id}",
+        category_id=1, # Assign to a default category ID
+        is_active=True
+    )
+    
+    custom.approval_status = 'added_to_shop'
+    db.session.add(new_sticker)
+    db.session.commit()
+    
+    flash(f"'{custom.name}' has been added to the public shop!", "success")
+    return redirect(url_for('shop.index_admin'))
+
+
+@shop.route('/index_admin')
+def index_admin():
+    stickers = Sticker.query.filter(Sticker.is_active == True).all()
+    return render_template('index_admin.html', stickers=stickers)
+
+@shop.route('/suggestions')
+@admin_required
+def suggestions():
+    suggestions = CustomSticker.query.filter_by(approval_status='pending').order_by(CustomSticker.created_at.desc()).all()
+    return render_template('suggestions.html', suggestions=suggestions)
+
+
+
+@shop.route('/edit_sticker/<int:sticker_id>', methods=['GET', 'POST'])
+@admin_required
+def edit_sticker(sticker_id):
+    sticker = Sticker.query.get_or_404(sticker_id)
+    
+    if request.method == 'POST':
+        # Update text fields
+        sticker.name = request.form.get('name')
+        sticker.price = float(request.form.get('price'))
+        sticker.stock = int(request.form.get('stock'))
+        sticker.description = request.form.get('description')
+
+        # Update Category
+        category_name = request.form.get('category')
+        category_obj = Category.query.filter_by(name=category_name).first()
+        if category_obj:
+            sticker.category_id = category_obj.id
+        
+        # Handle optional image update
+        file = request.files.get('image')
+        if file and file.filename != '' and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            # Use the same UPLOAD_FOLDER from your add_sticker route
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            sticker.image_path = filename
+
+        db.session.commit()
+        flash("Sticker updated successfully!", "success")
+        return redirect(url_for('shop.index_admin'))
+
+    categories = Category.query.all()
+    return render_template('edit_sticker.html', sticker=sticker, categories=categories)
 
 @shop.route('/aboutus')
 def aboutus():
@@ -246,85 +336,7 @@ def my_requests():
     custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
     return render_template("my_requests.html", custom_stickers=custom_stickers)
 
-@shop.route('/approve_request/<int:request_id>', methods=['POST'])
-@admin_required
-def approve_request(request_id):
-    custom_sticker = CustomSticker.query.get_or_404(request_id)
-    custom_sticker.approval_status = 'approved'
-    db.session.commit()
-    flash(f"Request '{custom_sticker.name}' approved.", "success")
-    return redirect(url_for('shop.suggestions'))
 
-@shop.route('/deny_request/<int:request_id>', methods=['POST'])
-@admin_required
-def deny_request(request_id):
-    custom_sticker = CustomSticker.query.get_or_404(request_id)
-    custom_sticker.approval_status = 'denied'
-    db.session.commit()
-    flash(f"Request '{custom_sticker.name}' denied.", "info")
-    return redirect(url_for('shop.suggestions'))
-
-@shop.route('/add_request_to_dashboard/<int:request_id>', methods=['POST'])
-@admin_required
-def add_request_to_dashboard(request_id):
-    custom = CustomSticker.query.get_or_404(request_id)
-    
-    # Create a new standard Sticker from the custom request
-    new_sticker = Sticker(
-        name=custom.name,
-        price=1.00,  # Default price
-        stock=10,    # Default stock
-        image_path=custom.image_path, # Note: You may need to move the file from /custom/ to /stickers/
-        description=f"Community suggested sticker by User {custom.user_id}",
-        category_id=1, # Assign to a default category ID
-        is_active=True
-    )
-    
-    custom.approval_status = 'added_to_shop'
-    db.session.add(new_sticker)
-    db.session.commit()
-    
-    flash(f"'{custom.name}' has been added to the public shop!", "success")
-    return redirect(url_for('shop.index_admin'))
-
-
-@shop.route('/index_admin')
-def index_admin():
-    stickers = Sticker.query.filter(Sticker.is_active == True).all()
-    return render_template('index_admin.html', stickers=stickers)
-
-@shop.route('/edit_sticker/<int:sticker_id>', methods=['GET', 'POST'])
-@admin_required # Make sure you use your protection decorator
-def edit_sticker(sticker_id):
-    sticker = Sticker.query.get_or_404(sticker_id)
-    
-    if request.method == 'POST':
-        # Update text fields
-        sticker.name = request.form.get('name')
-        sticker.price = float(request.form.get('price'))
-        sticker.stock = int(request.form.get('stock'))
-        sticker.description = request.form.get('description')
-
-        # Update Category
-        category_name = request.form.get('category')
-        category_obj = Category.query.filter_by(name=category_name).first()
-        if category_obj:
-            sticker.category_id = category_obj.id
-        
-        # Handle optional image update
-        file = request.files.get('image')
-        if file and file.filename != '' and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            # Use the same UPLOAD_FOLDER from your add_sticker route
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
-            sticker.image_path = filename
-
-        db.session.commit()
-        flash("Sticker updated successfully!", "success")
-        return redirect(url_for('shop.index_admin'))
-
-    categories = Category.query.all()
-    return render_template('edit_sticker.html', sticker=sticker, categories=categories)
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
 def delete_sticker(sticker_id):
@@ -426,11 +438,6 @@ def cancel():
     flash("Payment canceled or returned to cart.", "info")
     return render_template('cancel.html')
 
-@shop.route('/suggestions')
-@admin_required
-def suggestions():
-    suggestions = CustomSticker.query.filter_by(approval_status='pending').order_by(CustomSticker.created_at.desc()).all()
-    return render_template('suggestions.html', suggestions=suggestions)
 
 @shop.route('/request_sticker', methods=["GET", "POST"])
 @login_required
