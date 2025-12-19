@@ -143,7 +143,7 @@ def add_sticker():
                 category_id = category_obj.id,
                 description = description,
                 image_path = filename,
-                is_custom = False
+                stock=form_stock or 0
             )
 
             db.session.add(new_sticker)
@@ -349,6 +349,15 @@ def success():
     ).first()
 
     if order:
+        for item in order.order_items:
+            sticker = item.sticker
+            if sticker.stock is not None:
+                if sticker.stock >= item.quantity:
+                    sticker.stock -= item.quantity
+                else:
+                    flash(f"Not enough stock for {sticker.name}.", "error")
+                    return redirect(url_for('shop.cart'))
+
         order.status = "paid"
 
         if order.payment:
@@ -358,6 +367,7 @@ def success():
         flash("Payment successful! Your order is confirmed.", "success")
 
     return render_template('success.html')
+
 
 
 @shop.route('/cancel')
