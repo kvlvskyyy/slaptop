@@ -242,7 +242,9 @@ def sticker_desc(sticker_id):
 
 @shop.route("/my_requests")
 def my_requests():
-    return render_template("my_requests.html")
+    user_id = session["user_id"]
+    custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
+    return render_template("my_requests.html", custom_stickers=custom_stickers)
 
 @shop.route('/approve_request/<int:request_id>', methods=['POST'])
 @admin_required
