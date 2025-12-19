@@ -126,6 +126,8 @@ def add_sticker():
         category_name = request.form.get('category')
         category_obj = Category.query.filter_by(name=category_name).first()
         description = request.form.get('description')
+        stock = request.form.get('stock', 0)
+
 
         if not category_obj:
             flash("Category not found", "error")
@@ -143,7 +145,7 @@ def add_sticker():
                 category_id = category_obj.id,
                 description = description,
                 image_path = filename,
-                stock=form_stock or 0
+                stock=int(stock)
             )
 
             db.session.add(new_sticker)
