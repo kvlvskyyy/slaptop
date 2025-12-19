@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}My Sticker Requests - Stickerdom{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row mb-4">
+        
+        <div class="col">
+            <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted d-inline-flex align-items-center">
+                <i class="bi bi-arrow-left me-2"></i>
+                <span>Back to Shop</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-white p-4 p-md-5 rounded shadow">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-dark mb-0">My Custom Requests</h2>
+            <a href="{{ url_for('shop.add_sticker_user') }}" class="btn btn-primary rounded-pill px-4">
+                <i class="bi bi-plus-lg me-2"></i>New Request
+            </a>
+        </div>
+        <hr class="mb-4">
+
+        <section class="request-list">
+           
+                <div class="text-center py-5">
+                    <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                    <p class="text-muted mt-3">You haven't submitted any custom sticker requests yet.</p>
+                </div>
+        
+                
+                <div class="row d-none d-md-flex fw-bold text-muted mb-2 px-3 small text-uppercase">
+                    <div class="col-1">Preview</div>
+                    <div class="col-4">Sticker Name</div>
+                    <div class="col-2 text-center">Date</div>
+                    <div class="col-2 text-center">Status</div>
+                    <div class="col-3 text-end">Actions</div>
+                </div>
+
+               
+                <div class="row align-items-center py-3 border-bottom g-3" data-aos="fade-up" >        
+
+                    <div class="col-2 col-md-1">
+                        <img class="img-fluid rounded shadow-sm"
+                             src="image path"
+                             alt="name">
+                    </div>
+
+                    <div class="col-10 col-md-4 text-dark">
+                        <span class="fw-bold d-block fs-5">name</span>
+                        <p class="small text-muted mb-0 text-truncate">desc</p>
+                    </div>
+
+                    <div class="col-6 col-md-2 text-center text-muted small">
+                     
+                    </div>
+
+                    <div class="col-6 col-md-2 text-center">
+                 
+                            <span class="badge rounded-pill bg-warning text-dark px-3">Pending</span>
+                       
+                            <span class="badge rounded-pill bg-success px-3">Approved</span>
+                     
+                            <span class="badge rounded-pill bg-secondary px-3">Rejected</span>
+                       
+                    </div>
+
+                    <div class="col-12 col-md-3 text-end">
+                        <a href="#" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                            View Details
+                        </a>
+                    </div>
+
+                </div>
+               
+
+           
+        </section>
+    </div>
+</div>
+{% endblock %}

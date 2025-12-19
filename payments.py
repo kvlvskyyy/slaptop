@@ -98,37 +98,49 @@ def create_checkout_session():
     except Exception as e:
         return str(e)
     
+
+def deduct_stock(order):
+    for item in order.order_items:
+        sticker = item.sticker
+        if sticker.stock is not None:
+            if sticker.stock >= item.quantity:
+                sticker.stock -= item.quantity
+            else:
+                flash(f"Not enough stock for {sticker.name}.", "error")
+                return False
+    return True
+    
 @payments.route('/success_stripe')
 @login_required
 def success_stripe():
-    order = Order.query.filter_by(
-        user_id=session['user_id'],
-        status="cart"
-    ).first()
-
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
     if order:
-        order.status = "paid"
+        if not deduct_stock(order):
+            return redirect(url_for('shop.cart'))
 
+        order.status = "paid"
         if order.payment:
             order.payment.status = "paid"
-
         db.session.commit()
         flash("Payment successful! Your order is confirmed.", "success")
 
     return render_template('success_stripe.html')
+
 
 @payments.route('/success_cash')
 def success_cash():
     order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
 
     if order:
+        if not deduct_stock(order):
+            return redirect(url_for('shop.cart'))
+        
         order.status = "cash unpaid"
 
         if order.payment:
             order.payment.status = "cash unpaid"
 
         db.session.commit()
-
         flash("Payment successful! Your order is confirmed.", "success")
 
     return render_template('success_cash.html')
@@ -138,13 +150,14 @@ def success_tikkie():
     order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
 
     if order:
-        order.status = "tikkie unpaid"
+        if not deduct_stock(order):
+            return redirect(url_for('shop.cart'))
+
+        order.payment.status = "tikkie unpaid"
 
         if order.payment:
             order.payment.status = "tikkie unpaid"
-
         db.session.commit()
-
         flash("Payment successful! Your order is confirmed.", "success")
 
     return render_template('success_tikkie.html')

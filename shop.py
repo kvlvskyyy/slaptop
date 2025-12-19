@@ -126,6 +126,8 @@ def add_sticker():
         category_name = request.form.get('category')
         category_obj = Category.query.filter_by(name=category_name).first()
         description = request.form.get('description')
+        stock = request.form.get('stock', 0)
+
 
         if not category_obj:
             flash("Category not found", "error")
@@ -143,7 +145,7 @@ def add_sticker():
                 category_id = category_obj.id,
                 description = description,
                 image_path = filename,
-                is_custom = False
+                stock=int(stock)
             )
 
             db.session.add(new_sticker)
@@ -234,7 +236,9 @@ def sticker_desc(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
     return render_template("sticker_desc.html", sticker=sticker)
 
-
+@shop.route("/my_requests")
+def my_requests():
+    return render_template("my_requests.html")
 
 
 # Example logic for your shop.py
@@ -340,24 +344,8 @@ def create_checkout_session():
     except Exception as e:
         return str(e)
     
-@shop.route('/success')
-@login_required
-def success():
-    order = Order.query.filter_by(
-        user_id=session['user_id'],
-        status="cart"
-    ).first()
 
-    if order:
-        order.status = "paid"
 
-        if order.payment:
-            order.payment.status = "paid"
-
-        db.session.commit()
-        flash("Payment successful! Your order is confirmed.", "success")
-
-    return render_template('success.html')
 
 
 @shop.route('/cancel')
@@ -369,14 +357,15 @@ def cancel():
 @shop.route('/suggestions')
 @admin_required
 def suggestions():
-    all_suggestions = CustomSticker.query.order_by(CustomSticker.created_at.desc()).all()
-    return render_template('suggestions.html', suggestions=all_suggestions)
+    suggestions = CustomSticker.query.filter_by(approval_status='pending').order_by(CustomSticker.created_at.desc()).all()
+    return render_template('suggestions.html', suggestions=suggestions)
 
 @shop.route('/request_sticker', methods=["GET", "POST"])
 @login_required
 def request_sticker():
     if request.method == "POST":
         name = request.form.get('name')
+        request_approval = True if request.form.get('request_approval') == 'yes' else False
         file = request.files.get('image')
 
         if not name or not file:
@@ -394,6 +383,7 @@ def request_sticker():
                 name=name,
                 image_path=filename,
                 approval_status="pending",
+                request_approval=request_approval,
                 created_at=datetime.utcnow()
             )
 
