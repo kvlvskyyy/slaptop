@@ -38,6 +38,7 @@ class CustomSticker(db.Model):
     name = db.Column(db.String(100), unique=False, nullable=False)
     image_path = db.Column(db.String(255), nullable=False)
     approval_status = db.Column(db.String(255), nullable=False)
+    request_approval = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime)
 
     user = db.relationship("User", backref="custom_stickers")

@@ -234,7 +234,9 @@ def sticker_desc(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
     return render_template("sticker_desc.html", sticker=sticker)
 
-
+@shop.route("/my_requests")
+def my_requests():
+    return render_template("my_requests.html")
 
 
 # Example logic for your shop.py
@@ -377,6 +379,7 @@ def suggestions():
 def request_sticker():
     if request.method == "POST":
         name = request.form.get('name')
+        request_approval = True if request.form.get('request_approval') == 'yes' else False
         file = request.files.get('image')
 
         if not name or not file:
@@ -394,6 +397,7 @@ def request_sticker():
                 name=name,
                 image_path=filename,
                 approval_status="pending",
+                request_approval=request_approval,
                 created_at=datetime.utcnow()
             )
 
