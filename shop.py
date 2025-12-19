@@ -103,9 +103,10 @@ def update_quantity(item_id):
 def index():
     query = request.form.get('search', '')
     if query:
-        results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
+        results = Sticker.query.filter_by(Sticker.is_active == True, Sticker.name.ilike(f'%{query}%')).all()
     else:
-        results = Sticker.query.all()  # show all by default
+        results = Sticker.query.filter_by(is_active=True).all()
+        
     return render_template('index.html', stickers=results, query=query)
 
 
@@ -257,7 +258,7 @@ def edit_sticker(sticker_id):
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
 def delete_sticker(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
-    db.session.delete(sticker)
+    sticker.is_active = False
     db.session.commit()
     return redirect(url_for('shop.index_admin'))
 
