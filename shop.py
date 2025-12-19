@@ -126,6 +126,8 @@ def add_sticker():
         category_name = request.form.get('category')
         category_obj = Category.query.filter_by(name=category_name).first()
         description = request.form.get('description')
+        stock = request.form.get('stock', 0)
+
 
         if not category_obj:
             flash("Category not found", "error")
@@ -143,7 +145,7 @@ def add_sticker():
                 category_id = category_obj.id,
                 description = description,
                 image_path = filename,
-                is_custom = False
+                stock=int(stock)
             )
 
             db.session.add(new_sticker)
@@ -342,24 +344,8 @@ def create_checkout_session():
     except Exception as e:
         return str(e)
     
-@shop.route('/success')
-@login_required
-def success():
-    order = Order.query.filter_by(
-        user_id=session['user_id'],
-        status="cart"
-    ).first()
 
-    if order:
-        order.status = "paid"
 
-        if order.payment:
-            order.payment.status = "paid"
-
-        db.session.commit()
-        flash("Payment successful! Your order is confirmed.", "success")
-
-    return render_template('success.html')
 
 
 @shop.route('/cancel')
@@ -371,8 +357,8 @@ def cancel():
 @shop.route('/suggestions')
 @admin_required
 def suggestions():
-    all_suggestions = CustomSticker.query.order_by(CustomSticker.created_at.desc()).all()
-    return render_template('suggestions.html', suggestions=all_suggestions)
+    suggestions = CustomSticker.query.filter_by(approval_status='pending').order_by(CustomSticker.created_at.desc()).all()
+    return render_template('suggestions.html', suggestions=suggestions)
 
 @shop.route('/request_sticker', methods=["GET", "POST"])
 @login_required
