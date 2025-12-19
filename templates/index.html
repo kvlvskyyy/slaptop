@@ -32,8 +32,8 @@
           </h6>
           <p class="card-text fw-bold mb-2 text-start ">€{{sticker.price}}</p>
 
-          <form action="/add_to_cart" method="POST" class=" position-absolute top-50 start-50 translate-middle reveal-on-hover" style="z-index: 2;">            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
-            <button type="submit" class="btn btn-primary btn-sm rounded-pill">
+          <form action="/add_to_cart" method="POST" class=" position-absolute top-50 start-50 translate-middle mt-auto" style="z-index: 2;">            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
+            <button type="submit" class="btn btn-primary btn-sm rounded-pill px-5 text-nowrap w-100">
                <i class="bi bi-cart-fill me-1"></i>Add to cart
             </button>
           </form>

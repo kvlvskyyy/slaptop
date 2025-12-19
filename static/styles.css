@@ -183,3 +183,13 @@ html, body {
     transform: translateY(0);    /* Moves back to original spot */
     pointer-events: auto;     /* Re-enables clicking the button */
 }
+
+.card img {
+    transition: filter 0.5s ease, transform 0.8s ease;
+    will-change: filter, transform;
+}
+
+.card:hover img {
+    filter: blur(4px);
+   
+}
