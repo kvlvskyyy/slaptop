@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Custom Sticker Suggestions</h1>
+    <h1>Custom Sticker Requests</h1>
 
     <div class="row">
-        {% for custom_sticker in suggestions %}
+        {% for custom_sticker in requests %}
         
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4 mt-4">
             <div class="card shadow-sm h-100">
                 
                 <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_path) }}" 
