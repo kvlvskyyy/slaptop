@@ -18,7 +18,8 @@
                     <h5 class="card-title">{{ custom_sticker.name }}</h5>
                     
                     <p class="mb-1"><strong>User ID:</strong> {{ custom_sticker.user_id }}</p>
-                    <p class="mb-1"><strong>Status:</strong> {{ custom_sticker.approval_status }}</p>
+                    <p class="mb-1"><strong>Approval Status:</strong> {{ custom_sticker.approval_status }}</p>
+                    <p class="mb-1"><strong>Dashboard Request:</strong> {{ custom_sticker.request_approval }}</p>
                     <p class="text-muted small">Submitted on: {{ custom_sticker.created_at.strftime('%Y-%m-%d') }}</p>
                 </div>
 
