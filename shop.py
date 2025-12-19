@@ -379,6 +379,7 @@ def suggestions():
 def request_sticker():
     if request.method == "POST":
         name = request.form.get('name')
+        request_approval = True if request.form.get('request_approval') == 'yes' else False
         file = request.files.get('image')
 
         if not name or not file:
@@ -396,6 +397,7 @@ def request_sticker():
                 name=name,
                 image_path=filename,
                 approval_status="pending",
+                request_approval=request_approval,
                 created_at=datetime.utcnow()
             )
 
