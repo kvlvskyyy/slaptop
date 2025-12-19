@@ -106,7 +106,7 @@ def index():
         results = Sticker.query.filter_by(Sticker.is_active == True, Sticker.name.ilike(f'%{query}%')).all()
     else:
         results = Sticker.query.filter_by(is_active=True).all()
-        
+
     return render_template('index.html', stickers=results, query=query)
 
 
@@ -242,16 +242,13 @@ def my_requests():
     return render_template("my_requests.html")
 
 
-# Example logic for your shop.py
 @shop.route('/index_admin')
 def index_admin():
-    # Fetches the 4 rows seen in your database screenshot
-    stickers = Sticker.query.all() 
+    stickers = Sticker.query.filter(Sticker.is_active == True).all()
     return render_template('index_admin.html', stickers=stickers)
 
 @shop.route('/edit_sticker/<int:sticker_id>')
 def edit_sticker(sticker_id):
-    # This endpoint MUST exist to fix the BuildError
     sticker = Sticker.query.get_or_404(sticker_id)
     return render_template('edit_sticker.html', sticker=sticker)
 
