@@ -248,11 +248,38 @@ def index_admin():
     stickers = Sticker.query.all() 
     return render_template('index_admin.html', stickers=stickers)
 
-@shop.route('/edit_sticker/<int:sticker_id>')
+@shop.route('/edit_sticker/<int:sticker_id>', methods=['GET', 'POST'])
+@admin_required # Make sure you use your protection decorator
 def edit_sticker(sticker_id):
-    # This endpoint MUST exist to fix the BuildError
     sticker = Sticker.query.get_or_404(sticker_id)
-    return render_template('edit_sticker.html', sticker=sticker)
+    
+    if request.method == 'POST':
+        # Update text fields
+        sticker.name = request.form.get('name')
+        sticker.price = float(request.form.get('price'))
+        sticker.stock = int(request.form.get('stock'))
+        sticker.description = request.form.get('description')
+
+        # Update Category
+        category_name = request.form.get('category')
+        category_obj = Category.query.filter_by(name=category_name).first()
+        if category_obj:
+            sticker.category_id = category_obj.id
+        
+        # Handle optional image update
+        file = request.files.get('image')
+        if file and file.filename != '' and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            # Use the same UPLOAD_FOLDER from your add_sticker route
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            sticker.image_path = filename
+
+        db.session.commit()
+        flash("Sticker updated successfully!", "success")
+        return redirect(url_for('shop.index_admin'))
+
+    categories = Category.query.all()
+    return render_template('edit_sticker.html', sticker=sticker, categories=categories)
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
 def delete_sticker(sticker_id):
