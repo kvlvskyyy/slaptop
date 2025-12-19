@@ -234,7 +234,9 @@ def sticker_desc(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
     return render_template("sticker_desc.html", sticker=sticker)
 
-
+@shop.route("/my_requests")
+def my_requests():
+    return render_template("my_requests.html")
 
 
 # Example logic for your shop.py
