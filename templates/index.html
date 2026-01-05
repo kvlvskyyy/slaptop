@@ -16,16 +16,16 @@
       
       <div class="d-flex flex-column h-100 p-3">
         
-        <div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative">
-          <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
-               class="img-fluid blur-target" 
-               alt="{{sticker.name}}" 
-               style="max-height: 180px; width: auto; object-fit: contain;">
+<div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative" style="height: 200px; background-color: #f8f9fa;">
+    <img src="{{url_for('static', filename='images/stickers/' ~ sticker.image_path)}}"
+         class="img-fluid blur-target" 
+         alt="{{sticker.name}}" 
+         style="max-height: 100%; width: auto; object-fit: contain; padding: 15px;">
 
-               <span class="overlay-text position-absolute top-50 start-50 translate-middle text-center fw-bold">
-      See more...
-  </span>
-        </div>
+    <span class="overlay-text position-absolute top-50 start-50 translate-middle text-center fw-bold">
+        See more...
+    </span>
+</div>
         
 
         <div class="mb-2">

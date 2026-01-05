@@ -121,6 +121,7 @@
                 
               </ul>
             </li>
+            {% if user and not user.is_admin %}
             <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
                 <li class="nav-item">
                   <a class="nav-link fs-4" href="{{url_for('shop.cart')}}">
@@ -128,6 +129,7 @@
                   </a>
                 </li>
             </ul>
+            {% endif %}
           </ul>
         </div>
       </div>
