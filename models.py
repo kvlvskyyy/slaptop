@@ -62,16 +62,14 @@ class OrderItem(db.Model):
     sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
 
-class BillingAddress(db.Model):
-    __tablename__ = "billing_address"
+class CheckoutInfo(db.Model):
+    __tablename__ = "checkout_info"
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
-    first_name = db.Column(db.String(100), nullable=False)
-    last_name = db.Column(db.String(100), nullable=False)
-    username = db.Column(db.String(100), nullable=False)
+    full_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(255), nullable=True)
-    address_line_1 = db.Column(db.String(255), nullable=False)
-    address_line_2 = db.Column(db.String(255), nullable=True)
+
+    order = db.relationship("Order", backref="checkout_info", uselist=False)
 
 class Payment(db.Model):
     __tablename__ = "payment"
@@ -79,4 +77,6 @@ class Payment(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
     payment_method = db.Column(db.String(100), nullable=False)
     status = db.Column(db.String(100), nullable=False)
+    
+    order = db.relationship("Order", backref="payment", uselist=False)
 
