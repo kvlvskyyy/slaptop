@@ -170,68 +170,6 @@ html, body {
     border-color: #ced4da !important;
 }
 
-/* --- 1. THE BLUR EFFECT --- */
-/* Smooth transition for the image */
-.card .blur-target {
-    transition: filter 0.5s ease, transform 0.5s ease;
-    will-change: filter, transform;
-}
-
-/* On Card Hover: Blur and slightly Zoom */
-.card:hover .blur-target {
-    filter: blur(5px);      /* The Blur */
-    transform: scale(1.05); /* Small zoom to hide rough edges */
-}
-
-
-/* --- 2. THE BUTTON REVEAL --- */
-/* Default State: Invisible but takes up space (so Price doesn't jump) */
-.card .reveal-on-hover {
-    opacity: 0;
-    transform: translateX(10px); /* Sits slightly to the right */
-    transition: all 0.3s ease;
-}
-
-/* Hover State: Visible */
-.card:hover .reveal-on-hover {
-    opacity: 1;
-    transform: translateX(0);    /* Slides into place */
-}
-
-/* --- 3. THE "SEE MORE" TEXT --- */
-
-/* Default State: Invisible */
-.card .overlay-text {
-    opacity: 0;
-    pointer-events: none;
-    
-    /* 1. Force one line */
-    white-space: nowrap;
-    
-    /* 2. Style the Text (White with Black Outline) */
-    font-size: 1.5rem;
-    font-weight: 800;    /* Extra bold looks better with outline */
-    color: white;        /* Text Color */
-    
-    /* 3. The "Outline" Trick (No background color needed) */
-    text-shadow: 
-        -1px -1px 0 #000,  
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000;
-         
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    
-    /* Start position for animation */
-    transform: translate(-50%, -30%); 
-}
-
-/* Hover State */
-.card:hover .overlay-text {
-    opacity: 1;
-    transform: translate(-50%, -50%); 
-}
-
 /* --- ICON SWAP LOGIC --- */
 
 /* 1. By default, hide the 'Hover' icon */
@@ -259,3 +197,43 @@ html, body {
         transition: transform 0.3s ease;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
     }
+
+    /* 1. Force the carousel items to be short (25% of screen height) */
+/* We use min-height to stop it from breaking on mobile phones */
+.hero-carousel-item {
+    height: 25vh;         /* Adjust this number (20vh - 30vh) to taste */
+    min-height: 250px;    /* Safety net: never gets smaller than this */
+    position: relative;
+    overflow: hidden;     /* Hides any overflow */
+}
+
+/* 2. Ensure the background/image covers the whole area */
+.hero-carousel-item img, 
+.hero-carousel-item svg {
+    object-fit: cover;    /* Crops the image to fit the strip */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 3. Center the text vertically and fix sizing */
+.hero-caption {
+    top: 50%;             /* Move top edge to center */
+    transform: translateY(-50%); /* Pull back up by 50% to perfectly center */
+    bottom: auto;         /* Override default Bootstrap bottom positioning */
+    padding-bottom: 0;    /* Remove extra padding */
+}
+
+/* 4. Make text smaller so it fits in the short strip */
+.hero-caption h1 {
+    font-size: 1.5rem;    /* Smaller headline */
+    font-weight: bold;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7); /* Shadow helps read text on images */
+}
+
+.hero-caption p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}

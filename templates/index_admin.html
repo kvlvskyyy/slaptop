@@ -24,7 +24,7 @@
                          style="max-height: 50px;">
                 </div>
 
-                <div class="col-4">
+                <div class="col-2">
                     <span class="fw-bold d-block text-dark">{{ sticker.name }}</span>
                     <small class="text-muted">ID: #{{ sticker.id }}</small>
                 </div>
@@ -32,6 +32,12 @@
                 <div class="col-2 text-dark fw-bold">
                     €{{ '%.2f'|format(sticker.price) }}
                 </div>
+
+                 <div class="col-2 form-floating">
+                                    <input type="number" class="form-control" id="stockInput" name="stock" 
+                                           value="{{ sticker.stock }}" placeholder="Stock" min="0" required>
+                                    <label for="stockInput">Stock</label>
+                                </div>
 
                 <div class="col-5 text-end">
                     <a href="{{ url_for('shop.edit_sticker', sticker_id=sticker.id) }}" 

@@ -58,6 +58,8 @@
                         bg-success
                         {% elif sticker.approval_status == 'rejected' or sticker.approval_status == 'denied' %}
                         bg-danger
+                        {% elif sticker.approval_status == 'pending'}
+                        btn-primary
                         {% else %}
                         bg-warning text-dark
                         {% endif %}
