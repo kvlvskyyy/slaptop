@@ -50,7 +50,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=True)
-    total_price = db.Column(db.Float, nullable=True)
+    total_price = db.Column(db.Numeric(10, 2), nullable=True)
     status = db.Column(db.String(255), nullable=True)
 
     billing_address = db.relationship('BillingAddress', backref='order', uselist=False)

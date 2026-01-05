@@ -390,6 +390,9 @@ def handle_payment_choice():
     flash("Please choose a payment method.", "error")
     return redirect(url_for('shop.payment_options'))
 
+@shop.route("/checkoutcashtikkie")
+def checkoutcashtikkie():
+    return render_template("checkoutcashtikkie.html")
 
 @shop.route('/create-checkout-session', methods=['GET','POST'])
 @login_required
