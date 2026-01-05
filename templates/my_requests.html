@@ -37,7 +37,7 @@
 <div class="row align-items-center py-3 border-bottom g-3">        
 
     <div class="col-4 col-md-2">
-        <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;" class="rounded shadow-sm">
+        <div style="width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;" class="rounded shadow-sm">
             <img class="img-fluid"
                 src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}"
                 alt="{{sticker.name}}"
@@ -54,39 +54,26 @@
         <p class="mb-0">{{sticker.created_at.strftime("%Y-%m-%d")}}</p>
     </div>
 
-                <div class="col-6 col-md-2 text-center">
-    
-                    <span class="badge rounded-pill px-3 
-                        {% if sticker.approval_status == 'approved' %}
-                        bg-success
-                        {% elif sticker.approval_status == 'rejected' or sticker.approval_status == 'denied' %}
-                        bg-danger
-                        {% elif sticker.approval_status == 'pending'}
-                        btn-primary
-                        {% else %}
-                        bg-warning text-dark
-                        {% endif %}
-                        ">
-                        {{ sticker.approval_status|capitalize }}
-                    </span>
-
-                </div>
-
-                <div class="col-12 col-md-3 text-end">
-                    <a href="#" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                        None
-                    </a>
-                </div>
-
-            </div>
-    <div class="col-6 col-md-2 text-center">
-        <span class="badge rounded-pill px-3 
+<div class="col-12 col-md-2 d-flex align-items-center justify-content-center">
+    <div class="d-flex align-items-center gap-2">
+        <span class="badge rounded-pill px-3 py-2
             {% if sticker.approval_status == 'approved' %}bg-success
             {% elif sticker.approval_status in ['rejected', 'denied'] %}bg-danger
             {% else %}bg-warning text-dark{% endif %}">
             {{ sticker.approval_status|capitalize }}
         </span>
+
+        {% if sticker.approval_status == 'approved' %}
+        <form action="{{ url_for('shop.add_to_cart') }}" method="POST" class="m-0">
+            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
+            <button type="submit" class="btn btn-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center" 
+                    style="width: 35px; height: 35px;" title="Add to Cart">
+                <i class="bi bi-cart-plus-fill fs-6"></i>
+            </button>
+        </form>
+        {% endif %}
     </div>
+</div>
 </div>
             {% endfor %}
             {% else %}
