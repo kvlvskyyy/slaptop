@@ -54,6 +54,31 @@
         <p class="mb-0">{{sticker.created_at.strftime("%Y-%m-%d")}}</p>
     </div>
 
+                <div class="col-6 col-md-2 text-center">
+    
+                    <span class="badge rounded-pill px-3 
+                        {% if sticker.approval_status == 'approved' %}
+                        bg-success
+                        {% elif sticker.approval_status == 'rejected' or sticker.approval_status == 'denied' %}
+                        bg-danger
+                        {% elif sticker.approval_status == 'pending'}
+                        btn-primary
+                        {% else %}
+                        bg-warning text-dark
+                        {% endif %}
+                        ">
+                        {{ sticker.approval_status|capitalize }}
+                    </span>
+
+                </div>
+
+                <div class="col-12 col-md-3 text-end">
+                    <a href="#" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                        None
+                    </a>
+                </div>
+
+            </div>
     <div class="col-6 col-md-2 text-center">
         <span class="badge rounded-pill px-3 
             {% if sticker.approval_status == 'approved' %}bg-success
