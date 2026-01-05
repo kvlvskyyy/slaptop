@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from extensions import db
 from models import User, Payment
 from datetime import datetime
+from decimal import Decimal
 import stripe
 import os
 
@@ -38,7 +39,7 @@ def add_to_cart():
             user_id=user_id,
             created_at=datetime.utcnow(),
             status="cart",
-            total_price=0
+            total_price=Decimal('0.00')
         )
         db.session.add(order)
         db.session.commit()
@@ -49,7 +50,7 @@ def add_to_cart():
         sticker = Sticker.query.get(sticker_id)
         item = OrderItem(
             quantity=1,
-            price_at_time=sticker.price,
+            price_at_time=Decimal(str(sticker.price)),
             sticker_id=sticker.id,
             order_id=order.id
         )
@@ -149,6 +150,8 @@ def admin():
 @shop.route("/add_sticker", methods=["GET", "POST"])
 @admin_required
 def add_sticker():
+    
+
     categories = Category.query.all()
     if request.method == "POST":
         name = request.form['name']
@@ -157,6 +160,11 @@ def add_sticker():
         category_obj = Category.query.filter_by(name=category_name).first()
         description = request.form.get('description')
         stock = request.form.get('stock', 0)
+
+        existing = Sticker.query.filter_by(name=name).first()
+        if existing:
+            flash(f"A sticker with the name '{name}' already exists.", "error")
+            return redirect(url_for('shop.add_sticker'))
 
 
         if not category_obj:
@@ -171,7 +179,7 @@ def add_sticker():
 
             new_sticker = Sticker(
                 name=name,
-                price=float(price),
+                price=Decimal(price),
                 category_id = category_obj.id,
                 description = description,
                 image_path = filename,
@@ -389,10 +397,6 @@ def handle_payment_choice():
 
     flash("Please choose a payment method.", "error")
     return redirect(url_for('shop.payment_options'))
-
-@shop.route("/checkoutcashtikkie")
-def checkoutcashtikkie():
-    return render_template("checkoutcashtikkie.html")
 
 @shop.route('/create-checkout-session', methods=['GET','POST'])
 @login_required
