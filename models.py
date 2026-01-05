@@ -52,7 +52,6 @@ class Order(db.Model):
     total_price = db.Column(db.Numeric(10, 2), default=Decimal("0.00"), nullable=True)
     status = db.Column(db.String(255), nullable=True)
 
-    payment = db.relationship('Payment', backref='order', uselist=False)
     order_items = db.relationship('OrderItem', backref='order', lazy=True)
 
 class OrderItem(db.Model):

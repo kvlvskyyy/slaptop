@@ -1,19 +1,32 @@
 from flask import Blueprint, redirect, url_for, flash, session, render_template, request
 from utils import login_required
-from models import Order, Payment
+from models import Order, Payment, User
 from extensions import db
 import stripe
 import os
 
-
-payments = Blueprint("payments", __name__)
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+payments = Blueprint("payments", __name__)
 
 
-@payments.route('/payment_options')
+@payments.route('/checkout')
 @login_required
-def payment_options():
-    return render_template('payment_options.html')
+def checkout():
+    user_id = session["user_id"]
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
+
+    if not order:
+        flash("Your cart is empty")
+        return redirect("/")
+
+    user = User.query.get_or_404(user_id)
+
+    return render_template(
+        "checkout.html",
+        email=user.email,
+        order=order
+    )
+
 
 @payments.route('/handle_payment_choice', methods=['POST'])
 @login_required
@@ -58,7 +71,7 @@ def handle_payment_choice():
         return redirect(url_for('payments.success_tikkie'))
 
     flash("Please choose a payment method.", "error")
-    return redirect(url_for('payments.payment_options'))
+    return redirect(url_for('payments.checkout'))
 
 
 @payments.route('/stripe_checkout_session', methods=['GET','POST'])
