@@ -29,13 +29,12 @@
 
             <div class="mb-3">
               <label class="form-label" for="email">Email</label>
-              <p style="color:red;">EMAIL VARIABLE = "{{ email }}"</p>
-              <input type="email" name="email" class="form-control" placeholder="john@email.com" value="{{ email | e }}" required>
+              <input type="email" name="email" class="form-control" placeholder="john@email.com" value="{{ email }}" required>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Total Price</label>
-              <input type="text" class="form-control" value="€9.99" disabled>
+              <input type="text" class="form-control" value="€{{ order.total_price}}" disabled>
             </div>
 
             <!-- Payment method -->

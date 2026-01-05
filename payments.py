@@ -8,17 +8,25 @@ import os
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 payments = Blueprint("payments", __name__)
 
+
 @payments.route('/checkout')
 @login_required
 def checkout():
-    user_id = session.get("user_id")
+    user_id = session["user_id"]
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
 
-    if not user_id:
-        return redirect("/login")
+    if not order:
+        flash("Your cart is empty")
+        return redirect("/")
 
-    user = User.query.get(user_id)
+    user = User.query.get_or_404(user_id)
 
-    return render_template("checkout.html", email=user.email)
+    return render_template(
+        "checkout.html",
+        email=user.email,
+        order=order
+    )
+
 
 @payments.route('/handle_payment_choice', methods=['POST'])
 @login_required

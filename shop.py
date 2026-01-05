@@ -295,21 +295,6 @@ def edit_sticker(sticker_id):
 def aboutus():
     return render_template('aboutus.html')
 
-@shop.route("/checkout")
-@login_required
-def checkout():
-    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
-    if order.order_items:
-        items = order.order_items
-        total_quantity = 0
-        for item in items:
-            total_quantity+=item.quantity
-    else:
-        flash("Your cart is empty", "info")
-        return redirect(url_for('shop.index'))
-
-    return render_template("checkout.html", items=items, total_quantity=total_quantity)
-
 @shop.route("/orders")
 @login_required
 def orders():
