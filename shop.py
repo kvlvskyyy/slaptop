@@ -126,17 +126,25 @@ def search():
     else:
         query = ''
 
-    search_results = Sticker.query.filter(Sticker.name.ilike(f"%{query}%")).all()
+    search_results = Sticker.query.filter(
+        Sticker.is_active == True,
+        Sticker.name.ilike(f"%{query}%")
+        ).all()
     return render_template("search_results.html", search_results=search_results, query=query)
 
 @shop.route('/category/<category_name>', methods=["GET", "POST"])
 def category(category_name):
     category = Category.query.filter_by(name=category_name).first_or_404()
 
+    active_stickers = Sticker.query.filter_by(
+        category_id=category.id,
+        is_active=True
+    ).all()
+
     return render_template(
         "category.html",
         category=category.name,
-        category_results=category.stickers
+        category_results=active_stickers
     )
 
     
