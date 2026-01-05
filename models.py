@@ -1,7 +1,6 @@
 from extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
-
-
+from decimal import Decimal
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -21,7 +20,7 @@ class Sticker(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False)
     price = db.Column(db.Float, nullable=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    description = db.Column(db.String(255), nullable=True)
+    description = db.Column(db.String(255), nullable=True, unique=False)
     image_path = db.Column(db.String(255), nullable=False)
     stock = db.Column(db.Integer, nullable=True, default=0)
     is_active = db.Column(db.Boolean, default=True)
@@ -50,10 +49,9 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=True)
-    total_price = db.Column(db.Float, nullable=True)
+    total_price = db.Column(db.Numeric(10, 2), default=Decimal("0.00"), nullable=True)
     status = db.Column(db.String(255), nullable=True)
 
-    billing_address = db.relationship('BillingAddress', backref='order', uselist=False)
     payment = db.relationship('Payment', backref='order', uselist=False)
     order_items = db.relationship('OrderItem', backref='order', lazy=True)
 
@@ -81,3 +79,4 @@ class Payment(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
     payment_method = db.Column(db.String(100), nullable=False)
     status = db.Column(db.String(100), nullable=False)
+
