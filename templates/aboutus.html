@@ -1,8 +1,24 @@
-{% extends "base.html" %} <!-- Nav Bar generation -->
+{% extends "base.html" %}
 
-{% block title %}About Us - Stickerdom{% endblock %} <!-- Title block -->
+{% block title %}About Us - Stickerdom{% endblock %}
 
-{% block content %} <!-- Here goes all the content of the page-->
+{% block content %}
+
+<style>
+    .team-img {
+        height: 300px; /* Fixed height for uniformity */
+        width: 100%;   /* Full width */
+        object-fit: cover; /* Crops the image to fill the space */
+        
+        /* --- THE FIX IS HERE --- */
+        /* "center 25%" means: Center horizontally, 
+           and position the vertical focus 25% down from the top.
+           This moves the visible area down slightly, showing more forehead/hair. */
+        object-position: center 25%; 
+    }
+</style>
+
+<div class="container my-5">
 
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
@@ -11,151 +27,70 @@
         </a>
     </div>
         
-        <h1 class="text-center mt-5">Meet the Team</h1>
+    <h1 class="text-center mt-5">Meet the Team</h1>
 
-        <div class="row g-4 mt-3">
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/400x400" class="card-img-top" alt="Profile Picture">
-                    <div class="card-body text-center">
-
+    <div class="row g-4 mt-3">
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/us/Sokrat.jpeg') }}" class="card-img-top team-img" alt="Sokrat">
+                <div class="card-body text-center">
                     <h3 class="text-primary fw-bold">Sokrat Pereladov</h3>
                     <p class="text-muted mb-0">Back-end developer</p>
-                    <button type="button" class="btn btn-outline-dark btn-sm w-100" data-bs-toggle="modal" data-bs-target="#contactModal">
-                    Contact
-                    </button>
-                    </div>
-                    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-                        <small class="text-success fw-bold"><i class="bi bi-circle-fill text-success"></i> Online</small>
-                        <small class="text-muted">Eindoven, NL</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/400x400" class="card-img-top" alt="Profile Picture">
-                    <div class="card-body text-center">
-
-                    <h3 class="text-primary fw-bold">Luca Raets</h3>
-                    <p class="text-muted mb-0">Back-end developer</p>
-
-                    <button type="button" class="btn btn-outline-dark btn-sm w-100" data-bs-toggle="modal" data-bs-target="#contactModal">
-                    Contact
-                    </button>                    </div>
-                    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-                        <small class="text-danger fw-bold"><i class="bi bi-circle-fill text-danger"></i> Offline</small>
-                        <small class="text-muted">Eindoven, NL</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/400x400" class="card-img-top" alt="Profile Picture">
-                    <div class="card-body text-center">
-                    
-                    <h3 class="text-primary fw-bold">Artem Pokariev</h3>
-                    <p class="text-muted mb-0">Front-end developer</p>
-
-                    <button type="button" class="btn btn-outline-dark btn-sm w-100" data-bs-toggle="modal" data-bs-target="#contactModal">
-                    Contact
-                    </button>                     
-                </div>
-                    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-                        <small class="text-success fw-bold"><i class="bi bi-circle-fill text-success"></i> Online</small>
-                        <small class="text-muted">Maastricht, NL</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/400x400" class="card-img-top" alt="Profile Picture">
-                    <div class="card-body text-center">
-                    <h3 class="text-primary fw-bold">Veerle van Oirschot</h3>
-                    <p class="text-muted mb-0">Front-end developer</p>
-
-                    <button type="button" class="btn btn-outline-dark btn-sm w-100" data-bs-toggle="modal" data-bs-target="#contactModal">
-                    Contact
-                    </button>                     
-                </div>
-                    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-                        <small class="text-danger fw-bold"><i class="bi bi-circle-fill text-danger"></i> Offline</small>
-                        <small class="text-muted">Eindoven, NL</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/400x400" class="card-img-top" alt="Profile Picture">
-                    <div class="card-body text-center">
-                    <h3 class="text-primary fw-bold">Georgios Pissas</h3>
-                    <p class="text-muted mb-0">Team leader</p>
-
-                    <button type="button" class="btn btn-outline-dark btn-sm w-100" data-bs-toggle="modal" data-bs-target="#contactModal">
-                    Contact
-                    </button>                     
-                </div>
-                    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-                        <small class="text-danger fw-bold"><i class="bi bi-circle-fill text-danger"></i> Offline</small>
-                        <small class="text-muted">Eindoven, NL</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/400x400" class="card-img-top" alt="Profile Picture">
-                    <div class="card-body text-center">
-                    
-                    <h3 class="text-primary fw-bold">Lourenço Reis</h3>
-                    <p class="text-muted mb-0">idk</p>
-
-                    <button type="button" class="btn btn-outline-dark btn-sm w-100" data-bs-toggle="modal" data-bs-target="#contactModal">
-                    Contact
-                    </button>                     
-                </div>
-                    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-                        <small class="text-danger fw-bold"><i class="bi bi-circle-fill text-danger"></i> Offline</small>
-                        <small class="text-muted">somewhere, DE</small>
-                    </div>
                 </div>
             </div>
         </div>
 
-<div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      
-      <div class="modal-header">
-        <h1 class="modal-title fs-5">Send a Message</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-        <form>
-          
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
-            <label for="floatingEmail">Your Email Address</label>
-          </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/us/Luca.jpeg') }}" class="card-img-top team-img" alt="Luca">
+                <div class="card-body text-center">
+                    <h3 class="text-primary fw-bold">Luca Raets</h3>
+                    <p class="text-muted mb-0">Back-end developer</p>
+                </div>
+            </div>
+        </div>
 
-          <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingMessage" style="height: 100px"></textarea>
-            <label for="floatingMessage">Message</label>
-          </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/us/Artem.jpeg') }}" class="card-img-top team-img" alt="Artem">
+                <div class="card-body text-center">
+                    <h3 class="text-primary fw-bold">Artem Pokariev</h3>
+                    <p class="text-muted mb-0">Front-end developer</p>                    
+                </div>
+            </div>
+        </div>
 
-        </form>
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send Message</button>
-      </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/us/Veerle.jpeg') }}" class="card-img-top team-img" alt="Veerle">
+                <div class="card-body text-center">
+                    <h3 class="text-primary fw-bold">Veerle van Oirschot</h3>
+                    <p class="text-muted mb-0">Front-end developer</p>                    
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/us/George.jpeg') }}" class="card-img-top team-img" alt="Georgios">
+                <div class="card-body text-center">
+                    <h3 class="text-primary fw-bold">Georgios Pissas</h3>
+                    <p class="text-muted mb-0">Team leader</p>                   
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/us/Lourenco.jpeg') }}" class="card-img-top team-img" alt="Lourenço">
+                <div class="card-body text-center">
+                    <h3 class="text-primary fw-bold">Lourenço Reis</h3>
+                    <p class="text-muted mb-0">Master of vibe coding</p>                    
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+
 </div>
-{%endblock%}
+{% endblock %}
