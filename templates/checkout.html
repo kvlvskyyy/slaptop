@@ -28,14 +28,9 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-control" placeholder="john@email.com" required>
-            </div>
-
-            <!-- Order summary -->
-            <div class="mb-3">
-              <label class="form-label">Product</label>
-              <input type="text" class="form-control" value="Game Server Hosting" disabled>
+              <label class="form-label" for="email">Email</label>
+              <p style="color:red;">EMAIL VARIABLE = "{{ email }}"</p>
+              <input type="email" name="email" class="form-control" placeholder="john@email.com" value="{{ email | e }}" required>
             </div>
 
             <div class="mb-3">
