@@ -17,39 +17,42 @@
     <div class="bg-white p-4 p-md-5 rounded shadow">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="text-dark mb-0">My Custom Requests</h2>
-            <a href="{{ url_for('shop.add_sticker_user') }}" class="btn btn-primary rounded-pill px-4">
-                <i class="bi bi-plus-lg me-2"></i>New Request
-            </a>
+
+
+<a href="{{ url_for('shop.add_sticker_user') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+    <i class="bi bi-plus-lg me-1"></i>New Request
+</a>
         </div>
         <hr class="mb-4">
 
-        <div class="row d-none d-md-flex fw-bold text-muted mb-2 px-3 small text-uppercase">
-            <div class="col-1">Preview</div>
-            <div class="col-4">Sticker Name</div>
-            <div class="col-2 text-center">Date</div>
-            <div class="col-2 text-center">Status</div>
-            <div class="col-3 text-end">Actions</div>
-        </div>
-
+<div class="row d-none d-md-flex fw-bold text-muted mb-2 px-3 small text-uppercase">
+    <div class="col-md-2">Preview</div>
+    <div class="col-md-6">Sticker Name</div>
+    <div class="col-md-2 text-center">Date</div>
+    <div class="col-md-2 text-center">Status</div>
+</div>
         <section class="request-list">
             {% if custom_stickers %}
             {% for sticker in custom_stickers %}
-            <div class="row align-items-center py-3 border-bottom g-3">        
+<div class="row align-items-center py-3 border-bottom g-3">        
 
-                <div class="col-2 col-md-1">
-                    <img class="img-fluid rounded shadow-sm"
-                        src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}"
-                        alt="{{sticker.name}}">
-                </div>
+    <div class="col-4 col-md-2">
+        <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;" class="rounded shadow-sm">
+            <img class="img-fluid"
+                src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}"
+                alt="{{sticker.name}}"
+                style="max-height: 100%; max-width: 100%; object-fit: contain;">
+        </div>
+    </div>
 
-                <div class="col-10 col-md-4 text-dark">
-                    <span class="fw-bold d-block fs-5 ms-4">{{sticker.name}}</span>
-                    <p class="small text-muted mb-0 text-truncate">{{sticker.description}}</p>
-                </div>
+    <div class="col-8 col-md-6 text-dark"> 
+        <span class="fw-bold d-block fs-5">{{sticker.name}}</span> 
+        <p class="small text-muted mb-0 text-truncate">{{sticker.description}}</p> 
+    </div>
 
-                <div class="col-6 col-md-2 text-center text-muted small">
-                    <p class="small text-muted mb-0 text-truncate">{{sticker.created_at.strftime("%Y-%m-%d %H:%M:%S")}}</p>
-                </div>
+    <div class="col-6 col-md-2 text-center text-muted small">
+        <p class="mb-0">{{sticker.created_at.strftime("%Y-%m-%d")}}</p>
+    </div>
 
                 <div class="col-6 col-md-2 text-center">
     
@@ -58,6 +61,8 @@
                         bg-success
                         {% elif sticker.approval_status == 'rejected' or sticker.approval_status == 'denied' %}
                         bg-danger
+                        {% elif sticker.approval_status == 'pending'}
+                        btn-primary
                         {% else %}
                         bg-warning text-dark
                         {% endif %}
@@ -74,6 +79,15 @@
                 </div>
 
             </div>
+    <div class="col-6 col-md-2 text-center">
+        <span class="badge rounded-pill px-3 
+            {% if sticker.approval_status == 'approved' %}bg-success
+            {% elif sticker.approval_status in ['rejected', 'denied'] %}bg-danger
+            {% else %}bg-warning text-dark{% endif %}">
+            {{ sticker.approval_status|capitalize }}
+        </span>
+    </div>
+</div>
             {% endfor %}
             {% else %}
                 <div class="text-center py-5">
