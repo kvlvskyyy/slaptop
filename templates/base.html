@@ -116,13 +116,11 @@
                 {% endif %}
                 {% if user and not user.is_admin %}
                 <li><a class="dropdown-item" href="{{url_for('shop.orders')}}">My orders</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shop.my_requests')}}">My requests</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shop.wishlist')}}">Wishlist</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shop.my_requests')}}">My sticker requests</a></li>
                  {% endif %}
-                
               </ul>
             </li>
-            {% if user and not user.is_admin %}
+            {% if user %}
             <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
                 <li class="nav-item">
                   <a class="nav-link fs-4" href="{{url_for('shop.cart')}}">
