@@ -1,17 +1,32 @@
 from functools import wraps
 from flask import session, flash, redirect, url_for
-from models import User, Order
+from models import User, Category, Order
 
-UPLOAD_FOLDER = "static/images/stickers"   # folder for stickers
+UPLOAD_FOLDER = "static/images/stickers"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
 
 def register_context_processors(app):
+
     @app.context_processor
-    def inject_user():
+    def inject_globals():
+        # user
         user = None
         if 'user_id' in session:
             user = User.query.get(session['user_id'])
-        return dict(user=user)
+
+        # cart
+        cart = session.get("cart", [])
+        cart_item_count = len(cart)
+
+        # categories
+        categories = Category.query.order_by(Category.name).all()
+
+        return {
+            "user": user,
+            "cart_item_count": cart_item_count,
+            "categories": categories
+        }
+
 
 def inject_cart_count():
     count = 0
