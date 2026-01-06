@@ -1,14 +1,19 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from models import Sticker, Order, OrderItem, Category, CustomSticker
-from utils import login_required, admin_required
+from utils import login_required
 from werkzeug.utils import secure_filename
 from extensions import db
 from models import User, Payment
+from utils import allowed_file
 from datetime import datetime
 from decimal import Decimal
 import stripe
 import os
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b35e14c135a380ef3e46f343726c7cc0ef9659b6
 shop = Blueprint('shop', __name__, static_folder="static", template_folder="templates")
 
 
@@ -87,14 +92,19 @@ def add_to_cart():
     })
 
 
+
 @shop.route('/cart')
 @login_required
 def cart():
-    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
+    user_id = session.get('user_id')
+    order = Order.query.filter_by(user_id=user_id, status="cart").first()
+
     if not order or not order.order_items:
         flash("Your cart is empty", "info")
         return render_template('cart.html', items=[], total=0)
+
     return render_template('cart.html', items=order.order_items, total=order.total_price)
+
 
 @shop.route('/remove_from_cart/<int:item_id>')
 @login_required
@@ -137,14 +147,6 @@ def index():
     return render_template('index.html', stickers=results, query=query)
 
 
-UPLOAD_FOLDER = "static/images/stickers"   # folder for stickers
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
-
-def allowed_file(filename):
-    ext = filename.split(".")[-1].lower()
-    return ext in ALLOWED_EXTENSIONS
-
-
 @shop.route('/search', methods=["GET", "POST"])
 def search():
     if request.method == "POST":
@@ -173,12 +175,6 @@ def category(category_name):
         category_results=active_stickers
     )
 
-    
-@shop.route('/admin')
-@admin_required
-def admin():
-    orders = Order.query.all()
-    return render_template('admin.html', orders=orders)
 
 
 @shop.route("/add_sticker", methods=["GET", "POST"])
@@ -318,12 +314,12 @@ def edit_sticker(sticker_id):
 def aboutus():
     return render_template('aboutus.html')
 
-@shop.route("/orders")
+@shop.route("/user_order_history")
 @login_required
-def orders():
+def user_order_history():
     user_id = session["user_id"]
     orders = Order.query.filter_by(user_id=user_id).all()
-    return render_template("orders.html", orders=orders)
+    return render_template("user_order_history.html", orders=orders)
 
 @shop.route("/wishlist")
 def wishlist():
@@ -366,7 +362,7 @@ def delete_sticker(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
     sticker.is_active = False
     db.session.commit()
-    return redirect(url_for('shop.index_admin'))
+    return redirect(url_for('admin.index_admin'))
 
 @shop.route('/payment_options')
 @login_required

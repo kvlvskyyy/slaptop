@@ -31,6 +31,7 @@ class Sticker(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
+    
     stickers = db.relationship("Sticker", backref="category", lazy=True)
 
 class CustomSticker(db.Model):

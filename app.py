@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from auth import auth
 from shop import shop
 from payments import payments
+from admin import admin
+from utils import register_context_processors
 
 load_dotenv()
 
@@ -21,9 +23,11 @@ def create_app():
     app.register_blueprint(auth)
     app.register_blueprint(shop)
     app.register_blueprint(payments)
+    app.register_blueprint(admin)
+
+    register_context_processors(app)
 
     return app
-
 
 if __name__ == "__main__":
     app = create_app()

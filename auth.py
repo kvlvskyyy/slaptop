@@ -16,7 +16,7 @@ def login():
 
             if user.is_admin:
                 flash("Welcome back, Admin!", "success")
-                return redirect(url_for('shop.index_admin'))
+                return redirect(url_for('admin.index_admin'))
         
             flash("Logged in successfully!", "success")
             return redirect(url_for('shop.index'))
