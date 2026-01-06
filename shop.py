@@ -4,11 +4,11 @@ from utils import login_required
 from werkzeug.utils import secure_filename
 from extensions import db
 from models import User, Payment
-from utils import allowed_file
 from datetime import datetime
 from decimal import Decimal
 import stripe
 import os
+
 
 
 shop = Blueprint('shop', __name__, static_folder="static", template_folder="templates")
@@ -29,6 +29,7 @@ def add_to_cart():
         )
         db.session.add(order)
         db.session.commit()
+        total_quantity = sum(item.quantity for item in order.order_items)
     item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker_id).first()
     if item:
         item.quantity += 1
@@ -50,15 +51,11 @@ def add_to_cart():
 @shop.route('/cart')
 @login_required
 def cart():
-    user_id = session.get('user_id')
-    order = Order.query.filter_by(user_id=user_id, status="cart").first()
-
+    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
     if not order or not order.order_items:
         flash("Your cart is empty", "info")
         return render_template('cart.html', items=[], total=0)
-
     return render_template('cart.html', items=order.order_items, total=order.total_price)
-
 
 @shop.route('/remove_from_cart/<int:item_id>')
 @login_required
@@ -102,6 +99,14 @@ def index():
     return render_template('index.html', stickers=results, query=query)
 
 
+UPLOAD_FOLDER = "static/images/stickers"   # folder for stickers
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
+
+def allowed_file(filename):
+    ext = filename.split(".")[-1].lower()
+    return ext in ALLOWED_EXTENSIONS
+
+
 @shop.route('/search', methods=["GET", "POST"])
 def search():
     if request.method == "POST":
@@ -132,17 +137,16 @@ def category(category_name):
 
 
 
-
 @shop.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
 
-@shop.route("/user_order_history")
+@shop.route("/orders")
 @login_required
-def user_order_history():
+def orders():
     user_id = session["user_id"]
     orders = Order.query.filter_by(user_id=user_id).all()
-    return render_template("user_order_history.html", orders=orders)
+    return render_template("orders.html", orders=orders)
 
 @shop.route("/wishlist")
 def wishlist():
@@ -186,99 +190,12 @@ def delete_sticker(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
     sticker.is_active = False
     db.session.commit()
-    return redirect(url_for('admin.index_admin'))
+    return redirect(url_for('shop.index_admin'))
 
 @shop.route('/payment_options')
 @login_required
 def payment_options():
     return render_template('payment_options.html')
-
-@shop.route('/handle-payment-choice', methods=['POST'])
-@login_required
-def handle_payment_choice():
-    method = request.form.get('payment_method')
-
-    order = Order.query.filter_by(
-        user_id=session['user_id'],
-        status="cart"
-    ).first()
-
-    if not order:
-        flash("No active order found.", "error")
-        return redirect(url_for('shop.cart'))
-
-    if order.payment:
-        db.session.delete(order.payment)
-        db.session.commit()
-
-    payment = Payment(
-        order_id=order.id,
-        payment_method=method,
-        status="pending"
-    )
-    db.session.add(payment)
-    db.session.commit()
-
-    if method == 'stripe':
-        return redirect(url_for('shop.create_checkout_session'))
-
-    elif method == 'cash':
-        flash("Cash payment selected. Pay on pickup.", "info")
-        return redirect(url_for('shop.success'))
-
-    elif method == 'tikkie':
-        flash("Tikkie selected. We will contact you.", "info")
-        return redirect(url_for('shop.success'))
-
-    flash("Please choose a payment method.", "error")
-    return redirect(url_for('shop.payment_options'))
-
-@shop.route('/create-checkout-session', methods=['GET','POST'])
-@login_required
-def create_checkout_session():
-    order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
-    if not order or not order.order_items:
-        flash("Your cart is empty", "info")
-        return redirect(url_for('shop.cart'))
-
-    try:
-        line_items = []
-        for item in order.order_items:
-            line_items.append({
-                'price_data': {
-                    'currency': 'eur',
-                    'product_data': {
-                        'name': item.sticker.name,
-                        'description': item.sticker.description,
-                    },
-                    'unit_amount': int(item.price_at_time * 100),
-                },
-                'quantity': item.quantity,
-            })
-
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=line_items,
-            mode='payment',
-            success_url=url_for('shop.success', _external=True),
-            cancel_url=url_for('shop.cancel', _external=True),
-            locale='en'
-        )
-
-        return redirect(checkout_session.url, code=303)
-
-    except Exception as e:
-        return str(e)
-    
-
-
-
-
-@shop.route('/cancel')
-@login_required
-def cancel():
-    flash("Payment canceled or returned to cart.", "info")
-    return render_template('cancel.html')
 
 
 @shop.route('/request_sticker', methods=["GET", "POST"])
