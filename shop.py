@@ -26,7 +26,12 @@ def inject_categories():
     categories = Category.query.order_by(Category.name).all()
     return dict(categories=categories)
 
-
+@shop.route("/user_order_history")
+@login_required
+def user_order_history():
+    user_id = session["user_id"]
+    orders = Order.query.filter_by(user_id=user_id).all()
+    return render_template("user_order_history.html", orders=orders)
 
 @shop.route('/add_to_cart', methods=['POST'])
 @login_required
