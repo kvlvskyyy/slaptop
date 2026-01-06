@@ -7,9 +7,10 @@
 <div id="myCarousel" class="carousel slide w-100 mb-6" data-bs-ride="carousel">
     
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" class="" aria-current="true" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
     </div>
 
     <div class="carousel-inner">
@@ -20,8 +21,8 @@
         
             <div class="container">
                 <div class="carousel-caption hero-caption text-start">
-                    <h1>Customize your stuff!</h1>
-                    <p>Order some cool stickers to put on your laptop</p>
+                    <h1>Customize your stuff</h1>
+                    <p>Order some cool stickers to put on your device</p>
                     <p><a class="btn btn-sm btn-primary" href="#">Sign up</a></p>
                 </div>
             </div>
@@ -40,16 +41,29 @@
         </div>
 
         <div class="carousel-item hero-carousel-item">
-             <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_2.webp') }}"
+             <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_3.png') }}"
                       alt="Sticker Background"> 
             <div class="container">
-                <div class="carousel-caption hero-caption">
-                    <h1>Check out our team!</h1>
-                    <p>Who are the developers?</p>
-                    <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">About us</a></p>
+                <div class="carousel-caption hero-caption text-start">
+                    <h1>Fast and easy</h1>
+                    <p>Select, order, pickup, stick it!</p>
+                    <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">Get started</a></p>
                 </div>
             </div>
         </div>
+
+        <div class="carousel-item hero-carousel-item">
+    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_2.webp') }}"
+         alt="Sticker Background"> 
+    
+    <div class="container">
+        <div class="carousel-caption hero-caption bg-dark bg-opacity-50 p-4 rounded">
+            <h1>Check out our team!</h1>
+            <p>Who are the developers?</p>
+            <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">About us</a></p>
+        </div>
+    </div>
+</div>
 
     </div>
 
@@ -68,16 +82,16 @@
 
     <div class="row">
         {% for sticker in stickers %}
-        <div class="col-md-3 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow card-hover-lift h-100" id="item">
                 
                 <div class="d-flex flex-column h-100 p-3">
                     
-                    <div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative">
+<div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative">
                         <img src="{{ url_for('static', filename='images/stickers/' ~ sticker.image_path) }}"
                              class="img-fluid blur-target" 
                              alt="{{ sticker.name }}" 
-                             style="max-height: 180px; width: auto; object-fit: contain;">
+                             style="width: 100%; height: 100%; object-fit:scale-down; min-height: 250px;">
                     </div>
                     
                     <div class="mb-2">
@@ -106,5 +120,6 @@
 
                     </div>
                 </div> </div> </div> {% endfor %}
-    </div> </div> 
+    </div>
+  </div> 
     {% endblock %}

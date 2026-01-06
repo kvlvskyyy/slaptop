@@ -12,10 +12,10 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   </head>
   
-  <body class="d-flex flex-column min-vh-100">
+  <body class="d-flex flex-column min-vh-100 " style="padding-top: 10vh;">
 
     
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
       <div class="container-fluid">
         {% if user and user.is_admin %}
         <a class="navbar-brand d-flex align-items-center" href="{{url_for('shop.index_admin')}}">
@@ -120,15 +120,21 @@
                  {% endif %}
               </ul>
             </li>
+
             {% if user %}
-            <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
-                <li class="nav-item">
-                  <a class="nav-link fs-4" href="{{url_for('shop.cart')}}">
+            <li class="nav-item d-flex align-items-center">
+                <a href="{{ url_for('shop.cart') }}" class="nav-link position-relative fs-4 p-1">
                     <i class="bi bi-cart-fill"></i>
-                  </a>
-                </li>
-            </ul>
+                    
+                    <span id="cart-badge-count" 
+                          class="position-absolute top-15 start-100 translate-middle badge rounded-pill bg-dark border border-light {{ 'd-none' if cart_item_count == 0 }}" 
+                          style="font-size: 0.6rem; padding: 0.30em 0.5em;">
+                        {{ cart_item_count if cart_item_count > 0 else '' }}
+                    </span>
+                </a>
+            </li>
             {% endif %}
+
           </ul>
         </div>
       </div>
@@ -202,5 +208,71 @@
           </div>
       {% endif %}
   {% endwith %}
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Select all forms that post to /add_to_cart
+    const forms = document.querySelectorAll('form[action="/add_to_cart"]');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop the page from reloading
+
+            const formData = new FormData(this); // Grab the sticker_id from the form
+
+            fetch('/add_to_cart', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // If user is not logged in, Flask redirects to login page. 
+                // We detect this and redirect the browser manually.
+                if (response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.success) {
+                    // 2. Show a temporary success message (Toast)
+                    showFloatingAlert(data.message, 'success');
+
+                    // 3. Update the Cart Badge number (Optional: see Step 3)
+                    const badge = document.getElementById('cart-badge-count');
+                    if (badge) {
+                        badge.innerText = data.total_quantity;
+                        badge.classList.remove('d-none'); // Make sure it's visible
+                    }
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // Helper function to create a floating Bootstrap alert
+function showFloatingAlert(message, category) {
+    const alertHtml = `
+        <div class="alert alert-${category} alert-dismissible fade show shadow-lg position-fixed" 
+             role="alert" 
+             style="bottom: 20px; right: 20px; z-index: 1050; min-width: 300px;">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+    
+    // Append to body
+    document.body.insertAdjacentHTML('beforeend', alertHtml); // Changed to 'beforeend'
+
+    // Remove automatically after 3 seconds
+    setTimeout(() => {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            const bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        }
+    }, 3000);
+}
+});
+</script>
   </body>
 </html>

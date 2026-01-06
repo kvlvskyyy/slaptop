@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required, admin_required
 from werkzeug.utils import secure_filename
@@ -8,8 +8,6 @@ from datetime import datetime
 from decimal import Decimal
 import stripe
 import os
-
-
 
 shop = Blueprint('shop', __name__, static_folder="static", template_folder="templates")
 
@@ -26,14 +24,28 @@ def inject_categories():
     categories = Category.query.order_by(Category.name).all()
     return dict(categories=categories)
 
+@shop.context_processor
+def inject_cart_count():
+    count = 0
+    if 'user_id' in session:
+        user_id = session['user_id']
+        # Find the active cart
+        order = Order.query.filter_by(user_id=user_id, status="cart").first()
+        if order and order.order_items:
+            # Sum up the quantity of all items
+            count = sum(item.quantity for item in order.order_items)
+            
+    return dict(cart_item_count=count)
 
 
+# --- MODIFIED FUNCTION FOR AJAX ---
 @shop.route('/add_to_cart', methods=['POST'])
 @login_required
 def add_to_cart():
     sticker_id = request.form.get('sticker_id')
     user_id = session['user_id']
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
+    
     if not order:
         order = Order(
             user_id=user_id,
@@ -43,9 +55,13 @@ def add_to_cart():
         )
         db.session.add(order)
         db.session.commit()
+    
     item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker_id).first()
+    
     if item:
         item.quantity += 1
+        # Use existing price_at_time logic or fetch fresh price? 
+        # Keeping your original logic:
     else:
         sticker = Sticker.query.get(sticker_id)
         item = OrderItem(
@@ -55,10 +71,21 @@ def add_to_cart():
             order_id=order.id
         )
         db.session.add(item)
+    
+    # Update total price (Original Logic)
     order.total_price += item.price_at_time
     db.session.commit()
-    flash("Sticker successfully added to cart!", "success")
-    return redirect(request.referrer)
+
+    # Calculate new total quantity for the badge
+    total_quantity = sum(i.quantity for i in order.order_items)
+
+    # Return JSON instead of redirecting
+    return jsonify({
+        'success': True,
+        'message': "Sticker successfully added to cart!",
+        'total_quantity': total_quantity
+    })
+
 
 @shop.route('/cart')
 @login_required
@@ -97,7 +124,6 @@ def update_quantity(item_id):
 
     db.session.commit()
     return redirect(request.referrer or url_for('shop.cart'))
-
 
 
 @shop.route('/')
@@ -158,8 +184,6 @@ def admin():
 @shop.route("/add_sticker", methods=["GET", "POST"])
 @admin_required
 def add_sticker():
-    
-
     categories = Category.query.all()
     if request.method == "POST":
         name = request.form['name']
@@ -231,7 +255,7 @@ def add_request_to_dashboard(request_id):
         name=custom.name,
         price=1.00,  # Default price
         stock=10,    # Default stock
-        image_path=custom.image_path, # Note: You may need to move the file from /custom/ to /stickers/
+        image_path=custom.image_path, 
         description=f"Community suggested sticker by User {custom.user_id}",
         category_id=1, # Assign to a default category ID
         is_active=True
@@ -255,7 +279,6 @@ def index_admin():
 def suggestions():
     suggestions = CustomSticker.query.filter_by(approval_status='pending').order_by(CustomSticker.created_at.desc()).all()
     return render_template('suggestions.html', suggestions=suggestions)
-
 
 
 @shop.route('/edit_sticker/<int:sticker_id>', methods=['GET', 'POST'])
@@ -336,7 +359,6 @@ def my_requests():
     user_id = session["user_id"]
     custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
     return render_template("my_requests.html", custom_stickers=custom_stickers)
-
 
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
@@ -428,9 +450,6 @@ def create_checkout_session():
     except Exception as e:
         return str(e)
     
-
-
-
 
 @shop.route('/cancel')
 @login_required
