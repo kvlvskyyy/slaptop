@@ -13,6 +13,17 @@ def register_context_processors(app):
             user = User.query.get(session['user_id'])
         return dict(user=user)
 
+def inject_cart_count():
+    count = 0
+    if 'user_id' in session:
+        user_id = session['user_id']
+        # Find the active cart
+        order = Order.query.filter_by(user_id=user_id, status="cart").first()
+        if order and order.order_items:
+            # Sum up the quantity of all items
+            count = sum(item.quantity for item in order.order_items)
+            
+    return dict(cart_item_count=count)
 
 def allowed_file(filename):
     ext = filename.split(".")[-1].lower()
