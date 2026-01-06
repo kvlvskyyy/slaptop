@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from models import Sticker, Order, OrderItem, Category, CustomSticker
-from utils import login_required, admin_required
+from utils import login_required, admin_required, UPLOAD_FOLDER
 from werkzeug.utils import secure_filename
 from extensions import db
 from models import User, Payment
