@@ -2,6 +2,22 @@ from functools import wraps
 from flask import session, flash, redirect, url_for
 from models import User
 
+UPLOAD_FOLDER = "static/images/stickers"   # folder for stickers
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
+
+def register_context_processors(app):
+    @app.context_processor
+    def inject_user():
+        user = None
+        if 'user_id' in session:
+            user = User.query.get(session['user_id'])
+        return dict(user=user)
+
+
+def allowed_file(filename):
+    ext = filename.split(".")[-1].lower()
+    return ext in ALLOWED_EXTENSIONS
+
 def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -25,3 +41,4 @@ def admin_required(f):
             return redirect(url_for('shop.index'))
         return f(*args, **kwargs)
     return wrapper
+    

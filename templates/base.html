@@ -18,19 +18,16 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
         {% if user and user.is_admin %}
-        <a class="navbar-brand d-flex align-items-center" href="{{url_for('shop.index_admin')}}">
+        <a class="navbar-brand d-flex align-items-center" href="{{url_for('admin.index_admin')}}">
         <img src="/static/images/icons/Logo.svg" alt="Bootstrap" width="40" height="40" class="me-2"> 
         Stickerdom
         </a>
-        {% endif %}
-        
-        {% if user and not user.is_admin %}
+        {% else %}
         <a class="navbar-brand d-flex align-items-center" href="{{url_for('shop.index')}}">
         <img src="/static/images/icons/Logo.svg" alt="Bootstrap" width="40" height="40" class="me-2"> 
         Stickerdom
         </a>
         {% endif %}
-
         <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('shop.search')}}">
           <div class="input-group">
             <input class="form-control" type="search" placeholder="Search..." aria-label="Search" name="search">
@@ -81,9 +78,9 @@
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
                     <a href="{{url_for('shop.index')}}" class="dropdown-item">User Dashboard</a>
-                    <a href="{{url_for('shop.suggestions')}}" class="dropdown-item">View requests</a>
-                    <a href="{{url_for('shop.add_sticker')}}" class="dropdown-item">Add Sticker</a>
-                    <a href="{{url_for('shop.admin')}}" class="dropdown-item">Orders list</a>
+                    <a href="{{url_for('admin.suggestions')}}" class="dropdown-item">View requests</a>
+                    <a href="{{url_for('admin.add_sticker')}}" class="dropdown-item">Add Sticker</a>
+                    <a href="{{url_for('admin.admin_orders')}}" class="dropdown-item">Orders list</a>
                   </li>
                 </ul>
               </li>
@@ -115,12 +112,11 @@
                 <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Log out</a></li>
                 {% endif %}
                 {% if user and not user.is_admin %}
-                <li><a class="dropdown-item" href="{{url_for('shop.orders')}}">My orders</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shop.user_order_history')}}">My orders</a></li>
                 <li><a class="dropdown-item" href="{{url_for('shop.my_requests')}}">My sticker requests</a></li>
                  {% endif %}
               </ul>
             </li>
-            {% if user %}
             <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
                 <li class="nav-item">
                   <a class="nav-link fs-4" href="{{url_for('shop.cart')}}">
@@ -128,7 +124,6 @@
                   </a>
                 </li>
             </ul>
-            {% endif %}
           </ul>
         </div>
       </div>

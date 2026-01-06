@@ -7,7 +7,7 @@
     <div class="bg-white p-4 p-md-5 rounded shadow">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="text-dark mb-0">Manage Stickers</h2>
-            <a href="{{ url_for('shop.add_sticker') }}" class="btn btn-success">
+            <a href="{{ url_for('admin.add_sticker') }}" class="btn btn-success">
                 <i class="bi bi-plus-lg"></i> Add New Sticker
             </a>
         </div>
@@ -42,7 +42,7 @@
                                 </div>
 
                 <div class="col-5 text-end">
-                    <a href="{{ url_for('shop.edit_sticker', sticker_id=sticker.id) }}" 
+                    <a href="{{ url_for('admin.edit_sticker', sticker_id=sticker.id) }}" 
                        class="btn btn-outline-primary btn-sm me-2">
                         <i class="bi bi-pencil-square"></i> Edit
                     </a>
