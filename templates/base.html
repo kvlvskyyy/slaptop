@@ -119,14 +119,16 @@
             </li>
 
             <li class="nav-item d-flex align-items-center">
-                <a href="{{ url_for('shop.cart') }}" class="nav-link position-relative fs-4 p-1">
-                    <i class="bi bi-cart-fill"></i>
-                    
-                    <span id="cart-badge-count" 
-                          class="position-absolute top-15 start-100 translate-middle badge rounded-pill bg-dark border border-light {{ 'd-none' if cart_item_count == 0 }}" 
-                          style="font-size: 0.6rem; padding: 0.30em 0.5em;">
-                        {{ cart_item_count|default(0) if cart_item_count|default(0) > 0 else '' }}
-                    </span>
+                <a href="{{ url_for('shop.cart') }}" class="nav-link fs-4 p-2">
+                    <div class="d-inline-block position-relative">
+                        <i class="bi bi-cart-fill"></i>
+                        
+                        <span id="cart-badge-count" 
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark border border-light {{ 'd-none' if not cart_item_count or cart_item_count == 0 }}" 
+                              style="font-size: 0.55rem;">
+                            {{ cart_item_count|default(0) if cart_item_count|default(0) > 0 else '' }}
+                        </span>
+                    </div>
                 </a>
             </li>
           </ul>
