@@ -16,46 +16,40 @@
         <section class="admin-sticker-list">
             {% for sticker in stickers %}
             <div class="row align-items-center py-3 border-bottom g-3">        
-                
-                <div class="col-1 text-center">
+
+                <div class="col-md-1 text-center">
                     <img class="img-fluid rounded" 
-                         src="{{ url_for('static', filename='images/stickers/' ~ sticker.image_path) }}" 
-                         alt="{{ sticker.name }}"
-                         style="max-height: 50px;">
+                        src="{{ url_for('static', filename='images/stickers/' ~ sticker.image_path) }}" 
+                        alt="{{ sticker.name }}"
+                        style="max-height: 50px;">
                 </div>
 
-                <div class="col-2">
+                <div class="col-md-3">
                     <span class="fw-bold d-block text-dark">{{ sticker.name }}</span>
-                    <small class="text-muted">ID: #{{ sticker.id }}</small>
-                    <br>
-                    <small class="text-muted">Stock: #{{ sticker.stock }}</small>
+                    <small class="text-muted">ID: #{{ sticker.id }}</small><br>
+                    <small class="text-muted">Stock: {{ sticker.stock }}</small>
                 </div>
-                
-                <div class="col-2 text-dark fw-bold">
+
+                <div class="col-md-2 fw-bold text-dark">
                     €{{ '%.2f'|format(sticker.price) }}
                 </div>
 
-                 <div class="col-2 form-floating">
-                                    <input type="number" class="form-control" id="stockInput" name="stock" 
-                                           value="{{ sticker.stock }}" placeholder="Stock" min="0" required>
-                                    <label for="stockInput">Stock</label>
-                                </div>
-
-                <div class="col-5 text-end">
+                <div class="col-md-6 text-end">
                     <a href="{{ url_for('admin.edit_sticker', sticker_id=sticker.id) }}" 
-                       class="btn btn-outline-primary btn-sm me-2">
+                    class="btn btn-outline-primary btn-sm me-2">
                         <i class="bi bi-pencil-square"></i> Edit
                     </a>
-                    
+
                     <form action="{{ url_for('shop.delete_sticker', sticker_id=sticker.id) }}" 
-                          method="POST" class="d-inline"
-                          onsubmit="return confirm('Delete this sticker?');">
+                        method="POST" class="d-inline"
+                        onsubmit="return confirm('Delete this sticker?');">
                         <button type="submit" class="btn btn-outline-danger btn-sm">
                             <i class="bi bi-trash-fill"></i> Delete
                         </button>
                     </form>
                 </div>
             </div>
+
             {% else %}
             <p class="text-muted text-center py-4">No stickers found in the database.</p>
             {% endfor %}
