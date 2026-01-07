@@ -1,12 +1,13 @@
-import os
 from flask import Flask, session
-from extensions import db, migrate
+from models import User, Order, Category
+from extensions import db, migrate, mail
 from dotenv import load_dotenv
+from payments import payments
+from admin import admin
 from auth import auth
 from shop import shop
-from payments import payments
-from models import User, Order, Category
-from admin import admin 
+
+import os
 
 load_dotenv()
 
@@ -18,6 +19,20 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+
+    # Flask-Mail Configuration
+    app.config.update(
+        MAIL_SERVER='smtp.gmail.com',
+        MAIL_PORT=587,
+        MAIL_USE_TLS=True,
+        MAIL_USE_SSL=False,
+        MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
+        MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
+        MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME")
+    )
+
+    mail.init_app(app)
+
 
     # --- GLOBAL CONTEXT PROCESSOR ---
     # This runs for EVERY template in the app (Shop, Admin, Auth, etc.)
