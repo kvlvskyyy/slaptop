@@ -238,3 +238,56 @@ html, body {
     margin-bottom: 10px;
 }
 
+.navbar {
+    background-color: #5a189a;
+}
+
+.navbar-dark {
+    --bs-navbar-color: white;
+}
+
+.btn-primary {
+    --bs-btn-bg: #ffc107;
+    --bs-btn-border-color: #ffc107;
+    --bs-btn-hover-bg: #F5B800;
+    --bs-btn-hover-border-color: #f5b800;
+    --bs-btn-active-bg: #E0A800;
+    --bs-btn-active-border-color: #E0A800;
+    --bs-btn-disabled-bg: #FFC71F;
+    --bs-btn-disabled-border-color: #FFC71F;
+}
+
+.btn-primary:hover {
+    background-color: #F5B800;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    /* Optional: Prevents horizontal scrollbar if blur bleeds out */
+    overflow-x: hidden; 
+}
+
+body::before {
+    content: "";
+    position: fixed; /* Fixes image in place (scrolling effect) */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Image Reference */
+    background-image: url('images/bg/bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* --- THE BLUR --- */
+    filter: blur(4px); /* Adjust this number to make it more/less blurry */
+    
+    /* Send to back so text sits on top */
+    z-index: -1;
+    
+    /* Pro Tip: Scale it up slightly to hide the white faded edges caused by the blur */
+    transform: scale(1.1); 
+}

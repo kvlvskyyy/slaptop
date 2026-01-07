@@ -4,82 +4,82 @@
 
 {% block content %}
 
-<div id="myCarousel" class="carousel slide w-100 mb-6" data-bs-ride="carousel">
+<div class="container mt-4">
     
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-    </div>
-
-    <div class="carousel-inner">
+    <div id="myCarousel" class="carousel slide mb-6 rounded overflow-hidden shadow-sm" data-bs-ride="carousel">
         
-        <div class="carousel-item active hero-carousel-item">
-          <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder.png') }}" 
-          alt="Sticker Background">                
-        
-            <div class="container">
-                <div class="carousel-caption hero-caption text-start">
-                    <h1>Customize your stuff</h1>
-                    <p>Order some cool stickers to put on your device</p>
-                    <p><a class="btn btn-sm btn-primary" href="#">Sign up</a></p>
-                </div>
-            </div>
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
 
-        <div class="carousel-item hero-carousel-item">
-                      <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_1.png') }}"
-                      alt="Sticker Background"> 
-            <div class="container">
-                <div class="carousel-caption hero-caption text-end">
-                    <h1>Create your own stickers</h1>
-                    <p>Request your own sticker design to print</p>
-                    <p><a class="btn btn-sm btn-primary" href="#">Get started</a></p>
+        <div class="carousel-inner">
+            
+            <div class="carousel-item active hero-carousel-item">
+                <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder.png') }}" 
+                     class="d-block w-100" alt="Sticker Background">                
+            
+                <div class="container">
+                    <div class="carousel-caption hero-caption text-start">
+                        <h1>Customize your stuff</h1>
+                        <p>Order some cool stickers to put on your device</p>
+                        <p><a class="btn btn-sm btn-primary" href="#">Sign up</a></p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="carousel-item hero-carousel-item">
-             <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_3.png') }}"
-                      alt="Sticker Background"> 
-            <div class="container">
-                <div class="carousel-caption hero-caption text-start">
-                    <h1>Fast and easy</h1>
-                    <p>Select, order, pickup, stick it!</p>
-                    <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">Get started</a></p>
+            <div class="carousel-item hero-carousel-item">
+                <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_1.png') }}"
+                     class="d-block w-100" alt="Sticker Background"> 
+                <div class="container">
+                    <div class="carousel-caption hero-caption text-end">
+                        <h1>Create your own stickers</h1>
+                        <p>Request your own sticker design to print</p>
+                        <p><a class="btn btn-sm btn-primary" href="#">Get started</a></p>
+                    </div>
                 </div>
             </div>
+
+            <div class="carousel-item hero-carousel-item">
+                <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_3.png') }}"
+                     class="d-block w-100" alt="Sticker Background"> 
+                <div class="container">
+                    <div class="carousel-caption hero-caption text-start">
+                        <h1>Fast and easy</h1>
+                        <p>Select, order, pickup, stick it!</p>
+                        <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">Get started</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item hero-carousel-item">
+                <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_2.webp') }}"
+                     class="d-block w-100" alt="Sticker Background"> 
+                
+                <div class="container">
+                    <div class="carousel-caption hero-caption bg-dark bg-opacity-50 p-4 rounded">
+                        <h1>Check out our team!</h1>
+                        <p>Who are the developers?</p>
+                        <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">About us</a></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="carousel-item hero-carousel-item">
-    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_2.webp') }}"
-         alt="Sticker Background"> 
-    
-    <div class="container">
-        <div class="carousel-caption hero-caption bg-dark bg-opacity-50 p-4 rounded">
-            <h1>Check out our team!</h1>
-            <p>Who are the developers?</p>
-            <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">About us</a></p>
-        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-</div>
 
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
-
-
-<div class="container my-5">
-
+</div> <div class="container my-5">
     <div class="row">
         {% for sticker in stickers %}
         <div class="col-md-4 mb-4">
@@ -87,11 +87,11 @@
                 
                 <div class="d-flex flex-column h-100 p-3">
                     
-<div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative">
+                    <div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative" style="height: 250px;">
                         <img src="{{ url_for('static', filename='images/stickers/' ~ sticker.image_path) }}"
                              class="img-fluid blur-target" 
                              alt="{{ sticker.name }}" 
-                             style="width: 100%; height: 100%; object-fit:scale-down; min-height: 250px;">
+                             style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
                     
                     <div class="mb-2">
@@ -104,12 +104,9 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mt-auto">
-                        
                         <span class="card-text fw-bold fs-5">€{{ sticker.price }}</span>
-
                         <form action="/add_to_cart" method="POST" class="position-relative" style="z-index: 2;">
                             <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
-                            
                             <button type="submit" 
                                     class="btn btn-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center" 
                                     style="width: 40px; height: 40px; padding: 0;">
@@ -117,9 +114,13 @@
                                 <i class="bi bi-cart-plus fs-6 icon-default"></i>
                             </button>
                         </form>
-
                     </div>
-                </div> </div> </div> {% endfor %}
+
+                </div> 
+            </div> 
+        </div> 
+        {% endfor %}
     </div>
-  </div> 
-    {% endblock %}
+</div> 
+
+{% endblock %}
