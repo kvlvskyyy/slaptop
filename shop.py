@@ -135,6 +135,12 @@ def category(category_name):
         category_results=active_stickers
     )
 
+@shop.route("/user_order_history")
+@login_required
+def user_order_history():
+    user_id = session["user_id"]
+    orders = Order.query.filter_by(user_id=user_id).all()
+    return render_template("user_order_history.html", orders=orders)
 
 
 @shop.route('/aboutus')
@@ -182,8 +188,6 @@ def my_requests():
     user_id = session["user_id"]
     custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
     return render_template("my_requests.html", custom_stickers=custom_stickers)
-
-
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
 def delete_sticker(sticker_id):

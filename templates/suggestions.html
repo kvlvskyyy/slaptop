@@ -25,14 +25,14 @@
                 <div class="mt-auto pt-3 border-top">
                     <div class="row g-2 mb-2">
                         <div class="col-6">
-                            <form action="{{ url_for('shop.approve_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
+                            <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
                                 <button type="submit" class="btn btn-outline-success btn-sm w-100 py-2 shadow-sm">
                                     <i class="bi bi-check2-circle"></i> Approve
                                 </button>
                             </form>
                         </div>
                         <div class="col-6">
-                            <form action="{{ url_for('shop.deny_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
+                            <form action="{{ url_for('admin.deny_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
                                 <button type="submit" class="btn btn-outline-danger btn-sm w-100 py-2 shadow-sm">
                                     <i class="bi bi-x-circle"></i> Deny
                                 </button>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ url_for('shop.add_request_to_dashboard', request_id=custom_sticker.id) }}" class="m-2" method="POST">
+                    <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" class="m-2" method="POST">
                         <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
                             <i class="bi bi-plus-lg me-1"></i> Add to Dashboard
                         </button>
