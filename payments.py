@@ -58,13 +58,39 @@ def process_checkout():
         else:
             flash("Order not found", "error")
             return redirect(url_for('shop.cart'))
+        
+        order = Order.query.get(order_id)
 
-        # Send confirmation email
+        # Generate a list of items as a string
+        items_list = ""
+        if order and order.order_items:
+            for item in order.order_items:
+                items_list += f"- {item.sticker.name} x{item.quantity} (€{item.price_at_time})\n"
+
         msg = Message(
-            subject="Order Confirmation",
+            subject="Your Stickerdom Order Confirmation 🎉",
             recipients=[email],
-            body=f"Thank you {full_name} for your order! Your order ID is {order_id}."
+            body=f"""Hi {full_name},
+            
+Thank you for your order at Stickerdom! 
+
+Your order ID is: {order_id}
+
+Purchased items:
+{items_list}
+
+Total price: €{order.total_price}
+
+You can pick up your order from our pickup point at any time during opening hours.
+
+If you have any questions, feel free to reply to this email — we’re happy to help!
+
+Best regards,
+The Stickerdom Team"""
         )
+
+
+
 
         try:
             mail.send(msg)
