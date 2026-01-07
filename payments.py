@@ -30,6 +30,8 @@ def checkout():
         order=order
     )
 
+
+
 @payments.route('/process_checkout', methods=['POST'])
 @login_required
 def process_checkout():
@@ -71,7 +73,7 @@ def process_checkout():
             subject="Your Stickerdom Order Confirmation 🎉",
             recipients=[email],
             body=f"""Hi {full_name},
-            
+
 Thank you for your order at Stickerdom! 
 
 Your order ID is: {order_id}
@@ -89,13 +91,19 @@ Best regards,
 The Stickerdom Team"""
         )
 
-
-
-
         try:
             mail.send(msg)
         except Exception:
             flash("Order placed, but confirmation email could not be sent.", "warning")
 
 
+        return redirect(url_for('payments.checkout_success', order_id=order_id))
+
+@payments.route('/checkout-success/<int:order_id>')
+def checkout_success(order_id):
+    order = Order.query.get(order_id)
+    if not order:
+        flash("Order not found.")
         return redirect(url_for('shop.index'))
+
+    return render_template("checkout_success.html", order=order)
