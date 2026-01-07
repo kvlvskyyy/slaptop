@@ -1,0 +1,182 @@
+# Dutch translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-01-07 01:36+0100\n"
+"PO-Revision-Date: 2026-01-07 01:12+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: nl <LL@li.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: slaptop/templates/base.html:6 slaptop/templates/base.html:23
+#: slaptop/templates/base.html:28
+msgid "Stickerdom"
+msgstr "Stickerdom"
+
+#: slaptop/templates/base.html:33
+msgid "Search..."
+msgstr "Zoeken..."
+
+#: slaptop/templates/base.html:47
+msgid "Categories"
+msgstr "Categorieën"
+
+#: slaptop/templates/base.html:63
+msgid "Search for stickers..."
+msgstr "Zoeken naar stickers..."
+
+#: slaptop/templates/base.html:73
+msgid "Create Sticker"
+msgstr "Sticker Maken"
+
+#: slaptop/templates/base.html:77
+msgid "Admin Menu"
+msgstr "Beheerdermenu"
+
+#: slaptop/templates/base.html:80
+msgid "User Dashboard"
+msgstr "Gebruikersdashboard"
+
+#: slaptop/templates/base.html:81
+msgid "View requests"
+msgstr "Verzoeken bekijken"
+
+#: slaptop/templates/base.html:82
+msgid "Add Sticker"
+msgstr "Sticker Toevoegen"
+
+#: slaptop/templates/base.html:83
+msgid "Orders list"
+msgstr "Bestellingenlijst"
+
+#: slaptop/templates/base.html:94
+msgid "English"
+msgstr "Engels"
+
+#: slaptop/templates/base.html:99
+msgid "Dutch"
+msgstr "Nederlands"
+
+#: slaptop/templates/base.html:109 slaptop/templates/index.html:26
+msgid "Sign up"
+msgstr "Registreren"
+
+#: slaptop/templates/base.html:110
+msgid "Log in"
+msgstr "Inloggen"
+
+#: slaptop/templates/base.html:112
+msgid "Log out"
+msgstr "Uitloggen"
+
+#: slaptop/templates/base.html:115
+msgid "My orders"
+msgstr "Mijn bestellingen"
+
+#: slaptop/templates/base.html:116
+msgid "My sticker requests"
+msgstr "Mijn sticker verzoeken"
+
+#: slaptop/templates/cart.html:3 slaptop/templates/cart.html:16
+msgid "Shopping Cart"
+msgstr "Winkelwagen"
+
+#: slaptop/templates/cart.html:10
+#, fuzzy
+msgid "Back to All Stickers"
+msgstr "Terug naar alle stickers"
+
+#: slaptop/templates/cart.html:22
+msgid "Your cart is empty."
+msgstr "Je winkelwagen is leeg."
+
+#: slaptop/templates/index.html:24
+msgid "Customize your stuff"
+msgstr "Pas je spullen aan"
+
+#: slaptop/templates/index.html:25
+msgid "Order some cool stickers to put on your device"
+msgstr "Bestel coole stickers voor je apparaat"
+
+#: slaptop/templates/index.html:36
+#, fuzzy
+msgid "Create your own stickers"
+msgstr "Maak je eigen stickers"
+
+#: slaptop/templates/index.html:37
+msgid "Request your own sticker design to print"
+msgstr "Vraag je eigen stickerontwerp aan om af te drukken"
+
+#: slaptop/templates/index.html:38 slaptop/templates/index.html:50
+msgid "Get started"
+msgstr "Aan de slag"
+
+#: slaptop/templates/index.html:48
+msgid "Fast and easy"
+msgstr "Snel en gemakkelijk"
+
+#: slaptop/templates/index.html:49
+msgid "Select, order, pickup, stick it!"
+msgstr "Selecteren, bestellen, afhalen, plakken!"
+
+#: slaptop/templates/index.html:61
+msgid "Check out our team!"
+msgstr "Ontmoet ons team!"
+
+#: slaptop/templates/index.html:62
+msgid "Who are the developers?"
+msgstr "Wie zijn de ontwikkelaars?"
+
+#: slaptop/templates/index.html:63
+msgid "About us"
+msgstr "Over ons"
+
+#: slaptop/templates/login.html:6 slaptop/templates/login.html:36
+#: slaptop/templates/login.html:48
+#, fuzzy
+msgid "Login"
+msgstr "Inloggen"
+
+#: slaptop/templates/login.html:39 slaptop/templates/signup.html:46
+msgid "Email address"
+msgstr "E-mailadres"
+
+#: slaptop/templates/login.html:44 slaptop/templates/login.html:45
+#: slaptop/templates/signup.html:52
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: slaptop/templates/login.html:51
+msgid "Don't have an account? Sign up"
+msgstr "Heb je geen account? Meld je aan"
+
+#: slaptop/templates/signup.html:6 slaptop/templates/signup.html:63
+#, fuzzy
+msgid "Sign Up"
+msgstr "Registreren"
+
+#: slaptop/templates/signup.html:37
+msgid "Create Account"
+msgstr "Account aanmaken"
+
+#: slaptop/templates/signup.html:40
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: slaptop/templates/signup.html:58 slaptop/templates/signup.html:59
+msgid "Confirm Password"
+msgstr "Wachtwoord bevestigen"
+
+#: slaptop/templates/signup.html:66
+msgid "Already have an account? Login"
+msgstr "Heb je al een account? Inloggen"
