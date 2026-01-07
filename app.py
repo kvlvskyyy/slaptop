@@ -1,15 +1,21 @@
-from flask import Flask, session
-from models import User, Order, Category
+import os
+from flask import Flask, session, request, redirect
 from extensions import db, migrate, mail
+from models import User, Order, Category
 from dotenv import load_dotenv
 from payments import payments
 from admin import admin
 from auth import auth
 from shop import shop
-
-import os
+from flask_babel import Babel, gettext as _
 
 load_dotenv()
+
+# This function tells Flask-Babel which language to use based on session
+def get_locale():
+    if 'language' in session:
+        return session['language']
+    return 'en'
 
 def create_app():
     app = Flask(__name__)
@@ -19,6 +25,11 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+    
+    # Babel configuration for translations
+    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+    app.config['LANGUAGES'] = {'en': 'English', 'nl': 'Nederlands'}
+    Babel(app, locale_selector=get_locale)
 
     # Flask-Mail Configuration
     app.config.update(
@@ -32,7 +43,6 @@ def create_app():
     )
 
     mail.init_app(app)
-
 
     # --- GLOBAL CONTEXT PROCESSOR ---
     # This runs for EVERY template in the app (Shop, Admin, Auth, etc.)
@@ -63,8 +73,12 @@ def create_app():
     app.register_blueprint(shop)
     app.register_blueprint(payments)
     app.register_blueprint(admin)
-    # If you have an admin blueprint, register it here too
-    # app.register_blueprint(admin) 
+    
+    # Route to change language - users click this to switch between English/Dutch
+    @app.route('/set-language/<language>')
+    def set_language(language):
+        session['language'] = language
+        return redirect(request.referrer or '/') 
 
     return app
 

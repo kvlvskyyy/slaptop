@@ -23,9 +23,9 @@
             
                 <div class="container">
                     <div class="carousel-caption hero-caption text-start">
-                        <h1>Customize your stuff</h1>
-                        <p>Order some cool stickers to put on your device</p>
-                        <p><a class="btn btn-sm btn-primary" href="#">Sign up</a></p>
+                        <h1>{{ _('Customize your stuff') }}</h1>
+                        <p>{{ _('Order some cool stickers to put on your device') }}</p>
+                        <p><a class="btn btn-sm btn-primary" href="#">{{ _('Sign up') }}</a></p>
                     </div>
                 </div>
             </div>
@@ -35,9 +35,9 @@
                      class="d-block w-100" alt="Sticker Background"> 
                 <div class="container">
                     <div class="carousel-caption hero-caption text-end">
-                        <h1>Create your own stickers</h1>
-                        <p>Request your own sticker design to print</p>
-                        <p><a class="btn btn-sm btn-primary" href="#">Get started</a></p>
+                        <h1>{{ _('Create your own stickers') }}</h1>
+                        <p>{{ _('Request your own sticker design to print') }}</p>
+                        <p><a class="btn btn-sm btn-primary" href="#">{{ _('Get started') }}</a></p>
                     </div>
                 </div>
             </div>
@@ -47,9 +47,9 @@
                      class="d-block w-100" alt="Sticker Background"> 
                 <div class="container">
                     <div class="carousel-caption hero-caption text-start">
-                        <h1>Fast and easy</h1>
-                        <p>Select, order, pickup, stick it!</p>
-                        <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">Get started</a></p>
+                        <h1>{{ _('Fast and easy') }}</h1>
+                        <p>{{ _('Select, order, pickup, stick it!') }}</p>
+                        <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">{{ _('Get started') }}</a></p>
                     </div>
                 </div>
             </div>
@@ -60,9 +60,9 @@
                 
                 <div class="container">
                     <div class="carousel-caption hero-caption bg-dark bg-opacity-50 p-4 rounded">
-                        <h1>Check out our team!</h1>
-                        <p>Who are the developers?</p>
-                        <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">About us</a></p>
+                        <h1>{{ _('Check out our team!') }}</h1>
+                        <p>{{ _('Who are the developers?') }}</p>
+                        <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">{{ _('About us') }}</a></p>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,9 @@
         </button>
     </div>
 
-</div> <div class="container my-5">
+</div>
+
+<div class="container my-5">
     <div class="row">
         {% for sticker in stickers %}
         <div class="col-md-4 mb-4">
