@@ -87,7 +87,7 @@ def add_request_to_dashboard(request_id):
     custom = CustomSticker.query.get_or_404(request_id)
     
     # Create a new standard Sticker from the custom request
-    new_sticker = Sticker(
+    new_sticker = Sticker(  
         name=custom.name,
         price=1.00,  # Default price
         stock=10,    # Default stock

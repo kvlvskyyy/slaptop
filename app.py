@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from auth import auth
 from shop import shop
 from payments import payments
-# Add these imports so we can access the database in the main app
 from models import User, Order, Category
 from admin import admin 
 
