@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-07 01:36+0100\n"
+"POT-Creation-Date: 2026-01-08 15:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,72 +17,92 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: slaptop/templates/base.html:6 slaptop/templates/base.html:23
-#: slaptop/templates/base.html:28
+#: slaptop/templates/admin_orders.html:26
+msgid "Cancel"
+msgstr ""
+
+#: slaptop/templates/admin_orders.html:27
+msgid "Confirm"
+msgstr ""
+
+#: slaptop/templates/admin_orders.html:28
+msgid "Finish"
+msgstr ""
+
+#: slaptop/templates/admin_orders.html:44
+msgid "Customer Details"
+msgstr ""
+
+#: slaptop/templates/admin_orders.html:49
+msgid "Order contents"
+msgstr ""
+
+#: slaptop/templates/base.html:6 slaptop/templates/base.html:33
+#: slaptop/templates/base.html:38
 msgid "Stickerdom"
 msgstr ""
 
-#: slaptop/templates/base.html:33
+#: slaptop/templates/base.html:43
 msgid "Search..."
 msgstr ""
 
-#: slaptop/templates/base.html:47
+#: slaptop/templates/base.html:57
 msgid "Categories"
 msgstr ""
 
-#: slaptop/templates/base.html:63
+#: slaptop/templates/base.html:73
 msgid "Search for stickers..."
 msgstr ""
 
-#: slaptop/templates/base.html:73
+#: slaptop/templates/base.html:83
 msgid "Create Sticker"
 msgstr ""
 
-#: slaptop/templates/base.html:77
+#: slaptop/templates/base.html:87
 msgid "Admin Menu"
 msgstr ""
 
-#: slaptop/templates/base.html:80
+#: slaptop/templates/base.html:90
 msgid "User Dashboard"
 msgstr ""
 
-#: slaptop/templates/base.html:81
+#: slaptop/templates/base.html:91
 msgid "View requests"
 msgstr ""
 
-#: slaptop/templates/base.html:82
+#: slaptop/templates/base.html:92
 msgid "Add Sticker"
 msgstr ""
 
-#: slaptop/templates/base.html:83
+#: slaptop/templates/base.html:93
 msgid "Orders list"
 msgstr ""
 
-#: slaptop/templates/base.html:94
+#: slaptop/templates/base.html:104
 msgid "English"
 msgstr ""
 
-#: slaptop/templates/base.html:99
+#: slaptop/templates/base.html:109
 msgid "Dutch"
 msgstr ""
 
-#: slaptop/templates/base.html:109 slaptop/templates/index.html:26
+#: slaptop/templates/base.html:119 slaptop/templates/index.html:28
 msgid "Sign up"
 msgstr ""
 
-#: slaptop/templates/base.html:110
+#: slaptop/templates/base.html:120
 msgid "Log in"
 msgstr ""
 
-#: slaptop/templates/base.html:112
+#: slaptop/templates/base.html:122
 msgid "Log out"
 msgstr ""
 
-#: slaptop/templates/base.html:115
+#: slaptop/templates/base.html:125
 msgid "My orders"
 msgstr ""
 
-#: slaptop/templates/base.html:116
+#: slaptop/templates/base.html:126
 msgid "My sticker requests"
 msgstr ""
 
@@ -98,44 +118,108 @@ msgstr ""
 msgid "Your cart is empty."
 msgstr ""
 
-#: slaptop/templates/index.html:24
+#: slaptop/templates/cart.html:73
+msgid "Total:"
+msgstr ""
+
+#: slaptop/templates/cart.html:81
+msgid "Proceed to checkout"
+msgstr ""
+
+#: slaptop/templates/checkout.html:23
+msgid "Your order:"
+msgstr ""
+
+#: slaptop/templates/checkout.html:41
+msgid "Full Name"
+msgstr ""
+
+#: slaptop/templates/checkout.html:46
+msgid "Email"
+msgstr ""
+
+#: slaptop/templates/checkout.html:52
+msgid "Payment Method"
+msgstr ""
+
+#: slaptop/templates/checkout.html:56
+msgid "Cash"
+msgstr ""
+
+#: slaptop/templates/checkout.html:61
+msgid "Tikkie"
+msgstr ""
+
+#: slaptop/templates/checkout.html:66
+msgid "Stripe"
+msgstr ""
+
+#: slaptop/templates/checkout.html:71
+msgid "Place Order"
+msgstr ""
+
+#: slaptop/templates/index.html:26
 msgid "Customize your stuff"
 msgstr ""
 
-#: slaptop/templates/index.html:25
+#: slaptop/templates/index.html:27
 msgid "Order some cool stickers to put on your device"
 msgstr ""
 
-#: slaptop/templates/index.html:36
+#: slaptop/templates/index.html:38
 msgid "Create your own stickers"
 msgstr ""
 
-#: slaptop/templates/index.html:37
+#: slaptop/templates/index.html:39
 msgid "Request your own sticker design to print"
 msgstr ""
 
-#: slaptop/templates/index.html:38 slaptop/templates/index.html:50
+#: slaptop/templates/index.html:40 slaptop/templates/index.html:52
 msgid "Get started"
 msgstr ""
 
-#: slaptop/templates/index.html:48
+#: slaptop/templates/index.html:50
 msgid "Fast and easy"
 msgstr ""
 
-#: slaptop/templates/index.html:49
+#: slaptop/templates/index.html:51
 msgid "Select, order, pickup, stick it!"
 msgstr ""
 
-#: slaptop/templates/index.html:61
+#: slaptop/templates/index.html:63
 msgid "Check out our team!"
 msgstr ""
 
-#: slaptop/templates/index.html:62
+#: slaptop/templates/index.html:64
 msgid "Who are the developers?"
 msgstr ""
 
-#: slaptop/templates/index.html:63
+#: slaptop/templates/index.html:65
 msgid "About us"
+msgstr ""
+
+#: slaptop/templates/index_admin.html:9
+msgid "Manage Stickers"
+msgstr ""
+
+#: slaptop/templates/index_admin.html:11
+msgid "Add New Sticker"
+msgstr ""
+
+#: slaptop/templates/index_admin.html:40
+msgid "Edit"
+msgstr ""
+
+#: slaptop/templates/index_admin.html:45
+msgid "Delete this sticker?"
+msgstr ""
+
+#: slaptop/templates/index_admin.html:47
+msgid "Delete"
+msgstr ""
+
+#: slaptop/templates/index_admin.html:54
+msgid "No stickers found in the database."
 msgstr ""
 
 #: slaptop/templates/login.html:6 slaptop/templates/login.html:36
@@ -174,5 +258,33 @@ msgstr ""
 
 #: slaptop/templates/signup.html:66
 msgid "Already have an account? Login"
+msgstr ""
+
+#: slaptop/templates/suggestions.html:5
+msgid "Custom Sticker Requests"
+msgstr ""
+
+#: slaptop/templates/suggestions.html:21
+msgid "Approval Status:"
+msgstr ""
+
+#: slaptop/templates/suggestions.html:22
+msgid "Dashboard Request:"
+msgstr ""
+
+#: slaptop/templates/suggestions.html:23
+msgid "Submitted on:"
+msgstr ""
+
+#: slaptop/templates/suggestions.html:30
+msgid "Approve"
+msgstr ""
+
+#: slaptop/templates/suggestions.html:37
+msgid "Deny"
+msgstr ""
+
+#: slaptop/templates/suggestions.html:45
+msgid "Add to Dashboard"
 msgstr ""
 
