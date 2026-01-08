@@ -15,7 +15,7 @@
 
         <section class="admin-sticker-list">
             {% for sticker in stickers %}
-            <div class="row align-items-center py-3 border-bottom g-3">        
+            <div class="row align-items-center py-3 border-bottom g-3 flex-nowrap">        
 
                 <div class="col-md-1 text-center">
                     <img class="img-fluid rounded" 
@@ -24,7 +24,7 @@
                         style="max-height: 50px;">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-9 col-md-3">
                     <span class="fw-bold d-block text-dark">{{ sticker.name }}</span>
                     <small class="text-muted">ID: #{{ sticker.id }}</small><br>
                     <small class="text-muted">Stock: {{ sticker.stock }}</small>

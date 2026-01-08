@@ -6,6 +6,7 @@
         <h1>Morning, sir!</h1>
     </div>
     {%if orders%}
+    <section class="admin-orders-list">
     <ul class="list-group">
         {% for order in orders%}
         <li class="list-group-item p-3"> 
@@ -90,6 +91,7 @@
     
     </ul>
     </div>
+    </section>
 
 {% endblock %}
 
