@@ -23,9 +23,33 @@
                     €{{ '%.2f'|format(order.total_price)}}
                 </div>
                 <div class="col-md-5 text-end">
-                    <button class="btn btn-sm btn-outline-danger">Cancel</button>
-                    <button class="btn btn-sm btn-outline-primary">Confirm</button>
-                    <button class="btn btn-sm btn-outline-success">Finish</button>
+
+                    {% set statuses = {
+                        'pending': 'warning',
+                        'confirmed': 'primary',
+                        'finished': 'success',
+                        'cancelled': 'danger'
+                    } %}
+
+                    {% for status, color in statuses.items() %}
+                    <form method="POST"
+                        action="{{ url_for('admin.update_order_status', order_id=order.id, new_status=status) }}"
+                        class="d-inline">
+
+                        <button
+                            class="btn btn-sm
+                                {% if order.status == status %}
+                                    btn-{{ color }}
+                                {% else %}
+                                    btn-outline-{{ color }}
+                                {% endif %}">
+                            {{ status.capitalize() }}
+                        </button>
+
+                    </form>
+                    {% endfor %}
+
+
 
                     <button class="btn btn-light rounded-circle ms-2"
                             type="button"
