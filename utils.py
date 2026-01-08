@@ -33,4 +33,3 @@ def admin_required(f):
             return redirect(url_for('shop.index'))
         return f(*args, **kwargs)
     return wrapper
-    
