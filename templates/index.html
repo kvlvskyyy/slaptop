@@ -22,9 +22,9 @@
                      class="d-block w-100" alt="Sticker Background">                
             
                 <div class="container">
-                    <div class="carousel-caption hero-caption text-start">
-                        <h1>{{ _('Customize your stuff') }}</h1>
-                        <p>{{ _('Order some cool stickers to put on your device') }}</p>
+                    <div class="carousel-caption hero-caption text-start bg-dark bg-opacity-50 px-4 rounded align-items-center">
+                        <h1 class="caption-h1">{{ _('Customize your stuff') }}</h1>
+                        <p class="caption-p">{{ _('Order some cool stickers to put on your device') }}</p>
                         <p><a class="btn btn-sm btn-primary" href="#">{{ _('Sign up') }}</a></p>
                     </div>
                 </div>
@@ -34,9 +34,9 @@
                 <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_1.png') }}"
                      class="d-block w-100" alt="Sticker Background"> 
                 <div class="container">
-                    <div class="carousel-caption hero-caption text-end">
-                        <h1>{{ _('Create your own stickers') }}</h1>
-                        <p>{{ _('Request your own sticker design to print') }}</p>
+                    <div class="carousel-caption hero-caption text-end bg-dark bg-opacity-50 px-4 rounded align-items-center">
+                        <h1 class="caption-h1">{{ _('Create your own stickers') }}</h1>
+                        <p class="caption-p">{{ _('Request your own sticker design to print') }}</p>
                         <p><a class="btn btn-sm btn-primary" href="#">{{ _('Get started') }}</a></p>
                     </div>
                 </div>
@@ -46,9 +46,9 @@
                 <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_3.png') }}"
                      class="d-block w-100" alt="Sticker Background"> 
                 <div class="container">
-                    <div class="carousel-caption hero-caption text-start">
-                        <h1>{{ _('Fast and easy') }}</h1>
-                        <p>{{ _('Select, order, pickup, stick it!') }}</p>
+                    <div class="carousel-caption hero-caption text-start bg-dark bg-opacity-50 px-4 rounded align-items-center">
+                        <h1 class="caption-h1">{{ _('Fast and easy') }}</h1>
+                        <p class="caption-p">{{ _('Select, order, pickup, stick it!') }}</p>
                         <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">{{ _('Get started') }}</a></p>
                     </div>
                 </div>
@@ -59,9 +59,9 @@
                      class="d-block w-100" alt="Sticker Background"> 
                 
                 <div class="container">
-                    <div class="carousel-caption hero-caption bg-dark bg-opacity-50 p-4 rounded">
-                        <h1>{{ _('Check out our team!') }}</h1>
-                        <p>{{ _('Who are the developers?') }}</p>
+                    <div class="carousel-caption hero-caption bg-dark bg-opacity-50 px-4 rounded">
+                        <h1 class="caption-h1">{{ _('Check out our team!') }}</h1>
+                        <p class="caption-p">{{ _('Who are the developers?') }}</p>
                         <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">{{ _('About us') }}</a></p>
                     </div>
                 </div>
@@ -84,12 +84,12 @@
 <div class="container my-5">
     <div class="row">
         {% for sticker in stickers %}
-        <div class="col-md-4 mb-4">
+        <div class="col-6 col-md-4 col-lg-4 mb-4">
             <div class="card shadow card-hover-lift h-100" id="item">
                 
                 <div class="d-flex flex-column h-100 p-3">
                     
-                    <div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative" style="height: 250px;">
+                    <div class="flex-grow-1 d-flex align-items-center justify-content-center mb-3 overflow-hidden position-relative sticker-img-container">
                         <img src="{{ url_for('static', filename='images/stickers/' ~ sticker.image_path) }}"
                              class="img-fluid blur-target" 
                              alt="{{ sticker.name }}" 

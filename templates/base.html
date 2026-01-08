@@ -26,125 +26,132 @@
 
     
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-      <div class="container-fluid">
-        {% if user and user.is_admin %}
-        <a class="navbar-brand d-flex align-items-center" href="{{url_for('admin.index_admin')}}">
-        <img src="/static/images/icons/Logo.svg" alt="Bootstrap" width="40" height="40" class="me-2"> 
-        {{ _('Stickerdom') }}
-        </a>
-        {% else %}
-        <a class="navbar-brand d-flex align-items-center" href="{{url_for('shop.index')}}">
-        <img src="/static/images/icons/Logo.svg" alt="Bootstrap" width="40" height="40" class="me-2"> 
-        {{ _('Stickerdom') }}
-        </a>
-        {% endif %}
-        <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('shop.search')}}">
-          <div class="input-group">
-            <input class="form-control" type="search" placeholder="Search..." aria-label="Search" name="search">
-            <button class="btn btn-transparent" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </form>
+  <div class="container-fluid">
+    
+    {% if user and user.is_admin %}
+    <a class="navbar-brand d-flex align-items-center" href="{{url_for('admin.index_admin')}}">
+    {% else %}
+    <a class="navbar-brand d-flex align-items-center" href="{{url_for('shop.index')}}">
+    {% endif %}
+      <img src="/static/images/icons/Logo.svg" alt="Bootstrap" width="40" height="40"> 
+      <span class="ms-2 d-none d-md-block">Stickerdom</span>
+    </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04">
-          <span class="navbar-toggler-icon"></span>
+    <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('shop.search')}}">
+      <div class="input-group">
+        <input class="form-control border-0 rounded-start" type="search" placeholder="Search..." aria-label="Search" name="search" style="font-size: 0.9rem;">
+        <button class="btn btn-light bg-white border-0 rounded-end" type="submit">
+          <i class="bi bi-search text-secondary"></i>
         </button>
+      </div>
+    </form>
 
-        <div class="collapse navbar-collapse" id="navbarsExample04">
-          <ul class="navbar-nav me-3 mb-2 mb-md-0">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ _('Categories') }}</a>
-              <ul class="dropdown-menu">
-                {% for category in categories %}
-                <li>
-                  <a class="dropdown-item"
-                    href="{{ url_for('shop.category', category_name=category.name) }}">
-                      {{ category.name }}
-                  </a>
-                </li>
-                {% endfor %}
-              </ul>
-            </li>
-          </ul>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <form method="POST" action="{{ url_for('shop.search')}}" role="search" class="d-none d-md-flex mx-auto w-50">
-            <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search for stickers..." name="search">
-              <button class="btn btn-transparent" type="submit">
-                <i class="bi bi-search"></i>
-              </button>
-            </div>
-          </form>
+    <div class="collapse navbar-collapse mobile-menu-container" id="navbarsExample04">
+      
+      <form method="POST" action="{{ url_for('shop.search')}}" class="d-none d-md-flex mx-auto w-50" role="search">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Search for stickers..." name="search">
+          <button class="btn btn-transparent" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
 
-          <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-3">
-            <li class="nav-item align-items-center d-flex">
-              {% if user and not user.is_admin %}
-              <a class="nav-link" href="{{url_for('shop.add_sticker_user')}}">{{ _('Create Sticker') }}</a>
-              {% endif %}
-              {% if user and user.is_admin %}
-              <li class="nav-item dropdown d-flex align-items-center">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ _('Admin Menu') }}</a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a href="{{url_for('shop.index')}}" class="dropdown-item">{{ _('User Dashboard') }}</a>
-                    <a href="{{url_for('admin.suggestions')}}" class="dropdown-item">{{ _('View requests') }}</a>
-                    <a href="{{url_for('admin.add_sticker')}}" class="dropdown-item">{{ _('Add Sticker') }}</a>
-                    <a href="{{url_for('admin.admin_orders')}}" class="dropdown-item">{{ _('Orders list') }}</a>
-                  </li>
-                </ul>
-              </li>
-              {% endif %}
-            </li>
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link fs-4" data-bs-toggle="dropdown"> <i class="bi bi-globe"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a href="{{ url_for('set_language', language='en') }}" class="dropdown-item d-flex align-items-center gap-2">
-                  <span>{{ _('English') }}</span>
-                  <img src="/static/images/icons/uk_flag.svg" alt="UK Flag" style="width: 1.2em; height: 1.2em;">
-                  </a>
-                </li>
-                <li><a href="{{ url_for('set_language', language='nl') }}" class="dropdown-item d-flex align-items-center gap-2">
-                  <span>{{ _('Dutch') }}</span>
-                  <img src="/static/images/icons/nl_flag.svg" alt="NL Flag" style="width: 1.2em; height: 1.2em;">
+      <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-1 gap-md-3 align-items-end">
+
+        <li class="nav-item dropdown text-end">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
+          <ul class="dropdown-menu dropdown-menu-end slide-animation">
+            {% for category in categories %}
+            <li>
+                <a class="dropdown-item text-end text-md-start" href="{{ url_for('shop.category', category_name=category.name) }}">
+                    {{ category.name }}
                 </a>
-              </li>
-              </ul>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link fs-4" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end">
+            {% endfor %}
+          </ul>
+        </li>
+
+        {% if user and not user.is_admin %}
+        <li class="nav-item text-end">
+            <a class="nav-link" href="{{url_for('shop.add_sticker_user')}}">Create Sticker</a>
+        </li>
+        {% endif %}
+
+        {% if user and user.is_admin %}
+        <li class="nav-item dropdown text-end">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admin Menu</a>
+            <ul class="dropdown-menu dropdown-menu-end slide-animation">
+                <li><a href="{{url_for('shop.index')}}" class="dropdown-item text-end text-md-start">User Dashboard</a></li>
+                <li><a href="{{url_for('admin.suggestions')}}" class="dropdown-item text-end text-md-start">View requests</a></li>
+                <li><a href="{{url_for('admin.add_sticker')}}" class="dropdown-item text-end text-md-start">Add Sticker</a></li>
+                <li><a href="{{url_for('admin.admin_orders')}}" class="dropdown-item text-end text-md-start">Orders list</a></li>
+            </ul>
+        </li>
+        {% endif %}
+
+        <li class="nav-item dropdown text-end">
+            <a href="#" class="nav-link dropdown-toggle fs-5 py-0" data-bs-toggle="dropdown"> 
+              <span class="d-md-none me-2 fs-6">Language</span>  
+              <i class="bi bi-globe"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end slide-animation">
+                <li>
+                    <a href="#" class="dropdown-item d-flex align-items-center justify-content-end justify-content-md-start gap-2">
+                        <span>English</span>
+                        <img src="/static/images/icons/uk_flag.svg" alt="UK Flag" style="width: 1.2em; height: 1.2em;">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-item d-flex align-items-center justify-content-end justify-content-md-start gap-2">
+                        <span>Dutch</span>
+                        <img src="/static/images/icons/nl_flag.svg" alt="NL Flag" style="width: 1.2em; height: 1.2em;">
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item dropdown text-end">
+            <a class="nav-link dropdown-toggle fs-5 py-0" href="#" data-bs-toggle="dropdown">
+              <span class="d-md-none me-2 fs-6">Profile</span>
+                <i class="bi bi-person-circle"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end slide-animation">
                 {% if session.get('username') is none %}
-                <li><a class="dropdown-item" href="{{url_for('auth.signup')}}">{{ _('Sign up') }}</a></li>
-                <li><a class="dropdown-item" href="{{url_for('auth.login')}}">{{ _('Log in') }}</a></li>
+                <li><a class="dropdown-item text-end text-md-start" href="{{url_for('auth.signup')}}">Sign up</a></li>
+                <li><a class="dropdown-item text-end text-md-start" href="{{url_for('auth.login')}}">Log in</a></li>
                 {% else %}
-                <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">{{ _('Log out') }}</a></li>
+                <li><a class="dropdown-item text-end text-md-start" href="{{url_for('auth.logout')}}">Log out</a></li>
                 {% endif %}
                 {% if user and not user.is_admin %}
-                <li><a class="dropdown-item" href="{{url_for('shop.user_order_history')}}">{{ _('My orders') }}</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shop.my_requests')}}">{{ _('My sticker requests') }}</a></li>
-                 {% endif %}
-              </ul>
-            </li>
+                <li><a class="dropdown-item text-end text-md-start" href="{{url_for('shop.user_order_history')}}">My orders</a></li>
+                <li><a class="dropdown-item text-end text-md-start" href="{{url_for('shop.my_requests')}}">My sticker requests</a></li>
+                {% endif %}
+            </ul>
+        </li>
 
-            <li class="nav-item d-flex align-items-center">
-  <a href="{{ url_for('shop.cart') }}" class="nav-link fs-4 p-2">
-    <div class="d-inline-block position-relative cart-effect">
-        <i class="bi bi-cart-fill"></i>
-        
-        <span id="cart-badge-count" 
-              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning {{ 'd-none' if not cart_item_count or cart_item_count == 0 }}" 
-              style="font-size: 0.55rem; color: black; border: none;">
-            {{ cart_item_count|default(0) if cart_item_count|default(0) > 0 else '' }}
-        </span>
+        <li class="nav-item text-end d-flex justify-content-end align-items-center">
+            <a href="{{ url_for('shop.cart') }}" class="nav-link fs-5 p-2 d-flex align-items-center">
+                <div class="position-relative cart-effect d-flex">
+                  <span class="d-md-none me-2 fs-6">Shopping cart</span>
+                    <i class="bi bi-cart-fill"></i>
+                    <span id="cart-badge-count" 
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning {{ 'd-none' if not cart_item_count or cart_item_count == 0 }}" 
+                            style="font-size: 0.55rem; color: black; border: none;">
+                        {{ cart_item_count|default(0) if cart_item_count|default(0) > 0 else '' }}
+                    </span>
+                </div>
+            </a>
+        </li>
+
+      </ul>
     </div>
-  </a>
-</li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  </div>
+</nav>
 
     <div class="container mt-4 flex-grow-1">
       {% block content %}{% endblock %}

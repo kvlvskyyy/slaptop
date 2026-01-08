@@ -15,7 +15,13 @@
                 </div>
 
                 <div class="col-md-3">
-                    <span class="badge text-dark">{{order.status}}</span>
+                    <span class="badge text-dark
+                        {% if order.status == 'finished' %}bg-success
+            {% elif order.status == 'cancelled' %}bg-danger
+            {% elif order.status == 'confirmed' %}bg-primary
+            {% elif order.status == 'pending' %}bg-warning text-dark
+            {% endif %}">
+            {{order.status}}</span>
                     <small class="text-muted d-block">{{ order.created_at.strftime('%d %b %Y %H:%M')}}</small>
                 </div>
 

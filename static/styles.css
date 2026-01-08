@@ -361,3 +361,199 @@ body::before {
 .text-muted {
     color: black !important; 
 }
+
+/* --- CAROUSEL FIXES --- */
+/* Default (Desktop) */
+.hero-carousel-item {
+    height: 300px; /* Fixed height for consistency */
+    overflow: hidden; 
+}
+
+/* Mobile: Show more of the image by changing how it fits */
+@media (max-width: 576px) {
+    .hero-carousel-item {
+        min-height: auto;
+        height: 150px; /* Slightly shorter on phone */
+    }
+    
+    .hero-carousel-item img {
+        /* "contain" ensures the whole image is visible (letterboxed) 
+           OR keep "cover" but center it better if you hate black bars */
+        object-fit: cover; 
+        object-position: center center; 
+    }
+
+     .carousel-inner {
+        height: 150px;
+    }
+
+    .carousel-indicators {
+        margin-bottom: 0;
+    }
+
+    /* .carousel-caption {
+        background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        border-radius: var(--bs-border-radius) !important;
+        --bs-bg-opacity: 0.5;
+        
+       } */
+
+    .caption-h1 {
+        font-size: 1.2rem !important;
+    }
+
+    .caption-p {
+        font-size: 0.7rem !important;
+    }
+
+    .btn-sm {
+        --bs-btn-font-size: 0.7rem;
+    }
+}
+
+/* --- CARD FIXES --- */
+/* Default (Desktop) */
+.sticker-img-container {
+    height: 250px;
+    width: 100%;
+}
+
+/* Mobile: Make cards square/shorter */
+@media (max-width: 576px) {
+    .sticker-img-container {
+        /* Force the container to be much smaller on mobile */
+        height: 140px !important; 
+        min-height: 0 !important; /* Override any inline min-heights */
+    }
+    
+    /* Make the title smaller so it doesn't stretch the card */
+    .card-title {
+        font-size: 0.85rem;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+    }
+    
+    /* Reduce padding inside the card */
+    .card .p-3 {
+        padding: 0.75rem !important;
+    }
+}
+
+@media (max-width: 376px) {
+    .mx-2 {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+/* --- MOBILE MENU OVERHAUL --- */
+
+@media (max-width: 768px) {
+    
+    /* 1. Container Styling (The "Shrinking Background") */
+    /* We make it absolute so it floats over the content instead of pushing it */
+    .mobile-menu-container {
+        position: absolute;
+        top: 100%; /* Right below the navbar */
+        right: 0;  /* Stick to the right */
+        width: auto; /* Shrink to fit content width */
+        min-width: 200px; /* But not too small */
+        
+        background-color: #5a189a; /* Match Navbar Color */
+        /* OR use a slightly lighter shade if you want contrast: #6a1ca6 */
+        
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: -5px 10px 15px rgba(0,0,0,0.2); /* Shadow on the left side */
+        padding: 10px 20px;
+        z-index: 1000;
+    }
+
+    /* 2. Text Alignment & Item Spacing */
+    .mobile-menu-container .navbar-nav {
+        align-items: flex-end !important; /* Forces all items to the right */
+        gap: 15px; /* Adds space between vertical items */
+    }
+    
+    .mobile-menu-container .nav-link {
+        padding: 5px 0; /* Cleaner vertical spacing */
+    }
+
+    /* 3. Dropdown Menus (Professional Look) */
+    /* Remove the default white floating box look on mobile */
+    .mobile-menu-container .dropdown-menu {
+        position: static !important; /* Push content down instead of floating */
+        float: none;
+        width: auto;
+        background: transparent; /* No white box */
+        border: none;
+        box-shadow: none;
+        text-align: right; /* Align sub-items to the right */
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 5px;
+        
+        /* Hidden by default state for animation */
+        display: none; 
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    /* When 'show' is added by JS, we display it */
+    .mobile-menu-container .dropdown-menu.show {
+        display: block;
+        animation: slideDown 0.3s ease forwards;
+    }
+    
+    .mobile-menu-container .dropdown-item {
+        color: rgba(255, 255, 255, 0.7); /* Light white text */
+        padding-right: 0; /* Align perfectly to the right edge */
+    }
+    
+    .mobile-menu-container .dropdown-item:hover,
+    .mobile-menu-container .dropdown-item:focus {
+        background: transparent;
+        color: #F5B800; /* Yellow highlight */
+    }
+    
+    /* 4. Fix Cart Alignment */
+    /* Ensures the cart icon aligns perfectly with the text of other links */
+    .nav-item.d-flex {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+/* --- ANIMATION KEYFRAMES --- */
+/* Simple slide down and fade in effect */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ensure Desktop Dropdowns still look standard */
+@media (min-width: 769px) {
+    .slide-animation {
+        animation: slideDown 0.2s ease forwards;
+        display: block; /* Required to override display:none triggers */
+        visibility: hidden; /* Hide it visually */
+    }
+    
+    /* Only show when the parent has the .show class (Bootstrap adds this) */
+    .dropdown:hover .slide-animation, 
+    .dropdown .dropdown-menu.show {
+        visibility: visible;
+    }
+}
