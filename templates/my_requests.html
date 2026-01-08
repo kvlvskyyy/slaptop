@@ -31,51 +31,51 @@
     <div class="col-md-2 text-center">Date</div>
     <div class="col-md-2 text-center">Status</div>
 </div>
-        <section class="request-list">
+  <section class="request-list">
             {% if custom_stickers %}
-            {% for sticker in custom_stickers %}
-<div class="row align-items-center py-3 border-bottom g-3">        
+                {% for sticker in custom_stickers %}
+                <div class="row align-items-center py-3 border-bottom g-3">        
 
-    <div class="col-4 col-md-2">
-        <div style="width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;" class="rounded shadow-sm">
-            <img class="img-fluid"
-                src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}"
-                alt="{{sticker.name}}"
-                style="max-height: 100%; max-width: 100%; object-fit: contain;">
-        </div>
-    </div>
+                    <div class="col-4 col-md-2">
+                        <div style="width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;" class="rounded shadow-sm">
+                            <img class="img-fluid"
+                                src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}"
+                                alt="{{sticker.name}}"
+                                style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                        </div>
+                    </div>
 
-    <div class="col-8 col-md-6 text-dark"> 
-        <span class="fw-bold d-block fs-5">{{sticker.name}}</span> 
-        <p class="small text-muted mb-0 text-truncate">{{sticker.description}}</p> 
-    </div>
+                    <div class="col-8 col-md-6 text-dark"> 
+                        <span class="fw-bold d-block fs-5">{{sticker.name}}</span> 
+                        <p class="small text-muted mb-0 text-truncate">{{sticker.description}}</p> 
+                    </div>
 
-    <div class="col-6 col-md-2 text-center text-muted small">
-        <p class="mb-0">{{sticker.created_at.strftime("%Y-%m-%d")}}</p>
-    </div>
+                    <div class="col-6 col-md-2 text-center text-muted small">
+                        <p class="mb-0">{{sticker.created_at.strftime("%Y-%m-%d")}}</p>
+                    </div>
 
-<div class="col-12 col-md-2 d-flex align-items-center justify-content-center">
-    <div class="d-flex align-items-center gap-2">
-        <span class="badge rounded-pill px-3 py-2
-            {% if sticker.approval_status == 'approved' %}bg-success
-            {% elif sticker.approval_status in ['rejected', 'denied'] %}bg-danger
-            {% else %}bg-warning text-dark{% endif %}">
-            {{ sticker.approval_status|capitalize }}
-        </span>
+                    <div class="col-6 col-md-2 text-center">
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <span class="badge rounded-pill px-3 py-2
+                                {% if sticker.approval_status in ['approved', 'added_to_shop'] %}bg-success
+                                {% elif sticker.approval_status in ['rejected', 'denied'] %}bg-danger
+                                {% else %}bg-warning text-dark{% endif %}">
+                                {{ sticker.approval_status|replace('_', ' ')|capitalize }}
+                            </span>
 
-        {% if sticker.approval_status == 'approved' %}
-        <form action="{{ url_for('shop.add_to_cart') }}" method="POST" class="m-0">
-            <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
-            <button type="submit" class="btn btn-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center" 
-                    style="width: 35px; height: 35px;" title="Add to Cart">
-                <i class="bi bi-cart-plus-fill fs-6"></i>
-            </button>
-        </form>
-        {% endif %}
-    </div>
-</div>
-</div>
-            {% endfor %}
+                            {% if sticker.approval_status in ['approved', 'added_to_shop'] %}
+                            <form action="{{ url_for('shop.add_to_cart') }}" method="POST" class="m-0">
+                                <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
+                                <button type="submit" class="btn btn-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center" 
+                                        style="width: 35px; height: 35px;" title="Add to Cart">
+                                    <i class="bi bi-cart-plus-fill fs-6"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             {% else %}
                 <div class="text-center py-5">
                     <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>

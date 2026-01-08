@@ -361,3 +361,135 @@ body::before {
 .text-muted {
     color: black !important; 
 }
+@media (max-width: 576px) {
+    /* 1. Reset row behavior */
+    .request-list .row, 
+    .admin-sticker-list .row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+        padding: 10px 5px !important;
+    }
+
+    /* 2. Image Column: Keep it small and fixed */
+    .col-md-1, .col-3, .col-4 {
+        flex: 0 0 60px !important;
+        width: 60px !important;
+        max-width: 60px !important;
+        padding: 0 !important;
+    }
+
+    /* 3. Text Column: Allow it to fill middle space */
+    .col-md-3, .col-md-6, .col-8, .col-9 {
+        flex: 1 1 auto !important;
+        padding-left: 10px !important;
+        min-width: 0; /* Important for text truncation */
+    }
+
+    /* 4. Action Column (Price & Buttons): Fixed width to align everything */
+    .col-md-2, .col-md-6.text-end, .col-6, .col-12 {
+        flex: 0 0 110px !important; /* Width of the button column */
+        width: 110px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important; /* Makes buttons same width */
+        gap: 5px; /* Spacing between Price and Buttons */
+        text-align: right !important;
+    }
+
+    /* 5. Uniform Button Sizing */
+    .admin-sticker-list .btn, 
+    .request-list .btn {
+        width: 100% !important; /* Buttons fill the 110px container */
+        margin: 0 !important;
+        display: block !important;
+        font-size: 0.8rem !important;
+        padding: 5px 0 !important;
+    }
+
+    /* 6. Price Alignment */
+    .admin-sticker-list .fw-bold.text-dark {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    /* Hide unnecessary columns to save space */
+    .text-muted.small.text-center {
+        display: none !important;
+    }
+    .mx-2{
+        margin-right: 0px !important;
+       
+    }
+}
+@media (max-width: 576px) {
+    /* ... existing code for .request-list and .admin-sticker-list ... */
+
+    /* NEW: Specific fix for Admin Orders */
+    .admin-orders-list .row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+    }
+
+    /* Pushes the Order Info to the left and Buttons to the right */
+    .admin-orders-list .col-md-2, 
+    .admin-orders-list .col-md-3 {
+        flex: 1 1 auto !important;
+    }
+
+    /* Action Column for Orders */
+    .admin-orders-list .col-md-5.text-end {
+        flex: 0 0 120px !important; /* Fixed width for button stack */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px; /* Space between buttons */
+    }
+
+    /* Make every status button the same size */
+    .admin-orders-list .btn-sm {
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: center;
+    }
+    
+    /* Keep the dropdown arrow small and centered below buttons */
+    .admin-orders-list .rounded-circle {
+        width: 30px !important;
+        height: 30px !important;
+        align-self: center;
+        margin-top: 5px !important;
+    }
+    
+    /* ... keep your existing mobile code for other pages ... */
+
+    .admin-orders-list .row {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important; /* Align text and buttons to the top */
+    }
+
+    /* Text Column takes up left side */
+    .admin-orders-list .col-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    /* Buttons Column stays fixed on the right */
+    .admin-orders-list .col-actions {
+        flex: 0 0 110px; /* Fixed width for buttons */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ensure buttons are uniform */
+    .admin-orders-list .btn-sm {
+        font-size: 0.75rem !important;
+        padding: 4px 0 !important;
+    }
+}
