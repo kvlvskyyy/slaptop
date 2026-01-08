@@ -1,5 +1,6 @@
 import os
 from flask import Flask, session, request, redirect
+from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
 from models import User, Order, Category
@@ -61,7 +62,7 @@ def create_app():
             user = User.query.get(session['user_id'])
 
         # 2. Categories (for the Navbar dropdown)
-        categories = Category.query.order_by(Category.name).all()
+        categories = Category.query.all()
 
         # 3. Cart Count (for the Navbar badge)
         cart_item_count = 0
@@ -87,4 +88,7 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
+    with app.app_context():
+        create_default_categories()
+
     app.run(debug=True)

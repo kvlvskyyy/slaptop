@@ -1,6 +1,7 @@
 from functools import wraps
 from flask import session, flash, redirect, url_for
-from models import User, Category, Order
+from models import User, Category
+from extensions import db
 
 UPLOAD_FOLDER = "static/images/stickers"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
@@ -33,3 +34,13 @@ def admin_required(f):
             return redirect(url_for('shop.index'))
         return f(*args, **kwargs)
     return wrapper
+
+def create_default_categories():
+    default_categories = ["Fontys", "Memes", "Custom Stickers", "Other"]
+
+    for name in default_categories:
+        exists = Category.query.filter_by(name=name).first()
+        if not exists:
+            db.session.add(Category(name=name))
+
+    db.session.commit()

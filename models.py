@@ -26,6 +26,7 @@ class Sticker(db.Model):
     image_path = db.Column(db.String(255), nullable=False)
     stock = db.Column(db.Integer, nullable=True, default=0)
     is_active = db.Column(db.Boolean, default=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     order_items = db.relationship('OrderItem', backref='sticker', lazy=True)
 
@@ -39,6 +40,7 @@ class Category(db.Model):
 class CustomSticker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
     image_path = db.Column(db.String(255), nullable=False)
     approval_status = db.Column(db.String(255), nullable=False)

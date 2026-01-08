@@ -85,24 +85,32 @@ def deny_request(request_id):
 @admin_required
 def add_request_to_dashboard(request_id):
     custom = CustomSticker.query.get_or_404(request_id)
-    
-    # Create a new standard Sticker from the custom request
-    new_sticker = Sticker(  
+
+    if custom.approval_status != "approved":
+        flash("Request must be approved first", "error")
+        return redirect(url_for('admin.suggestions'))
+
+    sticker = Sticker(
         name=custom.name,
-        price=0.99,
+        price=Decimal("0.99"),
         stock=0,
-        image_path=custom.image_path, # Note: You may need to move the file from /custom/ to /stickers/
-        description=f"Community suggested sticker by User {custom.user_id}",
-        category_id=1, # Assign to a default category ID
-        is_active=True
+        image_path=custom.image_path,
+        description=f"Custom sticker by user {custom.user_id}",
+        category_id=3, # default category
+        is_active=False # hidden from public dashboard
     )
-    
-    custom.approval_status = 'added_to_shop'
-    db.session.add(new_sticker)
+
+    db.session.add(sticker)
+    db.session.flush() # get sticker.id safely
+
+    custom.sticker_id = sticker.id
+    custom.approval_status = "added_to_shop"
+
     db.session.commit()
-    
-    flash(f"'{custom.name}' has been added to the public shop!", "success")
+
+    flash(f"'{custom.name}' added to shop (hidden)", "success")
     return redirect(url_for('admin.index_admin'))
+
 
 
 @admin.route('/index_admin')

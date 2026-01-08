@@ -45,6 +45,54 @@ def add_to_cart():
     flash("Sticker successfully added to cart!", "success")
     return redirect(request.referrer)
 
+@shop.route('/add_custom_to_cart', methods=['POST'])
+@login_required
+def add_custom_to_cart():
+    user_id = session['user_id']
+    custom_id = request.form.get("sticker_id")
+
+    custom = CustomSticker.query.get_or_404(custom_id)
+
+    if custom.approval_status != "added_to_shop":
+        flash("Sticker not available", "error")
+        return redirect(url_for("shop.my_requests"))
+
+    sticker = Sticker.query.get_or_404(custom.sticker_id)
+
+    order = Order.query.filter_by(user_id=user_id, status="cart").first()
+    if not order:
+        order = Order(
+            user_id=user_id,
+            status="cart",
+            created_at=datetime.utcnow(),
+            total_price=Decimal("0.00")
+        )
+        db.session.add(order)
+        db.session.commit()
+
+    item = OrderItem.query.filter_by(
+        order_id=order.id,
+        sticker_id=sticker.id
+    ).first()
+
+    if item:
+        item.quantity += 1
+    else:
+        item = OrderItem(
+            order_id=order.id,
+            sticker_id=sticker.id,
+            quantity=1,
+            price_at_time=sticker.price
+        )
+        db.session.add(item)
+
+    order.total_price += sticker.price
+    db.session.commit()
+
+    flash("Sticker added to cart!", "success")
+    return redirect(url_for("shop.cart"))
+
+
 
 @shop.route('/cart')
 @login_required
@@ -183,8 +231,9 @@ def sticker_desc(sticker_id):
 
 @shop.route("/my_requests")
 def my_requests():
-    user_id = session["user_id"]
-    custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
+    user_id = session['user_id']
+    custom_stickers = CustomSticker.query.filter_by(user_id=session['user_id']).all()
+
     return render_template("my_requests.html", custom_stickers=custom_stickers)
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
