@@ -12,8 +12,9 @@ admin = Blueprint('admin', __name__, static_folder="static", template_folder="te
 @admin.route('/admin_orders')
 @admin_required
 def admin_orders():
-    orders = Order.query.all()
+    orders = Order.query.filter(Order.status != "cart").order_by(Order.created_at.desc()).all()
     return render_template('admin_orders.html', orders=orders)
+
 
 
 @admin.route("/add_sticker", methods=["GET", "POST"])

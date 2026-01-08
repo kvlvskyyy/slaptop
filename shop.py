@@ -12,38 +12,38 @@ import os
 shop = Blueprint('shop', __name__, static_folder="static", template_folder="templates")
 
 
+
 @shop.route('/add_to_cart', methods=['POST'])
 @login_required
 def add_to_cart():
     sticker_id = request.form.get('sticker_id')
     user_id = session['user_id']
+
+    sticker = Sticker.query.get(sticker_id)
+    if not sticker:
+        flash("Sticker not found.", "error")
+        return redirect(request.referrer)
+
+    # Get or create cart
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
-        order = Order(
-            user_id=user_id,
-            created_at=datetime.utcnow(),
-            status="cart",
-            total_price=Decimal('0.00')
-        )
+        order = Order(user_id=user_id, created_at=datetime.utcnow(), status="cart", total_price=0)
         db.session.add(order)
-        db.session.commit()
-        total_quantity = sum(item.quantity for item in order.order_items)
-    item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker_id).first()
+        db.session.flush() # flush gets order.id straight away without committing
+
+    item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker.id).first()
     if item:
         item.quantity += 1
     else:
-        sticker = Sticker.query.get(sticker_id)
-        item = OrderItem(
-            quantity=1,
-            price_at_time=Decimal(str(sticker.price)),
-            sticker_id=sticker.id,
-            order_id=order.id
-        )
+        item = OrderItem(quantity=1, price_at_time=Decimal(str(sticker.price)), sticker_id=sticker.id, order_id=order.id)
         db.session.add(item)
-    order.total_price += item.price_at_time
+
+    order.total_price += Decimal(str(sticker.price))
+
     db.session.commit()
-    flash("Sticker successfully added to cart!", "success")
+    flash("Sticker added to cart!", "success")
     return redirect(request.referrer)
+
 
 @shop.route('/add_custom_to_cart', methods=['POST'])
 @login_required
@@ -53,7 +53,7 @@ def add_custom_to_cart():
 
     custom = CustomSticker.query.get_or_404(custom_id)
 
-    if custom.approval_status != "added_to_shop":
+    if custom.approval_status != "approved":
         flash("Sticker not available", "error")
         return redirect(url_for("shop.my_requests"))
 
@@ -86,7 +86,7 @@ def add_custom_to_cart():
         )
         db.session.add(item)
 
-    order.total_price += sticker.price
+    order.total_price += Decimal(str(sticker.price))
     db.session.commit()
 
     flash("Sticker added to cart!", "success")
@@ -275,8 +275,21 @@ def request_sticker():
                 request_approval=request_approval,
                 created_at=datetime.utcnow()
             )
-
             db.session.add(new_request)
+            db.session.commit()
+
+            new_sticker = Sticker(
+                name=name,
+                image_path=filename,
+                price=Decimal("0.99"),
+                is_active=False,
+                category_id=3
+            )
+            db.session.add(new_sticker)
+            db.session.flush()
+
+            new_request.sticker_id = new_sticker.id
+
             db.session.commit()
 
             flash("Your sticker has beeen submitted for approval!", "success")
