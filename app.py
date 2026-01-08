@@ -1,5 +1,6 @@
 import os
 from flask import Flask, session, request, redirect
+from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
 from models import User, Order, Category
 from dotenv import load_dotenv
@@ -7,9 +8,10 @@ from payments import payments
 from admin import admin
 from auth import auth
 from shop import shop
-from flask_babel import Babel, gettext as _
+
 
 load_dotenv()
+
 
 # This function tells Flask-Babel which language to use based on session
 def get_locale():
