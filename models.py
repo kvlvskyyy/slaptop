@@ -74,5 +74,4 @@ class Payment(db.Model):
     email = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
 
-    order = db.relationship("Order", backref="payment", uselist=False)
 
