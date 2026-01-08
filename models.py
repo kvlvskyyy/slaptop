@@ -9,6 +9,8 @@ class User(db.Model):
     password = db.Column(db.String(256), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
+    orders = db.relationship("Order", backref="user", lazy=True)
+
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
@@ -54,6 +56,7 @@ class Order(db.Model):
     status = db.Column(db.String(255), nullable=True)
 
     order_items = db.relationship('OrderItem', backref='order', lazy=True)
+    payment = db.relationship('Payment', backref='order', uselist=False)
 
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
