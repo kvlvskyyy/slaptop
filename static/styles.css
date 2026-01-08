@@ -255,6 +255,9 @@ html, body {
     --bs-btn-active-border-color: #E0A800;
     --bs-btn-disabled-bg: #FFC71F;
     --bs-btn-disabled-border-color: #FFC71F;
+    --bs-btn-color: black;
+    --bs-btn-hover-color: black;
+    --bs-btn-active-color: black;
 }
 
 .btn-primary:hover {
@@ -290,4 +293,71 @@ body::before {
     
     /* Pro Tip: Scale it up slightly to hide the white faded edges caused by the blur */
     transform: scale(1.1); 
+}
+
+/* --- 1. SEARCH BUTTON (Transparent) --- */
+.btn-transparent { 
+    background-color: white;
+    color: #5a189a;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-transparent:hover {
+    background-color: white;
+    color: #F5B800;
+}
+
+.btn-transparent i,
+.btn-transparent svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-transparent:hover i,
+.btn-transparent:hover svg {
+    transform: scale(1.25);
+}
+
+/* --- 2. NAVBAR ICONS LOGIC --- */
+
+/* A. Base settings for ALL icons (Cart, Globe, Person) */
+.nav-link i,
+.nav-link svg {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+/* B. CART SPECIAL LOGIC (Scales the wrapper so Badge + Icon move together) */
+.cart-effect {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.nav-link:hover .cart-effect {
+    transform: scale(1.25);
+}
+
+/* C. STANDARD ICONS LOGIC (Globe, Person) */
+/* When hovering a link, scale the icon... */
+.nav-link:hover i,
+.nav-link:hover svg {
+    transform: scale(1.25);
+}
+
+/* ...BUT reset the icon inside the cart to 1x. 
+   Why? Because the .cart-effect wrapper is already scaling to 1.25x.
+   If we don't do this, the cart icon scales twice (1.25 * 1.25) and looks huge. */
+.nav-link:hover .cart-effect i,
+.nav-link:hover .cart-effect svg {
+    transform: scale(1) !important;
+}
+
+/* D. Color Change for all */
+.nav-link:hover {
+    color: #F5B800;
+}
+
+.text-muted {
+    color: black !important; 
 }

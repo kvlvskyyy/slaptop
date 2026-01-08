@@ -41,7 +41,7 @@
         <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('shop.search')}}">
           <div class="input-group">
             <input class="form-control" type="search" placeholder="Search..." aria-label="Search" name="search">
-            <button class="btn btn-secondary" type="submit">
+            <button class="btn btn-transparent" type="submit">
               <i class="bi bi-search"></i>
             </button>
           </div>
@@ -71,7 +71,7 @@
           <form method="POST" action="{{ url_for('shop.search')}}" role="search" class="d-none d-md-flex mx-auto w-50">
             <div class="input-group">
               <input class="form-control" type="search" placeholder="Search for stickers..." name="search">
-              <button class="btn btn-secondary" type="submit">
+              <button class="btn btn-transparent" type="submit">
                 <i class="bi bi-search"></i>
               </button>
             </div>
@@ -129,18 +129,18 @@
             </li>
 
             <li class="nav-item d-flex align-items-center">
-                <a href="{{ url_for('shop.cart') }}" class="nav-link fs-4 p-2">
-                    <div class="d-inline-block position-relative">
-                        <i class="bi bi-cart-fill"></i>
-                        
-                        <span id="cart-badge-count" 
-                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning {{ 'd-none' if not cart_item_count or cart_item_count == 0 }}" 
-                              style="font-size: 0.55rem; color: black; border: none;">
-                            {{ cart_item_count|default(0) if cart_item_count|default(0) > 0 else '' }}
-                        </span>
-                    </div>
-                </a>
-            </li>
+  <a href="{{ url_for('shop.cart') }}" class="nav-link fs-4 p-2">
+    <div class="d-inline-block position-relative cart-effect">
+        <i class="bi bi-cart-fill"></i>
+        
+        <span id="cart-badge-count" 
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning {{ 'd-none' if not cart_item_count or cart_item_count == 0 }}" 
+              style="font-size: 0.55rem; color: black; border: none;">
+            {{ cart_item_count|default(0) if cart_item_count|default(0) > 0 else '' }}
+        </span>
+    </div>
+  </a>
+</li>
           </ul>
         </div>
       </div>
