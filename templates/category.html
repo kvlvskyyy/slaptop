@@ -15,7 +15,12 @@
     {% endwith %}
 
     <div class="mb-4">
+<<<<<<< HEAD
         <h1 class="fw-bold">Searched Category: <span class="text-primary">"{{ category }}"</span></h1>
+=======
+        <h1 class="fw-bold">Searched Category: <span class="text">"{{ category }}"</span></h1>
+        <p class="text-muted">Your sticker shop is ready 🚀</p>
+>>>>>>> 20b975217c53aead434e91d1a402506327696f92
     </div>
 
     {% if category_results %}
@@ -65,9 +70,14 @@
         </div>
     {% else %}
         <div class="text-center py-5">
+<<<<<<< HEAD
             <i class="bi bi-search text-muted display-1"></i>
             <p class="text-muted mt-3 fs-5">No stickers found matching your search.</p>
             <a href="{{ url_for('shop.index') }}" class="btn btn-primary mt-2">Back to Shop</a>
+=======
+            <h3 class="text-muted">No stickers found matching this category.</h3>
+            <a href="{{ url_for('shop.index') }}" class="btn btn-primary mt-3">Back to All Stickers</a>
+>>>>>>> 20b975217c53aead434e91d1a402506327696f92
         </div>
     {% endif %}
 
