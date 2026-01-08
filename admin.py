@@ -89,8 +89,8 @@ def add_request_to_dashboard(request_id):
     # Create a new standard Sticker from the custom request
     new_sticker = Sticker(  
         name=custom.name,
-        price=1.00,  # Default price
-        stock=10,    # Default stock
+        price=0.99,
+        stock=0,
         image_path=custom.image_path, # Note: You may need to move the file from /custom/ to /stickers/
         description=f"Community suggested sticker by User {custom.user_id}",
         category_id=1, # Assign to a default category ID

@@ -3,10 +3,8 @@ from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required
 from werkzeug.utils import secure_filename
 from extensions import db
-from models import User, Payment
 from datetime import datetime
 from decimal import Decimal
-import stripe
 import os
 
 
