@@ -91,4 +91,4 @@ if __name__ == "__main__":
     with app.app_context():
         create_default_categories()
 
-    app.run(debug=False)
+    app.run(debug=True)

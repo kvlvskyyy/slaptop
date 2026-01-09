@@ -361,10 +361,10 @@ body::before {
 .text-muted {
     color: black !important; 
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     /* 1. Reset row behavior */
     .request-list .row, 
-    .admin-sticker-list .row {
+    .admin-sticker-list-custom .row {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
@@ -373,7 +373,7 @@ body::before {
     }
 
     /* 2. Image Column: Keep it small and fixed */
-    .col-md-1, .col-3, .col-4 {
+    .col-md-1-custom, .col-3-custom, .col-4-custom {
         flex: 0 0 60px !important;
         width: 60px !important;
         max-width: 60px !important;
@@ -381,14 +381,14 @@ body::before {
     }
 
     /* 3. Text Column: Allow it to fill middle space */
-    .col-md-3, .col-md-6, .col-8, .col-9 {
+    .col-md-3-custom, .col-md-6-custom, .col-8-custom, .col-9-custom {
         flex: 1 1 auto !important;
         padding-left: 10px !important;
         min-width: 0; /* Important for text truncation */
     }
 
     /* 4. Action Column (Price & Buttons): Fixed width to align everything */
-    .col-md-2, .col-md-6.text-end, .col-6, .col-12 {
+    .col-md-2-custom, .col-md-6-custom.text-end, .col-6-custom, .col-12-custom {
         flex: 0 0 110px !important; /* Width of the button column */
         width: 110px !important;
         display: flex !important;
@@ -435,13 +435,13 @@ body::before {
     }
 
     /* Pushes the Order Info to the left and Buttons to the right */
-    .admin-orders-list .col-md-2, 
-    .admin-orders-list .col-md-3 {
+    .admin-orders-list .col-md-2-custom, 
+    .admin-orders-list .col-md-3-custom {
         flex: 1 1 auto !important;
     }
 
     /* Action Column for Orders */
-    .admin-orders-list .col-md-5.text-end {
+    .admin-orders-list .col-md-5-custom.text-end {
         flex: 0 0 120px !important; /* Fixed width for button stack */
         display: flex !important;
         flex-direction: column !important;
@@ -513,5 +513,10 @@ body::before {
 .btn-outline-blue:hover{
     background-color: #007bff;
     color: white;
+
+}
+
+.bg-purple {
+    background-color:#5a189a !important;
 
 }
