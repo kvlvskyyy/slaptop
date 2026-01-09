@@ -52,17 +52,7 @@
 
     <div class="collapse navbar-collapse mobile-menu-container" id="navbarsExample04">
       
-      <form method="POST" action="{{ url_for('shop.search')}}" class="d-none d-md-flex mx-auto w-50" role="search">
-        <div class="input-group">
-          <input class="form-control" type="search" placeholder="Search for stickers..." name="search">
-          <button class="btn btn-transparent" type="submit">
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </form>
-
-      <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-1 gap-md-3 align-items-end">
-
+      <ul class="navbar-nav me-3 mb-2 mb-md-0 align-items-center">
         <li class="nav-item dropdown text-end">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
           <ul class="dropdown-menu dropdown-menu-end slide-animation">
@@ -75,6 +65,18 @@
             {% endfor %}
           </ul>
         </li>
+      </ul>
+
+      <form method="POST" action="{{ url_for('shop.search')}}" class="d-none d-md-flex mx-auto w-50" role="search">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Search for stickers..." name="search">
+          <button class="btn btn-transparent" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-1 gap-md-3 align-items-center">
 
         {% if user and not user.is_admin %}
         <li class="nav-item text-end">
@@ -95,7 +97,7 @@
         {% endif %}
 
         <li class="nav-item dropdown text-end">
-            <a href="#" class="nav-link dropdown-toggle fs-5 py-0" data-bs-toggle="dropdown"> 
+            <a href="#" class="nav-link dropdown-toggle fs-5 py-0 d-flex align-items-center" data-bs-toggle="dropdown"> 
               <span class="d-md-none me-2 fs-6">Language</span>  
               <i class="bi bi-globe"></i>
             </a>
@@ -116,7 +118,7 @@
         </li>
 
         <li class="nav-item dropdown text-end">
-            <a class="nav-link dropdown-toggle fs-5 py-0" href="#" data-bs-toggle="dropdown">
+            <a class="nav-link dropdown-toggle fs-5 py-0 d-flex align-items-center" href="#" data-bs-toggle="dropdown">
               <span class="d-md-none me-2 fs-6">Profile</span>
                 <i class="bi bi-person-circle"></i>
             </a>

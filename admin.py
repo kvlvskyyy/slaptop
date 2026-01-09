@@ -151,3 +151,22 @@ def edit_sticker(sticker_id):
 
     categories = Category.query.all()
     return render_template('edit_sticker.html', sticker=sticker, categories=categories)
+
+
+@admin.route("/order/<int:order_id>/status/<string:new_status>", methods=["POST"])
+def update_order_status(order_id, new_status):
+    order = Order.query.get_or_404(order_id)
+
+    allowed_statuses = ["pending", "confirmed", "finished", "cancelled"]
+
+    new_status = new_status.lower().strip()
+    
+    if new_status not in allowed_statuses:
+        flash("Invalid status", "danger")
+        return redirect(url_for("admin.admin_orders"))
+
+    order.status = new_status
+    db.session.commit()
+
+    flash(f"Order #{order.id} marked as {new_status}", "success")
+    return redirect(url_for("admin.admin_orders"))
