@@ -1,8 +1,16 @@
-"""initial schema
+<<<<<<<< HEAD:migrations/versions/b0bd1cfe0ca9_initial_migration.py
+"""Initial migration
 
-Revision ID: 4fd289d5fcd0
+Revision ID: b0bd1cfe0ca9
 Revises: 
-Create Date: 2026-01-08 15:37:37.816809
+Create Date: 2026-01-09 12:56:28.581953
+========
+"""initial migration
+
+Revision ID: 310ec2deb7df
+Revises: 
+Create Date: 2026-01-09 12:22:27.143282
+>>>>>>>> c62936e5de5c8d72e9e6a44225149c7aa82d716c:migrations/versions/310ec2deb7df_initial_migration.py
 
 """
 from alembic import op
@@ -10,7 +18,11 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4fd289d5fcd0'
+<<<<<<<< HEAD:migrations/versions/b0bd1cfe0ca9_initial_migration.py
+revision = 'b0bd1cfe0ca9'
+========
+revision = '310ec2deb7df'
+>>>>>>>> c62936e5de5c8d72e9e6a44225149c7aa82d716c:migrations/versions/310ec2deb7df_initial_migration.py
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,6 +64,7 @@ def upgrade():
     sa.Column('image_path', sa.String(length=255), nullable=False),
     sa.Column('stock', sa.Integer(), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=True),
+    sa.Column('is_custom', sa.Boolean(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['category.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
