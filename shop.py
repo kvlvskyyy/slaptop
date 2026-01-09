@@ -21,27 +21,32 @@ def add_to_cart():
     sticker = Sticker.query.get(sticker_id)
     if not sticker:
         flash("Sticker not found.", "error")
-        return redirect(request.referrer)
+        return redirect(request.referrer or url_for('shop.index'))
 
-    # Get or create cart
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
         order = Order(user_id=user_id, created_at=datetime.utcnow(), status="cart", total_price=0)
         db.session.add(order)
-        db.session.flush() # flush gets order.id straight away without committing
+        db.session.flush()
 
     item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker.id).first()
     if item:
         item.quantity += 1
     else:
-        item = OrderItem(quantity=1, price_at_time=Decimal(str(sticker.price)), sticker_id=sticker.id, order_id=order.id)
+        item = OrderItem(
+            quantity=1,
+            price_at_time=Decimal(str(sticker.price)),
+            sticker_id=sticker.id,
+            order_id=order.id
+        )
         db.session.add(item)
 
     order.total_price += Decimal(str(sticker.price))
-
     db.session.commit()
+
     flash("Sticker added to cart!", "success")
-    return redirect(request.referrer)
+    return redirect(request.referrer or url_for('shop.cart'))
+
 
 
 @shop.route('/add_custom_to_cart', methods=['POST'])

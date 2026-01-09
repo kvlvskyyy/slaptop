@@ -2,9 +2,10 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models import Sticker, Order, Category, CustomSticker
 from utils import admin_required
 from werkzeug.utils import secure_filename
+from flask_mail import Message
 from utils import allowed_file, UPLOAD_FOLDER
 from decimal import Decimal
-from extensions import db
+from extensions import db, mail
 import os
 
 admin = Blueprint('admin', __name__, static_folder="static", template_folder="templates")
@@ -63,24 +64,99 @@ def add_sticker():
             flash("Please upload a valid image file.", "error")
     return render_template("add_sticker.html", categories=categories)
 
-
 @admin.route('/approve_request/<int:request_id>', methods=['POST'])
 @admin_required
 def approve_request(request_id):
     custom_sticker = CustomSticker.query.get_or_404(request_id)
+    user = custom_sticker.user
+
     custom_sticker.approval_status = 'approved'
+
+    # activate linked sticker
+    sticker = Sticker.query.get(custom_sticker.sticker_id)
+    if sticker:
+        sticker.is_active = True
+        sticker.is_custom = True
+
     db.session.commit()
+
+    msg = Message(
+        subject="Your custom sticker has been approved 🎉",
+        recipients=[custom_sticker.user.email],
+        body=f"""Hi {custom_sticker.user.username},
+
+Hi {user.username},
+
+Great news! 🎉
+
+Your {custom_sticker.name} sticker request has been approved and is now available.
+
+
+You can now add your sticker to your cart and place your order!
+
+
+If you gave permission for it to be shared, we will consider adding your sticker to our website for others to order and view.
+
+
+Thank you for choosing our sticker webshop — we truly appreciate your support!
+
+
+Best regards,
+The Stickerdom Team
+"""
+    )
+
+    try:
+        mail.send(msg)
+    except Exception:
+        flash("Sticker approved, but email could not be sent.", "warning")
+
     flash(f"Request '{custom_sticker.name}' approved.", "success")
     return redirect(url_for('admin.suggestions'))
+
 
 @admin.route('/deny_request/<int:request_id>', methods=['POST'])
 @admin_required
 def deny_request(request_id):
     custom_sticker = CustomSticker.query.get_or_404(request_id)
-    custom_sticker.approval_status = 'denied'
+
+    user = custom_sticker.user
+
+    sticker = Sticker.query.get(custom_sticker.sticker_id)
+    if sticker:
+        db.session.delete(sticker)
+
+    msg = Message(
+        subject="Your Stickerdom Sticker Request Update",
+        recipients=[user.email],
+        body=f"""Hi {user.username},
+
+Thank you for your interest in Stickerdom and for submitting your sticker request.
+
+After careful review, we regret to inform you that your "{custom_sticker.name}" sticker request has been denied and will not be processed further.
+This decision may be due to content restrictions, copyright concerns, technical limitations, or not meeting our current guidelines.
+
+If you believe this decision was made in error or you would like more information, feel free to reply to this email, and our team will be happy to assist you.
+
+Thank you for your understanding and for your interest in our products.
+
+Best regards,
+The Stickerdom Team
+"""
+    )
+
+    try:
+        mail.send(msg)
+    except Exception:
+        flash("Sticker denied, but email could not be sent.", "warning")
+
+    # delete request
+    db.session.delete(custom_sticker)
     db.session.commit()
+
     flash(f"Request '{custom_sticker.name}' denied.", "info")
     return redirect(url_for('admin.suggestions'))
+
 
 @admin.route('/add_request_to_dashboard/<int:request_id>', methods=['POST'])
 @admin_required
