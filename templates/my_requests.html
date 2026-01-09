@@ -47,7 +47,6 @@
 
                     <div class="col-8 col-md-6 text-dark"> 
                         <span class="fw-bold d-block fs-5">{{sticker.name}}</span> 
-                        <p class="small text-muted mb-0 text-truncate">{{sticker.description}}</p> 
                     </div>
 
                     <div class="col-6 col-md-2 text-center text-muted small">
@@ -64,7 +63,7 @@
                             </span>
 
                             {% if sticker.approval_status in ['approved', 'added_to_shop'] %}
-                            <form action="{{ url_for('shop.add_to_cart') }}" method="POST" class="m-0">
+                            <form action="{{ url_for('shop.add_custom_to_cart') }}" method="POST" class="m-0">
                                 <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
                                 <button type="submit" class="btn btn-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center" 
                                         style="width: 35px; height: 35px;" title="Add to Cart">
