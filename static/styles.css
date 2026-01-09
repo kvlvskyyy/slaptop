@@ -452,84 +452,6 @@ body::before {
     border: none;
 }
 
-/* --- MOBILE MENU OVERHAUL --- */
-
-@media (max-width: 768px) {
-    
-    /* 1. Container Styling (The "Shrinking Background") */
-    /* We make it absolute so it floats over the content instead of pushing it */
-    .mobile-menu-container {
-        position: absolute;
-        top: 100%; /* Right below the navbar */
-        right: 0;  /* Stick to the right */
-        width: auto; /* Shrink to fit content width */
-        min-width: 200px; /* But not too small */
-        
-        background-color: #5a189a; /* Match Navbar Color */
-        /* OR use a slightly lighter shade if you want contrast: #6a1ca6 */
-        
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        box-shadow: -5px 10px 15px rgba(0,0,0,0.2); /* Shadow on the left side */
-        padding: 10px 20px;
-        z-index: 1000;
-    }
-
-    /* 2. Text Alignment & Item Spacing */
-    .mobile-menu-container .navbar-nav {
-        align-items: flex-end !important; /* Forces all items to the right */
-        gap: 15px; /* Adds space between vertical items */
-    }
-    
-    .mobile-menu-container .nav-link {
-        padding: 5px 0; /* Cleaner vertical spacing */
-    }
-
-    /* 3. Dropdown Menus (Professional Look) */
-    /* Remove the default white floating box look on mobile */
-    .mobile-menu-container .dropdown-menu {
-        position: static !important; /* Push content down instead of floating */
-        float: none;
-        width: auto;
-        background: transparent; /* No white box */
-        border: none;
-        box-shadow: none;
-        text-align: right; /* Align sub-items to the right */
-        padding-top: 0;
-        padding-bottom: 0;
-        margin-top: 5px;
-        
-        /* Hidden by default state for animation */
-        display: none; 
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    /* When 'show' is added by JS, we display it */
-    .mobile-menu-container .dropdown-menu.show {
-        display: block;
-        animation: slideDown 0.3s ease forwards;
-    }
-    
-    .mobile-menu-container .dropdown-item {
-        color: rgba(255, 255, 255, 0.7); /* Light white text */
-        padding-right: 0; /* Align perfectly to the right edge */
-    }
-    
-    .mobile-menu-container .dropdown-item:hover,
-    .mobile-menu-container .dropdown-item:focus {
-        background: transparent;
-        color: #F5B800; /* Yellow highlight */
-    }
-    
-    /* 4. Fix Cart Alignment */
-    /* Ensures the cart icon aligns perfectly with the text of other links */
-    .nav-item.d-flex {
-        width: 100%;
-        justify-content: flex-end;
-    }
-}
-
 /* --- ANIMATION KEYFRAMES --- */
 /* Simple slide down and fade in effect */
 @keyframes slideDown {
@@ -559,3 +481,147 @@ body::before {
 }
 
 
+.btn-blue{
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-blue:hover{
+     background-color: #007bff;
+    color: white;
+
+}
+.btn-outline-blue{
+     background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.btn-outline-blue:hover{
+    background-color: #007bff;
+    color: white;
+
+}
+
+/* --- MOBILE MENU FIXES --- */
+@media (max-width: 768px) {
+    
+    /* 1. The Main Container */
+    .mobile-menu-container {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: auto;
+        min-width: 250px; 
+        
+        /* Flexbox Stack */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* CHANGED: Aligns blocks to the right */
+        gap: 20px; /* Equal spacing between blocks */
+        
+        background-color: #5a189a;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: -5px 10px 15px rgba(0,0,0,0.2);
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    /* 2. Fix the Lists (Categories & Icons) */
+    .mobile-menu-container .navbar-nav {
+        flex-direction: column;
+        align-items: flex-end !important; /* CHANGED: Force right alignment */
+        width: 100%;
+        gap: 20px !important; 
+        margin: 0 !important; 
+    }
+
+    /* 3. Fix the Search Bar */
+    .mobile-menu-container form {
+        width: 100%; 
+        max-width: 220px;
+        margin-left: auto; /* Pushes form to the right */
+        margin-right: 0;
+    }
+
+    /* 4. Ensure Links and Text are Right Aligned */
+    .mobile-menu-container .nav-link {
+        display: flex;
+        justify-content: flex-end; /* CHANGED: Aligns content inside link to right */
+        align-items: center;
+        text-align: right;
+        width: 100%;
+        padding: 0; 
+    }
+
+    /* 5. Dropdowns (Categories/Profile/etc) */
+    .mobile-menu-container .dropdown-menu {
+        position: static !important;
+        float: none;
+        background: transparent;
+        border: none;
+        text-align: right; /* CHANGED: Right align text */
+        margin-top: 10px; 
+        padding-right: 0;
+    }
+
+    .mobile-menu-container .dropdown-item {
+        color: rgba(255,255,255,0.7);
+        display: flex;
+        justify-content: flex-end; /* CHANGED: Right align item content */
+        padding-right: 0;
+    }
+    
+    .mobile-menu-container .dropdown-item:hover {
+        color: #F5B800;
+        background: transparent;
+    }
+}
+
+/* --- EXTRA SMALL DEVICES (iPhone SE / Fold / etc) --- */
+@media (max-width: 360px) {
+    
+    /* Target the form that holds the search bar */
+    form.d-md-none {
+        /* Remove the side margins that squish it */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 50%; /* Force full width */
+    }
+
+    /* Target the input group itself to ensure it fills the space */
+    form.d-md-none .input-group {
+        width: 100% !important;
+    }
+
+    /* Optional: Make the text inside slightly smaller to fit better */
+    form.d-md-none input.form-control {
+        font-size: 0.8rem !important; 
+        padding-left: 5px !important;
+    }
+}
+
+/* --- DESKTOP ONLY FIXES --- */
+@media (min-width: 769px) {
+    
+    /* 1. Force Right Alignment (Anchor Right, Expand Left) */
+    .dropdown-menu-end {
+        right: 0 !important;
+        left: auto !important;
+        transform: none !important; /* Disables Popper.js dynamic positioning conflicts */
+        text-align: left; /* Keep the text inside readable (optional) */
+    }
+
+    /* 2. Slide Animation (Existing code, keep this) */
+    .slide-animation {
+        animation: slideDown 0.2s ease forwards;
+        display: block; 
+        visibility: hidden;
+    }
+    
+    .dropdown:hover .slide-animation, 
+    .dropdown .dropdown-menu.show {
+        visibility: visible;
+    }
+}

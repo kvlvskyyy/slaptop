@@ -12,7 +12,6 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
     body {
-        /* Jinja works here because this is an HTML file */
         background-image: url("{{ url_for('static', filename='images/bg/bg.jpg') }}");
         background-attachment: fixed;
         background-size: cover;
@@ -135,7 +134,6 @@
                 {% endif %}
             </ul>
         </li>
-
         <li class="nav-item text-end d-flex justify-content-end align-items-center">
             <a href="{{ url_for('shop.cart') }}" class="nav-link fs-5 p-2 d-flex align-items-center">
                 <div class="position-relative cart-effect d-flex">
@@ -179,11 +177,11 @@
                 <div class="col-md-4 mb-3">
                     <h5 class="fw-bold">Quick links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{{url_for('shop.aboutus')}}" class="text-decoration-none text-info">About Us</a></li>
-                        <li><a href="{{url_for('shop.shippinginfo')}}" class="text-decoration-none text-info">Shipping Information</a></li>
-                        <li><a href="{{url_for('shop.termsconditions')}}" class="text-decoration-none text-info">Terms & Conditions</a></li>
-                        <li><a href="{{url_for('shop.returnrefund')}}" class="text-decoration-none text-info">Returns and Refunds</a></li>
-                        <li><a href="{{url_for('shop.privacy')}}" class="text-decoration-none text-info">Your Privacy Policy</a></li>
+                        <li><a href="{{url_for('shop.aboutus')}}" class="small text-decoration-underlined text-white-50">About Us</a></li>
+                        <li><a href="{{url_for('shop.shippinginfo')}}" class="small text-decoration-underlined text-white-50">Shipping Information</a></li>
+                        <li><a href="{{url_for('shop.termsconditions')}}" class="small text-decoration-underlined text-white-50">Terms & Conditions</a></li>
+                        <li><a href="{{url_for('shop.returnrefund')}}" class="small text-decoration-underlined text-white-50">Returns and Refunds</a></li>
+                        <li><a href="{{url_for('shop.privacy')}}" class="small text-decoration-underlined text-white-50">Your Privacy Policy</a></li>
 
                     </ul>
                 </div>

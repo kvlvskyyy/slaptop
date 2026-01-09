@@ -1,5 +1,6 @@
 import os
 from flask import Flask, session, request, redirect
+from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
 from models import User, Order, Category
@@ -21,6 +22,7 @@ def get_locale():
 
 def create_app():
     app = Flask(__name__)
+    # Database configuration
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
@@ -46,19 +48,23 @@ def create_app():
 
     mail.init_app(app)
 
-    # --- GLOBAL CONTEXT PROCESSOR ---
+    app.register_blueprint(auth)
+    app.register_blueprint(shop)
+    app.register_blueprint(payments)
+    app.register_blueprint(admin)
+
     # This runs for EVERY template in the app (Shop, Admin, Auth, etc.)
     @app.context_processor
     def inject_global_context():
-        # 1. Inject User
+        # 1. User
         user = None
         if 'user_id' in session:
             user = User.query.get(session['user_id'])
 
-        # 2. Inject Categories (for the Navbar dropdown)
-        categories = Category.query.order_by(Category.name).all()
+        # 2. Categories (for the Navbar dropdown)
+        categories = Category.query.all()
 
-        # 3. Inject Cart Count (for the Navbar badge)
+        # 3. Cart Count (for the Navbar badge)
         cart_item_count = 0
         if 'user_id' in session:
             order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
@@ -71,11 +77,6 @@ def create_app():
             cart_item_count=cart_item_count
         )
 
-    app.register_blueprint(auth)
-    app.register_blueprint(shop)
-    app.register_blueprint(payments)
-    app.register_blueprint(admin)
-    
     # Route to change language - users click this to switch between English/Dutch
     @app.route('/set-language/<language>')
     def set_language(language):
@@ -87,4 +88,7 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
+    with app.app_context():
+        create_default_categories()
+
     app.run(debug=True)
