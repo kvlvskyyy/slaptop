@@ -26,6 +26,7 @@ class Sticker(db.Model):
     image_path = db.Column(db.String(255), nullable=False)
     stock = db.Column(db.Integer, nullable=True, default=0)
     is_active = db.Column(db.Boolean, default=True)
+    is_custom = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     order_items = db.relationship('OrderItem', backref='sticker', lazy=True)

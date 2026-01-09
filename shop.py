@@ -283,6 +283,7 @@ def request_sticker():
                 image_path=filename,
                 price=Decimal("0.99"),
                 is_active=False,
+                is_custom=True,
                 category_id=3
             )
             db.session.add(new_sticker)
@@ -293,7 +294,7 @@ def request_sticker():
             db.session.commit()
 
             flash("Your sticker has beeen submitted for approval!", "success")
-            return redirect(url_for('shop.index'))
+            return redirect(url_for('shop.my_requests'))
         else:
             flash("Invalid file type", "error")
 
