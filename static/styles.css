@@ -368,12 +368,103 @@ body::before {
     height: 300px; /* Fixed height for consistency */
     overflow: hidden; 
 }
+@media (max-width: 768px) {
+    /* 1. Reset row behavior */
+    .request-list .row, 
+    .admin-sticker-list-custom .row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+        padding: 10px 5px !important;
+    }
+
+    /* 2. Image Column: Keep it small and fixed */
+    .col-md-1-custom, .col-3-custom, .col-4-custom {
+        flex: 0 0 60px !important;
+        width: 60px !important;
+        max-width: 60px !important;
+        padding: 0 !important;
+    }
+
+    /* 3. Text Column: Allow it to fill middle space */
+    .col-md-3-custom, .col-md-6-custom, .col-8-custom, .col-9-custom {
+        flex: 1 1 auto !important;
+        padding-left: 10px !important;
+        min-width: 0; /* Important for text truncation */
+    }
+
+    /* 4. Action Column (Price & Buttons): Fixed width to align everything */
+    .col-md-2-custom, .col-md-6-custom.text-end, .col-6-custom, .col-12-custom {
+        flex: 0 0 110px !important; /* Width of the button column */
+        width: 110px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important; /* Makes buttons same width */
+        gap: 5px; /* Spacing between Price and Buttons */
+        text-align: right !important;
+    }
+
+    /* 5. Uniform Button Sizing */
+    .admin-sticker-list .btn, 
+    .request-list .btn {
+        width: 100% !important; /* Buttons fill the 110px container */
+        margin: 0 !important;
+        display: block !important;
+        font-size: 0.8rem !important;
+        padding: 5px 0 !important;
+    }
+
+    /* 6. Price Alignment */
+    .admin-sticker-list .fw-bold.text-dark {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    /* Hide unnecessary columns to save space */
+    .text-muted.small.text-center {
+        display: none !important;
+    }
+    .mx-2{
+        margin-right: 0px !important;
+       
+    }
+}
 
 /* Mobile: Show more of the image by changing how it fits */
 @media (max-width: 576px) {
     .hero-carousel-item {
         min-height: auto;
         height: 150px; /* Slightly shorter on phone */
+    /* ... existing code for .request-list and .admin-sticker-list ... */
+    }
+    /* NEW: Specific fix for Admin Orders */
+    .admin-orders-list .row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+    }
+
+    /* Pushes the Order Info to the left and Buttons to the right */
+    .admin-orders-list .col-md-2-custom, 
+    .admin-orders-list .col-md-3-custom {
+        flex: 1 1 auto !important;
+    }
+
+    /* Action Column for Orders */
+    .admin-orders-list .col-md-5-custom.text-end {
+        flex: 0 0 120px !important; /* Fixed width for button stack */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px; /* Space between buttons */
+    }
+
+    /* Make every status button the same size */
+    .admin-orders-list .btn-sm {
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: center;
     }
     
     .hero-carousel-item img {
@@ -624,4 +715,7 @@ body::before {
     .dropdown .dropdown-menu.show {
         visibility: visible;
     }
+}
+.bg-purple {
+    background-color:#5a189a !important;
 }
