@@ -12,7 +12,6 @@ import os
 shop = Blueprint('shop', __name__, static_folder="static", template_folder="templates")
 
 
-
 @shop.route('/add_to_cart', methods=['POST'])
 @login_required
 def add_to_cart():
@@ -241,7 +240,7 @@ def delete_sticker(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
     sticker.is_active = False
     db.session.commit()
-    return redirect(url_for('shop.index_admin'))
+    return redirect(url_for('admin.index_admin'))
 
 @shop.route('/payment_options')
 @login_required
