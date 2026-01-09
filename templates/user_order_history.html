@@ -55,7 +55,7 @@
                                 {%for item in order.order_items%}
                                 <li class="d-flex justify-content-between">
                                     <span>{{item.sticker.name}}*{{item.quantity}}</span>
-                                    <span>€{{item.price_at_time}}</span>
+                                    <span>€{{item.price_at_time*item.quantity}}</span>
                                 </li>
                                 {%endfor%}
                             </ul>
