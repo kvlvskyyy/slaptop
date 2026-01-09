@@ -493,3 +493,25 @@ body::before {
         padding: 4px 0 !important;
     }
 }
+
+.btn-blue{
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-blue:hover{
+     background-color: #007bff;
+    color: white;
+
+}
+.btn-outline-blue{
+     background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.btn-outline-blue:hover{
+    background-color: #007bff;
+    color: white;
+
+}
