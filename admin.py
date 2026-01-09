@@ -5,10 +5,59 @@ from werkzeug.utils import secure_filename
 from flask_mail import Message
 from utils import allowed_file, UPLOAD_FOLDER
 from decimal import Decimal
+from models import User
 from extensions import db, mail
 import os
 
 admin = Blueprint('admin', __name__, static_folder="static", template_folder="templates")
+
+
+def send_order_status_email(user_email, order_id, status):
+    status = status.lower().strip()
+    subject = ''
+    body = ''
+
+    if status == 'cancelled':
+        subject = f"Your Stickerdom order #{order_id} has been cancelled"
+        body = f"Hello,\n\nWe’re sorry to inform you that your order #{order_id} has been cancelled.\nIf you have questions, contact us.\n\nThanks, Stickerdom Team"
+    elif status == 'finished':
+        subject = f"Your Stickerdom order #{order_id} is ready!"
+        body = f"""
+Hello,
+
+Good news! Your order #{order_id} has been completed.
+
+You can pick up your order at OIL 4.30 between 13:00 and 16:00.
+
+Thank you for shopping with Stickerdom!
+
+Best regards,
+Stickerdom Team
+"""
+    elif status == 'confirmed':
+        subject = f"Your Stickerdom order #{order_id} is confirmed!"
+        body = f"""
+Hello,
+
+Your order #{order_id} has been confirmed successfully.
+
+We are preparing your stickers for pickup.
+
+Thank you for shopping with Stickerdom!
+
+Best regards,
+Stickerdom Team
+"""
+    else:
+        print("DEBUG: status did not match, email not sent")
+        return
+
+    msg = Message(subject=subject,
+                  recipients=[user_email],
+                  body=body)
+    mail.send(msg)
+
+
 
 @admin.route('/admin_orders')
 @admin_required
@@ -239,19 +288,27 @@ def edit_sticker(sticker_id):
 
 
 @admin.route("/order/<int:order_id>/status/<string:new_status>", methods=["POST"])
+@admin_required
 def update_order_status(order_id, new_status):
     order = Order.query.get_or_404(order_id)
 
     allowed_statuses = ["pending", "confirmed", "finished", "cancelled"]
-
     new_status = new_status.lower().strip()
-    
+
     if new_status not in allowed_statuses:
         flash("Invalid status", "danger")
         return redirect(url_for("admin.admin_orders"))
 
     order.status = new_status
     db.session.commit()
+
+    user = User.query.get(order.user_id)
+
+    if user and user.email and new_status in ["finished", "cancelled", "confirmed"]:
+        try:
+            send_order_status_email(user.email, order.id, new_status)
+        except Exception as e:
+            flash("Order updated, but email could not be sent.", "warning")
 
     flash(f"Order #{order.id} marked as {new_status}", "success")
     return redirect(url_for("admin.admin_orders"))
