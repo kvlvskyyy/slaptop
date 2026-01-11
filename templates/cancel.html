@@ -9,11 +9,11 @@
 <body class="bg-light">
   <div class="container py-5">
     <div class="alert alert-warning text-center" role="alert">
-      <h4 class="alert-heading">Payment Canceled!</h4>
-      <p>Forgot to add something to your cart? Shop around and come back to pay.</p>
+      <h4 class="alert-heading">{{ _('Payment Canceled!') }}</h4>
+      <p>{{ _('Forgot to add something to your cart? Shop around and come back to pay.') }}</p>
       <hr>
-      <a href="{{ url_for('shop.cart') }}" class="btn btn-primary">Return to Cart</a>
-      <a href="{{ url_for('shop.index') }}" class="btn btn-secondary">Continue Shopping</a>
+      <a href="{{ url_for('shop.cart') }}" class="btn btn-primary">{{ _('Return to Cart') }}</a>
+      <a href="{{ url_for('shop.index') }}" class="btn btn-secondary">{{ _('Continue Shopping') }}</a>
     </div>
   </div>
 </body>

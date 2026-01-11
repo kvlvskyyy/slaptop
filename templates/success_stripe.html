@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thanks for your order!</title>
+  <title>{{ _('Thanks for your order!') }}</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -13,12 +13,12 @@
   <div class="container vh-100 d-flex justify-content-center align-items-center">
     <div class="card shadow p-4 text-center">
       <div class="card-body">
-        <h1 class="card-title mb-3">Thank You! 🎉</h1>
+        <h1 class="card-title mb-3">{{ _('Thank You! 🎉') }}</h1>
         <p class="card-text mb-3">
-          We appreciate your business! If you have any questions, please email
+          {{ _('We appreciate your business! If you have any questions, please email') }}
           <a href="mailto:orders@example.com">orders@example.com</a>.
         </p>
-        <a href="/" class="btn btn-primary">Back to Home</a>
+        <a href="/" class="btn btn-primary">{{ _('Back to Home') }}</a>
       </div>
     </div>
   </div>

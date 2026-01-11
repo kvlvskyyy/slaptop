@@ -7,7 +7,7 @@
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
-            Back to All Stickers
+            {{ _('Back to All Stickers') }}
         </a>
     </div>
 
@@ -24,24 +24,24 @@
         <div class="col-lg-5">
             <div class="ps-lg-2">
                 <h1 class="h2 fw-bold text-dark mb-1">{{ sticker.name }}</h1>
-                <p class="text-muted small mb-4">Designed and sold by <strong>Stickerdom</strong></p>
+                <p class="text-muted small mb-4">{{ _('Designed and sold by') }} <strong>Stickerdom</strong></p>
 
                 <div class="mb-4">
                     <h2 class="fw-bold text-dark mb-0">€<span id="base-price">{{ "%.2f"|format(sticker.price) }}</span></h2>
-                    <p class="text-success small fw-bold mb-0">{{ sticker.stock }} In Stock</p>
+                    <p class="text-success small fw-bold mb-0">{{ sticker.stock }} {{ _('In Stock') }}</p>
                 </div>
 
                 <div class="mt-5">
-                    <h6 class="fw-bold text-uppercase small">Product Description</h6>
+                    <h6 class="fw-bold text-uppercase small">{{ _('Product Description') }}</h6>
                     <p class="text-secondary small" style="line-height: 1.6;">
-                        {{ sticker.description if sticker.description else "No description available."}}
+                        {{ sticker.description if sticker.description else _("No description available.")}}
                     </p>
                 </div>
 
                 <form action="{{ url_for('shop.add_to_cart') }}" method="POST" class="d-grid gap-2 mt-5">
                     <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
                     <button class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow-sm" type="submit">
-                        <i class="bi bi-cart-fill me-2"></i> Add to Cart
+                        <i class="bi bi-cart-fill me-2"></i> {{ _('Add to Cart') }}
                     </button>
                 </form>
             </div>

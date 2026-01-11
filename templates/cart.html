@@ -70,7 +70,7 @@
         {% if items|length > 0 %}
         <div class="d-flex justify-content-end align-items-center pt-4">
             <div class="text-dark me-4 h5 mb-0">
-                Total:
+                {{ _('Total:') }}
             </div>
 
             <div class="text-dark me-5 h4 mb-0">
@@ -78,7 +78,7 @@
             </div>
 
             <a href="{{ url_for('payments.checkout') }}" class="btn btn-secondary btn-lg">
-                Proceed to checkout
+                {{ _('Proceed to checkout') }}
             </a>
         </div>
         {% endif %}

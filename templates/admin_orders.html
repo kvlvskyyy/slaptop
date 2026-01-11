@@ -23,9 +23,9 @@
                     €{{ '%.2f'|format(order.total_price)}}
                 </div>
                 <div class="col-md-5 text-end">
-                    <button class="btn btn-sm btn-outline-danger">Cancel</button>
-                    <button class="btn btn-sm btn-outline-primary">Confirm</button>
-                    <button class="btn btn-sm btn-outline-success">Finish</button>
+                    <button class="btn btn-sm btn-outline-danger">{{ _('Cancel') }}</button>
+                    <button class="btn btn-sm btn-outline-primary">{{ _('Confirm') }}</button>
+                    <button class="btn btn-sm btn-outline-success">{{ _('Finish') }}</button>
 
                     <button class="btn btn-light rounded-circle ms-2"
                             type="button"
@@ -41,12 +41,12 @@
                 <div class="card card-body bg-light border-0">
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>Customer Details</h6>
+                            <h6>{{ _('Customer Details') }}</h6>
                             <p class="mb-0">{{order.user_id}}</p>
                             <small class="text-muted">Stickerstraat 12, Amsterdam</small>
                         </div>
                         <div class="col-md-6">
-                            <h6>Order contents</h6>
+                            <h6>{{ _('Order contents') }}</h6>
                             <ul class="list-unstyled">
                                 {%for item in order.order_items%}
                                 <li class="d-flex justify-content-between">

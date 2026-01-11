@@ -17,7 +17,7 @@
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
-            Back to All Stickers
+            {{_('Back to All Stickers')}}
         </a>
     </div>
     <!-- UPLOADIN THE STICKERS -->
@@ -30,33 +30,33 @@
                 <div class="card-body p-4">
     <form action="{{ url_for('shop.request_sticker') }}" method="POST" enctype="multipart/form-data">
 
-        <h2 class="card-title text-center mb-4">Create Your Own Sticker</h2>
+        <h2 class="card-title text-center mb-4">{{_('Create Your Own Sticker')}}</h2>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nameInput" name="name" placeholder="Sticker Name" required>
-                        <label for="nameInput">Sticker Name</label>
+                        <input type="text" class="form-control" id="nameInput" name="name" placeholder="{{_('Sticker Name')}}" required>
+                        <label for="nameInput">{{_('Sticker Name')}}</label>
                     </div>
 
        <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Description" id="descInput" name="description" style="height: 100px"></textarea>
-                        <label for="descInput">Description (Optional)</label>
+                        <textarea class="form-control" placeholder="{{_('Description')}}" id="descInput" name="description" style="height: 100px"></textarea>
+                        <label for="descInput">{{_('Description (Optional)')}}</label>
                     </div>
         <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" value="yes" id="approveCheck" name="request_approval">
             <label class="form-check-label" for="approveCheck">
-                Submit for Admin Approval to Post on Dashboard
+                {{_('Submit for Admin Approval to Post on Dashboard')}}
             </label>
         </div>
 
 
         <div class="mb-4">
-                        <label for="imageInput" class="form-label text-muted">Sticker Image</label>
+                        <label for="imageInput" class="form-label text-muted">{{_('Sticker Image')}}</label>
                         <input type="file" class="form-control" id="imageInput" name="image" required>
                     </div>
 
         <div  class="d-grid">
                         <button class="btn btn-primary btn-lg" type="submit">
-                            <i class="bi bi-plus-circle me-2"></i>Request Sticker
+                            <i class="bi bi-plus-circle me-2"></i>{{_('Request Sticker')}}
                         </button>
                     </div>
     </form>

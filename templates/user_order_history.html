@@ -5,13 +5,13 @@
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
-            Back to All Stickers
+            {{ _('Back to All Stickers') }}
         </a>
     </div>
     
 <div class="container mt-5"> 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>My order history</h1>
+        <h1>{{ _('My order history') }}</h1>
     </div>
 
     <ul class="list-group">
@@ -19,7 +19,7 @@
         <li class="list-group-item p-3"> 
             <div class="row align-items-center">
                 <div class="col-md-2 fw-bold">
-                    Order #{{order.id}}
+                    {{ _('Order') }} #{{order.id}}
                 </div>
 
                 <div class="col-md-3">
@@ -45,11 +45,11 @@
                 <div class="card card-body bg-light border-0">
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>Customer Details</h6>
+                            <h6>{{ _('Customer Details') }}</h6>
                             <p class="mb-0">User ID: {{order.user_id}}</p>
                         </div>
                         <div class="col-md-6">
-                            <h6>Order contents</h6>
+                            <h6>{{ _('Order contents') }}</h6>
                             <ul class="list-unstyled">
                                 {%for item in order.order_items%}
                                 <li class="d-flex justify-content-between">

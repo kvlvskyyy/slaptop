@@ -23,12 +23,11 @@
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
-            Back to All Stickers
+            {{_('Back to All Stickers')}}
         </a>
     </div>
         
-    <h1 class="text-center mt-5">Meet the Team</h1>
-
+    <h1 class="text-center mt-5">{{_('Meet the Team')}}</h1>
     <div class="row g-4 mt-3">
         
         <div class="col-md-4">
@@ -76,7 +75,7 @@
                 <img src="{{ url_for('static', filename='images/us/George.jpeg') }}" class="card-img-top team-img" alt="Georgios">
                 <div class="card-body text-center">
                     <h3 class="text-primary fw-bold">Georgios Pissas</h3>
-                    <p class="text-muted mb-0">Team leader</p>                   
+                    <p class="text-muted mb-0">{{_('Team leader')}}</p>                   
                 </div>
             </div>
         </div>
@@ -86,7 +85,7 @@
                 <img src="{{ url_for('static', filename='images/us/Lourenco.jpeg') }}" class="card-img-top team-img" alt="Lourenço">
                 <div class="card-body text-center">
                     <h3 class="text-primary fw-bold">Lourenço Reis</h3>
-                    <p class="text-muted mb-0">Master of vibe coding</p>                    
+                    <p class="text-muted mb-0">Back-end developer</p>                    
                 </div>
             </div>
         </div>
