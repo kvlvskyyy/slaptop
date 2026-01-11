@@ -9,6 +9,8 @@ class User(db.Model):
     password = db.Column(db.String(256), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
+    orders = db.relationship("Order", backref="user", lazy=True)
+
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
@@ -24,6 +26,8 @@ class Sticker(db.Model):
     image_path = db.Column(db.String(255), nullable=False)
     stock = db.Column(db.Integer, nullable=True, default=0)
     is_active = db.Column(db.Boolean, default=True)
+    is_custom = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     order_items = db.relationship('OrderItem', backref='sticker', lazy=True)
 
@@ -37,6 +41,7 @@ class Category(db.Model):
 class CustomSticker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
     image_path = db.Column(db.String(255), nullable=False)
     approval_status = db.Column(db.String(255), nullable=False)
@@ -54,6 +59,7 @@ class Order(db.Model):
     status = db.Column(db.String(255), nullable=True)
 
     order_items = db.relationship('OrderItem', backref='order', lazy=True)
+    payment = db.relationship('Payment', backref='order', uselist=False)
 
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -71,5 +77,4 @@ class Payment(db.Model):
     email = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
 
-    order = db.relationship("Order", backref="payment", uselist=False)
 

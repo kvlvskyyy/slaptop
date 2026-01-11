@@ -96,7 +96,6 @@ The Stickerdom Team"""
         except Exception:
             flash("Order placed, but confirmation email could not be sent.", "warning")
 
-
         return redirect(url_for('payments.checkout_success', order_id=order_id))
 
 @payments.route('/checkout-success/<int:order_id>')

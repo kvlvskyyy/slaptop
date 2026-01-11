@@ -17,22 +17,22 @@ shop = Blueprint('shop', __name__, static_folder="static", template_folder="temp
 def add_to_cart():
     sticker_id = request.form.get('sticker_id')
     user_id = session['user_id']
+
+    sticker = Sticker.query.get(sticker_id)
+    if not sticker:
+        flash("Sticker not found.", "error")
+        return redirect(request.referrer or url_for('shop.index'))
+
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
-        order = Order(
-            user_id=user_id,
-            created_at=datetime.utcnow(),
-            status="cart",
-            total_price=Decimal('0.00')
-        )
+        order = Order(user_id=user_id, created_at=datetime.utcnow(), status="cart", total_price=0)
         db.session.add(order)
-        db.session.commit()
-        total_quantity = sum(item.quantity for item in order.order_items)
-    item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker_id).first()
+        db.session.flush()
+
+    item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker.id).first()
     if item:
         item.quantity += 1
     else:
-        sticker = Sticker.query.get(sticker_id)
         item = OrderItem(
             quantity=1,
             price_at_time=Decimal(str(sticker.price)),
@@ -40,10 +40,62 @@ def add_to_cart():
             order_id=order.id
         )
         db.session.add(item)
-    order.total_price += item.price_at_time
+
+    order.total_price += Decimal(str(sticker.price))
     db.session.commit()
-    flash("Sticker successfully added to cart!", "success")
-    return redirect(request.referrer)
+
+    flash("Sticker added to cart!", "success")
+    return redirect(request.referrer or url_for('shop.cart'))
+
+
+
+@shop.route('/add_custom_to_cart', methods=['POST'])
+@login_required
+def add_custom_to_cart():
+    user_id = session['user_id']
+    custom_id = request.form.get("sticker_id")
+
+    custom = CustomSticker.query.get_or_404(custom_id)
+
+    if custom.approval_status != "approved":
+        flash("Sticker not available", "error")
+        return redirect(url_for("shop.my_requests"))
+
+    sticker = Sticker.query.get_or_404(custom.sticker_id)
+
+    order = Order.query.filter_by(user_id=user_id, status="cart").first()
+    if not order:
+        order = Order(
+            user_id=user_id,
+            status="cart",
+            created_at=datetime.utcnow(),
+            total_price=Decimal("0.00")
+        )
+        db.session.add(order)
+        db.session.commit()
+
+    item = OrderItem.query.filter_by(
+        order_id=order.id,
+        sticker_id=sticker.id
+    ).first()
+
+    if item:
+        item.quantity += 1
+    else:
+        item = OrderItem(
+            order_id=order.id,
+            sticker_id=sticker.id,
+            quantity=1,
+            price_at_time=sticker.price
+        )
+        db.session.add(item)
+
+    order.total_price += Decimal(str(sticker.price))
+    db.session.commit()
+
+    flash("Sticker added to cart!", "success")
+    return redirect(url_for("shop.cart"))
+
 
 
 @shop.route('/cart')
@@ -183,8 +235,9 @@ def sticker_desc(sticker_id):
 
 @shop.route("/my_requests")
 def my_requests():
-    user_id = session["user_id"]
-    custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
+    user_id = session['user_id']
+    custom_stickers = CustomSticker.query.filter_by(user_id=session['user_id']).all()
+
     return render_template("my_requests.html", custom_stickers=custom_stickers)
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
@@ -192,7 +245,7 @@ def delete_sticker(sticker_id):
     sticker = Sticker.query.get_or_404(sticker_id)
     sticker.is_active = False
     db.session.commit()
-    return redirect(url_for('shop.index_admin'))
+    return redirect(url_for('admin.index_admin'))
 
 @shop.route('/payment_options')
 @login_required
@@ -226,12 +279,26 @@ def request_sticker():
                 request_approval=request_approval,
                 created_at=datetime.utcnow()
             )
-
             db.session.add(new_request)
             db.session.commit()
 
+            new_sticker = Sticker(
+                name=name,
+                image_path=filename,
+                price=Decimal("0.99"),
+                is_active=False,
+                is_custom=True,
+                category_id=3
+            )
+            db.session.add(new_sticker)
+            db.session.flush()
+
+            new_request.sticker_id = new_sticker.id
+
+            db.session.commit()
+
             flash("Your sticker has beeen submitted for approval!", "success")
-            return redirect(url_for('shop.index'))
+            return redirect(url_for('shop.my_requests'))
         else:
             flash("Invalid file type", "error")
 

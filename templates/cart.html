@@ -27,9 +27,10 @@
 
                     <div class="col-1">
                         <img class="img-fluid rounded"
-                             src="{{ url_for('static', filename='images/stickers/' ~ item.sticker.image_path) }}"
-                             alt="{{ item.sticker.name }}">
+                            src="{% if item.sticker.is_custom %}{{ url_for('static', filename='images/custom/' ~ item.sticker.image_path) }}{% else %}{{ url_for('static', filename='images/stickers/' ~ item.sticker.image_path) }}{% endif %}"
+                            alt="{{ item.sticker.name }}">
                     </div>
+
 
                     <div class="col-5 text-dark">
                         <span class="fw-bold">{{ item.sticker.name }}</span>
@@ -77,8 +78,13 @@
                 €{{ '%.2f'|format(total) }}
             </div>
 
+<<<<<<< HEAD
             <a href="{{ url_for('payments.checkout') }}" class="btn btn-secondary btn-lg">
                 {{ _('Proceed to checkout') }}
+=======
+            <a href="{{ url_for('payments.checkout') }}" class="btn btn-primary btn-lg">
+                Proceed to checkout
+>>>>>>> 833e21433afb2f1dfe89b1645341922721f91a68
             </a>
         </div>
         {% endif %}

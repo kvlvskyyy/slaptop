@@ -255,6 +255,9 @@ html, body {
     --bs-btn-active-border-color: #E0A800;
     --bs-btn-disabled-bg: #FFC71F;
     --bs-btn-disabled-border-color: #FFC71F;
+    --bs-btn-color: black;
+    --bs-btn-hover-color: black;
+    --bs-btn-active-color: black;
 }
 
 .btn-primary:hover {
@@ -290,4 +293,429 @@ body::before {
     
     /* Pro Tip: Scale it up slightly to hide the white faded edges caused by the blur */
     transform: scale(1.1); 
+}
+
+/* --- 1. SEARCH BUTTON (Transparent) --- */
+.btn-transparent { 
+    background-color: white;
+    color: #5a189a;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-transparent:hover {
+    background-color: white;
+    color: #F5B800;
+}
+
+.btn-transparent i,
+.btn-transparent svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-transparent:hover i,
+.btn-transparent:hover svg {
+    transform: scale(1.25);
+}
+
+/* --- 2. NAVBAR ICONS LOGIC --- */
+
+/* A. Base settings for ALL icons (Cart, Globe, Person) */
+.nav-link i,
+.nav-link svg {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+/* B. CART SPECIAL LOGIC (Scales the wrapper so Badge + Icon move together) */
+.cart-effect {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.nav-link:hover .cart-effect {
+    transform: scale(1.25);
+}
+
+/* C. STANDARD ICONS LOGIC (Globe, Person) */
+/* When hovering a link, scale the icon... */
+.nav-link:hover i,
+.nav-link:hover svg {
+    transform: scale(1.25);
+}
+
+/* ...BUT reset the icon inside the cart to 1x. 
+   Why? Because the .cart-effect wrapper is already scaling to 1.25x.
+   If we don't do this, the cart icon scales twice (1.25 * 1.25) and looks huge. */
+.nav-link:hover .cart-effect i,
+.nav-link:hover .cart-effect svg {
+    transform: scale(1) !important;
+}
+
+/* D. Color Change for all */
+.nav-link:hover {
+    color: #F5B800;
+}
+
+.text-muted {
+    color: black !important; 
+}
+
+/* --- CAROUSEL FIXES --- */
+/* Default (Desktop) */
+.hero-carousel-item {
+    height: 300px; /* Fixed height for consistency */
+    overflow: hidden; 
+}
+@media (max-width: 768px) {
+    /* 1. Reset row behavior */
+    .request-list .row, 
+    .admin-sticker-list-custom .row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+        padding: 10px 5px !important;
+    }
+
+    /* 2. Image Column: Keep it small and fixed */
+    .col-md-1-custom, .col-3-custom, .col-4-custom {
+        flex: 0 0 60px !important;
+        width: 60px !important;
+        max-width: 60px !important;
+        padding: 0 !important;
+    }
+
+    /* 3. Text Column: Allow it to fill middle space */
+    .col-md-3-custom, .col-md-6-custom, .col-8-custom, .col-9-custom {
+        flex: 1 1 auto !important;
+        padding-left: 10px !important;
+        min-width: 0; /* Important for text truncation */
+    }
+
+    /* 4. Action Column (Price & Buttons): Fixed width to align everything */
+    .col-md-2-custom, .col-md-6-custom.text-end, .col-6-custom, .col-12-custom {
+        flex: 0 0 110px !important; /* Width of the button column */
+        width: 110px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important; /* Makes buttons same width */
+        gap: 5px; /* Spacing between Price and Buttons */
+        text-align: right !important;
+    }
+
+    /* 5. Uniform Button Sizing */
+    .admin-sticker-list .btn, 
+    .request-list .btn {
+        width: 100% !important; /* Buttons fill the 110px container */
+        margin: 0 !important;
+        display: block !important;
+        font-size: 0.8rem !important;
+        padding: 5px 0 !important;
+    }
+
+    /* 6. Price Alignment */
+    .admin-sticker-list .fw-bold.text-dark {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    /* Hide unnecessary columns to save space */
+    .text-muted.small.text-center {
+        display: none !important;
+    }
+    .mx-2{
+        margin-right: 0px !important;
+       
+    }
+}
+
+/* Mobile: Show more of the image by changing how it fits */
+@media (max-width: 576px) {
+    .hero-carousel-item {
+        min-height: auto;
+        height: 150px; /* Slightly shorter on phone */
+    /* ... existing code for .request-list and .admin-sticker-list ... */
+    }
+    /* NEW: Specific fix for Admin Orders */
+    .admin-orders-list .row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+    }
+
+    /* Pushes the Order Info to the left and Buttons to the right */
+    .admin-orders-list .col-md-2-custom, 
+    .admin-orders-list .col-md-3-custom {
+        flex: 1 1 auto !important;
+    }
+
+    /* Action Column for Orders */
+    .admin-orders-list .col-md-5-custom.text-end {
+        flex: 0 0 120px !important; /* Fixed width for button stack */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px; /* Space between buttons */
+    }
+
+    /* Make every status button the same size */
+    .admin-orders-list .btn-sm {
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: center;
+    }
+    
+    .hero-carousel-item img {
+        /* "contain" ensures the whole image is visible (letterboxed) 
+           OR keep "cover" but center it better if you hate black bars */
+        object-fit: cover; 
+        object-position: center center; 
+    }
+
+     .carousel-inner {
+        height: 150px;
+    }
+
+    .carousel-indicators {
+        margin-bottom: 0;
+    }
+
+    /* .carousel-caption {
+        background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        border-radius: var(--bs-border-radius) !important;
+        --bs-bg-opacity: 0.5;
+        
+       } */
+
+    .caption-h1 {
+        font-size: 1.2rem !important;
+    }
+
+    .caption-p {
+        font-size: 0.7rem !important;
+    }
+
+    .btn-sm {
+        --bs-btn-font-size: 0.7rem;
+    }
+}
+
+/* --- CARD FIXES --- */
+/* Default (Desktop) */
+.sticker-img-container {
+    height: 250px;
+    width: 100%;
+}
+
+/* Mobile: Make cards square/shorter */
+@media (max-width: 576px) {
+    .sticker-img-container {
+        /* Force the container to be much smaller on mobile */
+        height: 140px !important; 
+        min-height: 0 !important; /* Override any inline min-heights */
+    }
+    
+    /* Make the title smaller so it doesn't stretch the card */
+    .card-title {
+        font-size: 0.85rem;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+    }
+    
+    /* Reduce padding inside the card */
+    .card .p-3 {
+        padding: 0.75rem !important;
+    }
+}
+
+@media (max-width: 376px) {
+    .mx-2 {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+/* --- ANIMATION KEYFRAMES --- */
+/* Simple slide down and fade in effect */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ensure Desktop Dropdowns still look standard */
+@media (min-width: 769px) {
+    .slide-animation {
+        animation: slideDown 0.2s ease forwards;
+        display: block; /* Required to override display:none triggers */
+        visibility: hidden; /* Hide it visually */
+    }
+    
+    /* Only show when the parent has the .show class (Bootstrap adds this) */
+    .dropdown:hover .slide-animation, 
+    .dropdown .dropdown-menu.show {
+        visibility: visible;
+    }
+}
+
+
+.btn-blue{
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-blue:hover{
+     background-color: #007bff;
+    color: white;
+
+}
+.btn-outline-blue{
+     background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.btn-outline-blue:hover{
+    background-color: #007bff;
+    color: white;
+
+}
+
+/* --- MOBILE MENU FIXES --- */
+@media (max-width: 768px) {
+    
+    /* 1. The Main Container */
+    .mobile-menu-container {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: auto;
+        min-width: 250px; 
+        
+        /* Flexbox Stack */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* CHANGED: Aligns blocks to the right */
+        gap: 20px; /* Equal spacing between blocks */
+        
+        background-color: #5a189a;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: -5px 10px 15px rgba(0,0,0,0.2);
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    /* 2. Fix the Lists (Categories & Icons) */
+    .mobile-menu-container .navbar-nav {
+        flex-direction: column;
+        align-items: flex-end !important; /* CHANGED: Force right alignment */
+        width: 100%;
+        gap: 20px !important; 
+        margin: 0 !important; 
+    }
+
+    /* 3. Fix the Search Bar */
+    .mobile-menu-container form {
+        width: 100%; 
+        max-width: 220px;
+        margin-left: auto; /* Pushes form to the right */
+        margin-right: 0;
+    }
+
+    /* 4. Ensure Links and Text are Right Aligned */
+    .mobile-menu-container .nav-link {
+        display: flex;
+        justify-content: flex-end; /* CHANGED: Aligns content inside link to right */
+        align-items: center;
+        text-align: right;
+        width: 100%;
+        padding: 0; 
+    }
+
+    /* 5. Dropdowns (Categories/Profile/etc) */
+    .mobile-menu-container .dropdown-menu {
+        position: static !important;
+        float: none;
+        background: transparent;
+        border: none;
+        text-align: right; /* CHANGED: Right align text */
+        margin-top: 10px; 
+        padding-right: 0;
+    }
+
+    .mobile-menu-container .dropdown-item {
+        color: rgba(255,255,255,0.7);
+        display: flex;
+        justify-content: flex-end; /* CHANGED: Right align item content */
+        padding-right: 0;
+    }
+    
+    .mobile-menu-container .dropdown-item:hover {
+        color: #F5B800;
+        background: transparent;
+    }
+}
+
+/* --- EXTRA SMALL DEVICES (iPhone SE / Fold / etc) --- */
+@media (max-width: 360px) {
+    
+    /* Target the form that holds the search bar */
+    form.d-md-none {
+        /* Remove the side margins that squish it */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 50%; /* Force full width */
+    }
+
+    /* Target the input group itself to ensure it fills the space */
+    form.d-md-none .input-group {
+        width: 100% !important;
+    }
+
+    /* Optional: Make the text inside slightly smaller to fit better */
+    form.d-md-none input.form-control {
+        font-size: 0.8rem !important; 
+        padding-left: 5px !important;
+    }
+}
+
+/* --- DESKTOP ONLY FIXES --- */
+@media (min-width: 769px) {
+    
+    /* 1. Force Right Alignment (Anchor Right, Expand Left) */
+    .dropdown-menu-end {
+        right: 0 !important;
+        left: auto !important;
+        transform: none !important; /* Disables Popper.js dynamic positioning conflicts */
+        text-align: left; /* Keep the text inside readable (optional) */
+    }
+
+    /* 2. Slide Animation (Existing code, keep this) */
+    .slide-animation {
+        animation: slideDown 0.2s ease forwards;
+        display: block; 
+        visibility: hidden;
+    }
+    
+    .dropdown:hover .slide-animation, 
+    .dropdown .dropdown-menu.show {
+        visibility: visible;
+    }
+}
+.bg-purple {
+    background-color:#5a189a !important;
 }
