@@ -7,91 +7,89 @@
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
-            Back to All Stickers
+            {{ _('Back to All Stickers') }}
         </a>
     </div>
 
 <div class="container my-5 text-dark bg-white p-5 rounded">
 <nav class="secondary-nav mb-4">
         <ul>
-            <li><a href="{{ url_for('shop.termsconditions') }}">Terms & Conditions</a></li>
-            <li><a href="{{ url_for('shop.shippinginfo') }}">Shipping information</a></li>
-            <li><a href="{{ url_for('shop.returnrefund') }}">Reurns and Refunds</a></li> 
-            <li>Privacy Policy</li>  
+            <li><a href="{{ url_for('shop.termsconditions') }}">{{ _('Terms & Conditions') }}</a></li>
+            <li><a href="{{ url_for('shop.shippinginfo') }}">{{ _('Shipping information') }}</a></li>
+            <li><a href="{{ url_for('shop.returnrefund') }}">{{ _('Returns and Refunds') }}</a></li> 
+            <li>{{ _('Privacy Policy') }}</li>  
         </ul>
     </nav>
 <div class="terms">
-    <h4>Privacy Policy</h4>
-    <p>Last Updated: December 15, 2025</p>
-    <p>This Privacy Policy describes how Stickerdom uses, and discloses your Personal Information when you visit or make a purchase from our site.</p>
+    <h4>{{ _('Privacy Policy') }}</h4>
+    <p>{{ _('Last Updated: December 15, 2025') }}</p>
+    <p>{{ _('This Privacy Policy describes how Stickerdom uses, and discloses your Personal Information when you visit or make a purchase from our site.') }}</p>
 
-    <h4>1. Information We Collect</h4>
-    <p>We collect Personal Information you provide to us when you visit the Webshop, create an account, or place an order. This information is necessary for us to fulfill your order and provide customer service.</p>
-
-    <h4>1.1. Information Collected Directly from You:</h4>
+    <h4>{{ _('1. Information We Collect') }}</h4>
+    <p>{{ _('We collect Personal Information you provide to us when you visit the Webshop, create an account, or place an order. This information is necessary for us to fulfill your order and provide customer service.') }}</p>
+    <h4>{{ _('1.1. Information Collected Directly from You:') }}</h4>
     <ul>
-        <li>Identity and Contact Data: Name, email address, username, and telephone number.</li>
-        <li>Order Data: Shipping address, billing address, and details of the products you purchased.</li>
-        <li>Payment Data: Since we charge for packing and delivery, we collect payment details (e.g., credit card information, bank details) processed by a third-party payment gateway (see Section 3). We do not store full credit card numbers on our servers.</li>
-        <li>Account Data: Password (stored securely as a hash) and login details.</li>
+        <li>{{ _('Identity and Contact Data: Name, email address, username, and telephone number.') }}</li>
+        <li>{{ _('Order Data: Shipping address, billing address, and details of the products you purchased.') }}</li>
+        <li>{{ _('Payment Data: Since we charge for packing and delivery, we collect payment details (e.g., credit card information, bank details) processed by a third-party payment gateway (see Section 3). We do not store full credit card numbers on our servers.') }}</li>
+        <li>{{ _('Account Data: Password (stored securely as a hash) and login details.') }}</li>
     </ul>
-    <h4>1.2. Information Collected Automatically:</h4>
-    <p>When you browse our Webshop, we automatically collect certain information about your device and interaction with the site, including:</p>
+    <h4>{{ _('1.2. Information Collected Automatically:') }}</h4>
+    <p>{{ _('When you browse our Webshop, we automatically collect certain information about your device and interaction with the site, including:') }}</p>
     <ul>
-        <li>Device Information: IP address, web browser type, operating system.</li>
-        <li>Usage Information: Pages viewed, referring websites, and timestamps.</li>
+        <li>{{ _('Device Information: IP address, web browser type, operating system.') }}</li>
+        <li>{{ _('Usage Information: Pages viewed, referring websites, and timestamps.') }}</li>
     </ul>
-    <h4>2. How We Use Your Personal Information</h4>
-    <p>We use your Personal Information to:</p>
+    <h4>{{ _('2. How We Use Your Personal Information') }}</h4>
+    <p>{{ _('We use your Personal Information to:') }}</p>
     <ul>
-        <li>Fulfill Orders: To process your payment for packing/delivery fees, arrange for local pickup/delivery, and provide you with invoices and order confirmations.</li>
-        <li>Account Management: To manage your registration and provide you with account services.</li>
-        <li>Communication: To communicate with you regarding your orders, pickups, and account status.</li>
-        <li>Improvement: To screen our orders for potential risk or fraud, and to generally improve and optimize our Webshop (e.g., by generating analytics about how our customers browse and interact with the site).</li>
+        <li>{{ _('Fulfill Orders: To process your payment for packing/delivery fees, arrange for local pickup/delivery, and provide you with invoices and order confirmations.') }}</li>
+        <li>{{ _('Account Management: To manage your registration and provide you with account services.') }}</li>
+        <li>{{ _('Communication: To communicate with you regarding your orders, pickups, and account status.') }}</li>
+        <li>{{ _('Improvement: To screen our orders for potential risk or fraud, and to generally improve and optimize our Webshop (e.g., by generating analytics about how our customers browse and interact with the site).') }}</li>
     </ul>
-    <h4>3. Sharing Your Personal Information</h4>
-    <p>We share your Personal Information with third parties to help us run our webshop and fulfill our obligations to you.</p>
+    <h4>{{ _('3. Sharing Your Personal Information') }}</h4>
+    <p>{{ _('We share your Personal Information with third parties to help us run our webshop and fulfill our obligations to you.') }}</p>
     <table style="border: 1px solid black;">
         <tr>
-            <th>Third party</th>
-            <th>Purpose</th>
-            <th>Data Shared</th>
+            <th>{{ _('Third party') }}</th>
+            <th>{{ _('Purpose') }}</th>
+            <th>{{ _('Data Shared') }}</th>
         </tr>
         <tr>
-            <th>Payment Processors</th>
-            <td>To securely process and verify payments for packing/delivery fees.</td>
-            <td>Payment Data (e.g., card number, expiration date), Billing Address.</td>
+            <th>{{ _('Payment Processors') }}</th>
+            <td>{{ _('To securely process and verify payments for packing/delivery fees.') }}</td>
+            <td>{{ _('Payment Data (e.g., card number, expiration date), Billing Address.') }}</td>
         </tr>
         <tr>
-            <th>Shipping/Logistics</th>
-            <td>To manage the local pickup scheduling process.</td>
-            <td>Name, Email, Order Details, Pickup Time Slot.</td>
+            <th>{{ _('Shipping/Logistics') }}</th>
+            <td>{{ _('To manage the local pickup scheduling process.') }}</td>
+            <td>{{ _('Name, Email, Order Details, Pickup Time Slot.') }}</td>
         </tr>
         <tr>
-            <th>School administration</th>
-            <td>For administrative purposes, such as verifying student/staff status for pickup eligibility.</td>
-            <td>Name, Email (upon request, and only as necessary).</td>
+            <th>{{ _('School administration') }}</th>
+            <td>{{ _('For administrative purposes, such as verifying student/staff status for pickup eligibility.') }}</td>
+            <td>{{ _('Name, Email (upon request, and only as necessary).') }}</td>
         </tr>
         <tr>
-            <th>Analytics Providers</th>
-            <td>To understand website usage (e.g., Google Analytics).</td>
-            <td>Device Information, Usage Information (anonymized where possible).</td>
+            <th>{{ _('Analytics Providers') }}</th>
+            <td>{{ _('To understand website usage (e.g., Google Analytics).') }}</td>
+            <td>{{ _('Device Information, Usage Information (anonymized where possible).') }}</td>
         </tr>
     </table>
-<h4>4. Security</h4>
-<p>We take reasonable steps to secure your Personal Information from unauthorized access, use, or disclosure. Please be aware that no security system is impenetrable, and we cannot guarantee the complete security of your data.</p>
+<h4>{{ _('4. Security') }}</h4>
+<p>{{ _('We take reasonable steps to secure your Personal Information from unauthorized access, use, or disclosure. Please be aware that no security system is impenetrable, and we cannot guarantee the complete security of your data.') }}</p>
+<h4>{{ _('5. Your Rights') }}</h4>
+<p>{{ _('You have the right to access the Personal Information we hold about you, to ask that your Personal Information be corrected, and to ask that your Personal Information be deleted. If you would like to exercise this right, please contact us through the contact information below.') }}</p>
 
-<h4>5. Your Rights</h4>
-<p>You have the right to access the Personal Information we hold about you, to ask that your Personal Information be corrected, and to ask that your Personal Information be deleted. If you would like to exercise this right, please contact us through the contact information below.</p>
+<h4>{{ _('6. Data Retention') }}</h4>
+<p>{{ _('When you place an order through the Webshop, we will retain your Order Information for our records for [e.g., a minimum of three years] unless and until you ask us to delete this information.') }}</p>
 
-<h4>6. Data Retention</h4>
-<p>When you place an order through the Webshop, we will retain your Order Information for our records for [e.g., a minimum of three years] unless and until you ask us to delete this information.</p>
+<h4>{{ _('7. Changes to this Policy') }}</h4>
+<p>{{ _('We may update this Privacy Policy from time to time in order to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will post the updated policy on this page.') }}</p>
 
-<h4>7. Changes to this Policy</h4>
-<p>We may update this Privacy Policy from time to time in order to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will post the updated policy on this page.</p>
-
-<h4>8. Contact Us</h4>
-<p>For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at stickerdom.help@gmail.com .</p>
+<h4>{{ _('8. Contact Us') }}</h4>
+<p>{{ _('For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at stickerdom.help@gmail.com .') }}</p>
 </div>
 </div>
 {% endblock %}

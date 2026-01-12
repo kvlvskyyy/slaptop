@@ -16,7 +16,11 @@
         {% endif %}
     {% endwith %}
 
+<<<<<<< HEAD
+    <h1 class="mb-4">{{ _('Search Results for "{{ query }}"') }}</h1>
+=======
     <h1 class="fw-bold">Search Results for <span>"{{ query }}"</span></h1>
+>>>>>>> 833e21433afb2f1dfe89b1645341922721f91a68
 
     {% if search_results %}
         <div class="row">
@@ -67,8 +71,8 @@
     {% else %}
         <div class="text-center py-5">
             <i class="bi bi-search text-muted display-1"></i>
-            <p class="text-muted mt-3 fs-5">No stickers found matching your search.</p>
-            <a href="{{ url_for('shop.index') }}" class="btn btn-primary mt-2">Back to Shop</a>
+            <p class="text-muted mt-3 fs-5">{{ _('No stickers found matching your search.') }}</p>
+            <a href="{{ url_for('shop.index') }}" class="btn btn-primary mt-2">{{ _('Back to Shop') }}</a>
         </div>
     {% endif %}
 

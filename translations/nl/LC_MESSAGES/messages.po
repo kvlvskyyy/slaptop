@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-07 01:36+0100\n"
+"POT-Creation-Date: 2026-01-11 01:45+0100\n"
 "PO-Revision-Date: 2026-01-07 01:12+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: nl <LL@li.org>\n"
@@ -18,132 +18,445 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: slaptop/templates/base.html:6 slaptop/templates/base.html:23
-#: slaptop/templates/base.html:28
+#: slaptop/templates/aboutus.html:26 slaptop/templates/add_sticker.html:9
+#: slaptop/templates/add_sticker_user.html:20 slaptop/templates/cart.html:10
+#: slaptop/templates/category.html:70 slaptop/templates/privacy.html:10
+#: slaptop/templates/returnrefund.html:10
+#: slaptop/templates/sticker_desc.html:10
+#: slaptop/templates/termsconditions.html:10
+#: slaptop/templates/user_order_history.html:8
+msgid "Back to All Stickers"
+msgstr "Terug naar alle stickers"
+
+#: slaptop/templates/aboutus.html:30
+msgid "Meet the Team"
+msgstr "Maak kennis met het team"
+
+#: slaptop/templates/aboutus.html:78
+msgid "Team leader"
+msgstr "Teamleider"
+
+#: slaptop/templates/add_sticker.html:22
+msgid "Add New Sticker (Admin)"
+msgstr "Sticker Toevoegen(Admin)"
+
+#: slaptop/templates/add_sticker.html:32 slaptop/templates/add_sticker.html:33
+#: slaptop/templates/edit_sticker.html:31
+msgid "Price (€)"
+msgstr "Prijs (€)"
+
+#: slaptop/templates/add_sticker.html:38
+#: slaptop/templates/edit_sticker.html:38
+#: slaptop/templates/edit_sticker.html:39
+msgid "Stock"
+msgstr "Voorraad"
+
+#: slaptop/templates/add_sticker.html:45
+msgid "Select a category"
+msgstr "Selecteer een categorie"
+
+#: slaptop/templates/add_sticker.html:50
+#: slaptop/templates/edit_sticker.html:53
+msgid "Category"
+msgstr "Categorieën"
+
+#: slaptop/templates/add_sticker.html:56
+#: slaptop/templates/add_sticker_user.html:41
+#: slaptop/templates/edit_sticker.html:57
+#: slaptop/templates/shippinginfo.html:27
+#: slaptop/templates/shippinginfo.html:70
+msgid "Description"
+msgstr "Beschrijving"
+
+#: slaptop/templates/add_sticker.html:57
+#: slaptop/templates/add_sticker_user.html:42
+#: slaptop/templates/edit_sticker.html:59
+msgid "Description (Optional)"
+msgstr "Beschrijving (optioneel)"
+
+#: slaptop/templates/add_sticker.html:61
+#: slaptop/templates/add_sticker_user.html:53
+msgid "Sticker Image"
+msgstr "Stickerafbeelding"
+
+#: slaptop/templates/add_sticker.html:67
+msgid "Publish Sticker"
+msgstr "Publiceer sticker"
+
+#: slaptop/templates/add_sticker_user.html:33
+msgid "Create Your Own Sticker"
+msgstr "Maak je eigen stickers"
+
+#: slaptop/templates/add_sticker_user.html:36
+#: slaptop/templates/add_sticker_user.html:37
+#: slaptop/templates/edit_sticker.html:22
+#: slaptop/templates/edit_sticker.html:23
+#: slaptop/templates/my_requests.html:30
+msgid "Sticker Name"
+msgstr "Stickernaam"
+
+#: slaptop/templates/add_sticker_user.html:47
+msgid "Submit for Admin Approval to Post on Dashboard"
+msgstr "Submit for Admin Approval to Post on Dashboard"
+
+#: slaptop/templates/add_sticker_user.html:59
+msgid "Request Sticker"
+msgstr "Sticker aanvragen"
+
+#: slaptop/templates/admin_orders.html:26
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: slaptop/templates/admin_orders.html:27
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: slaptop/templates/admin_orders.html:28
+msgid "Finish"
+msgstr "Finish"
+
+#: slaptop/templates/admin_orders.html:44
+#: slaptop/templates/user_order_history.html:48
+msgid "Customer Details"
+msgstr "Klantgegevens"
+
+#: slaptop/templates/admin_orders.html:49
+#: slaptop/templates/user_order_history.html:52
+msgid "Order contents"
+msgstr "Bestel inhoud"
+
+#: slaptop/templates/base.html:6 slaptop/templates/base.html:33
+#: slaptop/templates/base.html:38
 msgid "Stickerdom"
 msgstr "Stickerdom"
 
-#: slaptop/templates/base.html:33
+#: slaptop/templates/base.html:43
 msgid "Search..."
 msgstr "Zoeken..."
 
-#: slaptop/templates/base.html:47
+#: slaptop/templates/base.html:57
 msgid "Categories"
 msgstr "Categorieën"
 
-#: slaptop/templates/base.html:63
+#: slaptop/templates/base.html:73
 msgid "Search for stickers..."
 msgstr "Zoeken naar stickers..."
 
-#: slaptop/templates/base.html:73
+#: slaptop/templates/base.html:83
 msgid "Create Sticker"
 msgstr "Sticker Maken"
 
-#: slaptop/templates/base.html:77
+#: slaptop/templates/base.html:87
 msgid "Admin Menu"
 msgstr "Beheerdermenu"
 
-#: slaptop/templates/base.html:80
+#: slaptop/templates/base.html:90
 msgid "User Dashboard"
 msgstr "Gebruikersdashboard"
 
-#: slaptop/templates/base.html:81
+#: slaptop/templates/base.html:91
 msgid "View requests"
 msgstr "Verzoeken bekijken"
 
-#: slaptop/templates/base.html:82
+#: slaptop/templates/base.html:92
 msgid "Add Sticker"
 msgstr "Sticker Toevoegen"
 
-#: slaptop/templates/base.html:83
+#: slaptop/templates/base.html:93
 msgid "Orders list"
 msgstr "Bestellingenlijst"
 
-#: slaptop/templates/base.html:94
+#: slaptop/templates/base.html:104
 msgid "English"
 msgstr "Engels"
 
-#: slaptop/templates/base.html:99
+#: slaptop/templates/base.html:109
 msgid "Dutch"
 msgstr "Nederlands"
 
-#: slaptop/templates/base.html:109 slaptop/templates/index.html:26
+#: slaptop/templates/base.html:119 slaptop/templates/index.html:28
 msgid "Sign up"
 msgstr "Registreren"
 
-#: slaptop/templates/base.html:110
+#: slaptop/templates/base.html:120
 msgid "Log in"
 msgstr "Inloggen"
 
-#: slaptop/templates/base.html:112
+#: slaptop/templates/base.html:122
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: slaptop/templates/base.html:115
+#: slaptop/templates/base.html:125
 msgid "My orders"
 msgstr "Mijn bestellingen"
 
-#: slaptop/templates/base.html:116
+#: slaptop/templates/base.html:126
 msgid "My sticker requests"
 msgstr "Mijn sticker verzoeken"
+
+#: slaptop/templates/base.html:157
+msgid "Contact Us"
+msgstr "Contact Us"
+
+#: slaptop/templates/base.html:164
+msgid "We reply when we feel like it"
+msgstr "We reply when we feel like it"
+
+#: slaptop/templates/base.html:165
+msgid "you really think we wanna accept phone calls?"
+msgstr "We antwoorden wanneer we daar zin in hebben."
+
+#: slaptop/templates/base.html:166
+msgid "Mon-Friday, 10:00 - 17:00"
+msgstr "Mon-Friday, 10:00 - 17:00"
+
+#: slaptop/templates/base.html:171
+msgid "Quick links"
+msgstr "Snelle koppelingen"
+
+#: slaptop/templates/base.html:173
+msgid "About Us"
+msgstr "Over ons"
+
+#: slaptop/templates/base.html:174 slaptop/templates/shippinginfo.html:16
+#: slaptop/templates/shippinginfo.html:22
+#: slaptop/templates/termsconditions.html:18
+msgid "Shipping Information"
+msgstr "Verzendinformatie"
+
+#: slaptop/templates/base.html:175 slaptop/templates/privacy.html:17
+#: slaptop/templates/returnrefund.html:17
+#: slaptop/templates/shippinginfo.html:15
+#: slaptop/templates/termsconditions.html:17
+msgid "Terms & Conditions"
+msgstr "Algemene voorwaarden"
+
+#: slaptop/templates/base.html:176 slaptop/templates/privacy.html:19
+msgid "Returns and Refunds"
+msgstr "Retour- en restitutiebeleid"
+
+#: slaptop/templates/base.html:177
+msgid "Your Privacy Policy"
+msgstr "Uw privacybeleid"
+
+#: slaptop/templates/base.html:182
+msgid "Follow Us"
+msgstr "Volg ons"
+
+#: slaptop/templates/base.html:183
+msgid "Stay connected for updates, new designs, and exclusive offers!"
+msgstr ""
+"Blijf op de hoogte voor updates, nieuwe ontwerpen en exclusieve "
+"aanbiedingen!"
+
+#: slaptop/templates/cancel.html:12
+msgid "Payment Canceled!"
+msgstr "Betaling geannuleerd"
+
+#: slaptop/templates/cancel.html:13
+msgid ""
+"Forgot to add something to your cart? Shop around and come back to pay."
+msgstr ""
+"Vergeten iets aan je winkelmandje toe te voegen? Kijk gerust even verder en "
+"kom later terug om af te rekenen."
+
+#: slaptop/templates/cancel.html:15
+msgid "Return to Cart"
+msgstr "Terug naar winkelwagen"
+
+#: slaptop/templates/cancel.html:16
+msgid "Continue Shopping"
+msgstr "a door met winkelen"
 
 #: slaptop/templates/cart.html:3 slaptop/templates/cart.html:16
 msgid "Shopping Cart"
 msgstr "Winkelwagen"
 
-#: slaptop/templates/cart.html:10
-#, fuzzy
-msgid "Back to All Stickers"
-msgstr "Terug naar alle stickers"
-
 #: slaptop/templates/cart.html:22
 msgid "Your cart is empty."
 msgstr "Je winkelwagen is leeg."
 
-#: slaptop/templates/index.html:24
+#: slaptop/templates/cart.html:73
+msgid "Total:"
+msgstr "Totaal:"
+
+#: slaptop/templates/cart.html:81
+msgid "Proceed to checkout"
+msgstr "Ga verder naar afrekenen"
+
+#: slaptop/templates/category.html:18
+msgid "Searched Category:"
+msgstr "Gezochte categorie:"
+
+#: slaptop/templates/category.html:19
+msgid "Your sticker shop is ready 🚀"
+msgstr "Uw stickerwinkel is klaar voor gebruik🚀"
+
+#: slaptop/templates/category.html:69
+msgid "No stickers found matching this category."
+msgstr "Geen stickers gevonden in de database."
+
+#: slaptop/templates/checkout.html:5 slaptop/templates/checkout.html:20
+msgid "Checkout"
+msgstr "Uitchecken"
+
+#: slaptop/templates/checkout.html:23
+msgid "Your order:"
+msgstr "Uw bestelling"
+
+#: slaptop/templates/checkout.html:41
+msgid "Full Name"
+msgstr "Volledige naam"
+
+#: slaptop/templates/checkout.html:46
+msgid "Email"
+msgstr "Email"
+
+#: slaptop/templates/checkout.html:52
+msgid "Payment Method"
+msgstr "Betaalmethode"
+
+#: slaptop/templates/checkout.html:56
+msgid "Cash"
+msgstr "Contant geld"
+
+#: slaptop/templates/checkout.html:61 slaptop/templates/success_tikkie.html:22
+msgid "Tikkie"
+msgstr "Tikkie"
+
+#: slaptop/templates/checkout.html:66
+msgid "Stripe"
+msgstr "Stripe"
+
+#: slaptop/templates/checkout.html:71
+msgid "Place Order"
+msgstr "Bestelling plaatsen"
+
+#: slaptop/templates/checkout_success.html:5
+msgid "Checkout Successful"
+msgstr "Betaling succesvol"
+
+#: slaptop/templates/checkout_success.html:33
+msgid "Thank you for your order!"
+msgstr "Bedankt voor uw bestelling."
+
+#: slaptop/templates/checkout_success.html:34
+msgid "Order ID:"
+msgstr "Bestel-ID"
+
+#: slaptop/templates/checkout_success.html:35
+msgid "You will receive a confirmation email shortly at"
+msgstr "Je ontvangt binnenkort een bevestigingsmail op"
+
+#: slaptop/templates/checkout_success.html:37
+msgid "Order Summary:"
+msgstr "Besteloverzicht:"
+
+#: slaptop/templates/checkout_success.html:51
+#: slaptop/templates/success_cash.html:32
+#: slaptop/templates/success_stripe.html:21
+#: slaptop/templates/success_tikkie.html:30
+msgid "Back to Home"
+msgstr "Back to Home"
+
+#: slaptop/templates/edit_sticker.html:8
+msgid "Back to Admin Panel"
+msgstr "Terug naar het beheerderspaneel"
+
+#: slaptop/templates/edit_sticker.html:18
+msgid "Edit Sticker:"
+msgstr "Sticker bewerken"
+
+#: slaptop/templates/edit_sticker.html:30
+msgid "Price"
+msgstr "Prijs"
+
+#: slaptop/templates/edit_sticker.html:63
+msgid "Current Image:"
+msgstr "Huidige afbeelding:"
+
+#: slaptop/templates/edit_sticker.html:69
+msgid "Replace Image (Optional)"
+msgstr "Afbeelding vervangen (Optional)"
+
+#: slaptop/templates/edit_sticker.html:75
+msgid "Update Sticker Details"
+msgstr "Update stickerinformatie"
+
+#: slaptop/templates/index.html:26
 msgid "Customize your stuff"
 msgstr "Pas je spullen aan"
 
-#: slaptop/templates/index.html:25
+#: slaptop/templates/index.html:27
 msgid "Order some cool stickers to put on your device"
 msgstr "Bestel coole stickers voor je apparaat"
 
-#: slaptop/templates/index.html:36
-#, fuzzy
+#: slaptop/templates/index.html:38
 msgid "Create your own stickers"
 msgstr "Maak je eigen stickers"
 
-#: slaptop/templates/index.html:37
+#: slaptop/templates/index.html:39
 msgid "Request your own sticker design to print"
 msgstr "Vraag je eigen stickerontwerp aan om af te drukken"
 
-#: slaptop/templates/index.html:38 slaptop/templates/index.html:50
+#: slaptop/templates/index.html:40 slaptop/templates/index.html:52
 msgid "Get started"
 msgstr "Aan de slag"
 
-#: slaptop/templates/index.html:48
+#: slaptop/templates/index.html:50
 msgid "Fast and easy"
 msgstr "Snel en gemakkelijk"
 
-#: slaptop/templates/index.html:49
+#: slaptop/templates/index.html:51
 msgid "Select, order, pickup, stick it!"
 msgstr "Selecteren, bestellen, afhalen, plakken!"
 
-#: slaptop/templates/index.html:61
+#: slaptop/templates/index.html:63
 msgid "Check out our team!"
 msgstr "Ontmoet ons team!"
 
-#: slaptop/templates/index.html:62
+#: slaptop/templates/index.html:64
 msgid "Who are the developers?"
 msgstr "Wie zijn de ontwikkelaars?"
 
-#: slaptop/templates/index.html:63
+#: slaptop/templates/index.html:65
 msgid "About us"
 msgstr "Over ons"
 
+#: slaptop/templates/index.html:74
+msgid "Previous"
+msgstr "Vorig"
+
+#: slaptop/templates/index.html:78
+msgid "Next"
+msgstr "Volgende"
+
+#: slaptop/templates/index_admin.html:9
+msgid "Manage Stickers"
+msgstr "Beheer stickers"
+
+#: slaptop/templates/index_admin.html:11
+msgid "Add New Sticker"
+msgstr "Sticker Toevoegen"
+
+#: slaptop/templates/index_admin.html:40
+msgid "Edit"
+msgstr "Bewerking"
+
+#: slaptop/templates/index_admin.html:45
+msgid "Delete this sticker?"
+msgstr "Deze sticker verwijderen?"
+
+#: slaptop/templates/index_admin.html:47
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: slaptop/templates/index_admin.html:54
+msgid "No stickers found in the database."
+msgstr "Geen stickers gevonden in de database."
+
 #: slaptop/templates/login.html:6 slaptop/templates/login.html:36
 #: slaptop/templates/login.html:48
-#, fuzzy
 msgid "Login"
 msgstr "Inloggen"
 
@@ -160,8 +473,703 @@ msgstr "Wachtwoord"
 msgid "Don't have an account? Sign up"
 msgstr "Heb je geen account? Meld je aan"
 
+#: slaptop/templates/my_requests.html:12
+#: slaptop/templates/search_results.html:71
+msgid "Back to Shop"
+msgstr "Terug naar Winkel"
+
+#: slaptop/templates/my_requests.html:19
+msgid "My Custom Requests"
+msgstr "Mijn aangepaste verzoeken"
+
+#: slaptop/templates/my_requests.html:23
+msgid "New Request"
+msgstr "Nieuwe verzoeken"
+
+#: slaptop/templates/my_requests.html:29
+msgid "Preview"
+msgstr "Vorschau"
+
+#: slaptop/templates/my_requests.html:31
+msgid "Date"
+msgstr "Datum"
+
+#: slaptop/templates/my_requests.html:32
+msgid "Status"
+msgstr "Status"
+
+#: slaptop/templates/my_requests.html:82
+msgid "You haven't submitted any custom sticker requests yet."
+msgstr "Je hebt nog geen aanvragen voor gepersonaliseerde stickers ingediend."
+
+#: slaptop/templates/payment_options.html:5
+msgid "Payment Options"
+msgstr "Betaalmethode"
+
+#: slaptop/templates/payment_options.html:22
+msgid "Choose Payment Method"
+msgstr "Betaalmethode kiezen"
+
+#: slaptop/templates/payment_options.html:30
+msgid "💵 Cash (pay on pickup)"
+msgstr "💵 Contant (betalen bij afhalen)"
+
+#: slaptop/templates/payment_options.html:38
+msgid "📱 Tikkie"
+msgstr "Tikkie"
+
+#: slaptop/templates/payment_options.html:46
+msgid "💳 Stripe (card payment)"
+msgstr "💳 Stripe (kaartbetaling)"
+
+#: slaptop/templates/payment_options.html:51
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: slaptop/templates/privacy.html:18 slaptop/templates/returnrefund.html:18
+msgid "Shipping information"
+msgstr "Verzendinformatie"
+
+#: slaptop/templates/privacy.html:20 slaptop/templates/privacy.html:24
+#: slaptop/templates/returnrefund.html:20
+#: slaptop/templates/shippinginfo.html:18
+#: slaptop/templates/termsconditions.html:20
+msgid "Privacy Policy"
+msgstr "Privacybelei"
+
+#: slaptop/templates/privacy.html:25
+msgid "Last Updated: December 15, 2025"
+msgstr "Laatst bijgewerkt: December 15, 2025"
+
+#: slaptop/templates/privacy.html:26
+msgid ""
+"This Privacy Policy describes how Stickerdom uses, and discloses your "
+"Personal Information when you visit or make a purchase from our site."
+msgstr ""
+"Dit privacybeleid beschrijft hoe Stickerdom uw gegevens gebruikt en openbaar"
+" maakt.Persoonlijke gegevens wanneer u onze site bezoekt of een aankoop "
+"doet."
+
+#: slaptop/templates/privacy.html:28
+msgid "1. Information We Collect"
+msgstr ". Informatie die we verzamele"
+
+#: slaptop/templates/privacy.html:29
+msgid ""
+"We collect Personal Information you provide to us when you visit the "
+"Webshop, create an account, or place an order. This information is necessary"
+" for us to fulfill your order and provide customer service."
+msgstr ""
+"Wij verzamelen de persoonsgegevens die u ons verstrekt wanneer u onze "
+"website bezoekt.Webshop, maak een account aan of plaats een bestelling. Deze"
+" informatie is noodzakelijk.zodat we uw bestelling kunnen verwerken en u van"
+" dienst kunnen zijn."
+
+#: slaptop/templates/privacy.html:30
+msgid "1.1. Information Collected Directly from You:"
+msgstr "1.1. Informatie die rechtstreeks van u wordt verzameld:"
+
+#: slaptop/templates/privacy.html:32
+msgid ""
+"Identity and Contact Data: Name, email address, username, and telephone "
+"number."
+msgstr ""
+"Identiteits- en contactgegevens: naam, e-mailadres, gebruikersnaam en "
+"telefoonnummernummer"
+
+#: slaptop/templates/privacy.html:33
+msgid ""
+"Order Data: Shipping address, billing address, and details of the products "
+"you purchased."
+msgstr ""
+"Bestelgegevens: verzendadres, factuuradres en productdetailsjij hebt "
+"gekocht."
+
+#: slaptop/templates/privacy.html:34
+msgid ""
+"Payment Data: Since we charge for packing and delivery, we collect payment "
+"details (e.g., credit card information, bank details) processed by a third-"
+"party payment gateway (see Section 3). We do not store full credit card "
+"numbers on our servers."
+msgstr ""
+"Betaalgegevens: Omdat we kosten in rekening brengen voor verpakking en "
+"verzending, innen we de betaling.gegevens (bijv. creditcardgegevens, "
+"bankgegevens) verwerkt door een derde partijBetalingsgateway van derden (zie"
+" paragraaf 3). Wij bewaren geen volledige creditcardgegevens.cijfers op onze"
+" servers."
+
+#: slaptop/templates/privacy.html:35
+msgid "Account Data: Password (stored securely as a hash) and login details."
+msgstr ""
+"Accountgegevens: Wachtwoord (veilig opgeslagen als een hash) en "
+"inloggegevens."
+
+#: slaptop/templates/privacy.html:37
+msgid "1.2. Information Collected Automatically:"
+msgstr "1.2. Automatisch verzamelde informatie:"
+
+#: slaptop/templates/privacy.html:38
+msgid ""
+"When you browse our Webshop, we automatically collect certain information "
+"about your device and interaction with the site, including:"
+msgstr ""
+"Wanneer u onze webshop bezoekt, verzamelen we automatisch bepaalde "
+"gegevens.over uw apparaat en interactie met de site, inclusief:"
+
+#: slaptop/templates/privacy.html:40
+msgid "Device Information: IP address, web browser type, operating system."
+msgstr "Apparaatinformatie: IP-adres, type webbrowser, besturingssysteem."
+
+#: slaptop/templates/privacy.html:41
+msgid "Usage Information: Pages viewed, referring websites, and timestamps."
+msgstr ""
+"Gebruiksinformatie: Bekeken pagina's, verwijzende websites en tijdstempels."
+
+#: slaptop/templates/privacy.html:43
+msgid "2. How We Use Your Personal Information"
+msgstr "2. Hoe wij uw persoonsgegevens gebruiken"
+
+#: slaptop/templates/privacy.html:44
+msgid "We use your Personal Information to:"
+msgstr "Wij gebruiken uw persoonsgegevens om:"
+
+#: slaptop/templates/privacy.html:46
+msgid ""
+"Fulfill Orders: To process your payment for packing/delivery fees, arrange "
+"for local pickup/delivery, and provide you with invoices and order "
+"confirmations."
+msgstr ""
+"Bestellingen verwerken: Om uw betaling voor verpakkings-/verzendkosten te "
+"verwerken, moet u een afspraak maken.Voor afhalen/bezorgen ter plaatse, en "
+"wij voorzien u van facturen en bestellingen.bevestiging"
+
+#: slaptop/templates/privacy.html:47
+msgid ""
+"Account Management: To manage your registration and provide you with account"
+" services."
+msgstr ""
+"Accountbeheer: Om uw registratie te beheren en u een account te "
+"verstrekken.diensten."
+
+#: slaptop/templates/privacy.html:48
+msgid ""
+"Communication: To communicate with you regarding your orders, pickups, and "
+"account status."
+msgstr ""
+"Communicatie: Om met u te communiceren over uw bestellingen, afhalingen "
+"enaccountstatus."
+
+#: slaptop/templates/privacy.html:49
+msgid ""
+"Improvement: To screen our orders for potential risk or fraud, and to "
+"generally improve and optimize our Webshop (e.g., by generating analytics "
+"about how our customers browse and interact with the site)."
+msgstr ""
+"Verbetering: Om onze bestellingen te screenen op mogelijke risico's of "
+"fraude, en om "
+
+#: slaptop/templates/privacy.html:51
+msgid "3. Sharing Your Personal Information"
+msgstr "3. Het delen van uw persoonlijke informatie"
+
+#: slaptop/templates/privacy.html:52
+msgid ""
+"We share your Personal Information with third parties to help us run our "
+"webshop and fulfill our obligations to you."
+msgstr ""
+"Wij delen uw persoonlijke gegevens met derden om ons te helpen bij het uitvoeren van onze "
+"webshop en onze verplichtingen jegens u nakomen."
+
+#: slaptop/templates/privacy.html:55
+msgid "Third party"
+msgstr "Derde partij"
+
+#: slaptop/templates/privacy.html:56
+msgid "Purpose"
+msgstr "Doel"
+
+#: slaptop/templates/privacy.html:57
+msgid "Data Shared"
+msgstr "Gedeelde gegevens"
+
+#: slaptop/templates/privacy.html:60
+msgid "Payment Processors"
+msgstr "Betalingsverwerkers"
+
+#: slaptop/templates/privacy.html:61
+msgid "To securely process and verify payments for packing/delivery fees."
+msgstr ""
+"Om betalingen voor verpakkings-/bezorgkosten veilig te verwerken en te "
+"verifiëren."
+
+#: slaptop/templates/privacy.html:62
+msgid "Payment Data (e.g., card number, expiration date), Billing Address."
+msgstr "Betalingsgegevens (bijv. kaartnummer, vervaldatum), factuuradres."
+
+#: slaptop/templates/privacy.html:65
+msgid "Shipping/Logistics"
+msgstr "Verzending/Logistiek"
+
+#: slaptop/templates/privacy.html:66
+msgid "To manage the local pickup scheduling process."
+msgstr "Het beheer van het planningsproces voor lokale afhalingen."
+
+#: slaptop/templates/privacy.html:67
+msgid "Name, Email, Order Details, Pickup Time Slot."
+msgstr "Naam, e-mailadres, bestelgegevens, tijdstip van afhalen."
+
+#: slaptop/templates/privacy.html:70
+msgid "School administration"
+msgstr "Schooladministratie"
+
+#: slaptop/templates/privacy.html:71
+msgid ""
+"For administrative purposes, such as verifying student/staff status for "
+"pickup eligibility."
+msgstr ""
+"Voor administratieve doeleinden, zoals het controleren van de status van studenten/personeel voor "
+"recht op afhaling."
+
+#: slaptop/templates/privacy.html:72
+msgid "Name, Email (upon request, and only as necessary)."
+msgstr "Naam, e-mailadres (op verzoek en alleen indien nodig)."
+
+#: slaptop/templates/privacy.html:75
+msgid "Analytics Providers"
+msgstr "Analytics-aanbieders"
+
+#: slaptop/templates/privacy.html:76
+msgid "To understand website usage (e.g., Google Analytics)."
+msgstr ""
+"Om het gebruik van de website te begrijpen (bijvoorbeeld Google Analytics)."
+
+#: slaptop/templates/privacy.html:77
+msgid "Device Information, Usage Information (anonymized where possible)."
+msgstr ""
+"Apparaatinformatie, gebruiksinformatie (waar mogelijk geanonimiseerd)."
+
+#: slaptop/templates/privacy.html:80
+msgid "4. Security"
+msgstr "4. Beveiliging"
+
+#: slaptop/templates/privacy.html:81
+msgid ""
+"We take reasonable steps to secure your Personal Information from "
+"unauthorized access, use, or disclosure. Please be aware that no security "
+"system is impenetrable, and we cannot guarantee the complete security of "
+"your data."
+msgstr ""
+"Wij nemen redelijke maatregelen om uw persoonlijke gegevens te beveiligen tegen "
+"ongeoorloofde toegang, gebruik of openbaarmaking. Houd er rekening mee dat er geen beveiliging is. "
+"Het systeem is ondoordringbaar en we kunnen de volledige veiligheid niet garanderen. "
+"uw gegevens."
+
+#: slaptop/templates/privacy.html:82
+msgid "5. Your Rights"
+msgstr "5. Uw rechten"
+
+#: slaptop/templates/privacy.html:83
+msgid ""
+"You have the right to access the Personal Information we hold about you, to "
+"ask that your Personal Information be corrected, and to ask that your "
+"Personal Information be deleted. If you would like to exercise this right, "
+"please contact us through the contact information below."
+msgstr ""
+"U hebt het recht om toegang te krijgen tot de persoonlijke gegevens die wij over u bewaren, om "
+"vragen om correctie van uw persoonlijke gegevens en om "
+"Persoonlijke gegevens worden verwijderd. Als u van dit recht gebruik wilt maken, "
+"Neem dan contact met ons op via onderstaande contactgegevens."
+
+#: slaptop/templates/privacy.html:85
+msgid "6. Data Retention"
+msgstr "6. Bewaring van gegevens"
+
+#: slaptop/templates/privacy.html:86
+msgid ""
+"When you place an order through the Webshop, we will retain your Order "
+"Information for our records for [e.g., a minimum of three years] unless and "
+"until you ask us to delete this information."
+msgstr ""
+"Wanneer u een bestelling plaatst via de webshop, bewaren wij uw bestelling. "
+"Informatie voor onze administratie gedurende [bijvoorbeeld minimaal drie jaar], tenzij en "
+"totdat u ons vraagt om deze informatie te verwijderen."
+
+#: slaptop/templates/privacy.html:88
+msgid "7. Changes to this Policy"
+msgstr "7. Wijzigingen in dit beleid"
+
+#: slaptop/templates/privacy.html:89
+msgid ""
+"We may update this Privacy Policy from time to time in order to reflect "
+"changes to our practices or for other operational, legal, or regulatory "
+"reasons. We will post the updated policy on this page."
+msgstr ""
+"We kunnen dit privacybeleid van tijd tot tijd bijwerken om rekening te houden met "
+"wijzigingen in onze praktijken of om andere operationele, wettelijke of regelgevende redenen "
+"redenen. We zullen het bijgewerkte beleid op deze pagina publiceren."
+
+#: slaptop/templates/privacy.html:91
+msgid "8. Contact Us"
+msgstr "8. Neem contact met ons op"
+
+#: slaptop/templates/privacy.html:92
+msgid ""
+"For more information about our privacy practices, if you have questions, or "
+"if you would like to make a complaint, please contact us by e-mail at "
+"stickerdom.help@gmail.com ."
+msgstr "stickerdom.help@gmail.com ."
+
+#: slaptop/templates/returnrefund.html:19
+#: slaptop/templates/returnrefund.html:24
+#: slaptop/templates/shippinginfo.html:17
+#: slaptop/templates/termsconditions.html:19
+msgid "Returns and Refunds Policy"
+msgstr "Retour- en restitutiebeleid"
+
+#: slaptop/templates/returnrefund.html:25
+msgid "Policy Status: All Sales Final (No Returns Accepted)"
+msgstr ""
+"Beleid: Alle verkopen zijn definitief (geen retourzendingen geaccepteerd)"
+
+#: slaptop/templates/returnrefund.html:26
+msgid ""
+"Due to the nature of our products (low-cost custom items) and the operation "
+"of our webshop as a school project, Stickerdom maintains an All Sales Are "
+"Final policy. Please review this policy carefully before completing your "
+"purchase."
+msgstr ""
+"Vanwege de aard van onze producten (goedkope op maat gemaakte artikelen) en de bedrijfsvoering "
+"van onze webshop als schoolproject, Stickerdom hanteert een beleid waarbij alle verkopen "
+"Definitief beleid. Lees dit beleid zorgvuldig door voordat u uw "
+"aankoop."
+
+#: slaptop/templates/returnrefund.html:28
+msgid "1. No Returns or Exchanges"
+msgstr "1. Geen retournering of omruiling"
+
+#: slaptop/templates/returnrefund.html:29
+msgid ""
+"We do not accept returns, exchanges, or offer monetary refunds for any "
+"product once the order has been confirmed, except in the specific cases "
+"outlined below (Damaged Goods or Order Cancellation)."
+msgstr ""
+"Wij accepteren geen retourzendingen, ruilingen of bieden geen geldelijke "
+"terugbetalingen voor welke reden dan ook"
+
+#: slaptop/templates/returnrefund.html:31
+msgid "2. Defective or Damaged Products (The Exception)"
+msgstr "2. Defecte of beschadigde producten (de uitzondering)"
+
+#: slaptop/templates/returnrefund.html:32
+msgid ""
+"While we strive for high quality, if your sticker order arrives damaged, "
+"defective, or if you receive the wrong product, we will replace the item "
+"free of charge."
+msgstr ""
+"Hoewel we streven naar hoge kwaliteit, geldt dat als uw stickerbestelling beschadigd aankomt, "
+"defect is, of als u het verkeerde product ontvangt, zullen wij het artikel vervangen. "
+"gratis."
+
+#: slaptop/templates/returnrefund.html:34
+msgid "To report damaged or incorrect items:"
+msgstr "Om beschadigde of verkeerde artikelen te melden:"
+
+#: slaptop/templates/returnrefund.html:36
+msgid ""
+"You must notify us via email at stickerdom.help@gmail.com within 7 days of "
+"your scheduled pickup date."
+msgstr ""
+"U dient ons hiervan binnen 7 dagen na ontvangst per e-mail op de hoogte te stellen via stickerdom.help@gmail.com. "
+" op de door u geplande ophaaldatum."
+
+#: slaptop/templates/returnrefund.html:37
+msgid "3. Your email must include:"
+msgstr "3. Uw e-mail moet het volgende bevatten:"
+
+#: slaptop/templates/returnrefund.html:39
+msgid "Your Order Number."
+msgstr "Uw bestelnummer."
+
+#: slaptop/templates/returnrefund.html:40
+msgid "A description of the defect or damage."
+msgstr "Een beschrijving van het defect of de schade."
+
+#: slaptop/templates/returnrefund.html:41
+msgid "Clear photographic evidence of the defect or damage."
+msgstr "Duidelijk fotografisch bewijs van het defect of de schade."
+
+#: slaptop/templates/returnrefund.html:44
+msgid ""
+"Upon verification, we will arrange for a replacement of the affected items "
+"to be processed for the next available pickup schedule. We do not offer cash"
+" refunds for damaged items; we only offer replacements."
+msgstr ""
+"Na verificatie zullen wij zorgen voor vervanging van de betreffende artikelen. "
+"om te worden verwerkt voor de eerstvolgende ophaalbeurt. Wij bieden geen contant geld aan."
+" restituties voor beschadigde artikelen; wij bieden alleen vervangende artikelen aan."
+
+#: slaptop/templates/returnrefund.html:46
+msgid "Order Cancellation and Refunds (The Fee Exception)"
+msgstr ""
+"Annulering van bestellingen en terugbetalingen (uitzondering op de kosten)"
+
+#: slaptop/templates/returnrefund.html:47
+msgid "If you need to cancel your order, please contact us immediately."
+msgstr ""
+"Als u uw bestelling wilt annuleren, neem dan onmiddellijk contact met ons "
+"op."
+
+#: slaptop/templates/returnrefund.html:49
+msgid ""
+"Cancellation BEFORE Processing: If you cancel your order within 2 hours of "
+"payment and before production has begun, we will refund the amount paid for "
+"packing and delivery fees using the original payment method."
+msgstr ""
+"Annulering VOORAFGAAND aan verwerking: Als u uw bestelling binnen 2 uur na "
+"betaling en voordat de productie is begonnen, zullen wij het betaalde bedrag terugbetalen voor "
+"verpakkings- en verzendkosten via de oorspronkelijke betaalmethode."
+
+#: slaptop/templates/returnrefund.html:50
+msgid ""
+"Cancellation AFTER Processing: Once your order has been sent to the printer "
+"or packaged for pickup, it cannot be canceled, and no refund for "
+"packing/delivery fees will be issued."
+msgstr ""
+"Annulering NA verwerking: zodra uw bestelling naar de drukker is verzonden "
+"of verpakt voor afhaling, kan het niet worden geannuleerd en is er geen restitutie mogelijk voor "
+"Er worden verpakkings-/bezorgkosten in rekening gebracht."
+
+#: slaptop/templates/returnrefund.html:52
+msgid "4. Non-Refundable Fees"
+msgstr "4. Niet-restitueerbare kosten"
+
+#: slaptop/templates/returnrefund.html:53
+msgid "Please note that the following items are non-refundable:"
+msgstr ""
+"Houd er rekening mee dat de volgende artikelen niet kunnen worden "
+"geretourneerd:"
+
+#: slaptop/templates/returnrefund.html:55
+msgid ""
+"Fees paid for packing, handling, or delivery once the order has been "
+"processed (see Section 3)."
+msgstr ""
+"Kosten betaald voor verpakking, afhandeling of levering nadat de bestelling is geplaatst "
+"verwerkt (zie paragraaf 3)."
+
+#: slaptop/templates/returnrefund.html:56
+msgid ""
+"Items lost, damaged, or stolen after they have been successfully picked up "
+"by the customer."
+msgstr ""
+"Verloren, beschadigde of gestolen artikelen nadat ze zijn opgehaald "
+"door de klant."
+
+#: slaptop/templates/search_results.html:19
+msgid "Search Results for \"{{ query }}\""
+msgstr "Zoekresultaten voor \"{{ query }}\""
+
+#: slaptop/templates/search_results.html:70
+msgid "No stickers found matching your search."
+msgstr "Geen stickers gevonden in de database."
+
+#: slaptop/templates/shippinginfo.html:23
+msgid ""
+"Welcome to Stickerdom! Since our stickers are free and produced locally, we "
+"currently offer one convenient method for receiving your order: Scheduled "
+"Local Pickup."
+msgstr ""
+"Welkom bij Stickerdom! Omdat onze stickers gratis zijn en lokaal worden geproduceerd, kunnen we "
+"bieden momenteel één handige methode om uw bestelling te ontvangen: gepland "
+"Lokale afhaling."
+
+#: slaptop/templates/shippinginfo.html:26
+msgid "Detail"
+msgstr "Detail"
+
+#: slaptop/templates/shippinginfo.html:30
+msgid "Method"
+msgstr "Methode"
+
+#: slaptop/templates/shippinginfo.html:31
+msgid "Local Pickup (Scheduled Time Slot)"
+msgstr "Lokale afhaling (gepland tijdvak)"
+
+#: slaptop/templates/shippinginfo.html:34
+msgid "Cost"
+msgstr "Kosten"
+
+#: slaptop/templates/shippinginfo.html:35
+msgid "1-2 euro"
+msgstr "1-2 euro"
+
+#: slaptop/templates/shippinginfo.html:38
+msgid "Availability"
+msgstr "Beschikbaarheid"
+
+#: slaptop/templates/shippinginfo.html:39
+msgid "This is the only method currently offered for receiving stickers."
+msgstr "Dit is momenteel de enige methode om stickers te ontvangen."
+
+#: slaptop/templates/shippinginfo.html:42
+msgid "Delivery area"
+msgstr "Leveringsgebied"
+
+#: slaptop/templates/shippinginfo.html:43
+msgid "Available for everyone."
+msgstr "Beschikbaar voor iedereen."
+
+#: slaptop/templates/shippinginfo.html:47
+msgid "2. The Pickup Process"
+msgstr "2. Het afhaalproces"
+
+#: slaptop/templates/shippinginfo.html:48
+msgid ""
+"To ensure efficiency and minimal disruption, all orders must be collected at"
+" a pre-booked time slot."
+msgstr ""
+"Om efficiëntie en minimale verstoring te garanderen, moeten alle bestellingen worden opgehaald bij"
+"een vooraf gereserveerd tijdslot."
+
+#: slaptop/templates/shippinginfo.html:51
+msgid "2.1. Order Readiness Notification"
+msgstr "2.1. Kennisgeving van gereedheid van de bestelling"
+
+#: slaptop/templates/shippinginfo.html:53
+msgid ""
+"After you successfully complete the mock checkout process, your order will "
+"be placed in our production queue."
+msgstr ""
+"Nadat u het proefafrekenproces met succes hebt doorlopen, wordt uw bestelling "
+"in onze productiewachtrij worden geplaatst."
+
+#: slaptop/templates/shippinginfo.html:54
+msgid "You will receive an Order Confirmation Email immediately."
+msgstr "U ontvangt onmiddellijk een e-mail ter bevestiging van uw bestelling."
+
+#: slaptop/templates/shippinginfo.html:55
+msgid ""
+"Once your stickers have been printed and packaged (usually within [e.g., 2-3"
+" school days]), you will receive a second email—the \"Ready for Pickup\" "
+"Notification. This email confirms your order is complete and contains a link"
+" to the scheduling tool."
+msgstr ""
+"Zodra uw stickers zijn gedrukt en verpakt (meestal binnen [bijvoorbeeld 2-3"
+
+#: slaptop/templates/shippinginfo.html:58
+msgid "2.2. Scheduling Your Pickup Time"
+msgstr "2.2. Uw ophaaltijd plannen"
+
+#: slaptop/templates/shippinginfo.html:60
+msgid "Click the link in your \"Ready for Pickup\" Notification email."
+msgstr "Klik op de link in je e-mailbericht ‘Klaar voor afhaling’."
+
+#: slaptop/templates/shippinginfo.html:61
+msgid ""
+"Select an available 10-minute time slot that works best for you. Available "
+"slots are typically between [e.g., 12:30 PM - 1:30 PM] and [e.g., 3:30 PM - "
+"4:30 PM] on school days."
+msgstr ""
+"Selecteer een beschikbaar tijdvak van 10 minuten dat u het beste uitkomt. Beschikbaar "
+"slots zijn doorgaans tussen [bijvoorbeeld 12:30 uur - 13:30 uur] en [bijvoorbeeld 15:30 uur - "
+"16:30 uur] op schooldagen."
+
+#: slaptop/templates/shippinginfo.html:62
+msgid ""
+"You will receive a final confirmation with the exact time and location "
+"details."
+msgstr "details."
+
+#: slaptop/templates/shippinginfo.html:65
+msgid "2.3. Pickup Location"
+msgstr "2.3. Afhaalpunt"
+
+#: slaptop/templates/shippinginfo.html:66
+msgid "Your pickup location is centralized for easy access:"
+msgstr "Uw afhaallocatie is centraal gelegen voor gemakkelijke toegang:"
+
+#: slaptop/templates/shippinginfo.html:69
+msgid "Location Detail"
+msgstr "Locatiegegevens"
+
+#: slaptop/templates/shippinginfo.html:73
+msgid "Building"
+msgstr "Gebouw"
+
+#: slaptop/templates/shippinginfo.html:77
+msgid "Floor"
+msgstr "Vloer"
+
+#: slaptop/templates/shippinginfo.html:78
+msgid "1st Floor"
+msgstr "1e verdieping"
+
+#: slaptop/templates/shippinginfo.html:81
+msgid "Specific Spot"
+msgstr "Specifieke plek"
+
+#: slaptop/templates/shippinginfo.html:82
+msgid "Near ISSD"
+msgstr "In de buurt van ISSD"
+
+#: slaptop/templates/shippinginfo.html:88
+msgid "3. Important Notes for Collection"
+msgstr "3. Belangrijke opmerkingen voor het ophalen"
+
+#: slaptop/templates/shippinginfo.html:90
+msgid ""
+"Proof of Order: When collecting your stickers, you MUST be prepared to show "
+"either your Order Confirmation Email or your Pickup Time Slot Confirmation "
+"(printed or on your phone) to the staff member/student volunteer."
+msgstr ""
+"Bewijs van bestelling: Wanneer u uw stickers komt ophalen, MOET u bereid zijn om het volgende te tonen "
+"uw orderbevestigingsmail of uw bevestiging van het afhaaltijdstip "
+"(afgedrukt of op uw telefoon) aan de medewerker/student-vrijwilliger."
+
+#: slaptop/templates/shippinginfo.html:91
+msgid ""
+"Identification: Please have your ID card or student card ready for "
+"verification."
+msgstr ""
+"Identificatie: Houd uw identiteitskaart of studentenkaart bij de hand voor "
+
+#: slaptop/templates/shippinginfo.html:92
+msgid ""
+"Missed Slots: If you miss your scheduled time slot, you must re-schedule "
+"your pickup via the link provided in your \"Ready for Pickup\" notification "
+"email. We cannot guarantee same-day collection outside of the pre-booked "
+"slots."
+msgstr "slots"
+
+#: slaptop/templates/shippinginfo.html:93
+msgid ""
+"Maximum Hold Time: Orders must be collected within [e.g., 14 school days] of"
+" receiving the \"Ready for Pickup\" notification. Orders not collected after"
+" this time will be considered abandoned and the stickers may be "
+"redistributed."
+msgstr ""
+"Maximale bewaartermijn: Bestellingen moeten binnen [bijvoorbeeld 14 schooldagen] worden opgehaald."
+" ontvangst van de melding ‘Klaar voor afhaling’. Bestellingen die niet worden afgehaald na"
+" deze keer wordt beschouwd als verlaten en de stickers kunnen worden "
+"herverdeeld."
+
+#: slaptop/templates/shippinginfo.html:96
+msgid "Need Assistance?"
+msgstr "Hulp nodig?"
+
+#: slaptop/templates/shippinginfo.html:97
+msgid ""
+"If you have any issues with scheduling your pickup time or questions about "
+"your order status, please contact us immediately:"
+msgstr ""
+"Als u problemen heeft met het plannen van uw ophaaltijd of vragen heeft over "
+"uw bestelstatus, neem dan onmiddellijk contact met ons op:"
+
+#: slaptop/templates/shippinginfo.html:98
+msgid "Email: support@stickerdom.com"
+msgstr "Email: support@stickerdom.com"
+
 #: slaptop/templates/signup.html:6 slaptop/templates/signup.html:63
-#, fuzzy
 msgid "Sign Up"
 msgstr "Registreren"
 
@@ -180,3 +1188,441 @@ msgstr "Wachtwoord bevestigen"
 #: slaptop/templates/signup.html:66
 msgid "Already have an account? Login"
 msgstr "Heb je al een account? Inloggen"
+
+#: slaptop/templates/sticker_desc.html:27
+msgid "Designed and sold by"
+msgstr "Ontworpen en verkocht door"
+
+#: slaptop/templates/sticker_desc.html:31
+msgid "In Stock"
+msgstr "Op voorraad"
+
+#: slaptop/templates/sticker_desc.html:35
+msgid "Product Description"
+msgstr "Productbeschrijving"
+
+#: slaptop/templates/sticker_desc.html:37
+msgid "No description available."
+msgstr "Geen beschrijving beschikbaar."
+
+#: slaptop/templates/sticker_desc.html:44
+msgid "Add to Cart"
+msgstr "Toevoegen aan winkelwagen"
+
+#: slaptop/templates/success_cash.html:6
+msgid "Order Confirmed – Cash Payment"
+msgstr "Bestelling bevestigd – Contante betaling"
+
+#: slaptop/templates/success_cash.html:15
+#: slaptop/templates/success_tikkie.html:15
+msgid "Order Confirmed ✅"
+msgstr "Bestelling bevestigd✅"
+
+#: slaptop/templates/success_cash.html:18
+#: slaptop/templates/success_tikkie.html:18
+msgid "You’ve chosen"
+msgstr "Je hebt gekozen"
+
+#: slaptop/templates/success_cash.html:18
+msgid "Cash Payment"
+msgstr "Contante betaling"
+
+#: slaptop/templates/success_cash.html:22
+msgid "Please note that payment will be made"
+msgstr "Houd er rekening mee dat de betaling zal worden uitgevoerd"
+
+#: slaptop/templates/success_cash.html:22
+msgid "offline"
+msgstr "offline"
+
+#: slaptop/templates/success_cash.html:22
+msgid "either"
+msgstr "ofwel"
+
+#: slaptop/templates/success_cash.html:23
+msgid "upon delivery"
+msgstr "bij levering"
+
+#: slaptop/templates/success_cash.html:23
+msgid "or at the"
+msgstr "of op de"
+
+#: slaptop/templates/success_cash.html:23
+msgid "checkpoint"
+msgstr "controlepunt"
+
+#: slaptop/templates/success_cash.html:24
+msgid "depending on your selected delivery option."
+msgstr "afhankelijk van de door u gekozen leveringsoptie."
+
+#: slaptop/templates/success_cash.html:28
+msgid "Make sure you have the exact amount ready."
+msgstr "Zorg ervoor dat u het exacte bedrag bij de hand hebt."
+
+#: slaptop/templates/success_cash.html:29
+msgid "Our team will contact you if any additional details are needed."
+msgstr ""
+"Ons team neemt contact met u op als er aanvullende informatie nodig is."
+
+#: slaptop/templates/success_stripe.html:6
+msgid "Thanks for your order!"
+msgstr "Bedankt voor uw bestelling!"
+
+#: slaptop/templates/success_stripe.html:16
+msgid "Thank You! 🎉"
+msgstr "Dank u wel! 🎉"
+
+#: slaptop/templates/success_stripe.html:18
+msgid "We appreciate your business! If you have any questions, please email"
+msgstr ""
+"Wij waarderen uw klandizie! Als u vragen heeft, kunt u een e-mail sturen "
+"naar"
+
+#: slaptop/templates/success_tikkie.html:6
+msgid "Order Confirmed – Tikkie Payment"
+msgstr "Bestelling bevestigd – Tikkie-betaling"
+
+#: slaptop/templates/success_tikkie.html:18
+msgid "Tikkie Payment"
+msgstr "Tikkie"
+
+#: slaptop/templates/success_tikkie.html:22
+msgid "You can pay directly to the sticker seller using"
+msgstr "U kunt rechtstreeks aan de verkoper van de stickers betalen met"
+
+#: slaptop/templates/success_tikkie.html:23
+msgid "Follow the instructions you will receive to complete the payment."
+msgstr "Volg de instructies die u ontvangt om de betaling te voltooien."
+
+#: slaptop/templates/success_tikkie.html:27
+msgid ""
+"Once the payment is confirmed, your order will be processed and delivered."
+msgstr ""
+"Zodra de betaling is bevestigd, wordt uw bestelling verwerkt en geleverd."
+
+#: slaptop/templates/suggestions.html:5
+msgid "Custom Sticker Requests"
+msgstr "Aanvragen voor stickers op maat"
+
+#: slaptop/templates/suggestions.html:21
+msgid "Approval Status:"
+msgstr "Goedkeuringsstatus:"
+
+#: slaptop/templates/suggestions.html:22
+msgid "Dashboard Request:"
+msgstr "Dashboardaanvraag"
+
+#: slaptop/templates/suggestions.html:23
+msgid "Submitted on:"
+msgstr "Ingezonden op:"
+
+#: slaptop/templates/suggestions.html:30
+msgid "Approve"
+msgstr "Goedkeuren"
+
+#: slaptop/templates/suggestions.html:37
+msgid "Deny"
+msgstr "Ontkennen"
+
+#: slaptop/templates/suggestions.html:45
+msgid "Add to Dashboard"
+msgstr "Toevoegen aan dashboard"
+
+#: slaptop/templates/suggestions.html:54
+msgid "No suggestions found."
+msgstr "Geen suggesties gevonden."
+
+#: slaptop/templates/termsconditions.html:24
+msgid "Terms and Conditions"
+msgstr "Algemene voorwaarden"
+
+#: slaptop/templates/termsconditions.html:25
+msgid "Last Updated: December 12, 2025"
+msgstr "Laatst bijgewerkt: 12 december 2025"
+
+#: slaptop/templates/termsconditions.html:26
+msgid ""
+"Welcome to Stickerdom. These Terms and Conditions govern your use of the "
+"Stickerdom website and the purchase of any products (stickers) offered "
+"through it. By accessing or using our Webshop, you agree to be bound by "
+"these Terms."
+msgstr ""
+"Welkom bij Stickerdom. Deze algemene voorwaarden zijn van toepassing op uw gebruik van de "
+"De website Stickerdom en de aankoop van alle aangeboden producten (stickers) "
+"door middel daarvan. Door onze webshop te bezoeken of te gebruiken, gaat u akkoord met de volgende voorwaarden: "
+"deze Voorwaarden."
+
+#: slaptop/templates/termsconditions.html:28
+msgid "1. General Conditions"
+msgstr "1. Algemene voorwaarden"
+
+#: slaptop/templates/termsconditions.html:29
+msgid ""
+"1.1. Acceptance of Terms: By placing an order with Stickerdom, you represent"
+" that you are at least the age of majority in your state or province of "
+"residence, or that you are the age of majority in your state or province of "
+"residence and you have given us your consent to allow any of your minor "
+"dependents to use this site."
+msgstr ""
+"1.1. Aanvaarding van de voorwaarden: Door een bestelling te plaatsen bij Stickerdom, verklaart u"
+" dat u ten minste meerderjarig bent in uw staat of provincie van "
+"woonplaats, of dat u meerderjarig bent in uw staat of provincie van "
+"woonplaats en u hebt ons toestemming gegeven om uw minderjarige kinderen toe te laten. "
+"afhankelijke personen om deze site te gebruiken."
+
+#: slaptop/templates/termsconditions.html:30
+msgid ""
+"1.2. Changes to Terms: We reserve the right to update, change, or replace "
+"any part of these Terms by posting updates and changes to our Webshop. It is"
+" your responsibility to check this page periodically for changes."
+msgstr ""
+"1.2. Wijzigingen in de voorwaarden: Wij behouden ons het recht voor om deze voorwaarden bij te werken, te wijzigen of te vervangen. "
+"elk onderdeel van deze Voorwaarden door updates en wijzigingen op onze Webshop te plaatsen. Het is"
+" het is uw verantwoordelijkheid om deze pagina regelmatig te controleren op wijzigingen."
+
+#: slaptop/templates/termsconditions.html:32
+msgid "2. Products and Ordering"
+msgstr "2. Producten en bestellen"
+
+#: slaptop/templates/termsconditions.html:33
+msgid ""
+"2.1. Product Descriptions: We attempt to be as accurate as possible in the "
+"description of our products (stickers). However, we do not warrant that "
+"product descriptions, colors, or other content on the Webshop are always "
+"accurate, complete, reliable, current, or error-free."
+msgstr ""
+"2.1. Productbeschrijvingen: We streven ernaar zo nauwkeurig mogelijk te zijn in de "
+"beschrijving van onze producten (stickers). Wij garanderen echter niet dat "
+"productbeschrijvingen, kleuren of andere inhoud op de webshop zijn altijd "
+"nauwkeurig, volledig, betrouwbaar, actueel of foutloos."
+
+#: slaptop/templates/termsconditions.html:34
+msgid ""
+"2.2. Pricing: All prices are listed in EUR and are subject to change without"
+" notice. The price displayed at the time of checkout is the final price, "
+"excluding shipping costs and applicable taxes."
+msgstr ""
+"2.2. Prijzen: Alle prijzen zijn vermeld in EUR en kunnen zonder voorafgaande kennisgeving worden gewijzigd."
+" Let op. De prijs die bij het afrekenen wordt weergegeven, is de definitieve prijs. "
+"exclusief verzendkosten en toepasselijke belastingen."
+
+#: slaptop/templates/termsconditions.html:35
+msgid ""
+"2.3. Availability: Products are subject to availability. If a product is out"
+" of stock after your order is placed, we will notify you and refund the full"
+" amount using the original payment method."
+msgstr ""
+"2.3. Beschikbaarheid: Producten zijn afhankelijk van beschikbaarheid. Als een product niet meer leverbaar is"
+" Als het product niet meer op voorraad is nadat je je bestelling hebt geplaatst, brengen we je op de hoogte en krijg je het volledige bedrag terug."
+" bedrag met behulp van de oorspronkelijke betaalmethode."
+
+#: slaptop/templates/termsconditions.html:37
+msgid "3. Ordering and Billing"
+msgstr "3. Bestellen en facturering"
+
+#: slaptop/templates/termsconditions.html:38
+msgid ""
+"3.1. Sticker Pricing (No Cost): All stickers provided by Stickerdom are "
+"offered to the user at no monetary cost (i.e., free). This is because we "
+"utilize resources, including the sticker printer, provided by the school for"
+" educational and community purposes. The transaction is structured to gather"
+" necessary information for shipping and processing but will not result in "
+"any financial charge for the stickers themselves."
+msgstr ""
+"3.1. Prijzen stickers (gratis): Alle stickers die door Stickerdom worden geleverd, zijn "
+"aan de gebruiker aangeboden zonder financiële kosten (d.w.z. gratis). Dit komt omdat wij "
+"gebruik maken van middelen, waaronder de stickerprinter, die door de school worden verstrekt voor"
+" educatieve en maatschappelijke doeleinden. De transactie is zo gestructureerd dat"
+" noodzakelijke informatie voor verzending en verwerking, maar zal niet leiden tot "
+"enige financiële kosten voor de stickers zelf."
+
+#: slaptop/templates/termsconditions.html:39
+msgid ""
+"3.2. Shipping and Service Fees: While the stickers are free, we reserve the "
+"right to charge fees for shipping, handling, or packaging costs, if "
+"applicable. Any such fees will be clearly displayed and itemized during the "
+"checkout process. If shipping fees are charged, these fees are non-"
+"refundable once the order has been processed and shipped."
+msgstr ""
+"3.2. Verzend- en servicekosten: Hoewel de stickers gratis zijn, behouden wij ons het recht voor om "
+"het recht om kosten in rekening te brengen voor verzending, verwerking of verpakking, indien "
+" van toepassing. Dergelijke kosten worden duidelijk weergegeven en gespecificeerd tijdens de "
+"afrekenproces. Als er verzendkosten in rekening worden gebracht, zijn deze kosten niet-"
+"restitueerbaar zodra de bestelling is verwerkt en verzonden."
+
+#: slaptop/templates/termsconditions.html:40
+msgid ""
+"3.3. Billing Information and Mock Checkout: To successfully process and ship"
+" your order, and to comply with standard e-commerce practices, you will be "
+"required to enter billing and shipping information during the checkout "
+"process. You agree to provide current, complete, and accurate billing and "
+"account information."
+msgstr ""
+"3.3. Factuurgegevens en proefafrekening: Om succesvol te kunnen verwerken en verzenden"
+" uw bestelling, en om te voldoen aan de standaardpraktijken voor e-commerce, wordt u "
+"vereist om factuur- en verzendgegevens in te voeren tijdens het afrekenen "
+"proces. U stemt ermee in om actuele, volledige en nauwkeurige facturerings- en "
+"accountgegevens."
+
+#: slaptop/templates/termsconditions.html:41
+msgid ""
+"Important: Even though you may be prompted to enter payment details (such as"
+" a credit card number) during the checkout simulation, no charge will be "
+"placed on your account for the stickers, unless specifically for a shipping "
+"or processing fee clearly indicated at checkout. The purpose of this step is"
+" solely to demonstrate the full order placement process."
+msgstr ""
+"Belangrijk: ook al wordt u gevraagd om betalingsgegevens in te voeren (zoals"
+"een creditcardnummer) tijdens de kassasimulatie, worden er geen kosten in rekening gebracht. "
+"op uw account geplaatst voor de stickers, tenzij specifiek voor verzending "
+"of verwerkingskosten die duidelijk worden aangegeven bij het afrekenen. Het doel van deze stap is"
+" uitsluitend om het volledige bestelproces te demonstreren."
+
+#: slaptop/templates/termsconditions.html:42
+msgid ""
+"3.4. Order Acceptance: The acceptance of your order is subject to "
+"availability and our discretion. We reserve the right to refuse any order "
+"placed with us. We may, in our sole discretion, limit or cancel quantities "
+"purchased per person."
+msgstr ""
+"3.4. Aanvaarding van de bestelling: De aanvaarding van uw bestelling is onderworpen aan "
+"beschikbaarheid en naar eigen goeddunken. Wij behouden ons het recht voor om elke bestelling te weigeren. "
+"bij ons geplaatst. Wij kunnen naar eigen goeddunken de hoeveelheden beperken of annuleren. "
+"per persoon gekocht."
+
+#: slaptop/templates/termsconditions.html:44
+msgid "4. Shipping and Delivery"
+msgstr "4. Verzending en levering"
+
+#: slaptop/templates/termsconditions.html:45
+msgid ""
+"4.1. Shipping Costs: Shipping costs are calculated based on your location "
+"and the total weight of the order, and will be presented to you at checkout."
+msgstr ""
+"4.1. Verzendkosten: Verzendkosten worden berekend op basis van uw locatie. "
+"en het totale gewicht van de bestelling, en wordt bij het afrekenen aan u getoond."
+
+#: slaptop/templates/termsconditions.html:46
+msgid ""
+"4.2. Delivery Estimates: Any delivery dates provided are estimates. "
+"Stickerdom is not liable for any delays in shipments."
+msgstr "4.2. Geschatte leveringstermijnen: Alle opgegeven leveringstermijnen zijn schattingen. "
+"Stickerdom is niet aansprakelijk voor vertragingen in verzendingen."
+
+#: slaptop/templates/termsconditions.html:47
+msgid ""
+"4.3. Risk of Loss: The risk of loss and title for all items purchased from "
+"the Webshop passes to you upon our delivery to the shipping carrier. We are "
+"not responsible for packages lost or stolen after being marked as delivered "
+"by the carrier."
+msgstr ""
+"4.3. Risico van verlies: Het risico van verlies en eigendom van alle artikelen die zijn gekocht bij "
+"de webshop wordt aan u overgedragen op het moment dat wij deze aan de vervoerder leveren. Wij zijn "
+"niet verantwoordelijk voor pakketten die verloren gaan of gestolen worden nadat ze als afgeleverd zijn gemarkeerd "
+"door de vervoerder."
+
+#: slaptop/templates/termsconditions.html:49
+msgid "5. Returns, Refunds, and Exchanges"
+msgstr "5. Retourzendingen, terugbetalingen en omruilingen"
+
+#: slaptop/templates/termsconditions.html:50
+msgid ""
+"5.1. Custom-Made Stickers: If we offer custom-designed stickers, they are "
+"non-returnable and non-refundable unless the product is defective or damaged"
+" upon arrival."
+msgstr ""
+"5.1. Op maat gemaakte stickers: Als wij op maat gemaakte stickers aanbieden, zijn deze "
+"niet retourneerbaar en niet restitueerbaar, tenzij het product defect of beschadigd is"
+" bij aankomst."
+
+#: slaptop/templates/termsconditions.html:52
+msgid "6. Intellectual Property and Design"
+msgstr "6. Intellectueel eigendom en ontwerp"
+
+#: slaptop/templates/termsconditions.html:53
+msgid ""
+"6.1. Webshop Content: All content on this Webshop, including text, graphics,"
+" logos, product images, and design, is the property of Stickerdom and "
+"protected by copyright and intellectual property laws."
+msgstr ""
+"6.1. Inhoud van de webshop: Alle inhoud op deze webshop, inclusief tekst, afbeeldingen,"
+" logo's, productafbeeldingen en ontwerpen zijn eigendom van Stickerdom en "
+"beschermd door auteursrecht en intellectuele eigendomsrechten."
+
+#: slaptop/templates/termsconditions.html:54
+msgid ""
+"6.2. Sticker Designs: All original sticker designs sold on the Webshop are "
+"the intellectual property of Stickerdom or licensed to us. You may not "
+"reproduce, duplicate, or resell any part of the service or products without "
+"express written permission from us."
+msgstr ""
+"6.2. Stickerontwerpen: Alle originele stickerontwerpen die in de webshop worden verkocht, zijn "
+"het intellectuele eigendom van Stickerdom of aan ons in licentie gegeven. U mag niet "
+"enig deel van de dienst of producten reproduceren, dupliceren of doorverkopen zonder "
+"uitdrukkelijke schriftelijke toestemming van ons."
+
+#: slaptop/templates/termsconditions.html:55
+msgid ""
+"6.3. User-Submitted Content: If you submit a design for a custom sticker, "
+"you warrant that you own or have the necessary licenses, rights, and "
+"permissions to use and authorize us to use all intellectual property rights "
+"in and to your submission. You agree to indemnify Stickerdom against any "
+"claims arising from a breach of this warranty."
+msgstr ""
+"6.3. Door gebruikers ingezonden inhoud: Als u een ontwerp voor een gepersonaliseerde sticker indient, "
+"u garandeert dat u de eigenaar bent van of beschikt over de benodigde licenties, rechten en "
+"toestemming om alle intellectuele eigendomsrechten te gebruiken en ons te machtigen deze te gebruiken "
+"in en naar uw inzending. U stemt ermee in Stickerdom te vrijwaren tegen alle "
+"claims die voortvloeien uit een schending van deze garantie."
+
+#: slaptop/templates/termsconditions.html:57
+msgid "7. Limitation of Liability"
+msgstr "7. Beperking van aansprakelijkheid"
+
+#: slaptop/templates/termsconditions.html:58
+msgid ""
+"In no case shall Stickerdom, its directors, officers, employees, affiliates,"
+" agents, contractors, interns, suppliers, service providers, or licensors be"
+" liable for any injury, loss, claim, or any direct, indirect, incidental, "
+"punitive, special, or consequential damages of any kind, including, without "
+"limitation, lost profits, lost revenue, lost savings, or loss of data, "
+"arising from your use of any product purchased from the Webshop."
+msgstr ""
+"In geen geval zullen Stickerdom, haar directeuren, functionarissen, werknemers, gelieerde ondernemingen,"
+" agenten, aannemers, stagiaires, leveranciers, dienstverleners of licentiegevers zijn"
+" aansprakelijk voor enig letsel, verlies, claim of enige directe, indirecte, incidentele, "
+"strafrechtelijke, bijzondere of gevolgschade van welke aard dan ook, met inbegrip van, maar niet beperkt tot "
+"beperking, gederfde winst, gederfde inkomsten, gederfde besparingen of verlies van gegevens, "
+"die voortvloeit uit uw gebruik van een product dat u in de webshop hebt gekocht."
+
+#: slaptop/templates/termsconditions.html:60
+msgid "8. Governing Law"
+msgstr "8. Toepasselijk recht"
+
+#: slaptop/templates/termsconditions.html:61
+msgid ""
+"These Terms and any separate agreements whereby we provide you Services "
+"shall be governed by and construed in accordance with the laws of The "
+"Netherlands."
+msgstr ""
+"Deze Voorwaarden en alle afzonderlijke overeenkomsten op grond waarvan wij u Diensten leveren "
+"zal worden beheerst door en geïnterpreteerd in overeenstemming met de wetten van The "
+"Nederland."
+
+#: slaptop/templates/termsconditions.html:63
+msgid "9. Contact Information"
+msgstr "9. Contactgegevens"
+
+#: slaptop/templates/termsconditions.html:64
+msgid ""
+"Questions about the Terms and Conditions should be sent to us at "
+"stickerdom.help@gmail.com ."
+msgstr "stickerdom.help@gmail.com ."
+
+#: slaptop/templates/user_order_history.html:14
+msgid "My order history"
+msgstr "Mijn bestelgeschiedenis"
+
+#: slaptop/templates/user_order_history.html:22
+msgid "Order"
+msgstr "Bestelling"

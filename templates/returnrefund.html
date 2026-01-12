@@ -7,53 +7,53 @@
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
-            Back to All Stickers
+            {{ _('Back to All Stickers') }}
         </a>
     </div>
 
 <div class="container my-5 text-dark bg-white p-5 rounded">
 <nav class="secondary-nav mb-4">
         <ul>
-            <li><a href="{{ url_for('shop.termsconditions') }}">Terms & Conditions</a></li>
-            <li><a href="{{ url_for('shop.shippinginfo') }}">Shipping information</a></li>
-            <li>Returns and Refunds Policy</li>
-            <li><a href="{{ url_for('shop.privacy') }}">Privacy Policy</a></li>  
+            <li><a href="{{ url_for('shop.termsconditions') }}">{{ _('Terms & Conditions') }}</a></li>
+            <li><a href="{{ url_for('shop.shippinginfo') }}">{{ _('Shipping information') }}</a></li>
+            <li>{{ _('Returns and Refunds Policy') }}</li>
+            <li><a href="{{ url_for('shop.privacy') }}">{{ _('Privacy Policy') }}</a></li>  
         </ul>
     </nav>
 <div class="terms">
-    <h4>Returns and Refunds Policy</h4>
-    <p>Policy Status: All Sales Final (No Returns Accepted)</p>
-    <p>Due to the nature of our products (low-cost custom items) and the operation of our webshop as a school project, Stickerdom maintains an All Sales Are Final policy. Please review this policy carefully before completing your purchase.</p>
+    <h4>{{ _('Returns and Refunds Policy') }}</h4>
+    <p>{{ _('Policy Status: All Sales Final (No Returns Accepted)') }}</p>
+    <p>{{ _('Due to the nature of our products (low-cost custom items) and the operation of our webshop as a school project, Stickerdom maintains an All Sales Are Final policy. Please review this policy carefully before completing your purchase.') }}</p>
 
-    <h4>1. No Returns or Exchanges</h4>
-    <p>We do not accept returns, exchanges, or offer monetary refunds for any product once the order has been confirmed, except in the specific cases outlined below (Damaged Goods or Order Cancellation).</p>
+    <h4>{{ _('1. No Returns or Exchanges') }}</h4>
+    <p>{{ _('We do not accept returns, exchanges, or offer monetary refunds for any product once the order has been confirmed, except in the specific cases outlined below (Damaged Goods or Order Cancellation).') }}</p>
 
-    <h4>2. Defective or Damaged Products (The Exception)</h4>
-    <p>While we strive for high quality, if your sticker order arrives damaged, defective, or if you receive the wrong product, we will replace the item free of charge.</p>
+    <h4>{{ _('2. Defective or Damaged Products (The Exception)') }}</h4>
+    <p>{{ _('While we strive for high quality, if your sticker order arrives damaged, defective, or if you receive the wrong product, we will replace the item free of charge.') }}</p>
 
-    <p>To report damaged or incorrect items:</p>
+    <p>{{ _('To report damaged or incorrect items:') }}</p>
     <ol>
-        <li>You must notify us via email at stickerdom.help@gmail.com within 7 days of your scheduled pickup date.</li>
-        <li>2.	Your email must include:
+        <li>{{ _('You must notify us via email at stickerdom.help@gmail.com within 7 days of your scheduled pickup date.') }}</li>
+        <li>{{ _('3. Your email must include:') }}
             <ul>
-                <li>Your Order Number.</li>
-                <li>A description of the defect or damage.</li>
-                <li>Clear protographic evidence of the defect or damage.</li>
+                <li>{{ _('Your Order Number.') }}</li>
+                <li>{{ _('A description of the defect or damage.') }}</li>
+                <li>{{ _('Clear photographic evidence of the defect or damage.') }}</li>
             </ul>
         </li>
-        <li>Upon verification, we will arrange for a replacement of the affected items to be processed for the next available pickup schedule. We do not offer cash refunds for damaged items; we only offer replacements.</li>
+        <li>{{ _('Upon verification, we will arrange for a replacement of the affected items to be processed for the next available pickup schedule. We do not offer cash refunds for damaged items; we only offer replacements.') }}</li>
     </ol>
-    <h4>Order Cancellation and Refunds (The Fee Exception)</h4>
-    <p>If you need to cancel your order, please contact us immediately.</p>
+    <h4>{{ _('Order Cancellation and Refunds (The Fee Exception)') }}</h4>
+    <p>{{ _('If you need to cancel your order, please contact us immediately.') }}</p>
     <ul>
-        <li>Cancellation BEFORE Processing: If you cancel your order within 2 hours of payment and before production has begun, we will refund the amount paid for packing and delivery fees using the original payment method.</li>
-        <li>Cancellation AFTER Processing: Once your order has been sent to the printer or packaged for pickup, it cannot be canceled, and no refund for packing/delivery fees will be issued.</li>
+        <li>{{ _('Cancellation BEFORE Processing: If you cancel your order within 2 hours of payment and before production has begun, we will refund the amount paid for packing and delivery fees using the original payment method.') }}</li>
+        <li>{{ _('Cancellation AFTER Processing: Once your order has been sent to the printer or packaged for pickup, it cannot be canceled, and no refund for packing/delivery fees will be issued.') }}</li>
     </ul>
-    <h4>4. Non-Refundable Fees</h4>
-    <p>Please note that the following items are non-refundable:</p>
+    <h4>{{ _('4. Non-Refundable Fees') }}</h4>
+    <p>{{ _('Please note that the following items are non-refundable:') }}</p>
     <ul>
-        <li>Fees paid for packing, handling, or delivery once the order has been processed (see Section 3).</li>
-        <li>Items lost, damaged, or stolen after they have been successfully picked up by the customer.</li>
+        <li>{{ _('Fees paid for packing, handling, or delivery once the order has been processed (see Section 3).') }}</li>
+        <li>{{ _('Items lost, damaged, or stolen after they have been successfully picked up by the customer.') }}</li>
     </ul>
 </div>
 </div>

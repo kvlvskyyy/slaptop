@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Custom Sticker Requests</h1>
+    <h1>{{ _('Custom Sticker Requests') }}</h1>
 
     <div class="row">
         {% for custom_sticker in suggestions %}
@@ -18,23 +18,23 @@
                     <h5 class="card-title">{{ custom_sticker.name }}</h5>
                     
                     <p class="mb-1"><strong>User ID:</strong> {{ custom_sticker.user_id }}</p>
-                    <p class="mb-1"><strong>Approval Status:</strong> {{ custom_sticker.approval_status }}</p>
-                    <p class="mb-1"><strong>Dashboard Request:</strong> {{ custom_sticker.request_approval }}</p>
-                    <p class="text-muted small">Submitted on: {{ custom_sticker.created_at.strftime('%Y-%m-%d') }}</p>
+                    <p class="mb-1"><strong>{{ _('Approval Status:') }}</strong> {{ custom_sticker.approval_status }}</p>
+                    <p class="mb-1"><strong>{{ _('Dashboard Request:') }}</strong> {{ custom_sticker.request_approval }}</p>
+                    <p class="text-muted small">{{ _('Submitted on:') }} {{ custom_sticker.created_at.strftime('%Y-%m-%d') }}</p>
                 </div>
                 <div class="mt-auto pt-3 border-top">
                     <div class="row g-2 mb-2">
                         <div class="col-6">
                             <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
                                 <button type="submit" class="btn btn-outline-success btn-sm w-100 py-2 shadow-sm">
-                                    <i class="bi bi-check2-circle"></i> Approve
+                                    <i class="bi bi-check2-circle"></i> {{ _('Approve') }}
                                 </button>
                             </form>
                         </div>
                         <div class="col-6">
                             <form action="{{ url_for('admin.deny_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
                                 <button type="submit" class="btn btn-outline-danger btn-sm w-100 py-2 shadow-sm">
-                                    <i class="bi bi-x-circle"></i> Deny
+                                    <i class="bi bi-x-circle"></i> {{ _('Deny') }}
                                 </button>
                             </form>
                         </div>
@@ -42,7 +42,7 @@
 
                     <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" class="m-2" method="POST">
                         <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
-                            <i class="bi bi-plus-lg me-1"></i> Add to Dashboard
+                            <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
                         </button>
                     </form>
                 </div>
@@ -51,7 +51,7 @@
         </div>
 
         {% else %}
-        <p>No suggestions found.</p>
+        <p>{{ _('No suggestions found.') }}</p>
         {% endfor %}
     </div>
 

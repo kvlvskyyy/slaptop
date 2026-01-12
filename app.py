@@ -3,7 +3,7 @@ from flask import Flask, session, request, redirect
 from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
-from models import User, Order, Category
+from models import User, Order, Category, Sticker
 from dotenv import load_dotenv
 from payments import payments
 from admin import admin
