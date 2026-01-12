@@ -172,8 +172,10 @@ def deny_request(request_id):
     user = custom_sticker.user
 
     sticker = Sticker.query.get(custom_sticker.sticker_id)
-    if sticker:
-        db.session.delete(sticker)
+    if sticker.order_items:
+        sticker.is_active = False
+    else:
+        db.session.delete(sticker)  
 
     msg = Message(
         subject="Your Stickerdom Sticker Request Update",
@@ -216,6 +218,14 @@ def add_request_to_dashboard(request_id):
         flash("Request must be approved first", "error")
         return redirect(url_for('admin.suggestions'))
 
+    existing_sticker = Sticker.query.filter_by(name=custom.name).first()
+    if existing_sticker:
+        custom.sticker_id = existing_sticker.id
+        custom.approval_status = "added_to_shop"
+        db.session.commit()
+        flash(f"'{custom.name}' already exists in the shop, linked to request.", "info")
+        return redirect(url_for('admin.index_admin'))
+    
     sticker = Sticker(
         name=custom.name,
         price=Decimal("0.99"),
@@ -248,7 +258,7 @@ def index_admin():
 @admin.route('/suggestions')
 @admin_required
 def suggestions():
-    suggestions = CustomSticker.query.filter_by(approval_status='pending').order_by(CustomSticker.created_at.desc()).all()
+    suggestions = CustomSticker.query.order_by(CustomSticker.created_at.desc()).all()
     return render_template('suggestions.html', suggestions=suggestions)
 
 

@@ -29,20 +29,21 @@
                     {{ _('Order') }} #{{ order.id }}
                 </div>
 
-                <div class="col-md-3">
-                    <span class="badge bg-warning text-dark">{{ order.status }}</span>
-                    <small class="text-muted d-block">
-                        {{ _('Created at') }}: {{ order.created_at.strftime('%d %b %Y %H:%M') }}
-                    </small>
-                    <small class="text-muted d-block">
-                        {{ _('Pick up at') }}: 
-                        {% if order.payment %}
-                            {{ order.payment.date }} {{ order.payment.time }}
-                        {% else %}
-                            {{ _('Not set') }}
-                        {% endif %}
-                    </small>
-                </div>
+<div class="col-md-3">
+    <span class="badge 
+        {% if order.status == 'finished' %}bg-success
+        {% elif order.status == 'cancelled' %}bg-danger
+        {% elif order.status == 'confirmed' %}bg-primary
+        {% elif order.status == 'pending' %}bg-warning text-dark
+        {% else %}bg-secondary
+        {% endif %}">
+        {{ order.status|capitalize }}
+    </span>
+    
+    <small class="text-muted d-block">
+        {{ _('Created at') }}: {{ order.created_at.strftime('%d %b %Y %H:%M') }}
+    </small>
+</div>
 
                 <div class="col-md-2 fw-bold">
                     €{{ order.total_price }}

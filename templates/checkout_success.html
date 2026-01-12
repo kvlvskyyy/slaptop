@@ -97,7 +97,7 @@
     <div class="checkmark text-success">✅</div>
     <h2 class="mb-3 checkout">{{ _('Thank you for your order!') }}</h2>
     <p class="mb-1 checkout">{{ _('Order ID:') }} <strong>{{ order.id }}</strong></p>
-    <p class="text-muted mb-3 checkout">{{ _('You will receive a confirmation email shortly at') }} <strong>{{ order.email }}</strong>.</p>
+    <p class="text-muted mb-3 checkout">{{ _('You will receive a confirmation email shortly at ') }}<strong>{{ user.email }}</strong></p>
 
     <h5 class="mb-3 checkout">{{ _('Order Summary:') }}</h5>
     <ul class="list-group mb-4">

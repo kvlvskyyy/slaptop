@@ -1,5 +1,6 @@
 html, body {
             height: 100%;
+            scrollbar-width: none;
         }
 
         .form-signin {
@@ -857,3 +858,51 @@ body::before {
     padding-top: 0px !important;
 }
 }
+
+/* --- CAROUSEL CONTROLS --- */
+/* Move arrows closer to the edge by reducing the clickable area width */
+.carousel-control-prev, 
+.carousel-control-next {
+    width: 5% !important; /* Default is 15%, reducing this pulls them to the edge */
+}
+
+/* Optional: Ensure they stay exactly on the edge */
+.carousel-control-prev {
+    left: 0 !important;
+}
+
+.carousel-control-next {
+    right: 0 !important;
+}
+
+/* Optional: Make the icons slightly bigger/bolder if they feel too small near the edge */
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+}
+.bg-primary, .btn-blue{
+    color: black !important;
+    background-color: rgb(82 147 243) !important;
+}
+
+.bg-danger, .btn-danger{
+    color: black !important;
+    background-color: rgb(241 58 76) !important;
+}
+
+.bg-success, .btn-success{
+    color: black !important;
+    background-color: rgb(31 180 111) !important;
+}
+
+.bg-warning{
+    color: black !important;
+}
+
+.btn-success-yellow{
+    background-color:#f5b800 !important;
+}
+
+
+
