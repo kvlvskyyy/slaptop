@@ -503,32 +503,70 @@ body::before {
 }
 
 /* --- CARD FIXES --- */
-/* Default (Desktop) */
+
+/* 1. GLOBAL STYLES (Applies to Desktop, Tablet, and Mobile) */
+.card {
+    border-radius: 15px !important; /* Always rounded */
+    overflow: hidden; /* Ensures image doesn't stick out of corners */
+    border: none; /* Optional: cleaner look */
+}
+
+/* Default Image Height (Large Desktop Screens only) */
 .sticker-img-container {
     height: 250px;
     width: 100%;
 }
 
-/* Mobile: Make cards square/shorter */
-@media (max-width: 576px) {
+/* 2. TABLET & MOBILE FIXES (Max-width 991px covers Tablets like iPad & Phones) */
+@media (max-width: 991px) {
+    
+    /* Aggressively reduce image height for square look */
     .sticker-img-container {
-        /* Force the container to be much smaller on mobile */
-        height: 140px !important; 
-        min-height: 0 !important; /* Override any inline min-heights */
+        height: 100px !important; /* slightly taller than phone, but short enough */
+        min-height: 0 !important;
+        margin-bottom: 0.25rem !important;
     }
-    
-    /* Make the title smaller so it doesn't stretch the card */
-    .card-title {
-        font-size: 0.85rem;
-    }
-    
-    .card-text {
-        font-size: 0.9rem;
-    }
-    
+
     /* Reduce padding inside the card */
     .card .p-3 {
-        padding: 0.75rem !important;
+        padding: 0.5rem !important; 
+    }
+    
+    /* Kill margins */
+    .mb-2 {
+         margin-bottom: 0 !important;
+    }
+
+    /* Compact text */
+    .card-title {
+        font-size: 0.9rem !important;
+        line-height: 1.1;
+    }
+    
+    /* Shrink button */
+    form button.rounded-circle {
+        width: 35px !important;
+        height: 35px !important;
+    }
+    
+    .card-text.fs-5 {
+        font-size: 1rem !important; 
+    }
+}
+
+/* 3. EXTRA SMALL PHONES (Max-width 576px) - Even tighter */
+@media (max-width: 576px) {
+    .sticker-img-container {
+        height: 80px !important; /* The very short height you liked */
+    }
+    
+    .card-title {
+        font-size: 0.8rem !important;
+    }
+    
+    form button.rounded-circle {
+        width: 32px !important;
+        height: 32px !important;
     }
 }
 
@@ -671,7 +709,7 @@ body::before {
 }
 
 /* --- EXTRA SMALL DEVICES (iPhone SE / Fold / etc) --- */
-@media (max-width: 360px) {
+@media (max-width: 410px) {
     
     /* Target the form that holds the search bar */
     form.d-md-none {
@@ -692,6 +730,8 @@ body::before {
         padding-left: 5px !important;
     }
 }
+
+
 
 /* --- DESKTOP ONLY FIXES --- */
 @media (min-width: 769px) {
@@ -719,3 +759,46 @@ body::before {
 .bg-purple {
     background-color:#5a189a !important;
 }
+
+    /* --- MOBILE "ZOOM" STYLE (Max-width 768px covers all phones) --- */
+    @media (max-width: 768px) {
+
+        /* 2. Force Container to Fill Screen */
+        .container.py-2 {
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+        
+        /* 3. Strip Card Styling for "App-like" feel */
+        .card.checkoutPage {
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            min-height: 100vh; /* Fills height */
+        }
+
+        .card-body.checkoutPage {
+            padding: 20px !important;
+        }
+
+        /* 4. Make Inputs Big and Tappable */
+        input.form-control, select.form-select, .btn {
+            font-size: 18px !important; /* Matches base text */
+            padding: 12px !important;   /* Fat finger friendly */
+            height: auto !important;
+        }
+
+        /* 5. Adjust Layout for Inputs */
+        .col-md-6 {
+            margin-bottom: 15px; /* Adds space between stacked date/time on mobile */
+        }
+        
+        /* 6. Radio Buttons Scale */
+        .form-check-input {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
+    }
+
