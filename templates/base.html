@@ -73,7 +73,7 @@
 
     <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('shop.search')}}">
       <div class="input-group">
-        <input class="form-control border-0 rounded-start" type="search" placeholder="Search..." aria-label="Search" name="search" style="font-size: 0.9rem;">
+        <input class="form-control border-0 rounded-start" type="search" placeholder="{{ _('Search...') }}" aria-label="Search" name="search" style="font-size: 0.9rem;">
         <button class="btn btn-light bg-white border-0 rounded-end" type="submit">
           <i class="bi bi-search text-secondary"></i>
         </button>

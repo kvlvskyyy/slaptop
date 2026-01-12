@@ -116,7 +116,7 @@ msgstr "Stickerdom"
 
 #: slaptop/templates/base.html:164
 msgid "Contact Us"
-msgstr "Contact Us"
+msgstr "Neem contact met ons op"
 
 #: slaptop/templates/base.html:171
 msgid "We reply when we feel like it"
@@ -124,7 +124,7 @@ msgstr "We reageren als we er zin in hebben"
 
 #: slaptop/templates/base.html:172
 msgid "you really think we wanna accept phone calls?"
-msgstr "We antwoorden wanneer we daar zin in hebben."
+msgstr "Denk jij dat we echt willen opnemen?"
 
 #: slaptop/templates/base.html:173
 msgid "Mon-Friday, 10:00 - 17:00"
@@ -309,7 +309,7 @@ msgstr "Update stickerinformatie"
 
 #: slaptop/templates/index.html:27
 msgid "Customize your stuff"
-msgstr "Pas je spullen aan"
+msgstr "Versier je apparaat"
 
 #: slaptop/templates/index.html:28
 msgid "Order some cool stickers to put on your device"
