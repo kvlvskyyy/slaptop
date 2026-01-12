@@ -156,7 +156,7 @@ html, body {
 }
 
 /* Target the Proceed to Checkout button */
-.btn-secondary.btn-lg {
+.btn-primary.btn-lg {
     animation: subtle-pulse 2s infinite; 
 }
 /* Target the plus/minus buttons */
@@ -805,3 +805,6 @@ body::before {
         }
     }
 
+.py-2 {
+    padding-top: 0px !important;
+}
