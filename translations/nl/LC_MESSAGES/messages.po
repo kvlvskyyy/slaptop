@@ -116,7 +116,7 @@ msgstr "Stickerdom"
 
 #: slaptop/templates/base.html:164
 msgid "Contact Us"
-msgstr "Contact Us"
+msgstr "Neem contact met ons op"
 
 #: slaptop/templates/base.html:171
 msgid "We reply when we feel like it"
