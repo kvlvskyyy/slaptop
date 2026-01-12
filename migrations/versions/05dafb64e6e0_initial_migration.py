@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:migrations/versions/b0bd1cfe0ca9_initial_migration.py
 """Initial migration
 
-Revision ID: b0bd1cfe0ca9
+Revision ID: 05dafb64e6e0
 Revises: 
-Create Date: 2026-01-09 12:56:28.581953
-========
-"""initial migration
-
-Revision ID: 310ec2deb7df
-Revises: 
-Create Date: 2026-01-09 12:22:27.143282
->>>>>>>> c62936e5de5c8d72e9e6a44225149c7aa82d716c:migrations/versions/310ec2deb7df_initial_migration.py
+Create Date: 2026-01-12 10:44:26.014889
 
 """
 from alembic import op
@@ -18,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/b0bd1cfe0ca9_initial_migration.py
-revision = 'b0bd1cfe0ca9'
-========
-revision = '310ec2deb7df'
->>>>>>>> c62936e5de5c8d72e9e6a44225149c7aa82d716c:migrations/versions/310ec2deb7df_initial_migration.py
+revision = '05dafb64e6e0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -100,6 +88,8 @@ def upgrade():
     sa.Column('payment_method', sa.String(length=100), nullable=False),
     sa.Column('full_name', sa.String(length=100), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=True),
+    sa.Column('date', sa.DateTime(), nullable=True),
+    sa.Column('time', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['order_id'], ['order.id'], ),
     sa.PrimaryKeyConstraint('id')

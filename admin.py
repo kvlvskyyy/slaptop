@@ -301,7 +301,6 @@ def update_order_status(order_id, new_status):
 
     order.status = new_status
     db.session.commit()
-
     user = User.query.get(order.user_id)
 
     if user and user.email and new_status in ["finished", "cancelled", "confirmed"]:

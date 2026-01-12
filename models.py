@@ -75,6 +75,8 @@ class Payment(db.Model):
     payment_method = db.Column(db.String(100), nullable=False)
     full_name = db.Column(db.String(100), nullable=True)
     email = db.Column(db.String(255), nullable=True)
+    date = db.Column(db.String(20), nullable=True)
+    time = db.Column(db.String(20), nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
 
 
