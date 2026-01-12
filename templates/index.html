@@ -3,7 +3,22 @@
 {% block title %}Stickerdom{% endblock %}
 
 {% block content %}
-
+    <!--Error messages -->
+    <body class="d-flex flex-column min-vh-100 " style="padding-top: 10vh;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
+                {% for category, message in messages %}
+                <div
+                class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} alert-dismissible fade show shadow-sm"
+                role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
 <div class="container mt-4">
     
