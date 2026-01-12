@@ -189,7 +189,10 @@ def category(category_name):
 @login_required
 def user_order_history():
     user_id = session["user_id"]
-    orders = Order.query.filter_by(user_id=user_id).all()
+    orders = Order.query.filter(
+        Order.user_id == user_id,
+        Order.status != "cart"
+    ).order_by(Order.created_at.desc()).all()
     return render_template("user_order_history.html", orders=orders)
 
 
