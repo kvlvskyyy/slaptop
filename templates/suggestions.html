@@ -26,9 +26,15 @@
                     <div class="row g-2 mb-2">
                         <div class="col-6">
                             <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
+                                {%if custom_sticker.approval_status != "approved" %}
                                 <button type="submit" class="btn btn-outline-success btn-sm w-100 py-2 shadow-sm">
                                     <i class="bi bi-check2-circle"></i> {{ _('Approve') }}
                                 </button>
+                                {%elif custom_sticker.approval_status == "approved" %}
+                                <button type="submit" class="btn btn-outline-success-approved btn-sm w-100 py-2 shadow-sm">
+                                    <i class="bi bi-check2-circle"></i> {{ _('Approve') }}
+                                </button>
+                                {%endif%}
                             </form>
                         </div>
                         <div class="col-6">
@@ -41,9 +47,24 @@
                     </div>
 
                     <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" class="m-2" method="POST">
+                        {% if custom_sticker.approval_status == 'added_to_shop' %}
                         <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
+                            <i class="bi bi-plus-lg me-1"></i> {{ _('Added to Dashboard') }}
+                        </button>
+                        {%elif custom_sticker.approval_status == 'approved'%}
+                         <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
                             <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
                         </button>
+                        {%else%}
+                           <button type="submit" class="btn btn-primary-denied w-100 py-2 shadow-sm fw-bold">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            {% if not custom_sticker.request_approval %}
+                                {{ _('Request Not Approved by User')}}
+                            {%else%}
+                                {{ _('Pending Approval') }}
+                            {%endif%}
+                        </button>
+                        {%endif%}
                     </form>
                 </div>
 

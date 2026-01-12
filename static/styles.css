@@ -156,8 +156,10 @@ html, body {
 }
 
 /* Target the Proceed to Checkout button */
-.btn-primary.btn-lg {
+.btn-group-lg>.btn, .btn-lg {
     animation: subtle-pulse 2s infinite; 
+    background-color:#f5b800 !important;
+    color: black;
 }
 /* Target the plus/minus buttons */
 .input-group-sm .btn {
@@ -881,5 +883,8 @@ body::before {
     background-color:#f5b800 !important;
 }
 
-
+.btn-outline-success-approved, .btn-outline-success-approved:hover{
+    background-color:#198754;
+    color: white;
+}
 
