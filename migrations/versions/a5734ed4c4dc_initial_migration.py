@@ -1,10 +1,5 @@
-"""initial migration
+"""Initial migration
 
-<<<<<<< HEAD:migrations/versions/f11ea48376c4_initial_migration.py
-Revision ID: f11ea48376c4
-Revises: 
-Create Date: 2026-01-12 13:03:36.737386
-=======
 <<<<<<<< HEAD:migrations/versions/a5734ed4c4dc_initial_migration.py
 Revision ID: a5734ed4c4dc
 Revises: 
@@ -14,7 +9,6 @@ Revision ID: 05dafb64e6e0
 Revises: 
 Create Date: 2026-01-12 10:44:26.014889
 >>>>>>>> 52277b8274ecd7194a2bc39560d1777f4bc8fadf:migrations/versions/05dafb64e6e0_initial_migration.py
->>>>>>> c9fb9e593106884b1303c4939c42a632b6b5d28b:migrations/versions/05dafb64e6e0_initial_migration.py
 
 """
 from alembic import op
@@ -22,15 +16,11 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<< HEAD:migrations/versions/f11ea48376c4_initial_migration.py
-revision = 'f11ea48376c4'
-=======
 <<<<<<<< HEAD:migrations/versions/a5734ed4c4dc_initial_migration.py
 revision = 'a5734ed4c4dc'
 ========
 revision = '05dafb64e6e0'
 >>>>>>>> 52277b8274ecd7194a2bc39560d1777f4bc8fadf:migrations/versions/05dafb64e6e0_initial_migration.py
->>>>>>> c9fb9e593106884b1303c4939c42a632b6b5d28b:migrations/versions/05dafb64e6e0_initial_migration.py
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -108,8 +98,8 @@ def upgrade():
     sa.Column('payment_method', sa.String(length=100), nullable=False),
     sa.Column('full_name', sa.String(length=100), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=True),
-    sa.Column('date', sa.String(length=20), nullable=True),
-    sa.Column('time', sa.String(length=20), nullable=True),
+    sa.Column('date', sa.DateTime(), nullable=True),
+    sa.Column('time', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['order_id'], ['order.id'], ),
     sa.PrimaryKeyConstraint('id')
