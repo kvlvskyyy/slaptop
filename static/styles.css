@@ -857,3 +857,29 @@ body::before {
     padding-top: 0px !important;
 }
 }
+
+.bg-primary, .btn-blue{
+    color: black !important;
+    background-color: rgb(82 147 243) !important;
+}
+
+.bg-danger, .btn-danger{
+    color: black !important;
+    background-color: rgb(241 58 76) !important;
+}
+
+.bg-success, .btn-success{
+    color: black !important;
+    background-color: rgb(31 180 111) !important;
+}
+
+.bg-warning{
+    color: black !important;
+}
+
+.btn-success-yellow{
+    background-color:#f5b800 !important;
+}
+
+
+
