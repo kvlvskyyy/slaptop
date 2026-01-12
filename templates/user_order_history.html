@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% block title %}My orders{% endblock %}
 {% block content %}
-
+<style>
+    .card:hover {
+    transform: none;
+    transition: none;
+    box-shadow: none !important;
+}
+</style>
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
