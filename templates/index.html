@@ -41,7 +41,7 @@
                     <div class="carousel-caption hero-caption ms-5 text-start bg-dark bg-opacity-50 px-4 rounded align-items-center">
                         <h1 class="caption-h1">{{ _('Customize your stuff') }}</h1>
                         <p class="caption-p">{{ _('Order some cool stickers to put on your device') }}</p>
-                        <p><a class="btn btn-sm btn-primary" href="#">{{ _('Sign up') }}</a></p>
+                        <p><a class="btn btn-sm btn-primary" href="{{ url_for('auth.signup') }}">{{ _('Sign up') }}</a></p>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                     <div class="carousel-caption me-5 hero-caption text-end bg-dark bg-opacity-50 px-4 rounded align-items-center">
                         <h1 class="caption-h1">{{ _('Create your own stickers') }}</h1>
                         <p class="caption-p">{{ _('Request your own sticker design to print') }}</p>
-                        <p><a class="btn btn-sm btn-primary" href="#">{{ _('Get started') }}</a></p>
+                        <p><a class="btn btn-sm btn-primary" href="{{ url_for('auth.signup') }}">{{ _('Get started') }}</a></p>
                     </div>
                 </div>
             </div>
