@@ -23,18 +23,22 @@
             {% elif order.status == 'pending' %}bg-warning text-dark
             {% endif %}">
             {{order.status}}</span>
-                    <small class="text-muted d-block">{{ order.created_at.strftime('%d %b %Y %H:%M')}}</small>
+                    <small class="text-muted d-block">Created at: {{ order.created_at.strftime('%d %b %Y %H:%M')}}</small>
+                    {% if order.payment %}
+                    <small class="text-muted d-block">Pick up at:
+                        {{ order.payment.date }} {{ order.payment.time }}
+                    {% else %}
+                        Not set
+                    {% endif %}
+                    </small>
                 </div>
+                
 
                 <div class="col-md-2 fw-bold">
                     €{{ '%.2f'|format(order.total_price)}}
                 </div>
+                
                 <div class="col-md-5 text-end">
-<<<<<<< HEAD
-                    <button class="btn btn-sm btn-outline-danger">{{ _('Cancel') }}</button>
-                    <button class="btn btn-sm btn-outline-primary">{{ _('Confirm') }}</button>
-                    <button class="btn btn-sm btn-outline-success">{{ _('Finish') }}</button>
-=======
 
                     {% set statuses = {
                         'pending': 'warning',
@@ -63,7 +67,6 @@
                     {% endfor %}
 
 
->>>>>>> 833e21433afb2f1dfe89b1645341922721f91a68
 
                     <button class="btn btn-light rounded-circle ms-2"
                             type="button"

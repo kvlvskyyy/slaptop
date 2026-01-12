@@ -156,7 +156,7 @@ html, body {
 }
 
 /* Target the Proceed to Checkout button */
-.btn-secondary.btn-lg {
+.btn-primary.btn-lg {
     animation: subtle-pulse 2s infinite; 
 }
 /* Target the plus/minus buttons */
@@ -853,4 +853,7 @@ body::before {
         max-width: 90%;
         padding: 10px !important; /* Reduce padding inside the black box */
     }
+.py-2 {
+    padding-top: 0px !important;
+}
 }

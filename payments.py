@@ -38,6 +38,8 @@ def process_checkout():
     if request.method == 'POST':
         full_name = request.form.get('full_name')
         email = request.form.get('email')
+        date = request.form.get('date')
+        time = request.form.get('time')
         payment_method = request.form.get('payment_method')
         order_id = request.args.get('order_id')
 
@@ -47,6 +49,8 @@ def process_checkout():
             payment_method=payment_method,
             full_name=full_name,
             email=email,
+            date=date,
+            time=time,
             created_at=datetime.utcnow()
         )
         db.session.add(payment)
