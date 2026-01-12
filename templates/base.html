@@ -18,22 +18,41 @@
         background-repeat: no-repeat;
         background-position: center;
     }
+    .toast-container {
+        pointer-events: none; 
+    }
+    .toast-container .alert {
+        pointer-events: auto; 
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
   </head>
   
-  
   <body class="d-flex flex-column min-vh-100 " style="padding-top: 10vh;">
-    <!--Error messages -->
+    
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 2000;">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
             {% for category, message in messages %}
-            <div 
-            class="alert alert-{{ 'success' if category=='success' else 'danger' if category=='error' else 'info' }} alert-dismissible fade show shadow-sm"
-            role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+                
+                {# Determine Color and Icon #}
+                {% set alert_class = 'alert-success' if category == 'success' else 'alert-danger' if category == 'error' else 'alert-info' %}
+                {% set icon = 'bi-check-circle-fill' if category == 'success' else 'bi-exclamation-triangle-fill' if category == 'error' else 'bi-info-circle-fill' %}
+
+                {# The Notification Box #}
+                <div class="alert {{ alert_class }} alert-dismissible fade show shadow-lg border-0 d-flex align-items-center mb-2" 
+                     role="alert" 
+                     style="min-width: 300px; animation: fadeInUp 0.3s ease-out;">
+                    
+                    <i class="bi {{ icon }} me-2 fs-4"></i>
+                    <div class="fw-bold">{{ message }}</div>
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
             {% endfor %}
         </div>
         {% endif %}
@@ -54,7 +73,7 @@
 
     <form class="d-flex d-md-none flex-grow-1 mx-2" method="POST" action="{{ url_for('shop.search')}}">
       <div class="input-group">
-        <input class="form-control border-0 rounded-start" type="search" placeholder="Search..." aria-label="Search" name="search" style="font-size: 0.9rem;">
+        <input class="form-control border-0 rounded-start" type="search" placeholder="{{ _('Search...') }}" aria-label="Search" name="search" style="font-size: 0.9rem;">
         <button class="btn btn-light bg-white border-0 rounded-end" type="submit">
           <i class="bi bi-search text-secondary"></i>
         </button>
@@ -213,79 +232,112 @@
             </div>
         </div>
     </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-        });
-    </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800 });
+</script>
 
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. Select all forms that post to /add_to_cart
+    
+    // --- PART A: HANDLE FLASK FLASH MESSAGES (Log in/out errors) ---
+    // Find alerts that exist immediately when page loads
+    const flashAlerts = document.querySelectorAll('.toast-container .alert');
+    
+    flashAlerts.forEach(alert => {
+        // 1. Auto-dismiss after 3 seconds
+        setTimeout(() => {
+            closeAlert(alert);
+        }, 3000);
+    });
+
+    // --- PART B: HANDLE CLICKING THE 'X' BUTTON (For all alerts) ---
+    document.addEventListener('click', function(e) {
+        if (e.target && (e.target.classList.contains('btn-close') || e.target.closest('.btn-close'))) {
+            const alertBox = e.target.closest('.alert');
+            if (alertBox) {
+                closeAlert(alertBox);
+            }
+        }
+    });
+
+    // Helper function to fade out and remove
+    function closeAlert(alertBox) {
+        alertBox.style.transition = "opacity 0.5s ease";
+        alertBox.style.opacity = "0";
+        setTimeout(() => {
+            alertBox.remove();
+        }, 500);
+    }
+
+    // --- PART C: ADD TO CART LOGIC (Your existing Cart JS) ---
     const forms = document.querySelectorAll('form[action="/add_to_cart"]');
 
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop the page from reloading
-
-            const formData = new FormData(this); // Grab the sticker_id from the form
+            e.preventDefault(); 
+            const formData = new FormData(this);
 
             fetch('/add_to_cart', {
-                method: 'POST',
-                body: formData
+                method: 'POST', body: formData,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
             .then(response => {
-                // If user is not logged in, Flask redirects to login page. 
-                // We detect this and redirect the browser manually.
-                if (response.redirected) {
-                    window.location.href = response.url;
-                    return;
-                }
+                if (response.redirected) { window.location.href = response.url; return; }
                 return response.json();
             })
             .then(data => {
                 if (data && data.success) {
-                    // 2. Show a temporary success message (Toast)
-                    showFloatingAlert(data.message, 'success');
-
-                    // 3. Update the Cart Badge number (Optional: see Step 3)
                     const badge = document.getElementById('cart-badge-count');
                     if (badge) {
                         badge.innerText = data.total_quantity;
-                        badge.classList.remove('d-none'); // Make sure it's visible
+                        badge.classList.remove('d-none');
                     }
+                    showNotification(data.message);
                 }
             })
             .catch(error => console.error('Error:', error));
         });
     });
 
-    // Helper function to create a floating Bootstrap alert
-function showFloatingAlert(message, category) {
-    const alertHtml = `
-        <div class="alert alert-${category} alert-dismissible fade show shadow-lg position-fixed" 
-             role="alert" 
-             style="bottom: 20px; right: 20px; z-index: 1050; min-width: 300px;">
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    `;
-    
-    // Append to body
-    document.body.insertAdjacentHTML('beforeend', alertHtml); // Changed to 'beforeend'
+    function showNotification(message) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success shadow-lg border-0 d-flex align-items-center mb-2';
+        alertDiv.setAttribute('role', 'alert');
+        
+        // Note: Using the same CSS classes as your flash messages to keep style consistent
+        Object.assign(alertDiv.style, {
+            minWidth: '300px',
+            animation: 'fadeInUp 0.3s ease-out',
+            pointerEvents: 'auto' // Ensure it's clickable
+        });
 
-    // Remove automatically after 3 seconds
-    setTimeout(() => {
-        const alert = document.querySelector('.alert');
-        if (alert) {
-            const bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
+        alertDiv.innerHTML = `
+            <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+            <div class="fw-bold">${message}</div>
+            <button type="button" class="btn-close ms-auto"></button>
+        `;
+
+        // Find the container or create one if it doesn't exist (though base.html has one)
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+            container.style.zIndex = '9999';
+            container.style.pointerEvents = 'none';
+            document.body.appendChild(container);
         }
-    }, 3000);
-}
+        
+        container.appendChild(alertDiv);
+
+        // Auto remove this new notification
+        setTimeout(() => {
+            closeAlert(alertDiv);
+        }, 3000);
+    }
 });
 </script>
-  </body>
+</body>
 </html>

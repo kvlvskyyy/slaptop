@@ -1,5 +1,6 @@
 html, body {
             height: 100%;
+            scrollbar-width: none;
         }
 
         .form-signin {
@@ -860,6 +861,28 @@ body::before {
 }
 }
 
+/* --- CAROUSEL CONTROLS --- */
+/* Move arrows closer to the edge by reducing the clickable area width */
+.carousel-control-prev, 
+.carousel-control-next {
+    width: 5% !important; /* Default is 15%, reducing this pulls them to the edge */
+}
+
+/* Optional: Ensure they stay exactly on the edge */
+.carousel-control-prev {
+    left: 0 !important;
+}
+
+.carousel-control-next {
+    right: 0 !important;
+}
+
+/* Optional: Make the icons slightly bigger/bolder if they feel too small near the edge */
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+}
 .bg-primary, .btn-blue{
     color: black !important;
     background-color: rgb(82 147 243) !important;
@@ -887,4 +910,37 @@ body::before {
     background-color:#198754;
     color: white;
 }
+#peter {
+    border: none;
+    background-color: transparent;
+    
+    width: 10px;
+    height: auto;
+}
+ /* --- PETER BUTTON STYLES --- */
+    #peter-btn {
+        position:relative; /* Keeps it in the same spot on screen even when scrolling */
+        bottom: -10vh;    /* Distance from bottom */
+        right: -70vw;     /* Distance from right */
+        width: 60px;     /* Make it smaller */
+        height: 60px;
+        background: transparent; /* Remove button gray background */
+        border: none;            /* Remove button border */
+        cursor:default;
+        z-index: 1000;           /* Ensure it sits on top of other elements */
+        padding: 0;
+        transition: transform 0.2s ease;
+        filter: blur(4px);
+    }
+
+    #peter-btn:hover {
+        transform: scale(1.1); /* Slight zoom on hover */
+    }
+
+    #peter-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
 

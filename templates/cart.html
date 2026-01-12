@@ -37,21 +37,27 @@
                     </div>
 
                     <div class="col-2">
-                        <form action="{{ url_for('shop.update_quantity', item_id=item.id) }}" method="POST" class="input-group input-group-sm">
-                            <button type="submit" name="action" value="decrease" class="btn btn-outline-secondary">-</button>
+                        <div class="input-group input-group-sm">
+                            <button type="button" 
+                                    class="btn btn-outline-secondary update-btn" 
+                                    data-item-id="{{ item.id }}" 
+                                    data-action="decrease">-</button>
 
                             <input type="text"
                                 class="form-control text-center"
+                                id="qty-{{ item.id }}"
                                 value="{{ item.quantity }}"
                                 readonly>
 
-                            <button type="submit" name="action" value="increase" class="btn btn-outline-secondary">+</button>
-                        </form>
-
+                            <button type="button" 
+                                    class="btn btn-outline-secondary update-btn" 
+                                    data-item-id="{{ item.id }}" 
+                                    data-action="increase">+</button>
+                        </div>
                     </div>
 
                     <div class="col-3 text-end text-dark fw-bold">
-                        €{{ '%.2f'|format(item.price_at_time * item.quantity) }}
+                        €<span id="price-{{ item.id }}">{{ '%.2f'|format(item.price_at_time * item.quantity) }}</span>
                     </div>
 
                     <div class="col-1 text-center"> 
@@ -75,7 +81,7 @@
             </div>
 
             <div class="text-dark me-5 h4 mb-0">
-                €{{ '%.2f'|format(total) }}
+                €<span id="cart-total">{{ '%.2f'|format(total) }}</span>
             </div>
 
             <a href="{{ url_for('payments.checkout') }}" class="btn btn-secondary btn-lg">
@@ -86,4 +92,54 @@
     </div>
 </div>
 
-{% endblock %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.querySelectorAll('.update-btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const itemId = this.getAttribute('data-item-id');
+            const action = this.getAttribute('data-action');
+            const qtyInput = document.getElementById(`qty-${itemId}`);
+            
+            // Prevent decreasing below 1 visually immediately
+            if (action === 'decrease' && parseInt(qtyInput.value) <= 1) return;
+
+            // Send AJAX request
+            fetch(`/update_quantity/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ action: action })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 1. Update Input Quantity
+                    qtyInput.value = data.new_quantity;
+
+                    // 2. Update Item Total Price
+                    const priceSpan = document.getElementById(`price-${itemId}`);
+                    if (priceSpan) priceSpan.innerText = data.new_item_total;
+
+                    // 3. Update Cart Grand Total
+                    const totalSpan = document.getElementById('cart-total');
+                    if (totalSpan) totalSpan.innerText = data.new_cart_total;
+
+                    // 4. Update Navbar Badge (if it exists)
+                    const badge = document.getElementById('cart-badge-count');
+                    if (badge) {
+                        badge.innerText = data.total_cart_items;
+                        badge.classList.remove('d-none');
+                    }
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>
+
+{% endblock %}s

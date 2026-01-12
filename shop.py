@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required
 from werkzeug.utils import secure_filename
@@ -23,12 +23,14 @@ def add_to_cart():
         flash("Sticker not found.", "error")
         return redirect(request.referrer or url_for('shop.index'))
 
+    # 1. Get or Create the Order (Cart)
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
         order = Order(user_id=user_id, created_at=datetime.utcnow(), status="cart", total_price=0)
         db.session.add(order)
-        db.session.flush()
+        db.session.flush() # Flush ensures we get an ID for the order immediately
 
+    # 2. Add Item or Increase Quantity
     item = OrderItem.query.filter_by(order_id=order.id, sticker_id=sticker.id).first()
     if item:
         item.quantity += 1
@@ -41,60 +43,28 @@ def add_to_cart():
         )
         db.session.add(item)
 
+    # 3. Update Total Price and Save
     order.total_price += Decimal(str(sticker.price))
     db.session.commit()
 
-    flash("Sticker added to cart!", "success")
-    return redirect(request.referrer or url_for('shop.cart'))
+    # 4. Calculate Total Quantity from Database (The Fix)
+    # We loop through the items in the order we just updated to get the real count
+    total_quantity = sum(item.quantity for item in order.order_items)
+
+    # 5. Return JSON for the JavaScript Notification
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify({
+            'success': True,
+            'message': 'Item added to shopping cart!',
+            'total_quantity': total_quantity
+        })
+
+    # 6. Fallback for non-JS browsers
+    return redirect(request.referrer or url_for('shop.index'))
 
 
 
-@shop.route('/add_custom_to_cart', methods=['POST'])
-@login_required
-def add_custom_to_cart():
-    user_id = session['user_id']
-    custom_id = request.form.get("sticker_id")
 
-    custom = CustomSticker.query.get_or_404(custom_id)
-
-    if custom.approval_status != "approved":
-        flash("Sticker not available", "error")
-        return redirect(url_for("shop.my_requests"))
-
-    sticker = Sticker.query.get_or_404(custom.sticker_id)
-
-    order = Order.query.filter_by(user_id=user_id, status="cart").first()
-    if not order:
-        order = Order(
-            user_id=user_id,
-            status="cart",
-            created_at=datetime.utcnow(),
-            total_price=Decimal("0.00")
-        )
-        db.session.add(order)
-        db.session.commit()
-
-    item = OrderItem.query.filter_by(
-        order_id=order.id,
-        sticker_id=sticker.id
-    ).first()
-
-    if item:
-        item.quantity += 1
-    else:
-        item = OrderItem(
-            order_id=order.id,
-            sticker_id=sticker.id,
-            quantity=1,
-            price_at_time=sticker.price
-        )
-        db.session.add(item)
-
-    order.total_price += Decimal(str(sticker.price))
-    db.session.commit()
-
-    flash("Sticker added to cart!", "success")
-    return redirect(url_for("shop.cart"))
 
 
 
@@ -120,7 +90,12 @@ def remove_from_cart(item_id):
 @shop.route('/update_quantity/<int:item_id>', methods=['POST'])
 @login_required
 def update_quantity(item_id):
-    action = request.form.get("action")
+    # Check if request is JSON (from JS) or Form Data (from HTML form)
+    if request.is_json:
+        data = request.get_json()
+        action = data.get('action')
+    else:
+        action = request.form.get("action")
 
     item = OrderItem.query.get_or_404(item_id)
     order = item.order
@@ -134,6 +109,20 @@ def update_quantity(item_id):
         order.total_price -= item.price_at_time
 
     db.session.commit()
+
+    # --- NEW: Return JSON for AJAX ---
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.is_json:
+        # Calculate badge count
+        total_qty = sum(i.quantity for i in order.order_items)
+        
+        return jsonify({
+            'success': True,
+            'new_quantity': item.quantity,
+            'new_item_total': f"{item.price_at_time * item.quantity:.2f}",
+            'new_cart_total': f"{order.total_price:.2f}",
+            'total_cart_items': total_qty
+        })
+
     return redirect(request.referrer or url_for('shop.cart'))
 
 
@@ -194,6 +183,46 @@ def user_order_history():
         Order.status != "cart"
     ).order_by(Order.created_at.desc()).all()
     return render_template("user_order_history.html", orders=orders)
+
+
+@shop.route('/add_custom_to_cart', methods=['POST'])
+@login_required
+def add_custom_to_cart():
+    custom_id = request.form.get('sticker_id')
+    user_id = session['user_id']
+
+    custom = CustomSticker.query.get_or_404(custom_id)
+
+    sticker = Sticker.query.get_or_404(custom.sticker_id)
+
+    order = Order.query.filter_by(user_id=user_id, status="cart").first()
+    if not order:
+        order = Order(user_id=user_id, status="cart", total_price=0)
+        db.session.add(order)
+        db.session.flush()
+
+    item = OrderItem.query.filter_by(
+        order_id=order.id,
+        sticker_id=sticker.id
+    ).first()
+
+    if item:
+        item.quantity += 1
+    else:
+        item = OrderItem(
+            quantity=1,
+            price_at_time=Decimal(str(sticker.price)),
+            sticker_id=sticker.id,
+            order_id=order.id
+        )
+        db.session.add(item)
+
+    order.total_price += Decimal(str(sticker.price))
+    db.session.commit()
+
+    flash("Custom sticker added to cart!", "success")
+    return redirect(request.referrer or url_for('shop.cart'))
+
 
 
 @shop.route('/aboutus')

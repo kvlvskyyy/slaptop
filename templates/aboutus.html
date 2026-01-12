@@ -6,14 +6,9 @@
 
 <style>
     .team-img {
-        height: 300px; /* Fixed height for uniformity */
-        width: 100%;   /* Full width */
-        object-fit: cover; /* Crops the image to fill the space */
-        
-        /* --- THE FIX IS HERE --- */
-        /* "center 25%" means: Center horizontally, 
-           and position the vertical focus 25% down from the top.
-           This moves the visible area down slightly, showing more forehead/hair. */
+        height: 300px; 
+        width: 100%;   
+        object-fit: cover; 
         object-position: center 25%; 
     }
 </style>
@@ -89,7 +84,44 @@
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+        <div class="col-md-4 d-none" id="peter-card">
+        <div class="card h-100 border-0 shadow-sm">
+            <img src="{{ url_for('static', filename='images/us/peter.jpg') }}" class="card-img-top team-img" alt="Peter">
+            <div class="card-body text-center">
+                <h3 class="text-primary fw-bold">Peter Griffin</h3>
+                <p class="text-muted mb-0">Emotional support</p>                    
+            </div>
+        </div>
+    </div>
+</div> <button id="peter-btn" type="button" title="???">
+    <img src="{{ url_for('static', filename='images/icons/peter_head.png') }}" alt="peter">
+</button>
+
+</div> <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const peterBtn = document.getElementById('peter-btn');
+    const peterCard = document.getElementById('peter-card');
+
+    // 1. CHECK ON LOAD: Is Peter already unlocked?
+    if (localStorage.getItem('peterUnlocked') === 'true') {
+        peterCard.classList.remove('d-none');
+        // Optional: Hide the button if already unlocked, or keep it
+        // peterBtn.style.display = 'none'; 
+    }
+
+    // 2. CLICK EVENT: Unlock Peter
+    peterBtn.addEventListener('click', function() {
+        // Show the card
+        peterCard.classList.remove('d-none');
+
+        // Scroll to the card
+        peterCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // SAVE TO LOCAL STORAGE (This makes it "Forever")
+        localStorage.setItem('peterUnlocked', 'true');
+    });
+});
+</script>
+
 {% endblock %}
