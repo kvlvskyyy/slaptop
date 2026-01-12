@@ -369,6 +369,7 @@ body::before {
     overflow: hidden; 
 }
 @media (max-width: 768px) {
+
     /* 1. Reset row behavior */
     .request-list .row, 
     .admin-sticker-list-custom .row {
@@ -665,6 +666,8 @@ body::before {
         gap: 20px !important; 
         margin: 0 !important; 
     }
+
+    
 
     /* 3. Fix the Search Bar */
     .mobile-menu-container form {
