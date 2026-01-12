@@ -73,17 +73,19 @@
                 </div>
 
                 <div class="carousel-item hero-carousel-item">
-                    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_2.webp') }}"
-                         class="d-block w-100" alt="Sticker Background"> 
-                    
-                    <div class="container">
-                        <div class="carousel-caption hero-caption bg-dark bg-opacity-50 px-4 rounded">
-                            <h1 class="caption-h1">{{ _('Check out our team!') }}</h1>
-                            <p class="caption-p">{{ _('Who are the developers?') }}</p>
-                            <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">{{ _('About us') }}</a></p>
-                        </div>
-                    </div>
-                </div>
+    <img id="team-slide-img" 
+         src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_2.webp') }}"
+         data-peter-src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_4.webp') }}"
+         class="d-block w-100" alt="Sticker Background"> 
+    
+    <div class="container">
+        <div class="carousel-caption hero-caption bg-dark bg-opacity-50 px-4 rounded">
+            <h1 class="caption-h1">{{ _('Check out our team!') }}</h1>
+            <p class="caption-p">{{ _('Who are the developers?') }}</p>
+            <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">{{ _('About us') }}</a></p>
+        </div>
+    </div>
+</div>
 
             </div>
 
@@ -207,5 +209,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Check if the user has unlocked Peter in localStorage
+    if (localStorage.getItem('peterUnlocked') === 'true') {
+        
+        const teamImg = document.getElementById('team-slide-img');
+        
+        if (teamImg) {
+            // Get the "Peter" image path from the data attribute
+            const newSrc = teamImg.getAttribute('data-peter-src');
+            // Swap the image
+            teamImg.src = newSrc;
+        }
+    }
+});
+</script>
+
 
 {% endblock %}
