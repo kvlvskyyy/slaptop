@@ -12,7 +12,18 @@
   
 </head>
 <body class="bg-light">
-    
+  <style>
+  .card:hover {
+    transform: none;
+    transition: none;
+    box-shadow: none !important;
+}
+
+.btn-primary:hover {
+  transform: none;
+  transition: none;
+}
+</style>
 
 <div class="container py-2">
 
@@ -26,12 +37,11 @@
   <div class="row justify-content-center m-0">
     <div class="col-md-6 p-0" style="margin-top: 0px;">
 
-      <div class="card checkoutPage shadow">
+      <div class="card checkoutPage">
         <div class="card-body checkoutPage">
 
           <h3 class="text-center mb-4 fw-bold">{{ _('Checkout') }}</h3>
 
-          <!-- Order summary -->
           <h5 class="mb-3 fw-bold">{{ _('Your order:') }}</h5>
           <ul class="list-group mb-4">
             {% for item in order.order_items %}
@@ -59,23 +69,25 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label fw-bold">Pickup Date & Time <span class="text-danger">*</span></label>
+              <label class="form-label fw-bold">{{ _('Pickup Date & Time') }} <span class="text-danger">*</span></label>
               <div class="row g-2">
                 <div class="col-md-6 col-12">
-                  <input type="date" name="date" id="pickupDate" class="form-control" required>
-                  <div class="form-text text-muted">Mon - Fri only</div>
+                  <input type="date" name="pickup_date" id="pickupDate" class="form-control" required>
+                  <div class="form-text text-muted">{{ _('Mon - Fri only') }}</div>
                 </div>
                 
                 <div class="col-md-6 col-12">
-                  <select name="time" class="form-select" required>
-                    <option value="" selected disabled>Select Time...</option>
+                  <select name="pickup_time" class="form-select" required>
+                    <option value="" selected disabled>{{ _('Select Time...') }}</option>
                     <option value="12:00-12:10">12:00 - 12:10</option>
                     <option value="12:20-12:30">12:20 - 12:30</option>
                     <option value="12:40-12:50">12:40 - 12:50</option>
                   </select>
                 </div>
               </div>
-            </div class="mb-4">
+            </div>
+
+            <div class="mb-4">
               <label class="form-label fw-bold mb-2">{{ _('Payment Method') }}</label>
 
               <div class="form-check mb-2">
@@ -89,7 +101,6 @@
               </div>
             </div>
 
-            <!-- Submit -->
             <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm">{{ _('Place Order') }}</button>
           </form>
 
@@ -99,6 +110,48 @@
   </div>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const dateInput = document.getElementById('pickupDate');
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    // 1. CALCULATE MINIMUM DATE
+    // Start with today
+    let minDate = new Date();
+
+    // If it is 12:00 or later, add 1 day (start from tomorrow)
+    if (currentHour >= 12) {
+      minDate.setDate(minDate.getDate() + 1);
+    }
+
+    // Format minDate to YYYY-MM-DD for the input attribute
+    // We use local time components to avoid timezone issues
+    const year = minDate.getFullYear();
+    const month = String(minDate.getMonth() + 1).padStart(2, '0');
+    const day = String(minDate.getDate()).padStart(2, '0');
+    
+    // Apply the min attribute (disables past dates/today if late)
+    dateInput.min = `${year}-${month}-${day}`;
+
+
+    // 2. DISABLE WEEKENDS ON SELECTION
+    dateInput.addEventListener('input', function(e) {
+      // Parse the input value
+      const selectedDate = new Date(this.value);
+      
+      // getDay(): 0 = Sunday, 6 = Saturday
+      const dayOfWeek = selectedDate.getDay();
+
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        e.preventDefault();
+        this.value = ''; // Clear the invalid input
+        alert('Pickup is only available on weekdays (Monday - Friday).');
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
