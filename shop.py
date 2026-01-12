@@ -185,6 +185,46 @@ def user_order_history():
     return render_template("user_order_history.html", orders=orders)
 
 
+@shop.route('/add_custom_to_cart', methods=['POST'])
+@login_required
+def add_custom_to_cart():
+    custom_id = request.form.get('sticker_id')
+    user_id = session['user_id']
+
+    custom = CustomSticker.query.get_or_404(custom_id)
+
+    sticker = Sticker.query.get_or_404(custom.sticker_id)
+
+    order = Order.query.filter_by(user_id=user_id, status="cart").first()
+    if not order:
+        order = Order(user_id=user_id, status="cart", total_price=0)
+        db.session.add(order)
+        db.session.flush()
+
+    item = OrderItem.query.filter_by(
+        order_id=order.id,
+        sticker_id=sticker.id
+    ).first()
+
+    if item:
+        item.quantity += 1
+    else:
+        item = OrderItem(
+            quantity=1,
+            price_at_time=Decimal(str(sticker.price)),
+            sticker_id=sticker.id,
+            order_id=order.id
+        )
+        db.session.add(item)
+
+    order.total_price += Decimal(str(sticker.price))
+    db.session.commit()
+
+    flash("Custom sticker added to cart!", "success")
+    return redirect(request.referrer or url_for('shop.cart'))
+
+
+
 @shop.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
