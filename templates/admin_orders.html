@@ -23,12 +23,21 @@
             {% elif order.status == 'pending' %}bg-warning text-dark
             {% endif %}">
             {{order.status}}</span>
-                    <small class="text-muted d-block">{{ order.created_at.strftime('%d %b %Y %H:%M')}}</small>
+                    <small class="text-muted d-block">Created at: {{ order.created_at.strftime('%d %b %Y %H:%M')}}</small>
+                    {% if order.payment %}
+                    <small class="text-muted d-block">Pick up at:
+                        {{ order.payment.date }} {{ order.payment.time }}
+                    {% else %}
+                        Not set
+                    {% endif %}
+                    </small>
                 </div>
+                
 
                 <div class="col-md-2 fw-bold">
                     €{{ '%.2f'|format(order.total_price)}}
                 </div>
+                
                 <div class="col-md-5 text-end">
 
                     {% set statuses = {

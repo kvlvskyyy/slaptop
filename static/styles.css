@@ -156,7 +156,7 @@ html, body {
 }
 
 /* Target the Proceed to Checkout button */
-.btn-secondary.btn-lg {
+.btn-primary.btn-lg {
     animation: subtle-pulse 2s infinite; 
 }
 /* Target the plus/minus buttons */
@@ -369,6 +369,7 @@ body::before {
     overflow: hidden; 
 }
 @media (max-width: 768px) {
+
     /* 1. Reset row behavior */
     .request-list .row, 
     .admin-sticker-list-custom .row {
@@ -666,6 +667,8 @@ body::before {
         margin: 0 !important; 
     }
 
+    
+
     /* 3. Fix the Search Bar */
     .mobile-menu-container form {
         width: 100%; 
@@ -802,3 +805,55 @@ body::before {
         }
     }
 
+/* --- CAROUSEL CAPTION FIXES --- */
+
+.hero-carousel-item {
+    position: relative;
+}
+
+.hero-caption {
+    /* 1. Vertical Centering */
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    padding-bottom: 0;
+
+    /* 2. Shrink Background to Text Content */
+    width: fit-content !important;   /* Only be as wide as the text */
+    max-width: 80%;                  /* Prevent it from hitting the very edge */
+    display: inline-block !important; 
+}
+
+/* 3. Handle Left-Aligned Slides (Slide 1 & 3) */
+.hero-caption.text-start {
+    left: 5% !important;  /* Position from left */
+    right: auto !important;
+    text-align: left;
+}
+
+/* 4. Handle Right-Aligned Slides (Slide 2) */
+.hero-caption.text-end {
+    right: 5% !important; /* Position from right */
+    left: auto !important;
+    text-align: right;
+}
+
+/* 5. Handle Center Slides (Slide 4 - Default) */
+/* We target captions that do NOT have text-start or text-end */
+.hero-caption:not(.text-start):not(.text-end) {
+    left: 50% !important;
+    /* Move back 50% left and 50% up to perfectly center */
+    transform: translate(-50%, -50%) !important; 
+    text-align: center;
+}
+
+/* Mobile Adjustment: Make text box a bit wider on phones so text doesn't squish */
+@media (max-width: 576px) {
+    .hero-caption {
+        max-width: 90%;
+        padding: 10px !important; /* Reduce padding inside the black box */
+    }
+.py-2 {
+    padding-top: 0px !important;
+}
+}
