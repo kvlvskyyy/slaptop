@@ -55,12 +55,13 @@
 
                     <div class="col-6 col-md-2 text-center">
                         <div class="d-flex align-items-center justify-content-center gap-2">
-                            <span class="badge rounded-pill px-3 py-2
+                            <span class="badge rounded-pill px-3 py-2 
                                 {% if sticker.approval_status in ['approved', 'added_to_shop'] %}bg-success
                                 {% elif sticker.approval_status in ['rejected', 'denied'] %}bg-danger
                                 {% else %}bg-warning text-dark{% endif %}">
-                                {{ sticker.approval_status|replace('_', ' ')|capitalize }}
+                                {{ sticker.approval_status|replace('_', ' ') }}
                             </span>
+
 
                             {% if sticker.approval_status in ['approved', 'added_to_shop'] %}
                             <form action="{{ url_for('shop.add_custom_to_cart') }}" method="POST" class="m-0">

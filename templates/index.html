@@ -4,8 +4,6 @@
 
 {% block content %}
     
-    
-
     <div class="container mt-4">
         
         <div id="myCarousel" class="carousel slide mb-6 rounded overflow-hidden shadow-sm" data-bs-ride="carousel">
@@ -27,7 +25,13 @@
                         <div class="carousel-caption hero-caption text-start bg-dark bg-opacity-50 px-4 ms-5 rounded align-items-center">
                             <h1 class="caption-h1">{{ _('Customize your stuff') }}</h1>
                             <p class="caption-p">{{ _('Order some cool stickers to put on your device') }}</p>
-                            <p><a class="btn btn-sm btn-primary" href="#">{{ _('Sign up') }}</a></p>
+                            <p>
+                                <a class="btn btn-sm btn-primary auth-check-btn" 
+                                   href="{{ url_for('auth.signup') }}"
+                                   data-logged-in="{{ 'true' if user else 'false' }}">
+                                   {{ _('Sign up') }}
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -39,7 +43,13 @@
                         <div class="carousel-caption hero-caption text-end bg-dark bg-opacity-50 px-4 me-5 rounded align-items-center">
                             <h1 class="caption-h1">{{ _('Create your own stickers') }}</h1>
                             <p class="caption-p">{{ _('Request your own sticker design to print') }}</p>
-                            <p><a class="btn btn-sm btn-primary" href="#">{{ _('Get started') }}</a></p>
+                            <p>
+                                <a class="btn btn-sm btn-primary auth-check-btn" 
+                                   href="{{ url_for('auth.signup') }}"
+                                   data-logged-in="{{ 'true' if user else 'false' }}">
+                                   {{ _('Get started') }}
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -51,7 +61,13 @@
                         <div class="carousel-caption hero-caption text-start bg-dark bg-opacity-50 px-4 ms-5 rounded align-items-center">
                             <h1 class="caption-h1">{{ _('Fast and easy') }}</h1>
                             <p class="caption-p">{{ _('Select, order, pickup, stick it!') }}</p>
-                            <p><a class="btn btn-sm btn-primary" href="{{url_for('shop.aboutus')}}">{{ _('Get started') }}</a></p>
+                            <p>
+                                <a class="btn btn-sm btn-primary auth-check-btn" 
+                                   href="{{ url_for('auth.signup') }}"
+                                   data-logged-in="{{ 'true' if user else 'false' }}">
+                                   {{ _('Get started') }}
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -126,5 +142,70 @@
             {% endfor %}
         </div>
     </div> 
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // Select all buttons with the specific class we added
+    const authButtons = document.querySelectorAll('.auth-check-btn');
+
+    authButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            
+            // Read the data attribute we set with Jinja
+            const isLoggedIn = this.getAttribute('data-logged-in') === 'true';
+
+            if (isLoggedIn) {
+                // Stop the link from going to /signup
+                e.preventDefault();
+
+                // Trigger the notification
+                showAuthNotification("You're already logged in!");
+            }
+        });
+    });
+
+    // Helper function to show notification (Replicates style of add-to-cart)
+    function showAuthNotification(message) {
+        
+        // 1. Create the alert element
+        const alertDiv = document.createElement('div');
+        // Using alert-info (blue) for this specific message
+        alertDiv.className = 'alert alert-info shadow-lg border-0 d-flex align-items-center mb-2';
+        alertDiv.setAttribute('role', 'alert');
+        
+        Object.assign(alertDiv.style, {
+            minWidth: '300px',
+            animation: 'fadeInUp 0.3s ease-out',
+            pointerEvents: 'auto'
+        });
+
+        alertDiv.innerHTML = `
+            <i class="bi bi-info-circle-fill me-2 fs-4"></i>
+            <div class="fw-bold">${message}</div>
+            <button type="button" class="btn-close ms-auto"></button>
+        `;
+
+        // 2. Find or Create Toast Container
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+            container.style.zIndex = '9999';
+            container.style.pointerEvents = 'none';
+            document.body.appendChild(container);
+        }
+        
+        // 3. Append and set Auto-Remove
+        container.appendChild(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.style.transition = 'opacity 0.5s ease';
+            alertDiv.style.opacity = '0';
+            setTimeout(() => alertDiv.remove(), 500);
+        }, 3000);
+    }
+});
+</script>
 
 {% endblock %}
