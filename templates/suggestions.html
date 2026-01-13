@@ -1,6 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    /* 1. Solid Success Button (Approved / Added) */
+    .btn-success {
+        background-color: #6dcea1 !important;
+        border-color: #6dcea1 !important;
+        color: white !important;
+    }
+
+    /* Optional: Hover state for solid button (slightly darker or same) */
+    .btn-success:hover, .btn-success:active, .btn-success:focus {
+        background-color: #5cb890 !important; 
+        border-color: #5cb890 !important;
+    }
+
+    /* 2. Outline Success Button (Approve action) */
+    .btn-outline-success {
+        color: #6dcea1 !important;
+        border-color: #6dcea1 !important;
+    }
+
+    /* Hover state for outline button - fills with the color */
+    .btn-outline-success:hover, .btn-outline-success:active, .btn-outline-success:focus {
+        background-color: #6dcea1 !important;
+        border-color: #6dcea1 !important;
+        color: white !important;
+    }
+</style>
+
 <div class="container mt-5">
     <h1>{{ _('Custom Sticker Requests') }}</h1>
 
@@ -22,9 +50,9 @@
                     <p class="mb-1"><strong>{{ _('Dashboard Request:') }}</strong> {{ custom_sticker.request_approval }}</p>
                     <p class="text-muted small">{{ _('Submitted on:') }} {{ custom_sticker.created_at.strftime('%Y-%m-%d') }}</p>
                 </div>
+
                 <div class="mt-auto pt-3 border-top">
                     <div class="row g-2 mb-2">
-                        <!-- Approve -->
                         <div class="col-6">
                             <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" method="POST">
                                 {% if custom_sticker.approval_status in ['approved', 'added_to_shop'] %}
@@ -39,7 +67,6 @@
                             </form>
                         </div>
 
-                        <!-- Deny -->
                         <div class="col-6">
                             <form action="{{ url_for('admin.deny_request', request_id=custom_sticker.id) }}" method="POST">
                                 {% if custom_sticker.approval_status == 'denied' %}
@@ -55,7 +82,6 @@
                         </div>
                     </div>
 
-                    <!-- Add to Dashboard -->
                     <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" method="POST">
                         {% if custom_sticker.approval_status == 'added_to_shop' %}
                             <button type="button" class="btn btn-success w-100 py-2 shadow-sm fw-bold" disabled>
@@ -77,14 +103,9 @@
                         {% endif %}
                     </form>
 
-                </div>
-
-
-
-        {% else %}
+                </div> </div> </div> {% else %}
         <p>{{ _('No suggestions found.') }}</p>
         {% endfor %}
     </div>
-
 </div>
 {% endblock %}
