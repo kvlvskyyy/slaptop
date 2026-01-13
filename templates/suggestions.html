@@ -62,22 +62,16 @@
                             <button type="button" class="btn btn-success w-100 py-2 shadow-sm fw-bold" disabled>
                                 <i class="bi bi-check-lg me-1"></i> {{ _('Added to Dashboard') }}
                             </button>
-                        {% elif custom_sticker.approval_status == 'approved' and custom_sticker.request_approval %}
+                        {% elif custom_sticker.approval_status == 'approved' %}
                             <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
                                 <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
                             </button>
                         {% else %}
                             <button type="button" class="btn btn-secondary w-100 py-2 shadow-sm fw-bold" disabled>
-                                <i class="bi bi-plus-lg me-1"></i>
-                                {% if not custom_sticker.request_approval %}
-                                    {{ _('Request Not Approved by User') }}
-                                {% else %}
-                                    {{ _('Pending Approval') }}
-                                {% endif %}
+                                <i class="bi bi-plus-lg me-1"></i> Pending Approval
                             </button>
                         {% endif %}
                     </form>
-
                 </div> </div> </div> {% else %}
         <p>{{ _('No suggestions found.') }}</p>
         {% endfor %}

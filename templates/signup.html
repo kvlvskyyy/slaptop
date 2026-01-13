@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body class="bg-body-tertiary">
+
+    <a href="/" class="text-decoration-none text-muted small d-inline-flex align-items-center">
+        <i class="bi bi-chevron-left me-1"></i>
+        Back to All Stickers
+    </a>
+
     <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
 
     
@@ -27,6 +33,8 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+
+        
 
         <main class="form-signin w-100" style="max-width: 400px;">
             <form action="{{ url_for('auth.signup') }}" method="post">
