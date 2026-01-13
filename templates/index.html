@@ -27,7 +27,7 @@
                             <p class="caption-p">{{ _('Order some cool stickers to put on your device') }}</p>
                             <p>
                                 <a class="btn btn-sm btn-primary auth-check-btn" 
-                                   href="{{ url_for('auth.signup') }}"
+                                   href="{{ url_for('shop.add_sticker_user') }}"
                                    data-logged-in="{{ 'true' if user else 'false' }}">
                                    {{ _('Sign up') }}
                                 </a>
@@ -101,6 +101,7 @@
 
     <div class="container my-5" id="shop-item">
         <div class="row">
+            
             {% for sticker in stickers %}
             <div class="col-6 col-md-4 col-lg-4 mb-4">
                 <div class="card shadow card-hover-lift h-100" id="item">
