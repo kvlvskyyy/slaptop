@@ -4,6 +4,42 @@
 
 {% block content %}
 
+<style>
+    /* Applies to Tablet (768px) and Mobile */
+    @media (max-width: 768px) {
+        
+        /* 1. Make the Image fill its column */
+        .cart-items img {
+            width: 100% !important;  /* Forces image to use full col-3 width */
+            height: auto !important;
+            object-fit: cover;
+        }
+
+        /* 2. Make the Input Field Shorter (Narrower) */
+        .cart-items .input-group-sm {
+            justify-content: center; /* Centers the group in the column */
+        }
+        
+        .cart-items .input-group-sm .form-control {
+            max-width: 35px !important; /* FIX: Forces the number box to be narrow */
+            padding: 0 !important;      /* Removes padding to save space */
+            font-size: 0.8rem !important;
+            height: auto !important;
+            flex: none !important;      /* Stops it from growing to fill space */
+        }
+
+        /* 3. Shrink Buttons slightly to match */
+        .cart-items .input-group-sm .btn {
+            padding: 0.1rem 0.3rem !important;
+            font-size: 0.8rem !important;
+        }
+
+        /* 4. Text Adjustments */
+        .cart-items .fw-bold { font-size: 0.8rem; }
+        .cart-items .text-end { font-size: 0.85rem; }
+    }
+</style>
+
     <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
@@ -12,7 +48,7 @@
     </div>
 
 <div class="container my-5">
-    <div class="bg-white p-4 p-md-5 rounded shadow">
+    <div class="bg-white p-3 p-md-5 rounded shadow">
         <h2 class="mb-4 text-dark">{{ _('Shopping Cart') }}</h2>
         <hr class="mb-4">
 
@@ -23,31 +59,29 @@
             {% else %}
                 
                 {% for item in items %}
-                <div class="row align-items-center py-3 border-bottom g-3" data-aos="fade-left" data-aos-delay="{{ loop.index * 100 }}">        
+                <div class="row align-items-center py-3 border-bottom g-1 g-md-3 position-relative" data-aos="fade-left" data-aos-delay="{{ loop.index * 100 }}">        
 
-                    <div class="col-1">
-                        <img class="img-fluid rounded"
+                    <div class="col-3 col-md-1">
+                        <img class="img-fluid rounded shadow-sm"
                             src="{% if item.sticker.is_custom %}{{ url_for('static', filename='images/custom/' ~ item.sticker.image_path) }}{% else %}{{ url_for('static', filename='images/stickers/' ~ item.sticker.image_path) }}{% endif %}"
                             alt="{{ item.sticker.name }}">
                     </div>
 
-
-                    <div class="col-5 text-dark">
-                        <span class="fw-bold">{{ item.sticker.name }}</span>
+                    <div class="col-4 col-md-5 text-dark text-truncate">
+                        <span class="fw-bold" title="{{ item.sticker.name }}">{{ item.sticker.name }}</span>
                     </div>
 
-                    <div class="col-2">
-                        <div class="input-group input-group-sm">
-                            <button type="button" 
+                    <div class="col-3 col-md-2">
+                        <div class="input-group input-group-sm flex-nowrap"> <button type="button" 
                                     class="btn btn-outline-secondary update-btn" 
                                     data-item-id="{{ item.id }}" 
                                     data-action="decrease">-</button>
 
                             <input type="text"
-                                class="form-control text-center"
+                                class="form-control text-center px-0"
                                 id="qty-{{ item.id }}"
                                 value="{{ item.quantity }}"
-                                readonly>
+                                readonly> 
 
                             <button type="button" 
                                     class="btn btn-outline-secondary update-btn" 
@@ -56,16 +90,22 @@
                         </div>
                     </div>
 
-                    <div class="col-3 text-end text-dark fw-bold">
+                    <div class="col-2 col-md-3 text-end text-dark fw-bold">
                         €<span id="price-{{ item.id }}">{{ '%.2f'|format(item.price_at_time * item.quantity) }}</span>
                     </div>
 
-                    <div class="col-1 text-center"> 
+                    <div class="col-md-1 text-center d-none d-md-block"> 
                         <a href="{{ url_for('shop.remove_from_cart', item_id=item.id) }}" 
                            class="btn text-danger p-0" title="Remove item">
                             <i class="bi bi-trash-fill fs-5"></i>
                         </a>
                     </div>
+                    
+                    <a href="{{ url_for('shop.remove_from_cart', item_id=item.id) }}" 
+                       class="text-danger position-absolute d-md-none" 
+                       style="top: 2px; right: 5px; width: auto; z-index: 10;">
+                        <i class="bi bi-x-circle-fill" style="font-size: 0.9rem; opacity: 0.5;"></i>
+                    </a>
 
                 </div>
                 {% endfor %}
@@ -76,11 +116,11 @@
 
         {% if items|length > 0 %}
         <div class="d-flex justify-content-end align-items-center pt-4">
-            <div class="text-dark me-4 h5 mb-0">
+            <div class="text-dark me-3 me-md-4 h5 mb-0">
                 {{ _('Total:') }}
             </div>
 
-            <div class="text-dark me-5 h4 mb-0">
+            <div class="text-dark me-4 me-md-5 h4 mb-0">
                 €<span id="cart-total">{{ '%.2f'|format(total) }}</span>
             </div>
 
@@ -102,10 +142,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const action = this.getAttribute('data-action');
             const qtyInput = document.getElementById(`qty-${itemId}`);
             
-            // Prevent decreasing below 1 visually immediately
             if (action === 'decrease' && parseInt(qtyInput.value) <= 1) return;
 
-            // Send AJAX request
             fetch(`/update_quantity/${itemId}`, {
                 method: 'POST',
                 headers: {
@@ -117,18 +155,11 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // 1. Update Input Quantity
                     qtyInput.value = data.new_quantity;
-
-                    // 2. Update Item Total Price
                     const priceSpan = document.getElementById(`price-${itemId}`);
                     if (priceSpan) priceSpan.innerText = data.new_item_total;
-
-                    // 3. Update Cart Grand Total
                     const totalSpan = document.getElementById('cart-total');
                     if (totalSpan) totalSpan.innerText = data.new_cart_total;
-
-                    // 4. Update Navbar Badge (if it exists)
                     const badge = document.getElementById('cart-badge-count');
                     if (badge) {
                         badge.innerText = data.total_cart_items;
@@ -142,4 +173,4 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-{% endblock %}s
+{% endblock %}

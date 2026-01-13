@@ -322,3 +322,7 @@ def request_sticker():
             flash("Invalid file type", "error")
 
     return render_template("add_sticker_user.html")
+    
+@shop.route('/contact')
+def contact():
+    return render_template('contact.html')

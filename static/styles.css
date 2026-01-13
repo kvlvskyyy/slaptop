@@ -958,6 +958,92 @@ body::before {
   scroll-behavior: smooth;
 }
 
+.btn-secondary {
+
+--bs-btn-border-color: none;
+}
+
+@media (max-width:426px) {
+    #myCarousel {
+        display: none;
+    }
+}
+
+/* --- MOBILE LAYOUT FIXES (Max-width 768px) --- */
+@media (max-width: 768px) {
+    
+    /* 1. NARROWER NAVBAR */
+    .navbar {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        min-height: 50px; /* Force it to be thinner */
+    }
+
+    /* Shrink the logo */
+    .navbar-brand img {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    /* 2. NARROWER SEARCH BAR (Height & Width) */
+    form.d-md-none {
+        flex-grow: 0 !important;   /* Don't let it take all space */
+        width: 55% !important;     /* Only take 55% of the width */
+    }
+
+    /* Make the input box thinner (height) */
+    form.d-md-none .form-control {
+        height: 32px !important;   
+        font-size: 0.85rem !important;
+        padding: 0 10px !important;
+    }
+    
+    /* Make the search button match */
+    form.d-md-none .btn {
+        height: 32px !important;
+        padding: 0 10px !important;
+        display: flex;
+        align-items: center;
+    }
+
+    /* 3. ADJUST BODY PADDING */
+    /* Since navbar is thinner, we don't need 10vh padding on body */
+    body {
+        padding-top: 70px !important; 
+    }
+}
+
+/* --- EXTRA SMALL SCREENS (Phones) --- */
+@media (max-width: 576px) {
+    
+    /* 1. HIDE CAROUSEL (As you requested) */
+    #myCarousel {
+        display: none !important;
+    }
+
+    /* 2. BIGGER ITEMS (The Fix) */
+    /* Previously this was 80px. We change it to 350px to fill the screen */
+    .sticker-img-container {
+        height: 350px !important; 
+    }
+
+    /* Make the card title bigger */
+    .card-title {
+        font-size: 1.2rem !important;
+        font-weight: bold;
+    }
+
+    /* Make the price bigger */
+    .card-text.fs-5 {
+        font-size: 1.2rem !important;
+    }
+
+    /* Make the cart button bigger */
+    form button.rounded-circle {
+        width: 45px !important;
+        height: 45px !important;
+    }
+}
 #stockInput{
     width: 100%;
 }
