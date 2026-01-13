@@ -5,7 +5,6 @@
 {% block content %}
 <div class="container my-5">
     <div class="row mb-4">
-        
         <div class="col">
             <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted d-inline-flex align-items-center">
                 <i class="bi bi-arrow-left me-2"></i>
@@ -18,51 +17,63 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="text-dark mb-0">{{ _('My Custom Requests') }}</h2>
 
-
-<a href="{{ url_for('shop.add_sticker_user') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-    <i class="bi bi-plus-lg me-1"></i>{{ _('New Request') }}
-</a>
+            <a href="{{ url_for('shop.add_sticker_user') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                <i class="bi bi-plus-lg me-1"></i>{{ _('New Request') }}
+            </a>
         </div>
         <hr class="mb-4">
 
-<div class="row d-none d-md-flex fw-bold text-muted mb-2 px-3 small text-uppercase">
-    <div class="col-md-2">{{ _('Preview') }}</div>
-    <div class="col-md-6">{{ _('Sticker Name') }}</div>
-    <div class="col-md-2 text-center">{{ _('Date') }}</div>
-    <div class="col-md-2 text-center">{{ _('Status') }}</div>
-</div>
-  <section class="request-list">
+        <!-- Table headers -->
+        <div class="row fw-bold text-muted mb-2 small text-uppercase d-none d-md-flex">
+            <div class="col-md-2">{{ _('Preview') }}</div>
+            <div class="col-md-3">{{ _('Sticker Name') }}</div>
+            <div class="col-md-3">{{ _('Description') }}</div>
+            <div class="col-md-2 text-center">{{ _('Date') }}</div>
+            <div class="col-md-2 text-center">{{ _('Status') }}</div>
+        </div>
+
+        <section class="request-list">
             {% if custom_stickers %}
                 {% for sticker in custom_stickers %}
-                <div class="row align-items-center py-3 border-bottom g-3">        
+                <div class="row align-items-center py-3 border-bottom g-3">
 
+                    <!-- Preview -->
                     <div class="col-4 col-md-2">
-                        <div style="width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;" class="rounded shadow-sm">
-                            <img class="img-fluid"
-                                src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}"
-                                alt="{{sticker.name}}"
-                                style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                        <div class="rounded shadow-sm d-flex align-items-center justify-content-center" 
+                             style="width: 90px; height: 90px; background-color: #f8f9fa;">
+                            <img class="img-fluid" src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}" 
+                                 alt="{{sticker.name}}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                         </div>
                     </div>
 
-                    <div class="col-8 col-md-6 text-dark"> 
-                        <span class="fw-bold d-block fs-5">{{sticker.name}}</span> 
+                    <!-- Sticker Name -->
+                    <div class="col-8 col-md-3 text-dark">
+                        <span class="fw-bold d-block fs-5">{{sticker.name}}</span>
                     </div>
 
+                    <!-- Description -->
+                    <div class="col-8 col-md-3 text-dark">
+                        <span class="d-block">{{sticker.description}}</span>
+                    </div>
+
+                    <!-- Date -->
                     <div class="col-6 col-md-2 text-center text-muted small">
-                        <p class="mb-0">{{sticker.created_at.strftime("%Y-%m-%d")}}</p>
+                        {{sticker.created_at.strftime("%Y-%m-%d")}}
                     </div>
 
+                    <!-- Status + Add to cart -->
                     <div class="col-6 col-md-2 text-center">
-                        <div class="d-flex align-items-center justify-content-center gap-2">
-                            <span class="badge rounded-pill px-3 py-2 
+                        <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+
+                            <!-- Status Badge -->
+                            <span class="badge rounded-pill px-3 py-2
                                 {% if sticker.approval_status in ['approved', 'added_to_shop'] %}bg-success
                                 {% elif sticker.approval_status in ['rejected', 'denied'] %}bg-danger
                                 {% else %}bg-warning text-dark{% endif %}">
                                 {{ sticker.approval_status|replace('_', ' ') }}
                             </span>
 
-
+                            <!-- Add to Cart -->
                             {% if sticker.approval_status in ['approved', 'added_to_shop'] %}
                             <form action="{{ url_for('shop.add_custom_to_cart') }}" method="POST" class="m-0">
                                 <input type="hidden" name="sticker_id" value="{{ sticker.id }}">
@@ -81,7 +92,7 @@
                     <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
                     <p class="text-muted mt-3">{{ _("You haven't submitted any custom sticker requests yet.") }}</p>
                 </div>
-            {% endif %}           
+            {% endif %}
         </section>
     </div>
 </div>
