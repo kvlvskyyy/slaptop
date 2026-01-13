@@ -257,6 +257,7 @@ def shippinginfo():
     return render_template("shippinginfo.html")
 
 @shop.route("/add_sticker_user", methods=["GET", "POST"])
+@login_required
 def add_sticker_user():
     return render_template("add_sticker_user.html")
 
