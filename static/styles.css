@@ -888,15 +888,18 @@ body::before {
     background-color: rgb(82 147 243) !important;
 }
 
-.bg-danger, .btn-danger{
+.bg-danger, .btn-danger, .btn-outline-danger-deny:hover, .btn-danger-deny:hover {
     color: black !important;
     background-color: rgb(241 58 76) !important;
+     border-color: rgb(241 58 76) !important;
+}
+ .btn-outline-danger-deny, .btn-danger-deny {
+    color: rgb(241 58 76) !important;
+    background-color: rgb(255, 255, 255) !important;
+    border-color: rgb(241 58 76) !important;
 }
 
-.bg-success, .btn-success{
-    color: black !important;
-    background-color: rgb(31 180 111) !important;
-}
+
 
 .bg-warning{
     color: black !important;
@@ -906,10 +909,23 @@ body::before {
     background-color:#f5b800 !important;
 }
 
-.btn-outline-success-approved, .btn-outline-success-approved:hover{
-    background-color:#198754;
-    color: white;
+.btn-outline-success-approve, .btn-success-approve{
+    background-color:#ffffff !important;
+    color: #18ac67 ;
+    border-color: #18ac67 ;
 }
+.btn-outline-success-approve:hover{
+    background-color:#18ac67 !important;
+    color: black ;
+}
+
+.btn-success {
+    background-color: #18ac67 !important;
+    border-color:#18ac67 !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+
 #peter {
     border: none;
     background-color: transparent;
@@ -1052,4 +1068,21 @@ body::before {
    display: flex;
    gap: 10px;
    margin: 0px !important;
+}
+
+.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    color: #000000;
+    pointer-events: none;
+    background-color: #f5b800;
+    border-color: #f5b800;
+    opacity: 100;
+}
+/* Force only the 'Approved' waiting button to be green when disabled */
+.btn-approved-waiting:disabled {
+    background-color: #18ac67 !important;
+    border-color: #18ac67 !important;
+    color: rgb(0, 0, 0) !important;
+    opacity: 1 !important; /* Removes the faded/gray look */
+    cursor: not-allowed;
+   
 }
