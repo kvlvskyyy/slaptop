@@ -958,3 +958,12 @@ body::before {
   scroll-behavior: smooth;
 }
 
+#stockInput{
+    width: 100%;
+}
+
+.row-add {
+   display: flex;
+   gap: 10px;
+   margin: 0px !important;
+}
