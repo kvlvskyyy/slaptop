@@ -292,6 +292,7 @@ def request_sticker():
         name = request.form.get('name')
         request_approval = True if request.form.get('request_approval') == 'yes' else False
         file = request.files.get('image')
+        description = request.form.get('description')
 
         if not name or not file:
             flash("Please provide a name and an image", "error")
@@ -307,26 +308,12 @@ def request_sticker():
                 user_id=session['user_id'],
                 name=name,
                 image_path=filename,
+                description=description,
                 approval_status="pending",
                 request_approval=request_approval,
                 created_at=datetime.utcnow()
             )
             db.session.add(new_request)
-            db.session.commit()
-
-            new_sticker = Sticker(
-                name=name,
-                image_path=filename,
-                price=Decimal("0.99"),
-                is_active=False,
-                is_custom=True,
-                category_id=3
-            )
-            db.session.add(new_sticker)
-            db.session.flush()
-
-            new_request.sticker_id = new_sticker.id
-
             db.session.commit()
 
             flash("Your sticker has beeen submitted for approval!", "success")

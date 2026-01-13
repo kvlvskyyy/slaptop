@@ -27,7 +27,12 @@
                     </span>
                     <small class="text-muted d-block">
                         Created at:
-                        {{ order.created_at.strftime('%d %b %Y %H:%M') }}
+                        {% if order.created_at %}
+                            {{ order.created_at.strftime('%d %b %Y %H:%M') }}
+                        {% else %}
+                            {{ _('No date') }}
+                        {% endif %}
+
                     </small>
 
                     <small class="text-muted d-block">
