@@ -134,8 +134,6 @@ def approve_request(request_id):
         recipients=[custom_sticker.user.email],
         body=f"""Hi {custom_sticker.user.username},
 
-Hi {user.username},
-
 Great news! 🎉
 
 Your {custom_sticker.name} sticker request has been approved and is now available.
