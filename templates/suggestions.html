@@ -7,6 +7,64 @@
     <div class="row">
         {% for custom_sticker in suggestions %}
         
+        <div class="col-md-4 mb-4 mt-4">
+            <div class="card shadow-sm h-100">
+                
+                <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_path) }}" 
+                     class="card-img-top p-3" 
+                     style="height: 250px; object-fit: contain;">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ custom_sticker.name }}</h5>
+                    
+                    <p class="mb-1"><strong>User ID:</strong> {{ custom_sticker.user_id }}</p>
+                    <p class="mb-1"><strong>{{ _('Approval Status:') }}</strong> {{ custom_sticker.approval_status }}</p>
+                    <p class="mb-1"><strong>{{ _('Dashboard Request:') }}</strong> {{ custom_sticker.request_approval }}</p>
+                    <p class="text-muted small">{{ _('Submitted on:') }} {{ custom_sticker.created_at.strftime('%Y-%m-%d') }}</p>
+                </div>
+                <div class="mt-auto pt-3 border-top">
+                    <div class="row g-2 mb-2">
+                        <div class="col-6">
+                            <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
+                                {%if custom_sticker.approval_status != "approved" %}
+                                <button type="submit" class="btn btn-outline-success btn-sm w-100 py-2 shadow-sm">
+                                    <i class="bi bi-check2-circle"></i> {{ _('Approve') }}
+                                </button>
+                                {%elif custom_sticker.approval_status == "approved" %}
+                                <button type="submit" class="btn btn-outline-success-approved btn-sm w-100 py-2 shadow-sm">
+                                    <i class="bi bi-check2-circle"></i> {{ _('Approve') }}
+                                </button>
+                                {%endif%}
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <form action="{{ url_for('admin.deny_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
+                                <button type="submit" class="btn btn-outline-danger btn-sm w-100 py-2 shadow-sm">
+                                    <i class="bi bi-x-circle"></i> {{ _('Deny') }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" class="m-2" method="POST">
+                        {% if custom_sticker.approval_status == 'added_to_shop' %}
+                        <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
+                            <i class="bi bi-plus-lg me-1"></i> {{ _('Added to Dashboard') }}
+                        </button>
+                        {%elif custom_sticker.approval_status == 'approved'%}
+                         <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
+                            <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
+                        </button>
+                        {%else%}
+                           <button type="submit" class="btn btn-primary-denied w-100 py-2 shadow-sm fw-bold">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            {% if not custom_sticker.request_approval %}
+                                {{ _('Request Not Approved by User')}}
+                            {%else%}
+                                {{ _('Pending Approval') }}
+                            {%endif%}
+                        </button>
+                        {%endif%}
         <div class="mt-auto pt-3 border-top">
             <div class="row g-2 mb-2">
                 <!-- Approve Button -->
