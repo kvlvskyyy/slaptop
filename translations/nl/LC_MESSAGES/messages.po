@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-12 11:38+0100\n"
+"POT-Creation-Date: 2026-01-11 01:45+0100\n"
 "PO-Revision-Date: 2026-01-07 01:12+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: nl\n"
@@ -100,70 +100,158 @@ msgstr "Submit for Admin Approval to Post on Dashboard"
 msgid "Request Sticker"
 msgstr "Sticker aanvragen"
 
-#: slaptop/templates/admin_orders.html:76
-#: slaptop/templates/user_order_history.html:49
+#: slaptop/templates/admin_orders.html:26
+msgid "Cancel"
+msgstr ""
+
+#: slaptop/templates/admin_orders.html:27
+#, fuzzy
+msgid "Confirm"
+msgstr "Wachtwoord bevestigen"
+
+#: slaptop/templates/admin_orders.html:28
+msgid "Finish"
+msgstr ""
+
+#: slaptop/templates/admin_orders.html:44
+#: slaptop/templates/user_order_history.html:48
 msgid "Customer Details"
 msgstr "Klantgegevens"
 
-#: slaptop/templates/admin_orders.html:81
-#: slaptop/templates/user_order_history.html:53
+#: slaptop/templates/admin_orders.html:49
+#: slaptop/templates/user_order_history.html:52
 msgid "Order contents"
 msgstr "Bestel inhoud"
 
-#: slaptop/templates/base.html:6
+#: slaptop/templates/base.html:6 slaptop/templates/base.html:33
+#: slaptop/templates/base.html:38
 msgid "Stickerdom"
 msgstr "Stickerdom"
 
-#: slaptop/templates/base.html:164
+#: slaptop/templates/base.html:43
+msgid "Search..."
+msgstr ""
+
+#: slaptop/templates/base.html:57
+#, fuzzy
+msgid "Categories"
+msgstr "Categorieën"
+
+#: slaptop/templates/base.html:73
+#, fuzzy
+msgid "Search for stickers..."
+msgstr "Terug naar alle stickers"
+
+#: slaptop/templates/base.html:83
+#, fuzzy
+msgid "Create Sticker"
+msgstr "Sticker aanvragen"
+
+#: slaptop/templates/base.html:87
+msgid "Admin Menu"
+msgstr ""
+
+#: slaptop/templates/base.html:90
+#, fuzzy
+msgid "User Dashboard"
+msgstr "Toevoegen aan dashboard"
+
+#: slaptop/templates/base.html:91
+#, fuzzy
+msgid "View requests"
+msgstr "Nieuwe verzoeken"
+
+#: slaptop/templates/base.html:92
+#, fuzzy
+msgid "Add Sticker"
+msgstr "Sticker Toevoegen"
+
+#: slaptop/templates/base.html:93
+#, fuzzy
+msgid "Orders list"
+msgstr "Bestel-ID"
+
+#: slaptop/templates/base.html:104
+msgid "English"
+msgstr ""
+
+#: slaptop/templates/base.html:109
+msgid "Dutch"
+msgstr ""
+
+#: slaptop/templates/base.html:119 slaptop/templates/index.html:28
+msgid "Sign up"
+msgstr "Registreren"
+
+#: slaptop/templates/base.html:120
+#, fuzzy
+msgid "Log in"
+msgstr "Inloggen"
+
+#: slaptop/templates/base.html:122
+msgid "Log out"
+msgstr ""
+
+#: slaptop/templates/base.html:125
+#, fuzzy
+msgid "My orders"
+msgstr "Mijn bestelgeschiedenis"
+
+#: slaptop/templates/base.html:126
+#, fuzzy
+msgid "My sticker requests"
+msgstr "Aanvragen voor stickers op maat"
+
+#: slaptop/templates/base.html:157
 msgid "Contact Us"
 msgstr "Neem contact met ons op"
 
-#: slaptop/templates/base.html:171
+#: slaptop/templates/base.html:164
 msgid "We reply when we feel like it"
 msgstr "We reageren als we er zin in hebben"
 
-#: slaptop/templates/base.html:172
+#: slaptop/templates/base.html:165
 msgid "you really think we wanna accept phone calls?"
 msgstr "Denk jij dat we echt willen opnemen?"
 
-#: slaptop/templates/base.html:173
+#: slaptop/templates/base.html:166
 msgid "Mon-Friday, 10:00 - 17:00"
 msgstr "Mon-Friday, 10:00 - 17:00"
 
-#: slaptop/templates/base.html:178
+#: slaptop/templates/base.html:171
 msgid "Quick links"
 msgstr "Snelle koppelingen"
 
-#: slaptop/templates/base.html:180
+#: slaptop/templates/base.html:173
 msgid "About Us"
 msgstr "Over ons"
 
-#: slaptop/templates/base.html:181 slaptop/templates/shippinginfo.html:16
+#: slaptop/templates/base.html:174 slaptop/templates/shippinginfo.html:16
 #: slaptop/templates/shippinginfo.html:22
 #: slaptop/templates/termsconditions.html:18
 msgid "Shipping Information"
 msgstr "Verzendinformatie"
 
-#: slaptop/templates/base.html:182 slaptop/templates/privacy.html:17
+#: slaptop/templates/base.html:175 slaptop/templates/privacy.html:17
 #: slaptop/templates/returnrefund.html:17
 #: slaptop/templates/shippinginfo.html:15
 #: slaptop/templates/termsconditions.html:17
 msgid "Terms & Conditions"
 msgstr "Algemene voorwaarden"
 
-#: slaptop/templates/base.html:183 slaptop/templates/privacy.html:19
+#: slaptop/templates/base.html:176 slaptop/templates/privacy.html:19
 msgid "Returns and Refunds"
 msgstr "Retour- en restitutiebeleid"
 
-#: slaptop/templates/base.html:184
+#: slaptop/templates/base.html:177
 msgid "Your Privacy Policy"
 msgstr "Uw privacybeleid"
 
-#: slaptop/templates/base.html:189
+#: slaptop/templates/base.html:182
 msgid "Follow Us"
 msgstr "Volg ons"
 
-#: slaptop/templates/base.html:190
+#: slaptop/templates/base.html:183
 msgid "Stay connected for updates, new designs, and exclusive offers!"
 msgstr ""
 "Blijf op de hoogte voor updates, nieuwe ontwerpen en exclusieve "
@@ -195,11 +283,11 @@ msgstr "Winkelwagen"
 msgid "Your cart is empty."
 msgstr "Je winkelwagen is leeg."
 
-#: slaptop/templates/cart.html:74
+#: slaptop/templates/cart.html:73
 msgid "Total:"
 msgstr "Totaal:"
 
-#: slaptop/templates/cart.html:82
+#: slaptop/templates/cart.html:81
 msgid "Proceed to checkout"
 msgstr "Ga verder naar afrekenen"
 
@@ -215,11 +303,11 @@ msgstr "Uw stickerwinkel is klaar voor gebruik🚀"
 msgid "No stickers found matching this category."
 msgstr "Geen stickers gevonden in de database."
 
-#: slaptop/templates/checkout.html:6 slaptop/templates/checkout.html:21
+#: slaptop/templates/checkout.html:5 slaptop/templates/checkout.html:20
 msgid "Checkout"
 msgstr "Uitchecken"
 
-#: slaptop/templates/checkout.html:24
+#: slaptop/templates/checkout.html:23
 msgid "Your order:"
 msgstr "Uw bestelling"
 
@@ -231,55 +319,50 @@ msgstr "Volledige naam"
 msgid "Email"
 msgstr "Email"
 
-#: slaptop/templates/checkout.html:51
-msgid "Pickup Date & Time"
-msgstr ""
-
-#: slaptop/templates/checkout.html:55
-msgid "Mon - Fri only"
-msgstr ""
-
-#: slaptop/templates/checkout.html:60
-msgid "Select Time..."
-msgstr ""
-
-#: slaptop/templates/checkout.html:68
+#: slaptop/templates/checkout.html:52
 msgid "Payment Method"
 msgstr "Betaalmethode"
 
-#: slaptop/templates/checkout.html:72
+#: slaptop/templates/checkout.html:56
 msgid "Cash"
 msgstr "Contant geld"
 
-#: slaptop/templates/checkout.html:77
+#: slaptop/templates/checkout.html:61 slaptop/templates/success_tikkie.html:22
 msgid "Tikkie"
 msgstr "Tikkie"
 
-#: slaptop/templates/checkout.html:82
+#: slaptop/templates/checkout.html:66
+msgid "Stripe"
+msgstr ""
+
+#: slaptop/templates/checkout.html:71
 msgid "Place Order"
 msgstr "Bestelling plaatsen"
 
-#: slaptop/templates/checkout_success.html:6
+#: slaptop/templates/checkout_success.html:5
 msgid "Checkout Successful"
 msgstr "Betaling succesvol"
 
-#: slaptop/templates/checkout_success.html:98
+#: slaptop/templates/checkout_success.html:33
 msgid "Thank you for your order!"
 msgstr "Bedankt voor uw bestelling."
 
-#: slaptop/templates/checkout_success.html:99
+#: slaptop/templates/checkout_success.html:34
 msgid "Order ID:"
 msgstr "Bestel-ID"
 
-#: slaptop/templates/checkout_success.html:100
+#: slaptop/templates/checkout_success.html:35
 msgid "You will receive a confirmation email shortly at"
 msgstr "Je ontvangt binnenkort een bevestigingsmail op"
 
-#: slaptop/templates/checkout_success.html:102
+#: slaptop/templates/checkout_success.html:37
 msgid "Order Summary:"
 msgstr "Besteloverzicht:"
 
-#: slaptop/templates/checkout_success.html:116
+#: slaptop/templates/checkout_success.html:51
+#: slaptop/templates/success_cash.html:32
+#: slaptop/templates/success_stripe.html:21
+#: slaptop/templates/success_tikkie.html:30
 msgid "Back to Home"
 msgstr "Back to Home"
 
@@ -307,55 +390,51 @@ msgstr "Afbeelding vervangen (Optional)"
 msgid "Update Sticker Details"
 msgstr "Update stickerinformatie"
 
-#: slaptop/templates/index.html:27
+#: slaptop/templates/index.html:26
 msgid "Customize your stuff"
 msgstr "Versier je apparaat"
 
-#: slaptop/templates/index.html:28
+#: slaptop/templates/index.html:27
 msgid "Order some cool stickers to put on your device"
 msgstr "Bestel coole stickers voor je apparaat"
 
-#: slaptop/templates/index.html:29
-msgid "Sign up"
-msgstr "Registreren"
-
-#: slaptop/templates/index.html:39
+#: slaptop/templates/index.html:38
 msgid "Create your own stickers"
 msgstr "Maak je eigen stickers"
 
-#: slaptop/templates/index.html:40
+#: slaptop/templates/index.html:39
 msgid "Request your own sticker design to print"
 msgstr "Vraag je eigen stickerontwerp aan om af te drukken"
 
-#: slaptop/templates/index.html:41 slaptop/templates/index.html:53
+#: slaptop/templates/index.html:40 slaptop/templates/index.html:52
 msgid "Get started"
 msgstr "Aan de slag"
 
-#: slaptop/templates/index.html:51
+#: slaptop/templates/index.html:50
 msgid "Fast and easy"
 msgstr "Snel en gemakkelijk"
 
-#: slaptop/templates/index.html:52
+#: slaptop/templates/index.html:51
 msgid "Select, order, pickup, stick it!"
 msgstr "Selecteren, bestellen, afhalen, plakken!"
 
-#: slaptop/templates/index.html:64
+#: slaptop/templates/index.html:63
 msgid "Check out our team!"
 msgstr "Ontmoet ons team!"
 
-#: slaptop/templates/index.html:65
+#: slaptop/templates/index.html:64
 msgid "Who are the developers?"
 msgstr "Wie zijn de ontwikkelaars?"
 
-#: slaptop/templates/index.html:66
+#: slaptop/templates/index.html:65
 msgid "About us"
 msgstr "Over ons"
 
-#: slaptop/templates/index.html:75
+#: slaptop/templates/index.html:74
 msgid "Previous"
 msgstr "Vorig"
 
-#: slaptop/templates/index.html:79
+#: slaptop/templates/index.html:78
 msgid "Next"
 msgstr "Volgende"
 
@@ -408,7 +487,7 @@ msgstr "Terug naar Winkel"
 
 #: slaptop/templates/my_requests.html:19
 msgid "My Custom Requests"
-msgstr "Mijn aangepaste verzoeken"
+msgstr "Mijn gepersonaliseerde verzoeken"
 
 #: slaptop/templates/my_requests.html:23
 msgid "New Request"
@@ -416,7 +495,7 @@ msgstr "Nieuwe verzoeken"
 
 #: slaptop/templates/my_requests.html:29
 msgid "Preview"
-msgstr "Vorschau"
+msgstr "Preview"
 
 #: slaptop/templates/my_requests.html:31
 msgid "Date"
@@ -426,7 +505,7 @@ msgstr "Datum"
 msgid "Status"
 msgstr "Status"
 
-#: slaptop/templates/my_requests.html:81
+#: slaptop/templates/my_requests.html:82
 msgid "You haven't submitted any custom sticker requests yet."
 msgstr "Je hebt nog geen aanvragen voor gepersonaliseerde stickers ingediend."
 
@@ -1147,9 +1226,102 @@ msgstr "Geen beschrijving beschikbaar."
 msgid "Add to Cart"
 msgstr "Toevoegen aan winkelwagen"
 
+#: slaptop/templates/success_cash.html:6
+msgid "Order Confirmed – Cash Payment"
+msgstr ""
+
+#: slaptop/templates/success_cash.html:15
+#: slaptop/templates/success_tikkie.html:15
+#, fuzzy
+msgid "Order Confirmed ✅"
+msgstr "Bestel inhoud"
+
+#: slaptop/templates/success_cash.html:18
+#: slaptop/templates/success_tikkie.html:18
+msgid "You’ve chosen"
+msgstr ""
+
+#: slaptop/templates/success_cash.html:18
+#, fuzzy
+msgid "Cash Payment"
+msgstr "Betaalmethode kiezen"
+
+#: slaptop/templates/success_cash.html:22
+msgid "Please note that payment will be made"
+msgstr ""
+
+#: slaptop/templates/success_cash.html:22
+msgid "offline"
+msgstr ""
+
+#: slaptop/templates/success_cash.html:22
+#, fuzzy
+msgid "either"
+msgstr "Bewerking"
+
+#: slaptop/templates/success_cash.html:23
+#, fuzzy
+msgid "upon delivery"
+msgstr "Leveringsgebied"
+
+#: slaptop/templates/success_cash.html:23
+msgid "or at the"
+msgstr ""
+
+#: slaptop/templates/success_cash.html:23
+#, fuzzy
+msgid "checkpoint"
+msgstr "Uitchecken"
+
+#: slaptop/templates/success_cash.html:24
+msgid "depending on your selected delivery option."
+msgstr ""
+
+#: slaptop/templates/success_cash.html:28
+msgid "Make sure you have the exact amount ready."
+msgstr ""
+
+#: slaptop/templates/success_cash.html:29
+msgid "Our team will contact you if any additional details are needed."
+msgstr ""
+
+#: slaptop/templates/success_stripe.html:6
+#, fuzzy
+msgid "Thanks for your order!"
+msgstr "Bedankt voor uw bestelling."
+
+#: slaptop/templates/success_stripe.html:16
+msgid "Thank You! 🎉"
+msgstr ""
+
+#: slaptop/templates/success_stripe.html:18
+msgid "We appreciate your business! If you have any questions, please email"
+msgstr ""
+
+#: slaptop/templates/success_tikkie.html:6
+msgid "Order Confirmed – Tikkie Payment"
+msgstr ""
+
+#: slaptop/templates/success_tikkie.html:18
+#, fuzzy
+msgid "Tikkie Payment"
+msgstr "Stickernaam"
+
+#: slaptop/templates/success_tikkie.html:22
+msgid "You can pay directly to the sticker seller using"
+msgstr ""
+
+#: slaptop/templates/success_tikkie.html:23
+msgid "Follow the instructions you will receive to complete the payment."
+msgstr ""
+
+#: slaptop/templates/success_tikkie.html:27
+msgid "Once the payment is confirmed, your order will be processed and delivered."
+msgstr ""
+
 #: slaptop/templates/suggestions.html:5
 msgid "Custom Sticker Requests"
-msgstr "Aanvragen voor stickers op maat"
+msgstr "Aanvragen voor gepersonaliseerde stickers"
 
 #: slaptop/templates/suggestions.html:21
 msgid "Approval Status:"
@@ -1495,7 +1667,7 @@ msgstr "stickerdom.help@gmail.com ."
 msgid "My order history"
 msgstr "Mijn bestelgeschiedenis"
 
-#: slaptop/templates/user_order_history.html:23
+#: slaptop/templates/user_order_history.html:22
 msgid "Order"
 msgstr "Bestelling"
 
@@ -1625,4 +1797,13 @@ msgstr "Bestelling"
 #~ msgstr ""
 #~ "Zodra de betaling is bevestigd, wordt"
 #~ " uw bestelling verwerkt en geleverd."
+
+#~ msgid "Pickup Date & Time"
+#~ msgstr ""
+
+#~ msgid "Mon - Fri only"
+#~ msgstr ""
+
+#~ msgid "Select Time..."
+#~ msgstr ""
 
