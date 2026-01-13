@@ -25,12 +25,15 @@
             {% endif %}">
             {{order.status}}</span>
                     <small class="text-muted d-block">
-                        Pick up at:
-                        {% if order.payment and order.payment.date and order.payment.time %}
-                            {{ order.payment.date.strftime('%d %b %Y') }} {{ order.payment.time.strftime('%H:%M') }}
-                        {% else %}
-                            Not set
-                        {% endif %}
+                        <small class="text-muted d-block">
+                            Pick up at:
+                            {% if order.payment and order.payment.date and order.payment.time %}
+                                {{ order.payment.date }} {{ order.payment.time }}
+                            {% else %}
+                                Not set
+                            {% endif %}
+                        </small>
+
                     </small>
                 </div>
                 
