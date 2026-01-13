@@ -942,5 +942,16 @@ body::before {
         height: 100%;
         object-fit: contain;
     }
+    .text-primary-door {
+        color: black !important;
+    }
+    .text-decoration-none-link{
+        color: black !important;
+    }
+
+    .text-info{
+       color: rgba(255, 255, 255, .5) !important;
+    }
+
 
 
