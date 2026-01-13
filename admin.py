@@ -7,6 +7,7 @@ from utils import allowed_file, UPLOAD_FOLDER
 from decimal import Decimal
 from models import User
 from extensions import db, mail
+import shutil
 import os
 
 admin = Blueprint('admin', __name__, static_folder="static", template_folder="templates")
@@ -124,7 +125,6 @@ def approve_request(request_id):
     # activate linked sticker
     sticker = Sticker.query.get(custom_sticker.sticker_id)
     if sticker:
-        sticker.is_active = True
         sticker.is_custom = True
 
     db.session.commit()
@@ -226,14 +226,22 @@ def add_request_to_dashboard(request_id):
         flash(f"'{custom.name}' already exists in the shop, linked to request.", "info")
         return redirect(url_for('admin.index_admin'))
     
+    src_path = os.path.join("static/images/custom", custom.image_path)
+    dst_path = os.path.join(UPLOAD_FOLDER, custom.image_path)
+    if os.path.exists(src_path):
+        shutil.copy(src_path, dst_path)
+    else:
+        flash("Warning: Custom sticker image not found, placeholder will be used.", "warning")
+    
     sticker = Sticker(
         name=custom.name,
         price=Decimal("0.99"),
         stock=0,
         image_path=custom.image_path,
-        description=f"Custom sticker by user {custom.user_id}",
-        category_id=3, # default category
-        is_active=False # hidden from public dashboard
+        description=custom.description,
+        category_id=3,
+        is_custom=True,
+        is_active=True
     )
 
     db.session.add(sticker)

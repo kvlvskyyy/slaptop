@@ -44,10 +44,9 @@
                             <h1 class="caption-h1">{{ _('Create your own stickers') }}</h1>
                             <p class="caption-p">{{ _('Request your own sticker design to print') }}</p>
                             <p>
-                                <a class="btn btn-sm btn-primary auth-check-btn" 
-                                   href=#"
-                                   data-logged-in="{{ 'true' if user else 'false' }}">
-                                   {{ _('Get started') }}
+                                <a class="btn btn-sm btn-primary" 
+                                   href="{{ url_for('shop.add_sticker_user') }}">
+                                   {{ _('Create a sticker') }}
                                 </a>
                             </p>
                         </div>
@@ -62,9 +61,8 @@
                             <h1 class="caption-h1">{{ _('Fast and easy') }}</h1>
                             <p class="caption-p">{{ _('Select, order, pickup, stick it!') }}</p>
                             <p>
-                                <a class="btn btn-sm btn-primary auth-check-btn" 
-                                   href="{{ url_for('auth.signup') }}"
-                                   data-logged-in="{{ 'true' if user else 'false' }}">
+                                <a class="btn btn-sm btn-primary" 
+                                   href="#shop-item">
                                    {{ _('Get started') }}
                                 </a>
                             </p>
@@ -101,11 +99,17 @@
 
     </div>
 
-    <div class="container my-5" id="stickers-section">
+    <!-- <div class="container mt-4 bg-opacity-50 bg-light rounded p-4 mb-0 justify-content-center align-items-center">
+        <h5 class="text-center text-orange fw-bold mt-2">Get some stickers for your device!
+            <i class="bi bi-shop"></i>
+        </h5>
+    </div> -->
+
+    <div class="container my-5 mt-3" id="shop-item">
         <div class="row">
             
             {% for sticker in stickers %}
-            <div class="col-6 col-md-4 col-lg-4 mb-4">
+            <div class="col-12 col-md-4 col-lg-4 mb-3">
                 <div class="card shadow card-hover-lift h-100" id="item">
                     
                     <div class="d-flex flex-column h-100 p-3">

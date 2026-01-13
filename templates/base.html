@@ -182,6 +182,17 @@
                 </div>
             </a>
         </li>
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0 gap-1 gap-md-3 align-items-center">
+
+    <li class="nav-item d-md-none text-end">
+        <a class="nav-link" href="{{ url_for('shop.contact') }}">
+            {{ _('Contact') }}
+            <i class="bi bi-info-circle ms-2"></i>
+        </a> 
+        
+    </li>
+
+    </ul>
 
       </ul>
     </div>
@@ -192,8 +203,8 @@
       {% block content %}{% endblock %}
     </div>
 
-    <footer class="site-footer bg-purple text-light py-5 mt-5">
-        <div class="container">
+    <footer class="site-footer bg-purple text-light py-5 mt-5 d-none d-md-block">
+    <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <h5 class="fw-bold">{{_('Contact Us')}}</h5>
@@ -204,7 +215,7 @@
                         </a>
                     </p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-headset"></i> {{_('We reply when we feel like it')}}</p>
-                    <p class="small text-white-50 mb-1"> <i class="bi bi-telephone-fill"></i> - ({{_('you really think we wanna accept phone calls?')}})</p>
+                    <p class="small text-white-50 mb-1"> <i class="bi bi-telephone-fill"></i> ({{_('you really think we wanna accept phone calls?')}})</p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-calendar-week-fill"></i> {{_('Mon-Friday, 10:00 - 17:00')}}</p>
                     <p class="small text-white-50 mt-3"> <i class="bi bi-geo-alt-fill"></i> Rachelsmolen 1 R10, 5612 MA Eindhoven</p>
                 </div>
@@ -212,11 +223,11 @@
                 <div class="col-md-4 mb-3">
                     <h5 class="fw-bold">{{_('Quick links')}}</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{{url_for('shop.aboutus')}}" class="text-decoration-none text-info">{{_('About Us')}}</a></li>
-                        <li><a href="{{url_for('shop.shippinginfo')}}" class="text-decoration-none text-info">{{_('Shipping Information')}}</a></li>
-                        <li><a href="{{url_for('shop.termsconditions')}}" class="text-decoration-none text-info">{{_('Terms & Conditions')}}</a></li>
-                        <li><a href="{{url_for('shop.returnrefund')}}" class="text-decoration-none text-info">{{_('Returns and Refunds')}}</a></li>
-                        <li><a href="{{url_for('shop.privacy')}}" class="text-decoration-none text-info">{{_('Your Privacy Policy')}}</a></li>
+                        <li><a href="{{url_for('shop.aboutus')}}" class="text-info">{{_('About Us')}}</a></li>
+                        <li><a href="{{url_for('shop.shippinginfo')}}" class="text-info">{{_('Shipping Information')}}</a></li>
+                        <li><a href="{{url_for('shop.termsconditions')}}" class="text-info">{{_('Terms & Conditions')}}</a></li>
+                        <li><a href="{{url_for('shop.returnrefund')}}" class="text-info">{{_('Returns and Refunds')}}</a></li>
+                        <li><a href="{{url_for('shop.privacy')}}" class="text-info">{{_('Your Privacy Policy')}}</a></li>
                     </ul>
                 </div>
 

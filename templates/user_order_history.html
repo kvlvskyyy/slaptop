@@ -40,9 +40,16 @@
         {{ order.status|capitalize }}
     </span>
     
+
     <small class="text-muted d-block">
-        {{ _('Created at') }}: {{ order.created_at.strftime('%d %b %Y %H:%M') }}
+        {{ _('Pick up at') }}:
+        {% if order.payment and order.payment.date and order.payment.time %}
+            {{ order.payment.date }} {{ order.payment.time }}
+        {% else %}
+            {{ _('Not set') }}
+        {% endif %}
     </small>
+
 </div>
 
                 <div class="col-md-2 fw-bold">
@@ -61,7 +68,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h6>{{ _('Customer Details') }}</h6>
-                            <p class="mb-0">User ID: {{ order.user_id }}</p>
+                            <p class="mb-0">Name: {{order.payment.full_name}}</p>
                         </div>
                         <div class="col-md-6">
                             <h6>{{ _('Order contents') }}</h6>
