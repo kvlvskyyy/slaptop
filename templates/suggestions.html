@@ -24,104 +24,61 @@
                 </div>
                 <div class="mt-auto pt-3 border-top">
                     <div class="row g-2 mb-2">
+                        <!-- Approve -->
                         <div class="col-6">
-                            <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
-                                {%if custom_sticker.approval_status != "approved" %}
-                                <button type="submit" class="btn btn-outline-success btn-sm w-100 py-2 shadow-sm">
-                                    <i class="bi bi-check2-circle"></i> {{ _('Approve') }}
-                                </button>
-                                {%elif custom_sticker.approval_status == "approved" %}
-                                <button type="submit" class="btn btn-outline-success-approved btn-sm w-100 py-2 shadow-sm">
-                                    <i class="bi bi-check2-circle"></i> {{ _('Approve') }}
-                                </button>
-                                {%endif%}
+                            <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" method="POST">
+                                {% if custom_sticker.approval_status in ['approved', 'added_to_shop'] %}
+                                    <button type="button" class="btn btn-success w-100 py-2 shadow-sm fw-bold" disabled>
+                                        <i class="bi bi-check2-circle me-1"></i> {{ _('Approved') }}
+                                    </button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-outline-success w-100 py-2 shadow-sm fw-bold">
+                                        <i class="bi bi-check2-circle me-1"></i> {{ _('Approve') }}
+                                    </button>
+                                {% endif %}
                             </form>
                         </div>
+
+                        <!-- Deny -->
                         <div class="col-6">
-                            <form action="{{ url_for('admin.deny_request', request_id=custom_sticker.id) }}" class="mx-2" method="POST">
-                                <button type="submit" class="btn btn-outline-danger btn-sm w-100 py-2 shadow-sm">
-                                    <i class="bi bi-x-circle"></i> {{ _('Deny') }}
-                                </button>
+                            <form action="{{ url_for('admin.deny_request', request_id=custom_sticker.id) }}" method="POST">
+                                {% if custom_sticker.approval_status == 'denied' %}
+                                    <button type="button" class="btn btn-danger w-100 py-2 shadow-sm fw-bold" disabled>
+                                        <i class="bi bi-x-circle me-1"></i> {{ _('Denied') }}
+                                    </button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-outline-danger w-100 py-2 shadow-sm fw-bold">
+                                        <i class="bi bi-x-circle me-1"></i> {{ _('Deny') }}
+                                    </button>
+                                {% endif %}
                             </form>
                         </div>
                     </div>
 
-                    <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" class="m-2" method="POST">
+                    <!-- Add to Dashboard -->
+                    <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" method="POST">
                         {% if custom_sticker.approval_status == 'added_to_shop' %}
-                        <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
-                            <i class="bi bi-plus-lg me-1"></i> {{ _('Added to Dashboard') }}
-                        </button>
-                        {%elif custom_sticker.approval_status == 'approved'%}
-                         <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
-                            <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
-                        </button>
-                        {%else%}
-                           <button type="submit" class="btn btn-primary-denied w-100 py-2 shadow-sm fw-bold">
-                            <i class="bi bi-plus-lg me-1"></i>
-                            {% if not custom_sticker.request_approval %}
-                                {{ _('Request Not Approved by User')}}
-                            {%else%}
-                                {{ _('Pending Approval') }}
-                            {%endif%}
-                        </button>
-                        {%endif%}
-        <div class="mt-auto pt-3 border-top">
-            <div class="row g-2 mb-2">
-                <!-- Approve Button -->
-                <div class="col-6">
-                    <form action="{{ url_for('admin.approve_request', request_id=custom_sticker.id) }}" method="POST">
-                        {% if custom_sticker.approval_status in ['approved', 'added_to_shop'] %}
                             <button type="button" class="btn btn-success w-100 py-2 shadow-sm fw-bold" disabled>
-                                <i class="bi bi-check2-circle me-1"></i> {{ _('Approved') }}
+                                <i class="bi bi-check-lg me-1"></i> {{ _('Added to Dashboard') }}
+                            </button>
+                        {% elif custom_sticker.approval_status == 'approved' and custom_sticker.request_approval %}
+                            <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
+                                <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
                             </button>
                         {% else %}
-                            <button type="submit" class="btn btn-outline-success w-100 py-2 shadow-sm fw-bold">
-                                <i class="bi bi-check2-circle me-1"></i> {{ _('Approve') }}
+                            <button type="button" class="btn btn-secondary w-100 py-2 shadow-sm fw-bold" disabled>
+                                <i class="bi bi-plus-lg me-1"></i>
+                                {% if not custom_sticker.request_approval %}
+                                    {{ _('Request Not Approved by User') }}
+                                {% else %}
+                                    {{ _('Pending Approval') }}
+                                {% endif %}
                             </button>
                         {% endif %}
                     </form>
+
                 </div>
 
-                <!-- Deny Button -->
-                <div class="col-6">
-                    <form action="{{ url_for('admin.deny_request', request_id=custom_sticker.id) }}" method="POST">
-                        {% if custom_sticker.approval_status == 'denied' %}
-                            <button type="button" class="btn btn-danger w-100 py-2 shadow-sm fw-bold" disabled>
-                                <i class="bi bi-x-circle me-1"></i> {{ _('Denied') }}
-                            </button>
-                        {% else %}
-                            <button type="submit" class="btn btn-outline-danger w-100 py-2 shadow-sm fw-bold">
-                                <i class="bi bi-x-circle me-1"></i> {{ _('Deny') }}
-                            </button>
-                        {% endif %}
-                    </form>
-                </div>
-            </div>
-
-            <!-- Add to Dashboard Button -->
-            <form action="{{ url_for('admin.add_request_to_dashboard', request_id=custom_sticker.id) }}" method="POST" class="m-2">
-                {% if custom_sticker.approval_status == 'added_to_shop' %}
-                    <button type="button" class="btn btn-success w-100 py-2 shadow-sm fw-bold" disabled>
-                        <i class="bi bi-check-lg me-1"></i> {{ _('Added to Dashboard') }}
-                    </button>
-
-                {% elif custom_sticker.approval_status == 'approved' and custom_sticker.request_approval %}
-                    <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
-                        <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
-                    </button>
-
-                {% else %}
-                    <button type="button" class="btn btn-secondary w-100 py-2 shadow-sm fw-bold" disabled>
-                        <i class="bi bi-plus-lg me-1"></i>
-                        {% if not custom_sticker.request_approval %}
-                            {{ _('Request Not Approved by User') }}
-                        {% else %}
-                            {{ _('Pending Approval') }}
-                        {% endif %}
-                    </button>
-                {% endif %}
-            </form>
-        </div>
 
 
         {% else %}
