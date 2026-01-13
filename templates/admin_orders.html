@@ -53,10 +53,10 @@
                 <div class="col-md-5 text-end">
 
                     {% set statuses = {
-                        'pending': 'warning',
-                        'confirmed': 'blue',
-                        'finished': 'success',
-                        'cancelled': 'danger'
+                        _('pending'): 'warning',
+                        _('confirmed'): 'blue',
+                        _('finished'): 'success',
+                        _('cancelled'): 'danger'
                     } %}
 
                     {% for status, color in statuses.items() %}
