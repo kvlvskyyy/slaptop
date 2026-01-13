@@ -73,7 +73,6 @@ def add_to_cart():
 def cart():
     order = Order.query.filter_by(user_id=session['user_id'], status="cart").first()
     if not order or not order.order_items:
-        flash("Your cart is empty", "info")
         return render_template('cart.html', items=[], total=0)
     return render_template('cart.html', items=order.order_items, total=order.total_price)
 

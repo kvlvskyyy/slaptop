@@ -124,7 +124,6 @@ def approve_request(request_id):
     # activate linked sticker
     sticker = Sticker.query.get(custom_sticker.sticker_id)
     if sticker:
-        sticker.is_active = True
         sticker.is_custom = True
 
     db.session.commit()

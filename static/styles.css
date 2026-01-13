@@ -1044,3 +1044,12 @@ body::before {
         height: 45px !important;
     }
 }
+#stockInput{
+    width: 100%;
+}
+
+.row-add {
+   display: flex;
+   gap: 10px;
+   margin: 0px !important;
+}

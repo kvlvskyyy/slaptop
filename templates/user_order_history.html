@@ -40,9 +40,16 @@
         {{ order.status|capitalize }}
     </span>
     
+
     <small class="text-muted d-block">
-        {{ _('Created at') }}: {{ order.created_at.strftime('%d %b %Y %H:%M') }}
+        {{ _('Pick up at') }}:
+        {% if order.payment and order.payment.date and order.payment.time %}
+            {{ order.payment.date }} {{ order.payment.time }}
+        {% else %}
+            {{ _('Not set') }}
+        {% endif %}
     </small>
+
 </div>
 
                 <div class="col-md-2 fw-bold">
