@@ -3,12 +3,13 @@ from flask import Flask, session, request, redirect
 from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
-from models import User, Order, Category, Sticker
+from models import User, Order, Category
 from dotenv import load_dotenv
 from payments import payments
 from admin import admin
 from auth import auth
 from shop import shop
+from flask import send_from_directory, render_template
 
 
 load_dotenv()
@@ -52,6 +53,18 @@ def create_app():
     app.register_blueprint(shop)
     app.register_blueprint(payments)
     app.register_blueprint(admin)
+
+
+    # 1. Route for the Service Worker (Must be at root scope)
+    @app.route('/service-worker.js')
+    def service_worker():
+        return send_from_directory('static', 'service-worker.js')
+
+    # 2. Route for the Offline Page
+    @app.route('/offline')
+    def offline():
+        return render_template('offline.html') # Ensure offline.html is in your templates folder
+
 
     # This runs for EVERY template in the app (Shop, Admin, Auth, etc.)
     @app.context_processor

@@ -1,2 +1,0 @@
-# Stickerdom
-sticker webshop project
