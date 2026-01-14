@@ -37,7 +37,7 @@ def admin_required(f):
     return wrapper
 
 def create_default_categories():
-    default_categories = ["Fontys", "Memes", "Custom Stickers", "Other"]
+    default_categories = ["Fontys", "Memes", "Games", "Custom Stickers", "Other"]
 
     for name in default_categories:
         exists = Category.query.filter_by(name=name).first()
