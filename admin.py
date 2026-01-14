@@ -13,22 +13,28 @@ import os
 admin = Blueprint('admin', __name__, static_folder="static", template_folder="templates")
 
 
-def send_order_status_email(user_email, order_id, status):
+def send_order_status_email(user_email, order, status):
     status = status.lower().strip()
     subject = ''
     body = ''
 
+    if order.payment:
+        pickup_info = f"{order.payment.date} at {order.payment.time}"
+    else:
+        pickup_info = "the agreed pickup time"
+
+
     if status == 'cancelled':
-        subject = f"Your Stickerdom order #{order_id} has been cancelled"
-        body = f"Hello,\n\nWe’re sorry to inform you that your order #{order_id} has been cancelled.\nIf you have questions, contact us.\n\nThanks, Stickerdom Team"
+        subject = f"Your Stickerdom order #{order.id} has been cancelled"
+        body = f"Hello,\n\nWe’re sorry to inform you that your order #{order.id} has been cancelled.\nIf you have questions, contact us.\n\nThanks, Stickerdom Team"
     elif status == 'finished':
-        subject = f"Your Stickerdom order #{order_id} is ready!"
+        subject = f"Your Stickerdom order #{order.id} is ready!"
         body = f"""
 Hello,
 
-Good news! Your order #{order_id} has been completed.
+Good news! Your order #{order.id} has been completed.
 
-You can pick up your order at OIL 4.30 between 13:00 and 16:00.
+You can pick up your order at OIL 4.30 {pickup_info}.
 
 Thank you for shopping with Stickerdom!
 
@@ -36,11 +42,11 @@ Best regards,
 Stickerdom Team
 """
     elif status == 'confirmed':
-        subject = f"Your Stickerdom order #{order_id} is confirmed!"
+        subject = f"Your Stickerdom order #{order.id} is confirmed!"
         body = f"""
 Hello,
 
-Your order #{order_id} has been confirmed successfully.
+Your order #{order.id} has been confirmed successfully.
 
 We are preparing your stickers for pickup.
 
@@ -321,7 +327,7 @@ def update_order_status(order_id, new_status):
 
     if user and user.email and new_status in ["finished", "cancelled", "confirmed"]:
         try:
-            send_order_status_email(user.email, order.id, new_status)
+            send_order_status_email(user.email, order, new_status)
         except Exception as e:
             flash("Order updated, but email could not be sent.", "warning")
 
