@@ -83,7 +83,7 @@ def process_checkout():
             recipients=[email],
             body=f"""Hi {full_name},
 
-Thank you for your order at Stickerdom! 
+Thank you for your order at Stickerdom!
 
 Your order ID is: {order_id}
 
