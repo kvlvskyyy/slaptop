@@ -211,8 +211,8 @@
                     <h5 class="fw-bold">{{_('Contact Us')}}</h5>
                     <p class="small text-white-50 mb-1"> 
                         <i class="bi bi-envelope-at-fill"></i> 
-                        <a href="mailto:stickerdom.help@gmail.com" class="text-white-50">
-                          stickerdom.help@gmail.com
+                        <a href="mailto:contact.stickerdom@gmail.com" class="text-white-50">
+                          contact.stickerdom@gmail.com
                         </a>
                     </p>
                     <p class="small text-white-50 mb-1"> <i class="bi bi-headset"></i> {{_('We reply when we feel like it')}}</p>
@@ -350,6 +350,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 3000);
     }
 });
+
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        });
+    }
 </script>
 </body>
 </html>
