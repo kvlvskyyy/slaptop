@@ -55,6 +55,8 @@ def create_app():
     app.register_blueprint(admin)
 
 
+    
+
     # 1. Route for the Service Worker (Must be at root scope)
     @app.route('/service-worker.js')
     def service_worker():
@@ -102,6 +104,7 @@ app = create_app()
 
 if __name__ == "__main__":
     with app.app_context():
+        db.create_all()
         create_default_categories()
 
     app.run(debug=False)
