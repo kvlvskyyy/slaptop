@@ -24,7 +24,7 @@ def get_locale():
 def create_app():
     app = Flask(__name__)
     # Database configuration
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
@@ -98,13 +98,13 @@ def create_app():
         session['language'] = language
         return redirect(request.referrer or '/') 
 
-    return app
 
-app = create_app()
-
-if __name__ == "__main__":
     with app.app_context():
         db.create_all()
         create_default_categories()
 
-    app.run(debug=False)
+    return app
+
+app = create_app()
+
+app.run(debug=False)
