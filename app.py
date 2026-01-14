@@ -28,7 +28,7 @@ def create_app():
     if DATABASE_URL.startswith("postgres://"):
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
-    
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
@@ -104,7 +104,9 @@ def create_app():
 
 
     with app.app_context():
-        create_default_categories()
+        if not Category.query.first():
+            create_default_categories()
+
 
     return app
 
