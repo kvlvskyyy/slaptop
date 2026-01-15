@@ -10,6 +10,7 @@ from admin import admin
 from auth import auth
 from shop import shop
 from flask import send_from_directory, render_template
+from flask_migrate import upgrade
 
 
 load_dotenv()
@@ -109,10 +110,13 @@ def create_app():
     with app.app_context():
         # db.create_all() only for sqlite
         try:
+            upgrade()
+
             if not Category.query.first():
                 create_default_categories()
-        except Exception:
-            pass
+
+        except Exception as e:
+            print("DB init error:", e)
 
 
     return app
