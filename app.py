@@ -108,9 +108,9 @@ def create_app():
 
 
     with app.app_context():
-        # db.create_all() only for sqlite
+        db.create_all()
         try:
-            upgrade()
+            # upgrade()
 
             if not Category.query.first():
                 create_default_categories()
