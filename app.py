@@ -24,15 +24,12 @@ def get_locale():
 def create_app():
     app = Flask(__name__)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-        "DATABASE_URL",
-        "sqlite:///app.db"
-    )
-#     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-#     "DATABASE_URL", 
-#     "postgresql:///app.db"
+    database_url = os.getenv("DATABASE_URL")
 
+    if not database_url:
+        database_url = "sqlite:///app.db"
 
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -110,9 +107,12 @@ def create_app():
 
 
     with app.app_context():
-        db.create_all()
-        if not Category.query.first():
-            create_default_categories()
+        # db.create_all() only for sqlite
+        try:
+            if not Category.query.first():
+                create_default_categories()
+        except Exception:
+            pass
 
 
     return app
@@ -120,4 +120,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
