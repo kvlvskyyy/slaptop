@@ -1,5 +1,6 @@
 import os
 from flask import Flask, session, request, redirect
+from seed_stickers import generate_stickers
 from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
@@ -117,6 +118,8 @@ def create_app():
 
         except Exception as e:
             print("DB init error:", e)
+        
+        generate_stickers()
 
 
     return app
