@@ -109,6 +109,16 @@ def create_app():
 
 
     with app.app_context():
+
+        user = User.query.filter_by(username="Admin").first()
+    
+        if user:
+            user.is_admin = True
+            db.session.commit()
+            print("User 'Admin' is now an admin!")
+        else:
+            print("User 'Admin' not found.")
+
         db.create_all()
         try:
             # upgrade()
