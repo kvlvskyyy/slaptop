@@ -4,11 +4,9 @@ from utils import login_required
 from models import Order, Payment, User
 from datetime import datetime
 from extensions import db, mail
-import stripe
-import os
 
 
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+# stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 payments = Blueprint("payments", __name__)
 
 
