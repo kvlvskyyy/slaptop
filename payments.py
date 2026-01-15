@@ -73,12 +73,17 @@ def process_checkout():
             for item in order.order_items:
                 items_list += f"- {item.sticker.name} x{item.quantity} (€{item.price_at_time})\n"
 
+        if order.payment:
+            pickup_info = f"{order.payment.date} at {order.payment.time}"
+        else:
+            pickup_info = "the agreed pickup time"
+
         msg = Message(
             subject="Your Stickerdom Order Confirmation 🎉",
             recipients=[email],
             body=f"""Hi {full_name},
 
-Thank you for your order at Stickerdom! 
+Thank you for your order at Stickerdom!
 
 Your order ID is: {order_id}
 
@@ -87,7 +92,7 @@ Purchased items:
 
 Total price: €{order.total_price}
 
-You can pick up your order from our pickup point at any time during opening hours.
+You can pick up your order at OIL 4.30 {pickup_info}.
 
 If you have any questions, feel free to reply to this email — we’re happy to help!
 
