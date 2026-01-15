@@ -1,8 +1,8 @@
-"""Added description to custom stickers
+"""initial migration
 
-Revision ID: 1a7e74bfd86e
+Revision ID: b406a9c9de03
 Revises: 
-Create Date: 2026-01-13 12:15:30.350047
+Create Date: 2026-01-13 14:27:44.155776
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1a7e74bfd86e'
+revision = 'b406a9c9de03'
 down_revision = None
 branch_labels = None
 depends_on = None
