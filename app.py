@@ -24,7 +24,16 @@ def get_locale():
 def create_app():
     app = Flask(__name__)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "postgres:///app.db")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+        "DATABASE_URL",
+        "sqlite:///app.db"
+    )
+#     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+#     "DATABASE_URL", 
+#     "postgresql:///app.db"
+
+
+    
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
@@ -111,4 +120,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
