@@ -16,16 +16,13 @@ import socket
 
 load_dotenv()
 
-def check_smtp_connection(host, port):
+def is_smtp_reachable(host, port):
     try:
-        # Try to open a connection to the SMTP server
-        with socket.create_connection((host, port), timeout=10) as sock:
-            print(f"✅ Connection to {host}:{port} successful!")
-    except Exception as e:
-        print(f"❌ Cannot connect to {host}:{port}")
-        print("Error:", e)
-
-check_smtp_connection("smtp.gmail.com", 587)
+        with socket.create_connection((host, port), timeout=5):
+            return True
+    except Exception:
+        return False
+    
 
 # This function tells Flask-Babel which language to use based on session
 def get_locale():
@@ -56,16 +53,31 @@ def create_app():
     Babel(app, locale_selector=get_locale)
 
     # Flask-Mail Configuration
-    app.config.update(
-        MAIL_SERVER='smtp.gmail.com',
-        MAIL_PORT=587,
-        MAIL_USE_TLS=True,
-        MAIL_USE_SSL=False,
-        MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
-        MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
-        MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
-        MAIL_TIMEOUT=10
-    )
+    if is_smtp_reachable('smtp.gmail.com', 587):
+    # SMTP reachable – use real Gmail SMTP
+        app.config.update(
+            MAIL_SERVER='smtp.gmail.com',
+            MAIL_PORT=587,
+            MAIL_USE_TLS=True,
+            MAIL_USE_SSL=False,
+            MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
+            MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
+            MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
+            MAIL_TIMEOUT=10
+        )
+        print("✅ SMTP reachable: Using Gmail SMTP")
+    else:
+        # SMTP not reachable – fallback to debug server (prints emails to console)
+        app.config.update(
+            MAIL_SERVER='localhost',
+            MAIL_PORT=8025,
+            MAIL_USE_TLS=False,
+            MAIL_USE_SSL=False,
+            MAIL_USERNAME=None,
+            MAIL_PASSWORD=None,
+            MAIL_DEFAULT_SENDER='test@example.com',
+        )
+        print("⚠️ SMTP unreachable: Using debug email server (console only)")
 
     mail.init_app(app)
 
