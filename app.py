@@ -67,15 +67,14 @@ def create_app():
         )
         print("✅ SMTP reachable: Using Gmail SMTP")
     else:
-        # SMTP not reachable – fallback to debug server (prints emails to console)
         app.config.update(
             MAIL_SERVER='localhost',
             MAIL_PORT=8025,
             MAIL_USE_TLS=False,
             MAIL_USE_SSL=False,
-            MAIL_USERNAME=None,
-            MAIL_PASSWORD=None,
-            MAIL_DEFAULT_SENDER='test@example.com',
+            MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
+            MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
+            MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
         )
         print("⚠️ SMTP unreachable: Using debug email server (console only)")
 
