@@ -7,7 +7,7 @@ const ASSETS_TO_CACHE = [
     '/static/images/icons/icon-192.png',
     '/static/images/icons/icon-512.png',
     '/static/images/icons/Logo_squared.png',
-    '/static/images/icons/Logo.Png',
+    '/static/images/icons/Logo.png',
     
     // External Libraries (Bootstrap, Icons, AOS)
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
