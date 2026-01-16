@@ -1,14 +1,14 @@
-from extensions import mail
 from flask_mail import Message
-from flask import current_app
+from extensions import mail
 from threading import Thread
+from flask import copy_current_request_context
 
-def send_async_email(msg):
-    with current_app.app_context():  # ensures Flask context is active
+def send_email(msg):
+    @copy_current_request_context
+    def send():
         try:
             mail.send(msg)
         except Exception as e:
             print("Mail sending error:", e)
 
-def send_email(msg):
-    Thread(target=send_async_email, args=(msg,)).start()
+    Thread(target=send).start()

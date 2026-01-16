@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, current_app, render_template, request, redirect, url_for, flash
 from email_utils import send_email
 from models import Sticker, Order, Category, CustomSticker
 from utils import admin_required
@@ -201,10 +201,8 @@ The Stickerdom Team
 """
     )
 
-    try:
-        send_email(msg)
-    except Exception:
-        flash("Sticker denied, but email could not be sent.", "warning")
+    send_email(msg)
+
 
     # delete request
     db.session.delete(custom_sticker)
