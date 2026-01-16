@@ -52,9 +52,9 @@ STICKERS_DATA = [
         "stock": 14
     },
 ]
-def clear_stickers():
-    db.session.query(Sticker).delete()
-    db.session.commit()
+# def clear_stickers():
+#     db.session.query(Sticker).delete()
+#     db.session.commit()
 
 def generate_stickers():
     for data in STICKERS_DATA:
