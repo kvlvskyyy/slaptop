@@ -13,9 +13,15 @@
         <div class="col-md-4 mb-4 mt-4">
             <div class="card shadow-sm h-100">
                 
-                <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_path) }}" 
-                     class="card-img-top p-3" 
-                     style="height: 250px; object-fit: contain;">
+                {% if custom_sticker.image_path %}
+                    <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_path) }}"
+                        class="card-img-top p-3"
+                        style="height: 250px; object-fit: contain;">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/placeholders/no-image.png') }}"
+                        class="card-img-top p-3"
+                        style="height: 250px; object-fit: contain;">
+                {% endif %}
 
                 <div class="card-body">
                     <h5 class="card-title">{{ custom_sticker.name }}</h5>
