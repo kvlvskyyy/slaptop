@@ -133,7 +133,7 @@ def create_app():
         except Exception as e:
             print("DB init error:", e)
         
-        clear_stickers()
+        # clear_stickers()
         generate_stickers()
 
 
