@@ -11,10 +11,21 @@ from admin import admin
 from auth import auth
 from shop import shop
 from flask import send_from_directory, render_template
+import socket
 
 
 load_dotenv()
 
+def check_smtp_connection(host, port):
+    try:
+        # Try to open a connection to the SMTP server
+        with socket.create_connection((host, port), timeout=10) as sock:
+            print(f"✅ Connection to {host}:{port} successful!")
+    except Exception as e:
+        print(f"❌ Cannot connect to {host}:{port}")
+        print("Error:", e)
+
+check_smtp_connection("smtp.gmail.com", 587)
 
 # This function tells Flask-Babel which language to use based on session
 def get_locale():
