@@ -177,10 +177,12 @@ def deny_request(request_id):
     user = custom_sticker.user
 
     sticker = Sticker.query.get(custom_sticker.sticker_id)
-    if sticker.order_items:
-        sticker.is_active = False
-    else:
-        db.session.delete(sticker)  
+    if sticker:
+        if sticker.order_items:
+            sticker.is_active = False
+        else:
+            db.session.delete(sticker)
+
 
 #     msg = Message(
 #         subject="Your Stickerdom Sticker Request Update",
