@@ -190,13 +190,41 @@ def add_custom_to_cart():
     custom_id = request.form.get('sticker_id')
     user_id = session['user_id']
 
-    custom = CustomSticker.query.get_or_404(custom_id)
+    if not custom_id:
+        flash("No custom sticker selected!", "error")
+        return redirect(url_for('shop.index'))
 
-    sticker = Sticker.query.get_or_404(custom.sticker_id)
+    custom = CustomSticker.query.get(custom_id)
+    if not custom:
+        flash("Custom sticker not found!", "error")
+        return redirect(url_for('shop.index'))
+
+    if custom.approval_status != "approved":
+        flash("This custom sticker is not approved yet.", "error")
+        return redirect(url_for('shop.index'))
+
+    if not custom.sticker_id:
+        sticker = Sticker(
+            name=custom.name,
+            price=0.99,
+            category_id=4,
+            description=custom.description,
+            image_path=custom.image_path,
+            stock=0,
+            is_custom=True,
+            user_id=custom.user_id,
+            is_active=False
+        )
+        db.session.add(sticker)
+        db.session.flush()
+
+        custom.sticker_id = sticker.id
+    else:
+        sticker = Sticker.query.get(custom.sticker_id)
 
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
-        order = Order(user_id=user_id, status="cart", total_price=0)
+        order = Order(user_id=user_id, status="cart", total_price=Decimal("0.00"))
         db.session.add(order)
         db.session.flush()
 
@@ -221,6 +249,8 @@ def add_custom_to_cart():
 
     flash("Custom sticker added to cart!", "success")
     return redirect(request.referrer or url_for('shop.cart'))
+
+
 
 
 

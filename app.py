@@ -1,5 +1,6 @@
 import os
 from flask import Flask, session, request, redirect
+from seed_stickers import generate_stickers
 from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
@@ -10,6 +11,7 @@ from admin import admin
 from auth import auth
 from shop import shop
 from flask import send_from_directory, render_template
+from flask_migrate import upgrade
 
 
 load_dotenv()
@@ -23,8 +25,15 @@ def get_locale():
 
 def create_app():
     app = Flask(__name__)
-    # Database configuration
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./app.db'
+
+    database_url = os.getenv("DATABASE_URL")
+
+    if not database_url:
+        database_url = "sqlite:///app.db"
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+    
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
@@ -104,13 +113,32 @@ def create_app():
 
 
     with app.app_context():
+
+        user = User.query.filter_by(username="Admin").first()
+    
+        if user:
+            user.is_admin = True
+            db.session.commit()
+            print("User 'Admin' is now an admin!")
+        else:
+            print("User 'Admin' not found.")
+
         db.create_all()
-        create_default_categories()
+        try:
+            # upgrade()
+
+            if not Category.query.first():
+                create_default_categories()
+
+        except Exception as e:
+            print("DB init error:", e)
+        
+        generate_stickers()
+
 
     return app
 
 app = create_app()
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run()
