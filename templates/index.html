@@ -18,7 +18,7 @@
             <div class="carousel-inner">
                 
                 <div class="carousel-item active hero-carousel-item">
-                    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder.png') }}" 
+                    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder.webp') }}" 
                          class="d-block w-100" alt="Sticker Background">                
                 
                     <div class="container">
@@ -27,7 +27,7 @@
                             <p class="caption-p">{{ _('Order some cool stickers to put on your device') }}</p>
                             <p>
                                 <a class="btn btn-sm btn-primary auth-check-btn" 
-                                   href="{{ url_for('shop.add_sticker_user') }}"
+                                   href="{{ url_for('auth.signup') }}"
                                    data-logged-in="{{ 'true' if user else 'false' }}">
                                    {{ _('Sign up') }}
                                 </a>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="carousel-item hero-carousel-item">
-                    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_1.png') }}"
+                    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_1.webp') }}"
                          class="d-block w-100" alt="Sticker Background"> 
                     <div class="container">
                         <div class="carousel-caption hero-caption text-end bg-dark bg-opacity-50 px-4 me-5 rounded align-items-center">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="carousel-item hero-carousel-item">
-                    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_3.png') }}"
+                    <img src="{{ url_for('static', filename='images/placeholder/carousel_placeholder_3.webp') }}"
                          class="d-block w-100" alt="Sticker Background"> 
                     <div class="container">
                         <div class="carousel-caption hero-caption text-start bg-dark bg-opacity-50 px-4 ms-5 rounded align-items-center">

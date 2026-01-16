@@ -66,6 +66,10 @@ def create_app():
     @app.route('/offline')
     def offline():
         return render_template('offline.html') # Ensure offline.html is in your templates folder
+    
+    @app.route('/manifest.json')
+    def manifest():
+        return send_from_directory('static', 'manifest.json')
 
 
     # This runs for EVERY template in the app (Shop, Admin, Auth, etc.)
