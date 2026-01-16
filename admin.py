@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from email import send_email
+from email_utils import send_email
 from models import Sticker, Order, Category, CustomSticker
 from utils import admin_required
 from werkzeug.utils import secure_filename

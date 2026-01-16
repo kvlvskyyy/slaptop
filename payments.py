@@ -4,7 +4,7 @@ from utils import login_required
 from models import Order, Payment, User
 from datetime import datetime
 from extensions import db
-from email import send_email
+from email_utils import send_email
 
 
 # stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
