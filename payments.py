@@ -3,7 +3,8 @@ from flask_mail import Message
 from utils import login_required
 from models import Order, Payment, User
 from datetime import datetime
-from extensions import db, mail
+from extensions import db
+from email import send_email
 
 
 # stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
@@ -98,10 +99,7 @@ Best regards,
 The Stickerdom Team"""
         )
 
-        try:
-            mail.send(msg)
-        except Exception:
-            flash("Order placed, but confirmation email could not be sent.", "warning")
+        send_email(msg)
 
         return redirect(url_for('payments.checkout_success', order_id=order_id))
 

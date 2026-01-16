@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from email import send_email
 from models import Sticker, Order, Category, CustomSticker
 from utils import admin_required
 from werkzeug.utils import secure_filename
@@ -62,7 +63,7 @@ Stickerdom Team
     msg = Message(subject=subject,
                   recipients=[user_email],
                   body=body)
-    mail.send(msg)
+    send_email(msg)
 
 
 
@@ -160,7 +161,7 @@ The Stickerdom Team
     )
 
     try:
-        mail.send(msg)
+        send_email(msg)
     except Exception:
         flash("Sticker approved, but email could not be sent.", "warning")
 
@@ -201,7 +202,7 @@ The Stickerdom Team
     )
 
     try:
-        mail.send(msg)
+        send_email(msg)
     except Exception:
         flash("Sticker denied, but email could not be sent.", "warning")
 
