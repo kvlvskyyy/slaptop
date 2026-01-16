@@ -1,20 +1,28 @@
 import os
 from flask import Flask, session, request, redirect
+from seed_stickers import generate_stickers, clear_stickers
 from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
 from models import User, Order, Category
 from dotenv import load_dotenv
-from payments import payments
+from payments_blueprint import payments
 from admin import admin
 from auth import auth
 from shop import shop
 from flask import send_from_directory, render_template
-from flask_migrate import upgrade
+import socket
 
 
 load_dotenv()
 
+def is_smtp_reachable(host, port):
+    try:
+        with socket.create_connection((host, port), timeout=5):
+            return True
+    except Exception:
+        return False
+    
 
 # This function tells Flask-Babel which language to use based on session
 def get_locale():
@@ -45,15 +53,30 @@ def create_app():
     Babel(app, locale_selector=get_locale)
 
     # Flask-Mail Configuration
-    app.config.update(
-        MAIL_SERVER='smtp.gmail.com',
-        MAIL_PORT=587,
-        MAIL_USE_TLS=True,
-        MAIL_USE_SSL=False,
-        MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
-        MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
-        MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME")
-    )
+    if is_smtp_reachable('smtp.gmail.com', 587):
+    # SMTP reachable – use real Gmail SMTP
+        app.config.update(
+            MAIL_SERVER='smtp.gmail.com',
+            MAIL_PORT=587,
+            MAIL_USE_TLS=True,
+            MAIL_USE_SSL=False,
+            MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
+            MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
+            MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
+            MAIL_TIMEOUT=10
+        )
+        print("✅ SMTP reachable: Using Gmail SMTP")
+    else:
+        app.config.update(
+            MAIL_SERVER='localhost',
+            MAIL_PORT=8025,
+            MAIL_USE_TLS=False,
+            MAIL_USE_SSL=False,
+            MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
+            MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
+            MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
+        )
+        print("⚠️ SMTP unreachable: Using debug email server (console only)")
 
     mail.init_app(app)
 
@@ -74,6 +97,10 @@ def create_app():
     @app.route('/offline')
     def offline():
         return render_template('offline.html') # Ensure offline.html is in your templates folder
+    
+    @app.route('/manifest.json')
+    def manifest():
+        return send_from_directory('static', 'manifest.json')
 
 
     # This runs for EVERY template in the app (Shop, Admin, Auth, etc.)
@@ -108,15 +135,28 @@ def create_app():
 
 
     with app.app_context():
-        # db.create_all() only for sqlite
+
+        user = User.query.filter_by(username="Admin").first()
+    
+        if user:
+            user.is_admin = True
+            db.session.commit()
+            print("User 'Admin' is now an admin!")
+        else:
+            print("User 'Admin' not found.")
+
+        db.create_all()
         try:
-            upgrade()
+            # upgrade()
 
             if not Category.query.first():
                 create_default_categories()
 
         except Exception as e:
             print("DB init error:", e)
+        
+        # clear_stickers()
+        generate_stickers()
 
 
     return app
@@ -124,4 +164,5 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

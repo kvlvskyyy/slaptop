@@ -13,9 +13,15 @@
         <div class="col-md-4 mb-4 mt-4">
             <div class="card shadow-sm h-100">
                 
-                <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_path) }}" 
-                     class="card-img-top p-3" 
-                     style="height: 250px; object-fit: contain;">
+                {% if custom_sticker.image_path %}
+                    <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_path) }}"
+                        class="card-img-top p-3"
+                        style="height: 250px; object-fit: contain;">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/placeholders/no-image.png') }}"
+                        class="card-img-top p-3"
+                        style="height: 250px; object-fit: contain;">
+                {% endif %}
 
                 <div class="card-body">
                     <h5 class="card-title">{{ custom_sticker.name }}</h5>
@@ -66,11 +72,16 @@
                             <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm fw-bold">
                                 <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
                             </button>
-                        {% else %}
-                            <button type="button" class="btn btn-secondary w-100 py-2 shadow-sm fw-bold" disabled>
-                                <i class="bi bi-plus-lg me-1"></i> {{ _('Pending Approval') }}
-                            </button>
-                        {% endif %}
+                       {% else %}
+                        <button type="button" class="btn btn-secondary py-2 shadow-sm fw-bold" style="width: 80%;" disabled>
+                            <i class="bi bi-plus-lg me-1"></i>
+                            {% if custom_sticker.approval_status == 'approved' and not custom_sticker.request_approval %}
+                                {{ _('User Permission Missing') }}
+                            {% else %}
+                                {{ _('Pending Approval') }}
+                            {% endif %}
+                        </button>
+                    {% endif %}
                     </form>
                 </div> </div> </div> {% else %}
         <p>{{ _('No suggestions found.') }}</p>

@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, current_app, render_template, request, redirect, url_for, flash
+from email_utils import send_email
 from models import Sticker, Order, Category, CustomSticker
 from utils import admin_required
 from werkzeug.utils import secure_filename
@@ -59,10 +60,10 @@ Stickerdom Team
         print("DEBUG: status did not match, email not sent")
         return
 
-    msg = Message(subject=subject,
-                  recipients=[user_email],
-                  body=body)
-    mail.send(msg)
+    # msg = Message(subject=subject,
+    #               recipients=[user_email],
+    #               body=body)
+    # send_email(msg)
 
 
 
@@ -135,34 +136,34 @@ def approve_request(request_id):
 
     db.session.commit()
 
-    msg = Message(
-        subject="Your custom sticker has been approved 🎉",
-        recipients=[custom_sticker.user.email],
-        body=f"""Hi {custom_sticker.user.username},
+#     msg = Message(
+#         subject="Your custom sticker has been approved 🎉",
+#         recipients=[custom_sticker.user.email],
+#         body=f"""Hi {custom_sticker.user.username},
 
-Great news! 🎉
+# Great news! 🎉
 
-Your {custom_sticker.name} sticker request has been approved and is now available.
-
-
-You can now add your sticker to your cart and place your order!
+# Your {custom_sticker.name} sticker request has been approved and is now available.
 
 
-If you gave permission for it to be shared, we will consider adding your sticker to our website for others to order and view.
+# You can now add your sticker to your cart and place your order!
 
 
-Thank you for choosing our sticker webshop — we truly appreciate your support!
+# If you gave permission for it to be shared, we will consider adding your sticker to our website for others to order and view.
 
 
-Best regards,
-The Stickerdom Team
-"""
-    )
+# Thank you for choosing our sticker webshop — we truly appreciate your support!
 
-    try:
-        mail.send(msg)
-    except Exception:
-        flash("Sticker approved, but email could not be sent.", "warning")
+
+# Best regards,
+# The Stickerdom Team
+# """
+#     )
+
+    # try:
+    #     send_email(msg)
+    # except Exception:
+    #     flash("Sticker approved, but email could not be sent.", "warning")
 
     flash(f"Request '{custom_sticker.name}' approved.", "success")
     return redirect(url_for('admin.suggestions'))
@@ -173,43 +174,48 @@ The Stickerdom Team
 def deny_request(request_id):
     custom_sticker = CustomSticker.query.get_or_404(request_id)
 
-    user = custom_sticker.user
+    request_name = custom_sticker.name
 
-    sticker = Sticker.query.get(custom_sticker.sticker_id)
-    if sticker.order_items:
-        sticker.is_active = False
-    else:
-        db.session.delete(sticker)  
+    sticker = None
+    if custom_sticker.sticker_id:
+        sticker = Sticker.query.get(custom_sticker.sticker_id)
 
-    msg = Message(
-        subject="Your Stickerdom Sticker Request Update",
-        recipients=[user.email],
-        body=f"""Hi {user.username},
-
-Thank you for your interest in Stickerdom and for submitting your sticker request.
-
-After careful review, we regret to inform you that your "{custom_sticker.name}" sticker request has been denied and will not be processed further.
-This decision may be due to content restrictions, copyright concerns, technical limitations, or not meeting our current guidelines.
-
-If you believe this decision was made in error or you would like more information, feel free to reply to this email, and our team will be happy to assist you.
-
-Thank you for your understanding and for your interest in our products.
-
-Best regards,
-The Stickerdom Team
-"""
-    )
-
-    try:
-        mail.send(msg)
-    except Exception:
-        flash("Sticker denied, but email could not be sent.", "warning")
-
-    # delete request
     db.session.delete(custom_sticker)
     db.session.commit()
 
-    flash(f"Request '{custom_sticker.name}' denied.", "info")
+        
+    if sticker:
+        if sticker.order_items:
+            sticker.is_active = False
+        else:
+            db.session.delete(sticker)
+        db.session.commit()
+
+
+#     msg = Message(
+#         subject="Your Stickerdom Sticker Request Update",
+#         recipients=[user.email],
+#         body=f"""Hi {user.username},
+
+# Thank you for your interest in Stickerdom and for submitting your sticker request.
+
+# After careful review, we regret to inform you that your "{custom_sticker.name}" sticker request has been denied and will not be processed further.
+# This decision may be due to content restrictions, copyright concerns, technical limitations, or not meeting our current guidelines.
+
+# If you believe this decision was made in error or you would like more information, feel free to reply to this email, and our team will be happy to assist you.
+
+# Thank you for your understanding and for your interest in our products.
+
+# Best regards,
+# The Stickerdom Team
+# """
+#     )
+
+#     send_email(msg)
+
+
+
+    flash(f"Request '{request_name}' denied.", "info")
     return redirect(url_for('admin.suggestions'))
 
 
