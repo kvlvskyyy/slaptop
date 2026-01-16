@@ -1,6 +1,6 @@
 import os
 from flask import Flask, session, request, redirect
-from seed_stickers import generate_stickers
+from seed_stickers import generate_stickers, clear_stickers
 from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
@@ -114,14 +114,14 @@ def create_app():
 
     with app.app_context():
 
-        user = User.query.filter_by(username="Admin").first()
+        # user = User.query.filter_by(username="Admin").first()
     
-        if user:
-            user.is_admin = True
-            db.session.commit()
-            print("User 'Admin' is now an admin!")
-        else:
-            print("User 'Admin' not found.")
+        # if user:
+        #     user.is_admin = True
+        #     db.session.commit()
+        #     print("User 'Admin' is now an admin!")
+        # else:
+        #     print("User 'Admin' not found.")
 
         db.create_all()
         try:
@@ -133,6 +133,7 @@ def create_app():
         except Exception as e:
             print("DB init error:", e)
         
+        clear_stickers()
         generate_stickers()
 
 
