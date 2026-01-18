@@ -1,9 +1,10 @@
-from flask import Blueprint, redirect, url_for, flash, session, render_template, request
+from flask import Blueprint, current_app, redirect, url_for, flash, session, render_template, request
 from flask_mail import Message
 from utils import login_required
 from models import Order, Payment, User
 from datetime import datetime
-from extensions import db, mail
+from extensions import db
+from email_utils import send_email
 
 
 # stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
@@ -76,32 +77,29 @@ def process_checkout():
         else:
             pickup_info = "the agreed pickup time"
 
-        msg = Message(
-            subject="Your Stickerdom Order Confirmation 🎉",
-            recipients=[email],
-            body=f"""Hi {full_name},
+#         msg = Message(
+#             subject="Your Stickerdom Order Confirmation 🎉",
+#             recipients=[email],
+#             body=f"""Hi {full_name},
 
-Thank you for your order at Stickerdom!
+# Thank you for your order at Stickerdom!
 
-Your order ID is: {order_id}
+# Your order ID is: {order_id}
 
-Purchased items:
-{items_list}
+# Purchased items:
+# {items_list}
 
-Total price: €{order.total_price}
+# Total price: €{order.total_price}
 
-You can pick up your order at OIL 4.30 {pickup_info}.
+# You can pick up your order at OIL 4.30 {pickup_info}.
 
-If you have any questions, feel free to reply to this email — we’re happy to help!
+# If you have any questions, feel free to reply to this email — we’re happy to help!
 
-Best regards,
-The Stickerdom Team"""
-        )
+# Best regards,
+# The Stickerdom Team"""
+#         )
 
-        try:
-            mail.send(msg)
-        except Exception:
-            flash("Order placed, but confirmation email could not be sent.", "warning")
+#         send_email(msg)
 
         return redirect(url_for('payments.checkout_success', order_id=order_id))
 

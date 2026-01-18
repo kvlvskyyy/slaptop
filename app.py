@@ -1,21 +1,21 @@
 import os
 from flask import Flask, session, request, redirect
-from seed_stickers import generate_stickers
+from seed_stickers import generate_stickers, clear_stickers
 from utils import create_default_categories
 from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
 from models import User, Order, Category
 from dotenv import load_dotenv
-from payments import payments
+from payments_blueprint import payments
 from admin import admin
 from auth import auth
 from shop import shop
 from flask import send_from_directory, render_template
-from flask_migrate import upgrade
 
 
 load_dotenv()
 
+    
 
 # This function tells Flask-Babel which language to use based on session
 def get_locale():
@@ -45,7 +45,6 @@ def create_app():
     app.config['LANGUAGES'] = {'en': 'English', 'nl': 'Nederlands'}
     Babel(app, locale_selector=get_locale)
 
-    # Flask-Mail Configuration
     app.config.update(
         MAIL_SERVER='smtp.gmail.com',
         MAIL_PORT=587,
@@ -53,8 +52,10 @@ def create_app():
         MAIL_USE_SSL=False,
         MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
         MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
-        MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME")
+        MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
+        MAIL_TIMEOUT=10
     )
+    
 
     mail.init_app(app)
 
@@ -114,25 +115,24 @@ def create_app():
 
     with app.app_context():
 
-        user = User.query.filter_by(username="Admin").first()
+        # user = User.query.filter_by(username="Admin").first()
     
-        if user:
-            user.is_admin = True
-            db.session.commit()
-            print("User 'Admin' is now an admin!")
-        else:
-            print("User 'Admin' not found.")
+        # if user:
+        #     user.is_admin = True
+        #     db.session.commit()
+        #     print("User 'Admin' is now an admin!")
+        # else:
+        #     print("User 'Admin' not found.")
 
         db.create_all()
         try:
-            # upgrade()
-
             if not Category.query.first():
                 create_default_categories()
 
         except Exception as e:
-            print("DB init error:", e)
+            print("Category init error:", e)
         
+        # clear_stickers() #call to clear existing stickers
         generate_stickers()
 
 
@@ -141,4 +141,5 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
