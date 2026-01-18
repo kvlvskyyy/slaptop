@@ -46,27 +46,50 @@
   </head>
   
   <body class="d-flex flex-column min-vh-100 " style="padding-top: 10vh;">
-    <div id="app-loader" style="
+   <div id="app-loader" style="
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-color: #5a189a; /* Your Brand Purple */
+    background-color: #5a189a;
     z-index: 99999;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Keeps the Logo in the Center */
     transition: opacity 0.5s ease-out;
 ">
-    <div style="text-align: center;">
-        <img src="{{ url_for('static', filename='images/icons/Logo_squared.png') }}" 
-             alt="Loading..." 
-             style="width: 80px; height: 80px; animation: pulse 1.5s infinite;">
-        
-        <div class="spinner-border text-light mt-3" role="status" style="width: 2rem; height: 2rem;">
-            <span class="visually-hidden">Loading...</span>
-        </div>
+    
+    <img src="{{ url_for('static', filename='images/icons/Logo_squared.png') }}" 
+            alt="Loading..." 
+            style="width: 80px; height: 80px; animation: pulse 1.5s infinite;">
+    
+    <div class="spinner-border text-light" role="status" 
+         style="position: absolute; bottom: 10vh; width: 2rem; height: 2rem;">
+        <span class="visually-hidden">Loading...</span>
     </div>
+
 </div>
+
+<script>
+    if (sessionStorage.getItem('loaderShown')) {
+        document.getElementById('app-loader').style.display = 'none';
+    }
+</script>
+
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+</style>
+
+<script>
+    // Check if we have already shown the loader in this tab session
+    if (sessionStorage.getItem('loaderShown')) {
+        // If yes, hide it IMMEDIATELY so the user never sees it
+        document.getElementById('app-loader').style.display = 'none';
+    }
+</script>
 
 <style>
     @keyframes pulse {
@@ -404,16 +427,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
         });
     }
-    // HIDE LOADER WHEN PAGE IS FULLY LOADED
+   // HIDE LOADER WHEN PAGE IS FULLY LOADED
 window.addEventListener('load', function() {
     const loader = document.getElementById('app-loader');
-    if (loader) {
+    
+    // Only run the fade-out if the loader is actually visible
+    if (loader && loader.style.display !== 'none') {
+        
         // Fade out
         loader.style.opacity = '0';
         
-        // Remove from DOM after fade is done (0.5s)
+        // Remove from DOM after fade
         setTimeout(() => {
             loader.style.display = 'none';
+            
+            // CHANGE 3: Set the flag so it doesn't show again in this session
+            sessionStorage.setItem('loaderShown', 'true');
+            
         }, 500);
     }
 });

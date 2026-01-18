@@ -51,6 +51,47 @@ STICKERS_DATA = [
         "image_path": "feedpulselove.webp",
         "stock": 14
     },
+    {
+        "name": "Coughing cat",
+        "price": Decimal("0.49"),
+        "category_name": "Memes",
+        "description": "A cat who is coughing",
+        "image_path": "coughing_cat.webp",
+        "stock": 11
+    },
+    {
+        "name": "Ehm, actually..",
+        "price": Decimal("0.49"),
+        "category_name": "Memes",
+        "description": "For all the nerds",
+        "image_path": "actually.webp",
+        "stock": 17
+    },
+    {
+        "name": "Skyrim skeleton",
+        "price": Decimal("0.49"),
+        "category_name": "Memes",
+        "description": "The skyrim skeleton meme Warning⚠️: peeling off the sticker may be difficult, handle with care",
+        "image_path": "SkyrimSkeletonSticker.webp",
+        "stock": 19
+    },
+    {
+        "name": "ICT Mimic",
+        "price": Decimal("0.49"),
+        "category_name": "Games",
+        "description": "A DnD related sticker about a mimic coming out of a laptop.",
+        "image_path": "mimicLaptop.webp",
+        "stock": 20
+    },
+     {
+        "name": "Last day of the project",
+        "price": Decimal("0.49"),
+        "category_name": "Fontys",
+        "description": "Very depressing and stressful",
+        "image_path": "lastdayi.webp",
+        "stock": 20
+    }
+
 ]
 def clear_stickers():
     db.session.query(Sticker).delete()
