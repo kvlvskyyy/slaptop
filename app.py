@@ -114,20 +114,19 @@ def create_app():
 
 
     with app.app_context():
+        admin = User.query.filter_by(username="Admin").first()
 
-        # user = User.query.filter_by(username="Admin2").first()
-    
-        # if user:
-        #     user.is_admin = True
-        #     db.session.commit()
-        #     print("User 'Admin' is now an admin!")
-
-        user_old = User.query.filter_by(username="Admin2").first()
-
-        if user_old:
-            user_old.is_admin = True
+        if admin:
+            admin.is_admin = False
             db.session.commit()
-            print("User 'Admin2' is no longer an admin!")
+            print("User 'Admin' is no longer an admin!")
+
+        # admin = User.query.filter_by(username="Admin2").first()
+
+        # if admin:
+        #     admin.is_admin = True
+        #     db.session.commit()
+        #     print("User 'Admin2' is no longer an admin!")
 
 
         db.create_all()
