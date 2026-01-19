@@ -7,6 +7,7 @@ from extensions import db
 from datetime import datetime
 from decimal import Decimal
 import os
+import cloudinary.uploader
 
 
 
@@ -210,7 +211,7 @@ def add_custom_to_cart():
             price=0.99,
             category_id=4,
             description=custom.description,
-            image_path=custom.image_path,
+            image_url=custom.image_url,
             stock=0,
             is_custom=True,
             user_id=custom.user_id,
@@ -332,13 +333,13 @@ def request_sticker():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
 
-            upload_path = os.path.join(shop.static_folder, 'images', 'custom')
-            file.save(os.path.join(upload_path, filename))
+            upload_result = cloudinary.uploader.upload(file)
+            image_url = upload_result['secure_url']
 
             new_request = CustomSticker(
                 user_id=session['user_id'],
                 name=name,
-                image_path=filename,
+                image_url=image_url,
                 description=description,
                 approval_status="pending",
                 request_approval=request_approval,

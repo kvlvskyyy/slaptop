@@ -13,8 +13,8 @@
         <div class="col-md-4 mb-4 mt-4">
             <div class="card shadow-sm h-100">
                 
-                {% if custom_sticker.image_path %}
-                    <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_path) }}"
+                {% if custom_sticker.image_url %}
+                    <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_url) }}"
                         class="card-img-top p-3"
                         style="height: 250px; object-fit: contain;">
                 {% else %}

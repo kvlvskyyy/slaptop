@@ -310,9 +310,9 @@ def edit_sticker(sticker_id):
         file = request.files.get('image')
         if file and file.filename != '' and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            # Use the same UPLOAD_FOLDER from your add_sticker route
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
-            sticker.image_path = filename
+            
+            upload_result = cloudinary.uploader.upload(file)
+            sticker.image_url = upload_result['secure_url']
 
         db.session.commit()
         flash("Sticker updated successfully!", "success")
