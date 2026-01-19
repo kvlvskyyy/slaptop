@@ -1,3 +1,4 @@
+import cloudinary
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required
@@ -6,6 +7,7 @@ from extensions import db
 from datetime import datetime
 from decimal import Decimal
 import os
+import cloudinary.uploader
 
 
 
@@ -130,7 +132,7 @@ def update_quantity(item_id):
 def index():
     query = request.form.get('search', '')
     if query:
-        results = Sticker.query.filter_by(Sticker.is_active == True, Sticker.name.ilike(f'%{query}%')).all()
+        results = Sticker.query.filter(Sticker.is_active == True, Sticker.name.ilike(f'%{query}%')).all()
     else:
         results = Sticker.query.filter_by(is_active=True).all()
 
@@ -209,7 +211,7 @@ def add_custom_to_cart():
             price=0.99,
             category_id=4,
             description=custom.description,
-            image_path=custom.image_path,
+            image_url=custom.image_url,
             stock=0,
             is_custom=True,
             user_id=custom.user_id,
@@ -285,7 +287,7 @@ def returnrefund():
 def shippinginfo():
     return render_template("shippinginfo.html")
 
-@shop.route("/add_sticker_user", methods=["GET", "POST"])
+@shop.route("/add_sticker_user")
 @login_required
 def add_sticker_user():
     return render_template("add_sticker_user.html")
@@ -296,10 +298,10 @@ def sticker_desc(sticker_id):
     return render_template("sticker_desc.html", sticker=sticker)
 
 @shop.route("/my_requests")
+@login_required
 def my_requests():
     user_id = session['user_id']
-    custom_stickers = CustomSticker.query.filter_by(user_id=session['user_id']).all()
-
+    custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
     return render_template("my_requests.html", custom_stickers=custom_stickers)
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])
@@ -331,13 +333,13 @@ def request_sticker():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
 
-            upload_path = os.path.join(shop.static_folder, 'images', 'custom')
-            file.save(os.path.join(upload_path, filename))
+            upload_result = cloudinary.uploader.upload(file)
+            image_url = upload_result['secure_url']
 
             new_request = CustomSticker(
                 user_id=session['user_id'],
                 name=name,
-                image_path=filename,
+                image_url=image_url,
                 description=description,
                 approval_status="pending",
                 request_approval=request_approval,

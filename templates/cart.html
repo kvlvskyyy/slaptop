@@ -25,8 +25,7 @@
             padding: 0 !important;      /* Removes padding to save space */
             font-size: 0.8rem !important;
             height: auto !important;
-            flex: none !important;      /* Stops it from growing to fill space */
-        }
+            }
 
         /* 3. Shrink Buttons slightly to match */
         .cart-items .input-group-sm .btn {
@@ -40,7 +39,7 @@
     }
 </style>
 
-    <div class="mb-4">
+   <div class="mb-4">
         <a href="{{ url_for('shop.index') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center">
             <i class="bi bi-chevron-left me-1"></i>
             {{ _('Back to All Stickers') }}
@@ -95,17 +94,20 @@
                     </div>
 
                     <div class="col-md-1 text-center d-none d-md-block"> 
-                        <a href="{{ url_for('shop.remove_from_cart', item_id=item.id) }}" 
-                           class="btn text-danger p-0" title="Remove item">
+                        <button type="button" 
+                           class="btn text-danger p-0 delete-trigger" 
+                           data-delete-url="{{ url_for('shop.remove_from_cart', item_id=item.id) }}"
+                           title="Remove item">
                             <i class="bi bi-trash-fill fs-5"></i>
-                        </a>
+                        </button>
                     </div>
                     
-                    <a href="{{ url_for('shop.remove_from_cart', item_id=item.id) }}" 
-                       class="text-danger position-absolute d-md-none" 
-                       style="top: 2px; right: 5px; width: auto; z-index: 10;">
+                    <button type="button" 
+                       class="btn text-danger position-absolute d-md-none delete-trigger" 
+                       data-delete-url="{{ url_for('shop.remove_from_cart', item_id=item.id) }}"
+                       style="top: 2px; right: 5px; width: auto; z-index: 10; border: none; background: none;">
                         <i class="bi bi-x-circle-fill" style="font-size: 0.9rem; opacity: 0.5;"></i>
-                    </a>
+                    </button>
 
                 </div>
                 {% endfor %}
@@ -132,11 +134,39 @@
     </div>
 </div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-3">
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <img src="{{ url_for('static', filename='images/family-guy-woah.gif') }}" 
+                     alt="Sad Sticker" 
+                     class="img-fluid mb-3" 
+                     style="max-height: 150px;">
+                
+                <h4 class="mb-2">{{ _('Are you sure?') }}</h4>
+                <p class="text-muted">{{ _('Are you sure you want to remove this item from the shopping cart?') }}</p>
+            </div>
+
+            <div class="modal-footer border-0 justify-content-center gap-2">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Cancel') }}</button>
+                
+                <a href="#" id="confirmDeleteBtn" class="btn btn-danger">{{ _('Yes, Delete It') }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const buttons = document.querySelectorAll('.update-btn');
 
-    buttons.forEach(button => {
+    // --- PART 1: Handle Quantity Updates (Your original script) ---
+    const updateButtons = document.querySelectorAll('.update-btn');
+
+    updateButtons.forEach(button => {
         button.addEventListener('click', function() {
             const itemId = this.getAttribute('data-item-id');
             const action = this.getAttribute('data-action');
@@ -168,6 +198,29 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             })
             .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // --- PART 2: Handle Delete Confirmation (New script) ---
+    const deleteButtons = document.querySelectorAll('.delete-trigger');
+    const confirmBtn = document.getElementById('confirmDeleteBtn');
+    
+    // Create the modal instance
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Prevent any default behavior (though buttons don't navigate by default)
+            e.preventDefault();
+
+            // 1. Get the URL from the clicked button's data attribute
+            const deleteUrl = this.getAttribute('data-delete-url');
+
+            // 2. Pass that URL to the "Yes, Delete It" button inside the modal
+            confirmBtn.setAttribute('href', deleteUrl);
+
+            // 3. Show the modal
+            deleteModal.show();
         });
     });
 });

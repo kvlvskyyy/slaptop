@@ -44,7 +44,7 @@ class CustomSticker(db.Model):
     sticker_id = db.Column(db.Integer, db.ForeignKey('sticker.id'), nullable=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
     description = db.Column(db.String(255), nullable=True, unique=False)
-    image_path = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
     approval_status = db.Column(db.String(255), nullable=False)
     request_approval = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime)
@@ -59,8 +59,8 @@ class Order(db.Model):
     total_price = db.Column(db.Numeric(10, 2), default=Decimal("0.00"), nullable=True)
     status = db.Column(db.String(255), nullable=True)
 
-    order_items = db.relationship('OrderItem', backref='order', lazy=True)
-    payment = db.relationship('Payment', backref='order', uselist=False)
+    order_items = db.relationship('OrderItem', backref='order', lazy=True, cascade='all, delete-orphan')
+    payment = db.relationship('Payment', backref='order', uselist=False, cascade='all, delete-orphan')
 
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
