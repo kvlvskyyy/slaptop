@@ -218,7 +218,7 @@ msgstr "Mijn bestelgeschiedenis"
 #: slaptop/templates/base.html:168
 #, fuzzy
 msgid "My sticker requests"
-msgstr "Mijn gepersonaliseerde verzoeken"
+msgstr "Mijin stickers"
 
 #: slaptop/templates/base.html:175
 #, fuzzy
@@ -1651,7 +1651,7 @@ msgstr "stickerdom.help@gmail.com ."
 
 #: slaptop/templates/user_order_history.html:20
 msgid "My order history"
-msgstr "Mijn bestelgeschiedenis"
+msgstr "Mijn bestellingen"
 
 #: slaptop/templates/user_order_history.html:29
 msgid "Order"

@@ -1,5 +1,6 @@
 from flask import Blueprint, current_app, redirect, url_for, flash, session, render_template, request
 from flask_mail import Message
+import pytz
 from utils import login_required
 from models import Order, Payment, User
 from datetime import datetime
@@ -50,7 +51,7 @@ def process_checkout():
             email=email,
             date=date,
             time=time,
-            created_at=datetime.utcnow()
+            created_at=datetime.now(pytz.timezone('Europe/Amsterdam'))
         )
         db.session.add(payment)
         
