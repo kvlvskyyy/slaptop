@@ -345,3 +345,13 @@ def update_order_status(order_id, new_status):
 
     flash(f"Order #{order.id} marked as {new_status}", "success")
     return redirect(url_for("admin.admin_orders"))
+
+@admin.route('/order/<int:order_id>/delete', methods=['POST'])
+@admin_required
+def delete_order(order_id):
+    print("🔥 DELETE ROUTE HIT FOR ORDER:", order_id)
+
+    order = Order.query.get_or_404(order_id)
+    db.session.delete(order)
+    db.session.commit()
+    return redirect(url_for('admin.admin_orders'))
