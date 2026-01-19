@@ -80,12 +80,18 @@
                         </div>
 
                         <div class="d-flex gap-1 ms-auto ms-lg-2">
+
+                        <form method="POST"
+                            action="{{ url_for('admin.delete_order', order_id=order.id) }}"
+                            style="display:inline;">
                             
                             <button class="btn btn-outline-danger" 
-                                    type="button" 
+                                    type="submit" 
                                     title="{{ _('Delete Order') }}">
                                 <i class="bi bi-trash"></i>
                             </button>
+
+                        </form>
 
                             <button class="btn btn-light"
                                     type="button"
