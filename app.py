@@ -1,4 +1,5 @@
 import os
+import cloudinary
 from flask import Flask, session, request, redirect
 from seed_stickers import generate_stickers, clear_stickers
 from utils import create_default_categories
@@ -55,6 +56,13 @@ def create_app():
         MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
         MAIL_TIMEOUT=10
     )
+
+    cloudinary.config(
+        cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+        api_key=os.getenv("CLOUDINARY_API_KEY"),
+        api_secret=os.getenv("CLOUDINARY_API_SECRET")
+    )
+
     
 
     mail.init_app(app)
