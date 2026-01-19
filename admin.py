@@ -174,14 +174,22 @@ def approve_request(request_id):
 def deny_request(request_id):
     custom_sticker = CustomSticker.query.get_or_404(request_id)
 
-    user = custom_sticker.user
+    request_name = custom_sticker.name
 
-    sticker = Sticker.query.get(custom_sticker.sticker_id)
+    sticker = None
+    if custom_sticker.sticker_id:
+        sticker = Sticker.query.get(custom_sticker.sticker_id)
+
+    db.session.delete(custom_sticker)
+    db.session.commit()
+
+        
     if sticker:
         if sticker.order_items:
             sticker.is_active = False
         else:
             db.session.delete(sticker)
+        db.session.commit()
 
 
 #     msg = Message(
@@ -206,11 +214,8 @@ def deny_request(request_id):
 #     send_email(msg)
 
 
-    # delete request
-    db.session.delete(custom_sticker)
-    db.session.commit()
 
-    flash(f"Request '{custom_sticker.name}' denied.", "info")
+    flash(f"Request '{request_name}' denied.", "info")
     return redirect(url_for('admin.suggestions'))
 
 
@@ -334,3 +339,13 @@ def update_order_status(order_id, new_status):
 
     flash(f"Order #{order.id} marked as {new_status}", "success")
     return redirect(url_for("admin.admin_orders"))
+
+@admin.route('/order/<int:order_id>/delete', methods=['POST'])
+@admin_required
+def delete_order(order_id):
+    print("🔥 DELETE ROUTE HIT FOR ORDER:", order_id)
+
+    order = Order.query.get_or_404(order_id)
+    db.session.delete(order)
+    db.session.commit()
+    return redirect(url_for('admin.admin_orders'))

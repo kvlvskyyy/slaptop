@@ -11,17 +11,10 @@ from admin import admin
 from auth import auth
 from shop import shop
 from flask import send_from_directory, render_template
-import socket
 
 
 load_dotenv()
 
-def is_smtp_reachable(host, port):
-    try:
-        with socket.create_connection((host, port), timeout=5):
-            return True
-    except Exception:
-        return False
     
 
 # This function tells Flask-Babel which language to use based on session
@@ -52,31 +45,17 @@ def create_app():
     app.config['LANGUAGES'] = {'en': 'English', 'nl': 'Nederlands'}
     Babel(app, locale_selector=get_locale)
 
-    # Flask-Mail Configuration
-    if is_smtp_reachable('smtp.gmail.com', 587):
-    # SMTP reachable – use real Gmail SMTP
-        app.config.update(
-            MAIL_SERVER='smtp.gmail.com',
-            MAIL_PORT=587,
-            MAIL_USE_TLS=True,
-            MAIL_USE_SSL=False,
-            MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
-            MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
-            MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
-            MAIL_TIMEOUT=10
-        )
-        print("✅ SMTP reachable: Using Gmail SMTP")
-    else:
-        app.config.update(
-            MAIL_SERVER='localhost',
-            MAIL_PORT=8025,
-            MAIL_USE_TLS=False,
-            MAIL_USE_SSL=False,
-            MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
-            MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
-            MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
-        )
-        print("⚠️ SMTP unreachable: Using debug email server (console only)")
+    app.config.update(
+        MAIL_SERVER='smtp.gmail.com',
+        MAIL_PORT=587,
+        MAIL_USE_TLS=True,
+        MAIL_USE_SSL=False,
+        MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
+        MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
+        MAIL_DEFAULT_SENDER=os.getenv("MAIL_USERNAME"),
+        MAIL_TIMEOUT=10
+    )
+    
 
     mail.init_app(app)
 
@@ -135,27 +114,30 @@ def create_app():
 
 
     with app.app_context():
+        admin_old = User.query.filter_by(username="Admin").first()
 
-        user = User.query.filter_by(username="Admin").first()
-    
-        if user:
-            user.is_admin = True
+        if admin_old:
+            admin_old.is_admin = False
             db.session.commit()
-            print("User 'Admin' is now an admin!")
-        else:
-            print("User 'Admin' not found.")
+            print("User 'Admin' is no longer an admin!")
+
+        # admin = User.query.filter_by(username="Admin2").first()
+
+        # if admin:
+        #     admin.is_admin = True
+        #     db.session.commit()
+        #     print("User 'Admin2' is no longer an admin!")
+
 
         db.create_all()
         try:
-            # upgrade()
-
             if not Category.query.first():
                 create_default_categories()
 
         except Exception as e:
-            print("DB init error:", e)
+            print("Category init error:", e)
         
-        # clear_stickers()
+        # clear_stickers() #call to clear existing stickers
         generate_stickers()
 
 
@@ -164,5 +146,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run()
