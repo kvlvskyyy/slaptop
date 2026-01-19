@@ -11,6 +11,8 @@ from admin import admin
 from auth import auth
 from shop import shop
 from flask import send_from_directory, render_template
+import cloudinary
+import cloudinary.uploader
 
 
 load_dotenv()
@@ -147,3 +149,11 @@ app = create_app()
 
 if __name__ == "__main__":
     app.run()
+
+cloudinary.config(
+    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key = os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret = os.environ.get('CLOUDINARY_API_SECRET')
+)
+
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
