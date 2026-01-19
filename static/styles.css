@@ -1087,3 +1087,32 @@ body::before {
    
 }
 
+/* Custom Pop-up Box Style */
+.custom-info-box {
+    top: 35px; /* Pushes it just below the label */
+    left: 10px;
+    z-index: 1050; /* High z-index to sit on top of everything */
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    width: 90%; /* Responsive width for mobile */
+    max-width: 350px; /* Max width for desktop */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Nice floating shadow */
+    font-size: 0.85rem;
+    color: #333;
+}
+
+/* Optional: Small Arrow pointing up */
+.custom-info-box::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 95px; /* Aligns with the 'Sticker Image' text length approximately */
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-left: 1px solid #dee2e6;
+    border-top: 1px solid #dee2e6;
+    transform: rotate(45deg);
+}
