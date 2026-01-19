@@ -73,7 +73,7 @@
                                 <i class="bi bi-plus-lg me-1"></i> {{ _('Add to Dashboard') }}
                             </button>
                        {% else %}
-                        <button type="button" class="btn btn-secondary py-2 shadow-sm fw-bold" style="width: 80%;" disabled>
+                        <button type="button" class="btn btn-secondary py-2 w-100 shadow-sm fw-bold" style="width: 100% !important;" disabled>
                             <i class="bi bi-plus-lg me-1"></i>
                             {% if custom_sticker.approval_status == 'approved' and not custom_sticker.request_approval %}
                                 {{ _('User Permission Missing') }}

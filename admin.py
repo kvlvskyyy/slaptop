@@ -9,6 +9,8 @@ from decimal import Decimal
 from models import User
 from extensions import db, mail
 import shutil
+import cloudinary
+import cloudinary.uploader
 import os
 
 admin = Blueprint('admin', __name__, static_folder="static", template_folder="templates")
@@ -101,16 +103,20 @@ def add_sticker():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
 
-            new_sticker = Sticker(
-                name=name,
-                price=Decimal(price),
-                category_id = category_obj.id,
-                description = description,
-                image_path = filename,
-                stock=int(stock)
-            )
+            if file:
+                upload_result = cloudinary.uploader.upload(file)
+                
+                image_url = upload_result['secure_url']
+
+                new_sticker = Sticker(
+                    name=name,
+                    price=Decimal(price),
+                    category_id = category_obj.id,
+                    description=description,
+                    image_path=image_url,
+                    stock=int(stock)
+                )
 
             db.session.add(new_sticker)
             db.session.commit()
