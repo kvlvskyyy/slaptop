@@ -1,3 +1,4 @@
+import cloudinary
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required
@@ -285,7 +286,7 @@ def returnrefund():
 def shippinginfo():
     return render_template("shippinginfo.html")
 
-@shop.route("/add_sticker_user", methods=["GET", "POST"])
+@shop.route("/add_sticker_user")
 @login_required
 def add_sticker_user():
     return render_template("add_sticker_user.html")
@@ -296,10 +297,10 @@ def sticker_desc(sticker_id):
     return render_template("sticker_desc.html", sticker=sticker)
 
 @shop.route("/my_requests")
+@login_required
 def my_requests():
     user_id = session['user_id']
-    custom_stickers = CustomSticker.query.filter_by(user_id=session['user_id']).all()
-
+    custom_stickers = CustomSticker.query.filter_by(user_id=user_id).all()
     return render_template("my_requests.html", custom_stickers=custom_stickers)
 
 @shop.route('/delete_sticker/<int:sticker_id>', methods=['POST'])

@@ -114,8 +114,9 @@ def add_sticker():
                     price=Decimal(price),
                     category_id = category_obj.id,
                     description=description,
-                    image_path=image_url,
-                    stock=int(stock)
+                    image_url=image_url,
+                    stock=int(stock),
+                    approval_status="pending"
                 )
 
             db.session.add(new_sticker)
