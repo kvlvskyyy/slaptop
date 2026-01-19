@@ -6,7 +6,7 @@ from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required
 from werkzeug.utils import secure_filename
 from extensions import db
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 import os
 import cloudinary.uploader
@@ -30,7 +30,7 @@ def add_to_cart():
     # 1. Get or Create the Order (Cart)
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
-        order = Order(user_id=user_id, created_at=datetime.now(pytz.timezone('Europe/Amsterdam')), status="cart", total_price=0)
+        order = Order(user_id=user_id, created_at=datetime.now(timezone.utc), status="cart", total_price=0)
         db.session.add(order)
         db.session.flush() # Flush ensures we get an ID for the order immediately
 

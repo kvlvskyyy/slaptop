@@ -27,52 +27,49 @@ def admin_orders():
 @admin_required
 def add_sticker():
     categories = Category.query.all()
+
     if request.method == "POST":
-        name = request.form['name']
-        price = request.form['price']
-        category_name = request.form.get('category')
-        category_obj = Category.query.filter_by(name=category_name).first()
-        description = request.form.get('description')
-        stock = request.form.get('stock', 0)
+        name = request.form["name"]
+        price = request.form["price"]
+        category_name = request.form.get("category")
+        description = request.form.get("description")
+        stock = request.form.get("stock", 0)
+
+        file = request.files.get("image")
+        if not file or file.filename == "":
+            flash("Sticker image is required.", "error")
+            return redirect(url_for("admin.add_sticker"))
 
         existing = Sticker.query.filter_by(name=name).first()
         if existing:
             flash(f"A sticker with the name '{name}' already exists.", "error")
-            return redirect(url_for('admin.add_sticker'))
+            return redirect(url_for("admin.add_sticker"))
 
-
+        category_obj = Category.query.filter_by(name=category_name).first()
         if not category_obj:
-            flash("Category not found", "error")
-            return redirect(url_for('admin.add_sticker'))
+            flash("Category not found.", "error")
+            return redirect(url_for("admin.add_sticker"))
 
-        file = request.files['image']
+        upload_result = cloudinary.uploader.upload(file)
+        image_url = upload_result["secure_url"]
 
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+        new_sticker = Sticker(
+            name=name,
+            price=Decimal(price),
+            category_id=category_obj.id,
+            description=description,
+            image_url=image_url,
+            stock=int(stock),
+        )
 
-            if file:
-                upload_result = cloudinary.uploader.upload(file)
-                
-                image_url = upload_result['secure_url']
+        db.session.add(new_sticker)
+        db.session.commit()
 
-                new_sticker = Sticker(
-                    name=name,
-                    price=Decimal(price),
-                    category_id = category_obj.id,
-                    description=description,
-                    image_url=image_url,
-                    stock=int(stock),
-                    approval_status="pending"
-                )
+        flash("Sticker added successfully!", "success")
+        return redirect(url_for("admin.add_sticker"))
 
-            db.session.add(new_sticker)
-            db.session.commit()
-
-            flash("Sticker added successfully!", "success")
-            return redirect(url_for('admin.add_sticker'))
-        else:
-            flash("Please upload a valid image file.", "error")
     return render_template("add_sticker.html", categories=categories)
+
 
 @admin.route('/approve_request/<int:request_id>', methods=['POST'])
 @admin_required

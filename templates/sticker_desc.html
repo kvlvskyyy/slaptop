@@ -14,7 +14,7 @@
     <div class="row gx-lg-5">
         <div class="col-lg-7 mb-4">
             <div class="p-4 bg-light rounded-3 shadow-sm d-flex align-items-center justify-content-center" style="min-height: 500px;">
-                <img src="{{ url_for('static', filename='images/stickers/' ~ sticker.image_path) }}" 
+                <img src="{{ url_for('static', filename='images/stickers/' ~ sticker.image_url) }}" 
                      class="img-fluid rounded shadow-sm" 
                      style="max-height: 450px; object-fit: contain;"
                      alt="{{ sticker.name }}">
