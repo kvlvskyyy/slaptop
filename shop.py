@@ -130,7 +130,7 @@ def update_quantity(item_id):
 def index():
     query = request.form.get('search', '')
     if query:
-        results = Sticker.query.filter_by(Sticker.is_active == True, Sticker.name.ilike(f'%{query}%')).all()
+        results = Sticker.query.filter(Sticker.is_active == True, Sticker.name.ilike(f'%{query}%')).all()
     else:
         results = Sticker.query.filter_by(is_active=True).all()
 
