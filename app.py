@@ -31,8 +31,8 @@ def create_app():
 
     database_url = os.getenv("DATABASE_URL")
 
-    if not database_url:
-        database_url = "sqlite:///app.db"
+    # if not database_url:
+    #     database_url = "sqlite:///app.db"
 
     app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     

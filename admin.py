@@ -8,65 +8,11 @@ from utils import allowed_file, UPLOAD_FOLDER
 from decimal import Decimal
 from models import User
 from extensions import db, mail
-import shutil
 import cloudinary
 import cloudinary.uploader
 import os
 
 admin = Blueprint('admin', __name__, static_folder="static", template_folder="templates")
-
-
-def send_order_status_email(user_email, order, status):
-    status = status.lower().strip()
-    subject = ''
-    body = ''
-
-    if order.payment:
-        pickup_info = f"{order.payment.date} at {order.payment.time}"
-    else:
-        pickup_info = "the agreed pickup time"
-
-
-    if status == 'cancelled':
-        subject = f"Your Stickerdom order #{order.id} has been cancelled"
-        body = f"Hello,\n\nWe’re sorry to inform you that your order #{order.id} has been cancelled.\nIf you have questions, contact us.\n\nThanks, Stickerdom Team"
-    elif status == 'finished':
-        subject = f"Your Stickerdom order #{order.id} is ready!"
-        body = f"""
-Hello,
-
-Good news! Your order #{order.id} has been completed.
-
-You can pick up your order at OIL 4.30 {pickup_info}.
-
-Thank you for shopping with Stickerdom!
-
-Best regards,
-Stickerdom Team
-"""
-    elif status == 'confirmed':
-        subject = f"Your Stickerdom order #{order.id} is confirmed!"
-        body = f"""
-Hello,
-
-Your order #{order.id} has been confirmed successfully.
-
-We are preparing your stickers for pickup.
-
-Thank you for shopping with Stickerdom!
-
-Best regards,
-Stickerdom Team
-"""
-    else:
-        print("DEBUG: status did not match, email not sent")
-        return
-
-    # msg = Message(subject=subject,
-    #               recipients=[user_email],
-    #               body=body)
-    # send_email(msg)
-
 
 
 @admin.route('/admin_orders')
@@ -143,34 +89,6 @@ def approve_request(request_id):
 
     db.session.commit()
 
-#     msg = Message(
-#         subject="Your custom sticker has been approved 🎉",
-#         recipients=[custom_sticker.user.email],
-#         body=f"""Hi {custom_sticker.user.username},
-
-# Great news! 🎉
-
-# Your {custom_sticker.name} sticker request has been approved and is now available.
-
-
-# You can now add your sticker to your cart and place your order!
-
-
-# If you gave permission for it to be shared, we will consider adding your sticker to our website for others to order and view.
-
-
-# Thank you for choosing our sticker webshop — we truly appreciate your support!
-
-
-# Best regards,
-# The Stickerdom Team
-# """
-#     )
-
-    # try:
-    #     send_email(msg)
-    # except Exception:
-    #     flash("Sticker approved, but email could not be sent.", "warning")
 
     flash(f"Request '{custom_sticker.name}' approved.", "success")
     return redirect(url_for('admin.suggestions'))
@@ -198,30 +116,6 @@ def deny_request(request_id):
             db.session.delete(sticker)
         db.session.commit()
 
-
-#     msg = Message(
-#         subject="Your Stickerdom Sticker Request Update",
-#         recipients=[user.email],
-#         body=f"""Hi {user.username},
-
-# Thank you for your interest in Stickerdom and for submitting your sticker request.
-
-# After careful review, we regret to inform you that your "{custom_sticker.name}" sticker request has been denied and will not be processed further.
-# This decision may be due to content restrictions, copyright concerns, technical limitations, or not meeting our current guidelines.
-
-# If you believe this decision was made in error or you would like more information, feel free to reply to this email, and our team will be happy to assist you.
-
-# Thank you for your understanding and for your interest in our products.
-
-# Best regards,
-# The Stickerdom Team
-# """
-#     )
-
-#     send_email(msg)
-
-
-
     flash(f"Request '{request_name}' denied.", "info")
     return redirect(url_for('admin.suggestions'))
 
@@ -235,6 +129,7 @@ def add_request_to_dashboard(request_id):
         flash("Request must be approved first", "error")
         return redirect(url_for('admin.suggestions'))
 
+    # Check if sticker already exists
     existing_sticker = Sticker.query.filter_by(name=custom.name).first()
     if existing_sticker:
         custom.sticker_id = existing_sticker.id
@@ -242,19 +137,20 @@ def add_request_to_dashboard(request_id):
         db.session.commit()
         flash(f"'{custom.name}' already exists in the shop, linked to request.", "info")
         return redirect(url_for('admin.index_admin'))
-    
-    src_path = os.path.join("static/images/custom", custom.image_path)
-    dst_path = os.path.join(UPLOAD_FOLDER, custom.image_path)
-    if os.path.exists(src_path):
-        shutil.copy(src_path, dst_path)
+
+    # Upload image to cloud if not already uploaded
+    if custom.image_url:  # If already has a cloud URL
+        image_url = custom.image_url
     else:
-        flash("Warning: Custom sticker image not found, placeholder will be used.", "warning")
-    
+        flash("Custom sticker image missing. Please upload it first.", "warning")
+        image_url = None
+
+    # Create the Sticker in DB
     sticker = Sticker(
         name=custom.name,
         price=Decimal("0.99"),
         stock=0,
-        image_path=custom.image_path,
+        image_url=image_url,  # Use cloud URL
         description=custom.description,
         category_id=3,
         is_custom=True,
@@ -262,15 +158,16 @@ def add_request_to_dashboard(request_id):
     )
 
     db.session.add(sticker)
-    db.session.flush() # get sticker.id safely
+    db.session.flush()  # get sticker.id safely
 
+    # Link custom sticker to newly created shop sticker
     custom.sticker_id = sticker.id
     custom.approval_status = "added_to_shop"
-
     db.session.commit()
 
     flash(f"'{custom.name}' added to shop (hidden)", "success")
     return redirect(url_for('admin.index_admin'))
+
 
 
 
@@ -310,7 +207,7 @@ def edit_sticker(sticker_id):
         file = request.files.get('image')
         if file and file.filename != '' and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            
+
             upload_result = cloudinary.uploader.upload(file)
             sticker.image_url = upload_result['secure_url']
 
@@ -336,13 +233,6 @@ def update_order_status(order_id, new_status):
 
     order.status = new_status
     db.session.commit()
-    user = User.query.get(order.user_id)
-
-    if user and user.email and new_status in ["finished", "cancelled", "confirmed"]:
-        try:
-            send_order_status_email(user.email, order, new_status)
-        except Exception as e:
-            flash("Order updated, but email could not be sent.", "warning")
 
     flash(f"Order #{order.id} marked as {new_status}", "success")
     return redirect(url_for("admin.admin_orders"))

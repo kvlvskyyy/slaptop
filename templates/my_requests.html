@@ -41,8 +41,11 @@
                     <div class="col-4 col-md-2">
                         <div class="rounded shadow-sm d-flex align-items-center justify-content-center" 
                              style="width: 90px; height: 90px; background-color: #f8f9fa;">
-                            <img class="img-fluid" src="{{ url_for('static', filename='images/custom/' ~ sticker.image_path)}}" 
-                                 alt="{{sticker.name}}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                            <img class="img-fluid" 
+                                src="{{ sticker.image_url or 'https://res.cloudinary.com/<your-cloud-name>/image/upload/v123456/placeholder.png' }}" 
+                                alt="{{ sticker.name }}" 
+                                style="max-height: 100%; max-width: 100%; object-fit: contain;">
+
                         </div>
                     </div>
 
