@@ -1,5 +1,6 @@
 import cloudinary
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
+import pytz
 from models import Sticker, Order, OrderItem, Category, CustomSticker
 from utils import login_required
 from werkzeug.utils import secure_filename
@@ -331,8 +332,6 @@ def request_sticker():
             return redirect(url_for('shop.add_sticker_user'))
         
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-
             upload_result = cloudinary.uploader.upload(file)
             image_url = upload_result['secure_url']
 
@@ -343,7 +342,7 @@ def request_sticker():
                 description=description,
                 approval_status="pending",
                 request_approval=request_approval,
-                created_at=datetime.utcnow()
+                created_at=datetime.now(pytz.timezone('Europe/Amsterdam'))
             )
             db.session.add(new_request)
             db.session.commit()
