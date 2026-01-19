@@ -14,7 +14,7 @@
             <div class="card shadow-sm h-100">
                 
                 {% if custom_sticker.image_url %}
-                    <img src="{{ url_for('static', filename='images/custom/' ~ custom_sticker.image_url) }}"
+                    <img src="{{ custom_sticker.image_url }}"
                         class="card-img-top p-3"
                         style="height: 250px; object-fit: contain;">
                 {% else %}
