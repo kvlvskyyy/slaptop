@@ -162,7 +162,7 @@ msgstr "Categorieën"
 #: slaptop/templates/base.html:106
 #, fuzzy
 msgid "Search for stickers..."
-msgstr "Terug naar alle stickers"
+msgstr "Zoeken voor stickers..."
 
 #: slaptop/templates/base.html:117
 #, fuzzy
@@ -218,7 +218,7 @@ msgstr "Mijn bestelgeschiedenis"
 #: slaptop/templates/base.html:168
 #, fuzzy
 msgid "My sticker requests"
-msgstr "Mijn gepersonaliseerde verzoeken"
+msgstr "Mijin stickers"
 
 #: slaptop/templates/base.html:175
 #, fuzzy
@@ -1651,7 +1651,7 @@ msgstr "stickerdom.help@gmail.com ."
 
 #: slaptop/templates/user_order_history.html:20
 msgid "My order history"
-msgstr "Mijn bestelgeschiedenis"
+msgstr "Mijn bestellingen"
 
 #: slaptop/templates/user_order_history.html:29
 msgid "Order"
@@ -1732,7 +1732,7 @@ msgstr "Je hebt nog geen aanvragen voor gepersonaliseerde stickers ingediend."
 #~ msgstr "Bestelling bevestigd - Contant betaling"
 
 #~ msgid "Order Confirmed ✅"
-#~ msgstr "Bestel inhoud"
+#~ msgstr "Bestel inhoud✅"
 
 #~ msgid "You’ve chosen"
 #~ msgstr "U hebt gekozen voor"
@@ -1771,7 +1771,7 @@ msgstr "Je hebt nog geen aanvragen voor gepersonaliseerde stickers ingediend."
 #~ msgstr "Bedankt voor uw bestelling."
 
 #~ msgid "Thank You! 🎉"
-#~ msgstr "Danke je wel! 🎉"
+#~ msgstr "Dankjewel! 🎉"
 
 #~ msgid "We appreciate your business! If you have any questions, please email"
 #~ msgstr "Wij waarderen uw klandizie! Als u vragen heeft, kunt u een e-mail sturen naar"

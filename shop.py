@@ -1,3 +1,4 @@
+import pytz
 import cloudinary
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 import pytz
@@ -29,7 +30,7 @@ def add_to_cart():
     # 1. Get or Create the Order (Cart)
     order = Order.query.filter_by(user_id=user_id, status="cart").first()
     if not order:
-        order = Order(user_id=user_id, created_at=datetime.utcnow(), status="cart", total_price=0)
+        order = Order(user_id=user_id, created_at=datetime.now(pytz.timezone('Europe/Amsterdam')), status="cart", total_price=0)
         db.session.add(order)
         db.session.flush() # Flush ensures we get an ID for the order immediately
 
