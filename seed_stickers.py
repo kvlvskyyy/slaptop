@@ -8,7 +8,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Fontys",
         "description": "Only for the bravest FeedPulse users",
-        "image_path": "feedpulse_warrior.webp",
+        "image_url": "feedpulse_warrior.webp",
         "stock": 0
     },
     {
@@ -16,7 +16,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Fontys",
         "description": "For those endless hours of documentation",
-        "image_path": "working_on_documentation.webp",
+        "image_url": "working_on_documentation.webp",
         "stock": 0
     },
     {
@@ -24,7 +24,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Fontys",
         "description": "Feedback = Growth",
-        "image_path": "get_more_feedback.webp",
+        "image_url": "get_more_feedback.webp",
         "stock": 0
     },
     {
@@ -32,7 +32,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Memes",
         "description": "Cute awkward cat sticker",
-        "image_path": "AwkwardCat.webp",
+        "image_url": "AwkwardCat.webp",
         "stock": 0
     },
     {
@@ -40,7 +40,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Other",
         "description": "Stickerdom official logo sticker",
-        "image_path": "Logo.webp",
+        "image_url": "Logo.webp",
         "stock": 0
     },
     {
@@ -48,7 +48,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Fontys",
         "description": "Show your love for FeedPulse",
-        "image_path": "feedpulselove.webp",
+        "image_url": "feedpulselove.webp",
         "stock": 14
     },
     {
@@ -56,7 +56,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Memes",
         "description": "A cat who is coughing",
-        "image_path": "coughing_cat.webp",
+        "image_url": "coughing_cat.webp",
         "stock": 11
     },
     {
@@ -64,7 +64,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Memes",
         "description": "For all the nerds",
-        "image_path": "actually.webp",
+        "image_url": "actually.webp",
         "stock": 17
     },
     {
@@ -72,7 +72,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Memes",
         "description": "The skyrim skeleton meme Warning⚠️: peeling off the sticker may be difficult, handle with care",
-        "image_path": "SkyrimSkeletonSticker.webp",
+        "image_url": "SkyrimSkeletonSticker.webp",
         "stock": 19
     },
     {
@@ -80,7 +80,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Games",
         "description": "A DnD related sticker about a mimic coming out of a laptop.",
-        "image_path": "mimicLaptop.webp",
+        "image_url": "mimicLaptop.webp",
         "stock": 20
     },
      {
@@ -88,7 +88,7 @@ STICKERS_DATA = [
         "price": Decimal("0.49"),
         "category_name": "Fontys",
         "description": "Very depressing and stressful",
-        "image_path": "lastdayi.webp",
+        "image_url": "lastdayi.webp",
         "stock": 20
     }
 

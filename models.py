@@ -23,7 +23,7 @@ class Sticker(db.Model):
     price = db.Column(db.Float, nullable=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     description = db.Column(db.String(255), nullable=True, unique=False)
-    image_path = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.String(255), nullable=False)
     stock = db.Column(db.Integer, nullable=True, default=0)
     is_active = db.Column(db.Boolean, default=True)
     is_custom = db.Column(db.Boolean, default=False)

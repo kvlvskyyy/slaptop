@@ -28,7 +28,6 @@ def get_locale():
 
 def create_app():
     app = Flask(__name__)
-
     database_url = os.getenv("DATABASE_URL")
 
     # if not database_url:
