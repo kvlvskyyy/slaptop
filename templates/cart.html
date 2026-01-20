@@ -62,12 +62,9 @@
 
                     <div class="col-3 col-md-1">
                         <img class="img-fluid rounded shadow-sm"
-                            src="{% if item.sticker.is_custom %}
-                                    {{ item.sticker.image_url }}
-                                {% else %}
-                                    {{ url_for('static', filename='images/stickers/' ~ item.sticker.image_url) }}
-                                {% endif %}"
+                            src="{{ item.sticker.image_url if item.sticker.is_custom else url_for('static', filename='images/stickers/' ~ item.sticker.image_url) }}"
                             alt="{{ item.sticker.name }}">
+
                     </div>
 
 

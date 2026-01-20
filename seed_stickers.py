@@ -90,9 +90,57 @@ STICKERS_DATA = [
         "description": "Very depressing and stressful",
         "image_url": "lastdayi.webp",
         "stock": 20
+    },
+      {
+        "name": "Fruitwater enjoyer",
+        "price": Decimal("0.49"),
+        "category_name": "Fontys",
+        "description": "For fruitwater enjoyers only",
+        "image_url": "fruitwater.webp",
+        "stock": 41
+    },
+        {
+        "name": "Ellie",
+        "price": Decimal("0.49"),
+        "category_name": "Memes",
+        "description": "Ellie smirk",
+        "image_url": "ellie.webp",
+        "stock": 11
+    },
+         {
+        "name": "Tuff Baby",
+        "price": Decimal("0.49"),
+        "category_name": "Memes",
+        "description": "A tuff baby",
+        "image_url": "tuffbaby.webp",
+        "stock": 40
+    },
+             {
+        "name": "Certified book enjoyer",
+        "price": Decimal("0.49"),
+        "category_name": "Memes",
+        "description": "For book lovers only",
+        "image_url": "BookEnjoyer.webp",
+        "stock": 24
+    },
+                 {
+        "name": "McLovin",
+        "price": Decimal("0.49"),
+        "category_name": "Memes",
+        "description": "Yeah it was between that and Mohammed..",
+        "image_url": "ID.webp",
+        "stock": 42
+    },
+                   {
+        "name": "Fontys dice",
+        "price": Decimal("0.49"),
+        "category_name": "Games",
+        "description": "A dnd dice in fontys style",
+        "image_url": "fontysDice.webp",
+        "stock": 9
     }
-
 ]
+
 def clear_stickers():
     db.session.query(Sticker).delete()
     db.session.commit()
