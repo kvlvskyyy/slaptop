@@ -114,7 +114,7 @@ def generate_stickers():
             price=data["price"],
             category_id=category.id,
             description=data["description"],
-            image_path=data["image_path"],
+            image_url=data["image_url"],
             stock=data["stock"],
             is_active=True
         )
