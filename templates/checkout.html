@@ -57,8 +57,8 @@
             </li>
           </ul>
 
-          <form method="POST" action="{{ url_for('payments.process_checkout', order_id=order.id) }}">
-            
+          <form method="POST" action="{{ url_for('payments.process_checkout') }}">
+            <input type="hidden" name="order_id" value="{{ order.id }}">
             <div class="mb-3">
               <label class="form-label fw-bold">{{ _('Full Name') }}</label>
               <input type="text" name="full_name" class="form-control" placeholder="John Doe" maxlength="50" required>

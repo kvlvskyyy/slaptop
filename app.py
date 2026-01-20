@@ -7,7 +7,7 @@ from flask_babel import Babel, gettext as _
 from extensions import db, migrate, mail
 from models import User, Order, Category
 from dotenv import load_dotenv
-from payments_blueprint import payments
+from payments import payments
 from admin import admin
 from auth import auth
 from shop import shop
