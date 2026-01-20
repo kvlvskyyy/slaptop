@@ -83,7 +83,7 @@ STICKERS_DATA = [
         "image_url": "mimicLaptop.webp",
         "stock": 20
     },
-     {
+    {
         "name": "Last day of the project",
         "price": Decimal("0.49"),
         "category_name": "Fontys",
